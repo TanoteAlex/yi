@@ -1,0 +1,29 @@
+@import "../../../global";
+
+.head {
+  height: 100%;
+  background-color: #000;
+  opacity: 0.8;
+}
+
+.body {
+  position: fixed;
+  width: 100%;
+  z-index: 10000;
+}
+
+.content {
+  margin-top: 25vh;
+  height: 21.5em;
+}
+
+.invite-focus-mall-img{
+  width: 80%;
+}
+
+.invite-focus-mall-close{
+  img{
+    width: 3em;
+    padding-top: 3em;
+  }
+}

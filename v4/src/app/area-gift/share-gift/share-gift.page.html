@@ -1,0 +1,35 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>送礼</ion-title>
+        <goback></goback>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <div>
+        <p class="common-font white">礼物准备完毕，送出去吧</p>
+        <p class="white">记得提醒对方填写收货地址哦</p>
+    </div>
+
+    <div class="content">
+        <div class="avatar"></div>
+
+        <div>
+            <p class="greys">{{name}}送出<span class="red">{{list.length}}</span>份礼物</p>
+            <div class="common-font">大吉大利，送你好礼！</div>
+        </div>
+
+        <div class="gift">
+            <commodity-item [commodity]="item.product" *ngFor="let item of list">
+                <span class="right grey common-notice">x{{item.quantity}}</span>
+            </commodity-item>
+        </div>
+
+        <p class="grey">72小时内无人领取将自动退款</p>
+
+        <div class="btns">
+            <button class="btn-yellow btn-outline" (click)="giftAgain()">再送一份</button>
+            <button class="btn-yellow" (click)="goReceiveGift()">送给朋友</button>
+        </div>
+    </div>
+</ion-content>

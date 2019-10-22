@@ -1,0 +1,34 @@
+@import "../../../../global";
+@import "../../../home/home.page";
+.show-mode-3{
+  width: 50%;
+  @extend .flex-col
+}
+
+.hy-two-commodity{
+  @extend .flex-col;
+  &>div{
+    padding: 5px
+  }
+  .hy-two-commodity-img{
+    width: 100px;
+    height: 100px;
+  }
+}
+
+.hy-flex-between{
+  display: flex;
+  justify-content: space-between;
+}
+
+.wrap-1{
+  margin: 3px;
+}
+
+.border-right{
+  border-right: 1px solid $light-divid-color;
+}
+
+.border-bottom{
+  border-bottom: 1px solid $light-divid-color;
+}

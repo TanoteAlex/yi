@@ -1,0 +1,160 @@
+@import "../../../global";
+
+ion-segment {
+  margin: auto;
+  width: 80%;
+  --border-color-checked: transparent transparent red;
+  background-color: transparent;
+  ion-segment-button {
+    --border-radius: 0;
+  }
+}
+
+.nickname {
+  min-width: 75px;
+}
+
+.commodity-slides {
+  height: 300px;
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.title-name {
+  padding-bottom: 10px;
+  .title-tip {
+    border: 1px solid $main-color;
+    display: inline-block;
+    padding: 0 3px;
+    border-radius: 3px;
+    margin-right: 5px;
+    vertical-align: top;
+    @extend .common-font;
+    @extend .red
+  }
+  .commodity-name {
+    font-size: 15px;
+  }
+  .commodity-short-name {
+    margin: 9px 0 9px;
+    @extend .grey;
+    @extend .common-sub-notice;
+  }
+  .commodity-price {
+    & > span {
+      margin-right: 8px;
+    }
+  }
+}
+
+.detail {
+  .card {
+    box-shadow: none !important;
+  }
+}
+
+.commodity-evaluation {
+  background-color: white;
+  ion-button {
+    display: block;
+    --border-radius: 1.1rem;
+    --margin-end: auto;
+    --margin-start: auto;
+  }
+  .evaluation-item {
+    padding: 0 10px 20px 10px;
+  }
+}
+
+.common-list {
+  padding: 0 10px !important;
+}
+
+.detail-script {
+  img {
+    width: 100%;
+  }
+}
+
+ion-footer {
+  height: 52px;
+  img {
+    width: 40px;
+    height: 40px;
+    margin-left: 0.5rem;
+    margin-top: 8px;
+  }
+  ion-toolbar {
+    --padding-top: 0;
+    --padding-bottom: 0;
+    ion-button {
+      --border-width: 0;
+    }
+    .add-shopping-cart {
+      --background: #f2f2f8;
+      color: #111c78;
+    }
+    .toolbar-container {
+      background-color: white;
+    }
+  }
+}
+
+.evaluation {
+  ion-list-header {
+    padding: 15px 0 15px 15px;
+  }
+  .evaluation-item {
+    margin-top: 10px;
+  }
+  .evaluation-item:not(:last-of-type) {
+    border-bottom: 1px solid $divid-color;
+  }
+}
+
+star {
+  padding-top: 5px;
+  height: 40px;
+}
+
+ion-label {
+  font-size: 13px !important;
+}
+
+.params {
+  ion-item {
+    --padding-top: 5px;
+    --padding-bottom: 5px;
+  }
+}
+
+.hy-red {
+  color: rgb(222, 50, 50);
+}
+
+.hy-green {
+  color: rgb(39, 188, 57);
+}
+
+.hy-f-title {
+  font-size: 18px;
+}
+
+.hy-f-font {
+  font-size: 12px;
+}
+
+.hy-f-spec {
+  font-size: 9px;
+}
+
+.group-tip{
+  background-color: rgb(222,50,50);
+  padding: 1.5px 2px 0;
+  margin-right: 5px;
+  border-radius: 3px;
+  @extend .white;
+  @extend .common-notice;
+}

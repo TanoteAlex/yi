@@ -1,0 +1,72 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>全国火热拼团</ion-title>
+        <goback></goback>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-segment [(ngModel)]="state">
+        <ion-segment-button value="now" (click)="listFilter('now')">
+            正在疯抢
+        </ion-segment-button>
+        <ion-segment-button value="soon" (click)="listFilter('soon')">
+            即将开抢
+        </ion-segment-button>
+        <ion-segment-button value="tomorrow" (click)="listFilter('tomorrow')">
+            明日预告
+        </ion-segment-button>
+    </ion-segment>
+
+    <div class="banner">
+        <div class="ver-midd">
+            <div class="banner-content">
+                <span class="banner-icon" [ngClass]="state == 'now' ? 'now-icon' : 'soon-icon'"></span>15:00
+                <span *ngIf="state =='now'">正在抢购</span><span *ngIf="state !='now'">即将开抢</span>
+            </div>
+            <div class="remain-time">距结束&nbsp;<time-count></time-count></div>
+        </div>
+    </div>
+
+    <ion-list class="commodity-list">
+        <ion-row *ngFor="let commodity of list" class="commodity" (click)="goCommodity(commodity)">
+            <ion-col size="4" class="commodity-img">
+                <img onerror="this.src='../../assets/imgs/null-category.png'" [src]="commodity?.product.productImgPath" height="100" width="100"/>
+            </ion-col>
+            <ion-col size="8" class="common-shopping">
+                <div class="common-sub-title text-wrap"><span class="title-tip">{{commodity.label}}</span>{{commodity.product.productName}}</div>
+
+                <!--抢购数量进度条-->
+                <div class="percent-outer" *ngIf="state == 'now'">
+                    <span class="percent">
+                       <span class="inner" [ngStyle]="{'width':'50%'}">50%</span>
+                    </span>
+                    <span class="percent-tip">已抢375件</span>
+                </div>
+
+                <!--即将开始-->
+                <div class="flash-tip" *ngIf="state != 'now'">限量400件&nbsp;|
+                    <span *ngIf="state == 'soon'">今日</span>
+                    <span *ngIf="state == 'tomorrow'">明日</span>16:00开始
+                </div>
+
+                <div class="bottom">
+                    <p class="common-spec radiu red tip">秒杀价</p>
+                    <div>
+                        <span class="common-font red">￥{{commodity.groupPrice}}</span>&nbsp;
+                        <del class="common-spec grey">￥{{commodity.product.currentPrice}}</del>
+                    </div>
+                </div>
+
+                <div class="forward bottom" *ngIf="state == 'now'">
+                    <ion-note class="white">马上抢</ion-note>
+                    <ion-icon class="common-spec icon-forward white" name="ios-arrow-forward"></ion-icon>
+                </div>
+
+                <div class="remind-btn bottom" *ngIf="state != 'now'"></div>
+            </ion-col>
+        </ion-row>
+    </ion-list>
+
+</ion-content>

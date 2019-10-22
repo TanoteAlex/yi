@@ -1,0 +1,10 @@
+@import "../../../global";
+
+p {
+  @extend .common-notice;
+  .question {
+    @extend .common-sub-title;
+    @extend .black;
+    line-height: 35px;
+  }
+}

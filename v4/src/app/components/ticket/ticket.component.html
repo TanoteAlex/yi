@@ -1,0 +1,18 @@
+<div class="hy-ticket" [ngClass]="ticket?.couponType">
+    <div class="ticket-price-info">
+        <div class="big-font">
+            <span class="common-title">￥</span>{{ticket.parValue}}
+        </div>
+        <div class="common-sub-title" [innerHtml]=getConditionContent(ticket.useConditionType,ticket.fullMoney,ticket.fullQuantity)></div>
+    </div>
+    <div class="ticket-date-info">
+        <div class="ticket-tip"></div>
+        <div class="grey" [innerHtml]=getTerm(ticket.endTime,ticket.fixedDay)></div>
+        <div class="grey" *ngIf="ticket.validDays">剩余天数：{{ticket?.validDays}}天</div>
+        <div class="grey" *ngIf="!ticket.validDays">&nbsp;</div>
+        <div>
+            <button class="coupon-use-btn" (click)="gotoUse(ticket.couponId)" *ngIf="ticket?.couponType=='yhq-ticket' && ticket?.state.indexOf('canuse') != -1">立即使用</button>
+            <ng-content></ng-content>
+        </div>
+    </div>
+</div>

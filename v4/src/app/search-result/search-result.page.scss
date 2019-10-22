@@ -1,0 +1,48 @@
+@import "../../global";
+
+ion-searchbar {
+  display: inline-block;
+  padding-top: 3px;
+  width: 89%;
+  padding-bottom: 0;
+  height: 40px;
+  padding-left: 3%;
+}
+
+commodity-item p {
+  margin: 0.5rem !important;
+}
+
+.history-list{
+  margin: 10px;
+  .history-tip{
+    padding: 5px 10px;
+    margin: 2px;
+    min-width: 50px;
+    background-color: #eee;
+    display: inline-block;
+    float: left;
+    border-radius: 15px;
+    text-align: center;
+    @extend .greys
+  }
+  .delete-icon{
+    background: url("../../assets/app_icon/customer/删除icon@2x.png") no-repeat;
+    background-size: 100%;
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    float: right;
+  }
+}
+
+.no-result{
+  position: absolute;
+  top: 30%;
+  right: 50%;
+  margin-right: -38px;
+  text-align: center;
+  ion-spinner{
+    margin-right: 26px;
+  }
+}

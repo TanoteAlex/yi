@@ -1,0 +1,65 @@
+<page-header [title]="'修改价格'"></page-header>
+
+<nz-card>
+  <form nz-form [formGroup]="commonForm">
+    <div class="text-lg mb-md"><strong>修改价格</strong>&nbsp;&nbsp;<span style="font-size: small">(订单原价：￥{{saleOrder.orderAmount}})</span></div>
+    <nz-form-item>
+      <table class="table table-hover">
+        <tr style="text-align: center">
+          <th>商品信息</th>
+          <th>单价</th>
+          <th>数量</th>
+          <th>涨价或优惠</th>
+          <th>小计</th>
+        </tr>
+        <tr style="text-align: center" *ngFor="let saleOrderItems of saleOrder.saleOrderItems;let i=index">
+          <td>{{saleOrderItems?.commodityName}}</td>
+          <td>{{saleOrderItems?.price-saleOrderItems?.discount}}</td>
+          <td>{{saleOrderItems?.quantity}}</td>
+          <td>
+            <nz-form-control nzXs="16" nzSm="8" nzMd="10">
+              <input nz-input type="text" (blur)="addPrices($event.target.value,i)"
+                     value="{{saleOrderItems?.discount}}"><!--[(ngModel)]="saleOrderItems.price" -->
+            </nz-form-control>
+            <nz-form-control nzXs="16" nzSm="8" nzMd="12">
+              <button nz-button type="button" (click)="addPrice(true,i)">加</button>
+              <button nz-button type="button" (click)="addPrice(false,i)">减</button>
+            </nz-form-control>
+          </td>
+          <td>{{saleOrderItems?.total}}</td>
+
+        </tr>
+      </table>
+    </nz-form-item>
+    <nz-form-item style="text-align: right">
+      <nz-form-control [nzXs]="{ span:20, offset: 0 }" [nzSm]="{ span: 10, offset: 20 }">
+        <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="name">总运费</nz-form-label>
+        <nz-form-control nzXs="16" nzSm="8" nzMd="7" nzHasFeedback>
+          <input nz-input formControlName="freight" value="{{saleOrder.freight}}" placeholder="输入总运费"
+                 (blur)="freight($event.target.value)">
+        </nz-form-control>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 20 }">
+        <button nz-button class="ml-sm" nzType="primary" type="submit" (click)="submit()">保存</button>
+        <button nz-button class="ml-sm" type="button" (click)="goBack()">取消</button>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item style="margin: 0px!important;">
+      <nz-form-text>买家实付=原价-优惠+运费<!--+涨价或折扣--></nz-form-text>
+    </nz-form-item>
+    <nz-form-item style="margin: 0px!important;">
+      <nz-form-label>买家实付</nz-form-label>
+      <nz-form-text>
+         <!-- {{originalPrice}}-{{saleOrder.voucherAmount-saleOrder.couponAmount}}+{{saleOrder.freight}}-{{rebate}}={{originalPrice-saleOrder.voucherAmount-saleOrder.couponAmount+saleOrder.freight-rebate}}-->
+        {{saleOrder.payAmount}}={{saleOrder.orderAmount}}-{{saleOrder.discountAmount}}+{{saleOrder.freight}}
+      </nz-form-text>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-text>店铺优惠的{{saleOrder.discountAmount}}元已均摊到每个宝贝，并计算在每个宝贝的折扣中</nz-form-text>
+    </nz-form-item>
+  </form>
+</nz-card>
+

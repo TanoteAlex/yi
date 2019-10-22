@@ -1,0 +1,108 @@
+<page-header [title]="'奖品列表'">
+  <ng-template #breadcrumb>
+    <nz-breadcrumb>
+      <nz-breadcrumb-item>
+        <a [routerLink]="['/dashboard/prize/list']">营销管理</a>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item>奖品设置</nz-breadcrumb-item>
+    </nz-breadcrumb>
+  </ng-template>
+</page-header>
+
+<nz-card [nzBordered]="false">
+  <form nz-form [nzLayout]="'inline'" [formGroup]="searchForm" class="search__form">
+    <nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32, xl: 32, xxl: 32  }">
+
+      <nz-col nzXs="6" nzSm="6">
+        <nz-form-item>
+          <nz-form-label>奖品名称</nz-form-label>
+          <nz-form-control>
+            <input nz-input formControlName="name" placeholder="请输入奖品名称">
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+
+      <nz-col nzXs="6" nzSm="6">
+        <nz-form-item>
+          <nz-form-label>奖品类型</nz-form-label>
+          <nz-form-control>
+            <nz-select formControlName="prizeType" [nzPlaceHolder]="'请选择奖品类型'">
+              <nz-option *ngFor="let type of prizeTypes" [nzLabel]="type.name" [nzValue]="type.id"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+
+      <nz-col [nzSpan]="expandForm ? 24 : 6" [class.text-right]="expandForm">
+        <button nz-button [nzType]="'primary'" (click)="searchData()" [nzLoading]="loading">查询</button>
+        <button nz-button (click)="clearSearch()" class="mx-sm">重置</button>
+      </nz-col>
+    </nz-row>
+  </form>
+
+  <button nz-button [routerLink]="'../add'" [nzType]="'primary'">
+    <i class="anticon anticon-plus"></i>
+    <span>新建</span>
+  </button>
+
+  <nz-table
+    #ajaxTable
+    [nzShowSizeChanger]="true"
+    [nzFrontPagination]="false"
+    [nzData]="prizes"
+    [nzLoading]="loading"
+    [nzTotal]="pageQuery.responses.totalElements"
+    [(nzPageIndex)]="pageQuery.page"
+    [(nzPageSize)]="pageQuery.pageSize"
+    (nzPageIndexChange)="searchData()"
+    (nzPageSizeChange)="searchData(true)">
+
+    <thead (nzSortChange)="sort($event)" nzSingleSort>
+    <tr>
+      <th>奖品编码</th>
+      <th>奖品名称</th>
+      <th>奖品类型</th>
+      <th>奖品</th>
+      <th>备注</th>
+      <th>创建时间</th>
+      <th>状态</th>
+      <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let prize of ajaxTable.data;let i =index">
+      <td>{{prize.code}}</td>
+      <td>{{prize.name}}</td>
+      <td>
+        <span *ngIf="prize.prizeType == 1">积分</span>
+        <span *ngIf="prize.prizeType == 2">商品</span>
+        <span *ngIf="prize.prizeType == 3">优惠券</span>
+        <span *ngIf="prize.prizeType == 4">代金券</span>
+      </td>
+      <td>
+        <span *ngIf="prize.prizeType == 1">{{prize.integral}}</span>
+        <span *ngIf="prize.prizeType == 2">{{prize.commodity?.shortName}}</span>
+        <span *ngIf="prize.prizeType == 3">{{prize.coupon?.couponName}}</span>
+        <span *ngIf="prize.prizeType == 4">{{prize.coupon?.couponName}}</span>
+      </td>
+
+      <td>{{prize.remark}}</td>
+      <td>{{prize.createTime}}</td>
+      <td>
+        <nz-switch nzCheckedChildren="启用" nzUnCheckedChildren="禁用" (ngModelChange)="chooseSwitch(i)"
+                   [ngModel]="prize.state==0"></nz-switch>
+      </td>
+      <td>
+        <a [routerLink]="'../edit/'+prize.id">编辑
+          <nz-divider nzType="vertical"></nz-divider>
+        </a>
+        <nz-modal-customer (ok)="remove(prize.id)" [title]="'提示！'"
+                           [content]="'确认要删除吗？'"
+                           [buttonName]="'删除'">
+        </nz-modal-customer>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+</nz-card>
+

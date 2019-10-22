@@ -1,0 +1,23 @@
+@import "../../../../global.scss";
+.home-area {
+  margin: 5px !important;
+  ion-label {
+    margin: 0 1rem 0 1rem !important
+  }
+  p {
+    padding-left: 0.5rem !important;
+    margin: 0 !important;
+  }
+  border-bottom: 1px solid $space-color;
+}
+
+.head-icon {
+  @extend .common-notice;
+  text-align: center;
+  img {
+    width: 17px;
+    height: 17px;
+    vertical-align: bottom;
+    margin-right: 3px;
+  }
+}

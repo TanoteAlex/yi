@@ -1,0 +1,23 @@
+.home {
+  margin: auto;
+  text-align: center;
+  padding-top: 10%;
+  padding-bottom: 10%;
+  background-image: url("../../assets/app_icon/home/客服与帮助banner@3x.png");
+}
+
+.img {
+  margin: auto;
+  width: 85px;
+  height: 85px;
+  background-color: #fafafa;
+  img {
+    margin-top: 10px;
+  }
+}
+
+ion-item {
+  margin: 0 16px 0 16px;
+  border-bottom: 1px solid #e5e5e5;
+  --padding-start: 0;
+}

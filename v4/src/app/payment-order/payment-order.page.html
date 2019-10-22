@@ -1,0 +1,47 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>
+            支付订单
+        </ion-title>
+        <img class="left backBtn" src="assets/app_icon/home/back@2x.png" (click)="goBack()">
+    </ion-toolbar>
+</ion-header>
+
+<ion-content no-padding>
+    <ion-list text-center>
+        <div margin-top>
+            <img src="../../assets/app_icon/shop_cart/03-03订单提交成功@3x.png" height="90" width="90"/>
+        </div>
+        <div>
+            <p class="common-font greys">订单提交成功</p>
+        </div>
+        <div class="time greys">
+            请在<time-count #timeCount></time-count>内完成支付
+        </div>
+        <div class="red">
+            ￥<span class="common-title">{{totalAmount}}</span>
+            <p class="grey common-notice">支付金额</p>
+        </div>
+    </ion-list>
+    <div class="common-hr"></div>
+    <ion-list padding>
+        <ion-list-header class="greys" no-padding>支付方式</ion-list-header>
+
+        <ion-item class="head-icon" no-padding (click)="goWechatPay()">
+            <ion-label>
+                <img src="../../assets/app_icon/shop_cart/微信@3x.png">
+                微信支付
+            </ion-label>
+            <ion-icon class="icon-forward" name="ios-arrow-forward"></ion-icon>
+        </ion-item>
+
+        <ion-item class="head-icon" no-padding (click)="goAliPay()" *ngIf="isApp">
+            <ion-label>
+                <img src="../../assets/app_icon/shop_cart/支付宝@3x.png">
+                支付宝支付
+            </ion-label>
+            <ion-icon class="icon-forward" name="ios-arrow-forward"></ion-icon>
+        </ion-item>
+    </ion-list>
+
+</ion-content>

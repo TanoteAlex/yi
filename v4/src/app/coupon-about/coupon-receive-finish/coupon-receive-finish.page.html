@@ -1,0 +1,32 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>领取成功</ion-title>
+        <goback></goback>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div class="body">
+        <div class="content">
+            <ion-list text-center>
+                <div margin-top>
+                    <img src="../../../assets/app_icon/basic/支付成功.png" height="70" width="70"/>
+                </div>
+
+                <div>
+                    <p class="common-title black">恭喜您，领取成功</p>
+                    <span class="grey common-notice">优惠券已放入您的卡包</span>
+                </div>
+
+                <show-coupon *ngIf="coupon" [ticket]="coupon"></show-coupon>
+
+            </ion-list>
+            <div class="coupon-receive-finish-btns">
+                <ion-button expand="full" color="danger" shape="round" (click)="goHome()">返回首页</ion-button>
+                <ion-button expand="full" color="danger" shape="round" (click)="gotoUse()">立即使用</ion-button>
+            </div>
+        </div>
+
+        <footer-tip [title]="'使用规则'" [tips]="list"></footer-tip>
+    </div>
+</ion-content>

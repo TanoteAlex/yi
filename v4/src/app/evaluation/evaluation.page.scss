@@ -1,0 +1,44 @@
+ion-content {
+  .common-list {
+    padding: 10px !important;
+    &:last-of-type {
+      padding-bottom: 0 !important;
+    }
+    star {
+      margin: auto 10px;
+    }
+    ion-textarea {
+      margin-bottom: 20px;
+      textarea {
+        height: 100%;
+      }
+    }
+    .img {
+      img {
+        width: 88.5px;
+        height: 88.5px;
+      }
+    }
+    .info {
+      p {
+        display: inline-block;
+      }
+      star {
+        display: inline-block;
+        vertical-align: text-top;
+      }
+    }
+  }
+
+  .evaImg {
+    width: 85px;
+    height: 85px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+    overflow: hidden;
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+  }
+}

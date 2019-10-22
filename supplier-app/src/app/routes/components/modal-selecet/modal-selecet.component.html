@@ -1,0 +1,92 @@
+<nz-modal nzWidth="55rem" [(nzVisible)]="isVisible" nzTitle="请选择" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+  <!--<div class="modal-header">-->
+  <!--<h4 class="modal-title" id="modal-basic-title">{{title}}</h4>-->
+  <!--</div>-->
+  <nz-row *ngIf="filters.length!=0" [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32, xl: 32, xxl: 32  }">
+    <nz-form-item>
+      <span *ngFor="let filter of filters">
+        <nz-form-label [nzSpan]="3">{{filter.name}}</nz-form-label>
+        <nz-form-control [nzSpan]="9">
+          <input nz-input [(ngModel)]="filter.value" placeholder="请输入搜索项">
+        </nz-form-control>
+      </span>
+      <nz-form-control [nzSpan]="12">
+        <button nz-button style="float: right;" (click)="clearSearch()" class="mx-sm">重置</button>
+        <button nz-button style="float: right;" [nzType]="'primary'" (click)="searchData()">查询</button>
+        <!--[nzLoading]="_loading"-->
+      </nz-form-control>
+    </nz-form-item>
+  </nz-row>
+
+  <nz-table #rowSelectionTable [nzData]="_anys"
+            #ajaxTable
+            [nzFrontPagination]="false"
+            [nzTotal]="pageQuery.responses.totalElements"
+            [(nzPageIndex)]="pageQuery.page"
+            [(nzPageSize)]="pageQuery.pageSize"
+            (nzPageIndexChange)="pageChange($event)">
+    <thead>
+    <tr>
+      <th *ngIf="isMulti" nzShowCheckbox [(nzChecked)]="allChecked" [nzIndeterminate]="indeterminate"
+          (nzCheckedChange)="checkAll($event)"></th>
+      <th *ngIf="!isMulti"></th>
+      <th *ngFor="let item of showCol">{{item.value}}</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of _anys" (click)="getSelect(data,data.id)">
+      <td *ngIf="isMulti" nzShowCheckbox [(nzChecked)]="data.checked" [nzDisabled]="data.disabled"
+          (nzCheckedChange)="refreshStatus(data,data.id)"></td>
+      <td *ngIf="!isMulti"><input type="radio" [checked]="select?data.id==select.id:false"></td>
+      <td *ngFor="let col of showCol">{{data[col.name]}}</td>
+    </tr>
+    </tbody>
+  </nz-table>
+
+</nz-modal>
+<nz-form-control nzHasFeedback *ngIf="isMulti">
+  <nz-card *ngIf="_backSelect&&_backSelect.length > 0&&showMode=='table'">
+
+    <table class="address-border" style="width: 100%">
+      <thead>
+      <tr>
+        <th *ngFor="let tableName of showTable">{{tableName.name}}</th>
+        <th>操作</th>
+      </tr>
+      </thead>
+      <tbody *ngFor="let data of _backSelect;let i=index">
+      <tr class="success" *ngIf="i>=(page-1)*pageSize && i<page*pageSize">
+        <td *ngFor="let tableName of showTable">
+            <span *ngIf="tableName?.type && tableName?.type=='img'">
+        	<td><img class="table-img-customer" [src]="data[tableName.value]"></td>
+        </span>
+        <input *ngIf="tableName?.type&&tableName?.type=='input'" [(ngModel)]="data[tableName.value]"/>
+        <span *ngIf="!tableName.type">
+              {{data[tableName.value]}}
+            </span>
+        </td>
+        <td>
+          <a (click)="remove(data.id)">删除</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <nav aria-label="Page navigation" style="text-align: right;padding: 10px" *ngIf="totalPages>1">
+      <button nz-button class="ml-sm" type="button" (click)="topPage()">首页</button>
+      <button nz-button class="ml-sm" type="button" (click)="previousPage()">上一页</button>&nbsp;
+      <input nz-input #inPage style="width: 10%" (keyup.enter)="changePage(inPage.value)"
+             (blur)="changePage(inPage.value)" value={{page}}>
+      <button nz-button class="ml-sm" type="button" (click)="nextPage()">下一页</button>
+      <button nz-button class="ml-sm" type="button" (click)="endPage()">尾页</button>
+    </nav>
+
+  </nz-card>
+  <div *ngIf="showMode=='tag'">
+    <nz-tag *ngFor="let name of _backSelect">{{name[_showName]}}</nz-tag>
+  </div>
+  <button nz-button (click)="showModal(content)">请选择</button>
+</nz-form-control>
+<nz-form-control (click)="showModal(content)" nzHasFeedback *ngIf="!isMulti">
+  <button nz-button>{{resultName}}</button>
+</nz-form-control>

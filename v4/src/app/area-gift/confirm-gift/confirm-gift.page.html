@@ -1,0 +1,61 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>生成礼物</ion-title>
+        <goback></goback>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div class="content-head">
+        <span>送礼新方式</span>
+        <span>送礼、对方填地址、免邮送上门</span>
+    </div>
+
+    <div class="commodities-car">
+        <div *ngIf="list.length">
+            <commodity-item [commodity]="item.product" *ngFor="let item of list;let i = index" [isInvalid]="item.state">
+                <p class="common-notice">
+                    <span class="red">￥<span class="common-font">{{item.product.currentPrice}}</span></span>
+                    <span class="common-normal-add-close">
+                        <span class="common-title" (click)="reduce(i)">-</span>
+                        <span class="common-normal-num">{{item.quantity}}</span>
+                        <span class="common-title" (click)="add(i)">+</span>
+                    </span>
+                </p>
+                <div class="bottom-divid" *ngIf="i != list?.length-1"></div>
+            </commodity-item>
+
+            <div class="commodities-bottom common-sub-title">
+                <div class="grey">共{{list?.length}}件礼物</div>
+                <div class="continue-add" (click)="goAreaGift()">继续添加</div>
+            </div>
+        </div>
+
+        <div class="no-commodity" *ngIf="!list.length">
+            <div>
+                <img src="../../../assets/app_icon/customer/我的二维码banner@2x.png" width="100px" height="100px"/>
+            </div>
+            <div class="go-select">
+                <div>
+                    <div class="common-title">开始挑选礼物</div>
+                    <p>点击这里开始挑选喜欢的礼物</p>
+                </div>
+                <ion-icon class="icon-forward" name="ios-arrow-forward"></ion-icon>
+            </div>
+        </div>
+    </div>
+
+    <div class="margin">
+        <div class="message">
+            <p>传达心意，写祝福语<span class="grey">&nbsp;&nbsp;每人最多可领取一份礼物</span></p>
+            <ion-textarea placeholder="大吉大利，送你好礼!" maxlength="100" class="common-sub-title" (ionBlur)="blur()"></ion-textarea>
+        </div>
+
+        <div class="total-amount">
+            <p><span>￥</span><span class="common-title">12.15</span></p>
+        </div>
+
+        <button class="btn-yellow btn-full" (click)="goShareGift()">生成礼物</button>
+    </div>
+
+</ion-content>

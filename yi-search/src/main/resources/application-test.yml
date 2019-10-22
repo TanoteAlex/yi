@@ -1,0 +1,58 @@
+#测试环境配置
+
+logging:
+  path: /logs/test
+  config: classpath:logback-spring.xml
+  level:
+    com.yi: INFO
+    org.springframework: INFO
+    org.hibernate: INFO
+
+yi:
+  cluster-name: test
+  host: localhost
+  web-port: 8085
+
+
+domain:
+  name: http://${yi.host}:${yi.web-port}
+
+server:
+  port: ${yi.web-port}
+  servlet:
+    session:
+      timeout: 1440
+
+  tomcat:
+    basedir: "/disk/yi/yi-${yi.web-port}"
+    uri-encoding: UTF-8
+    accesslog:
+      enabled: true
+      directory: logs
+      buffered: false
+      pattern: combined
+  ssl:
+    enabled: false
+
+spring:
+  application:
+    name: yi-search
+  profiles:
+    #开发环境
+    active: test
+  devtools:
+    restart:
+      #设置重启的目录
+      #additional-paths: src/main/java
+      #exclude: static/**,templates/**
+      #热部署生效
+      enabled: true
+
+  session:
+    store-type: none
+    data:
+      elasticsearch:
+        cluster-name: elasticsearch
+        cluster-nodes: ${yi.host}:9200
+        repositories:
+          enabled: true

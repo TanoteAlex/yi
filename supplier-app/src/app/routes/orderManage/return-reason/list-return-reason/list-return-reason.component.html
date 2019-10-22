@@ -1,0 +1,61 @@
+<page-header [title]="'退货原因列表'">
+  <ng-template #breadcrumb>
+    <nz-breadcrumb>
+      <nz-breadcrumb-item>
+        <a [routerLink]="['/dashboard/return-reason/list']">订单管理</a>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item>退货原因设置</nz-breadcrumb-item>
+    </nz-breadcrumb>
+  </ng-template>
+</page-header>
+
+<nz-card [nzBordered]="false">
+
+  <button nz-button [routerLink]="'../add'" [nzType]="'primary'">
+    <i class="anticon anticon-plus"></i>
+    <span>新建</span>
+  </button>
+
+  <nz-table
+    #ajaxTable
+    [nzShowSizeChanger]="true"
+    [nzFrontPagination]="false"
+    [nzData]="datas"
+    [nzLoading]="loading"
+    [nzTotal]="pageQuery.responses.totalElements"
+    [(nzPageIndex)]="pageQuery.page"
+    [(nzPageSize)]="pageQuery.pageSize"
+    (nzPageIndexChange)="searchData()"
+    (nzPageSizeChange)="searchData(true)">
+
+    <thead (nzSortChange)="sort($event)" nzSingleSort>
+    <tr>
+      <th>原因类型</th>
+      <th>排序</th>
+      <th>状态</th>
+      <th>添加时间</th>
+      <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let returnReason of ajaxTable.data">
+      <td>{{returnReason.reasonType}}</td>
+      <td>{{returnReason.sort}}</td>
+      <td>
+        <span *ngIf="returnReason.state==0">已启用</span>
+        <span *ngIf="returnReason.state==1">已禁用</span>
+      </td>
+      <td>{{returnReason.createTime}}</td>
+      <td>
+        <a [routerLink]="'../edit/'+returnReason.id">编辑
+          <nz-divider nzType="vertical"></nz-divider>
+        </a>
+        <nz-modal-customer (ok)="remove(returnReason.id)" [title]="'提示！'" [content]="'确认要删除吗？'"
+                           [buttonName]="'删除'" >
+        </nz-modal-customer>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+</nz-card>
+

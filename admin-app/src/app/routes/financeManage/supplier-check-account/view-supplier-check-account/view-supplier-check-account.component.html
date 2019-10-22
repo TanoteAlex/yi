@@ -1,0 +1,94 @@
+
+
+<page-header [title]="'查看信息'"></page-header>
+
+<nz-card>
+    <nz-form-item>
+
+
+                    <nz-form-label nzXs="10" nzSm="3" nzFor="guid">GUID</nz-form-label>
+                    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+                        <nz-form-text>{{supplierCheckAccount.guid}}</nz-form-text>
+                    </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+
+                    <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="supplierId">供应商（supplier表ID）</nz-form-label>
+                    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+                        <nz-form-text>{{supplierCheckAccount.supplierId}}</nz-form-text>
+                    </nz-form-control>
+
+                    <nz-form-label nzXs="10" nzSm="3" nzFor="supplierName">供应商名称</nz-form-label>
+                    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+                        <nz-form-text>{{supplierCheckAccount.supplierName}}</nz-form-text>
+                    </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+
+                    <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="saleOrderId">订单（sale_order表ID）</nz-form-label>
+                    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+                        <nz-form-text>{{supplierCheckAccount.saleOrderId}}</nz-form-text>
+                    </nz-form-control>
+
+                    <nz-form-label nzXs="10" nzSm="3" nzFor="saleOrderNo">订单编号</nz-form-label>
+                    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+                        <nz-form-text>{{supplierCheckAccount.saleOrderNo}}</nz-form-text>
+                    </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+
+                    <nz-form-label nzXs="10" nzSm="3" nzFor="orderTime">下单时间</nz-form-label>
+                    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+                        <nz-form-text>{{supplierCheckAccount.orderTime}}</nz-form-text>
+                    </nz-form-control>
+
+                    <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="productId">商品（product表ID）</nz-form-label>
+                    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+                        <nz-form-text>{{supplierCheckAccount.productId}}</nz-form-text>
+                    </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+
+                    <nz-form-label nzXs="10" nzSm="3" nzFor="productNo">商品编号</nz-form-label>
+                    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+                        <nz-form-text>{{supplierCheckAccount.productNo}}</nz-form-text>
+                    </nz-form-control>
+
+                    <nz-form-label nzXs="10" nzSm="3" nzFor="productName">商品名称</nz-form-label>
+                    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+                        <nz-form-text>{{supplierCheckAccount.productName}}</nz-form-text>
+                    </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+
+                    <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="supplyPrice">供货价</nz-form-label>
+                    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+                        <nz-form-text>{{supplierCheckAccount.supplyPrice}}</nz-form-text>
+                    </nz-form-control>
+
+                    <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="quantity">数量</nz-form-label>
+                    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+                        <nz-form-text>{{supplierCheckAccount.quantity}}</nz-form-text>
+                    </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+
+                    <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="settlementAmount">应结货款</nz-form-label>
+                    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+                        <nz-form-text>{{supplierCheckAccount.settlementAmount}}</nz-form-text>
+                    </nz-form-control>
+
+                    <nz-form-label nzXs="10" nzSm="3" nzFor="settlementTime">结算时间</nz-form-label>
+                    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+                        <nz-form-text>{{supplierCheckAccount.settlementTime}}</nz-form-text>
+                    </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+        <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 7 }">
+            <button nz-button nzType="primary" type="submit" [routerLink]="'../../edit/'+ supplierCheckAccount.id">编辑</button>
+            <button nz-button class="ml-sm" type="button" (click)="goBack()">返回</button>
+        </nz-form-control>
+    </nz-form-item>
+
+</nz-card>

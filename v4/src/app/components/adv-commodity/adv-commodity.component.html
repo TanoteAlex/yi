@@ -1,0 +1,7 @@
+<div class="adv-area">
+    <small-title-line *ngIf="list && list?.recommendCommodities?.length != 0">更多火热商品</small-title-line>
+    <!--<div style="padding: 10px;" text-center *ngIf="list?.length != 0"><span class="line"></span><span class="text">更多火热商品~</span><span class="line"></span></div>-->
+    <div class="show-mode-4">
+        <app-commodity-list-first [commodityList]="list?.recommendCommodities"></app-commodity-list-first>
+    </div>
+</div>

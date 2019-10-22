@@ -1,0 +1,163 @@
+<page-header [title]="'查看小区信息'"></page-header>
+
+<nz-card>
+
+  <nz-card nzTitle="小区信息" nzType="inner">
+
+    <desc-list class="mb-lg">
+      <desc-list-item term="管理员">{{community?.member?.username}}</desc-list-item>
+      <desc-list-item term="用户地址">
+        {{(community.province|districtPipe)}}{{community.city|districtPipe}}{{community.district|districtPipe}}{{community.address}}
+      </desc-list-item>
+      <desc-list-item term="提成比例">{{community.commissionRate}}&nbsp;%</desc-list-item>
+      <desc-list-item term="状态">
+        <span *ngIf="community.state==0">已启用</span>
+        <span *ngIf="community.state==1">已禁用</span>
+      </desc-list-item>
+      <desc-list-item term="小区收货地址">{{community.receivingAddress}}</desc-list-item>
+    </desc-list>
+
+  </nz-card>
+
+  <nz-card nzTitle="小区会员" nzType="inner">
+
+    <nz-table
+      #ajaxTable
+      [nzShowSizeChanger]="true"
+      [nzFrontPagination]="false"
+      [nzData]="memberDatas"
+      [nzLoading]="loading"
+      [nzTotal]="memberPageQuery.responses.totalElements"
+      [(nzPageIndex)]="memberPageQuery.page"
+      [(nzPageSize)]="memberPageQuery.pageSize"
+      (nzPageIndexChange)="searchDataMember()"
+      (nzPageSizeChange)="searchDataMember(true)">
+
+      <thead (nzSortChange)="sortMember($event)" nzSingleSort>
+      <tr>
+        <th>会员账号</th>
+        <th>上级</th>
+        <th>会员昵称</th>
+        <th>会员等级</th>
+        <th>会员类型</th>
+        <th>注册时间</th>
+        <th nzWidth="10%">状态</th>
+        <th nzWidth="15%">操作</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let member of memberDatas;let i=index">
+        <td>{{member.username}}</td>
+        <td>{{member?.parent?.username}}</td>
+        <td>{{member.nickname}}</td>
+        <td>{{member?.memberLevel?.name}}</td>
+        <td *ngIf="member.memberType==0">普通会员</td>
+        <td *ngIf="member.memberType==1">管理员</td>
+        <td>{{member.createTime}}</td>
+        <td>
+          <nz-switch nzCheckedChildren="启用" nzUnCheckedChildren="禁用" (ngModelChange)="chooseSwitch(i)"
+                     [ngModel]="member.state==0"></nz-switch>
+        </td>
+        <td>
+          <a [routerLink]="'/dashboard/member/edit/'+member.id">编辑
+            <nz-divider nzType="vertical"></nz-divider>
+          </a>
+          <a [routerLink]="'/dashboard/member/view/'+member.id">详情
+            <nz-divider *ngIf="member.state==1" nzType="vertical"></nz-divider>
+          </a>
+          <nz-modal-customer *ngIf="member.state==1" (ok)="remove(member.id)" [title]="'提示！'" [content]="'确认要删除吗？'"
+                             [buttonName]="'删除'">
+          </nz-modal-customer>
+        </td>
+      </tr>
+      </tbody>
+    </nz-table>
+
+  </nz-card>
+
+  <nz-card nzTitle="小区业绩" nzType="inner">
+
+    <nz-table
+      #ajaxTable
+      [nzShowSizeChanger]="true"
+      [nzFrontPagination]="false"
+      [nzData]="saleOrderDatas"
+      [nzLoading]="loading"
+      [nzTotal]="saleOrderQuery.responses.totalElements"
+      [(nzPageIndex)]="saleOrderQuery.page"
+      [(nzPageSize)]="saleOrderQuery.pageSize"
+      (nzPageIndexChange)="searchDataSaleOrder()"
+      (nzPageSizeChange)="searchDataSaleOrder(true)">
+
+      <thead (nzSortChange)="sortSaleOrder($event)" nzSingleSort>
+      <tr>
+        <th nzWidth="15%">订单编号</th>
+        <th nzWidth="30%">商品信息</th>
+        <th>会员</th>
+        <th>订单金额</th>
+        <th>支付方式</th>
+        <th>订单状态</th>
+        <th nzWidth="10%">下单时间</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let saleOrder of saleOrderDatas,let i=index">
+        <td>{{saleOrder.orderNo}}</td>
+        <td>
+          <div *ngFor="let commoditys of saleOrder.saleOrderItems" style="display: table">
+            <div style=" float: left">
+              <img class="table-img-customer" [src]="commoditys?.commodity.imgPath">&nbsp;&nbsp;
+            </div>
+            <div style=" float: left">
+              {{commoditys?.commodity.commodityName}}<br><br>
+              ￥{{commoditys.price}}&nbsp;({{commoditys.quantity}}件)
+            </div>
+          </div>
+        </td>
+        <td>{{saleOrder.member.username}}</td>
+        <td>{{saleOrder.orderAmount}}</td>
+        <td>
+          <span *ngIf="saleOrder.payMode==0">-</span>
+          <span *ngIf="saleOrder.payMode==1">支付宝</span>
+          <span *ngIf="saleOrder.payMode==2">微信</span>
+          <span *ngIf="saleOrder.payMode==3">银联</span>
+        </td>
+        <td>
+          <span *ngIf="saleOrder.orderState==1">待付款</span>
+          <span *ngIf="saleOrder.orderState==2">待发货</span>
+          <span *ngIf="saleOrder.orderState==3">已发货</span>
+          <span *ngIf="saleOrder.orderState==4">已完成</span>
+          <span *ngIf="saleOrder.orderState==5">已关闭</span>
+        </td>
+        <td>{{saleOrder.createTime}}</td>
+      </tr>
+      </tbody>
+    </nz-table>
+
+  </nz-card>
+
+  <nz-card nzTitle="小区图片" nzType="inner">
+
+    <nz-form-control>
+      <nz-form-text><img class="table-img-customer-details" src="{{community.imgPath}}"></nz-form-text>
+    </nz-form-control>
+
+  </nz-card>
+
+  <nz-card nzTitle="小区介绍" nzType="inner">
+
+    <nz-form-control nzXs="17" nzSm="17" nzMd="17">
+      <div [innerHtml]="sanli.bypassSecurityTrustHtml(community.description)"
+           style="height:500px;overflow-y:auto"></div>
+    </nz-form-control>
+
+  </nz-card>
+
+  <nz-form-item>
+    <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 18 }">
+      <button nz-button nzType="primary" type="submit" [routerLink]="'../../edit/'+ community.id">编辑</button>
+      <button nz-button class="ml-sm" type="button" (click)="goBack()">返回</button>
+    </nz-form-control>
+  </nz-form-item>
+
+</nz-card>

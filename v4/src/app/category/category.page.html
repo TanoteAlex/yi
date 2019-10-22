@@ -1,0 +1,34 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-searchbar class="search-bar" placeholder="搜索" disabled="true" (click)="goSearch()" style="height: 50px"></ion-searchbar>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content no-padding>
+    <ul id="categoryUl">
+        <li [id]="item.id" (click)="selectCategory(i,item.id)" *ngFor="let item of categories;let i=index" class="common-sub-title"
+            [ngStyle]="{'background-color':item.id=== category?.id ? 'white' : 'transparent','color':item.id === category?.id ? '#ff334b':'#000000' }">
+            {{item.categoryName}}
+        </li>
+    </ul>
+    <div class="classification">
+        <div class="classified-name" *ngIf="!category?.showName">
+            <div class="decorate-left"></div>
+            <div class="common-font" style="display: inline-block">{{category?.categoryName}}</div>
+            <div class="decorate-right"></div>
+        </div>
+
+        <div *ngIf="category?.imgPath" class="banner-img" (click)="goUrl(category)">
+            <img-lazy-load [src]="category?.imgPath | thumbnailPipe : 'm'"></img-lazy-load>
+        </div>
+
+        <ion-row>
+            <ion-col size="4" *ngFor="let item of category?.children | sortPipe" (click)="goCommList(item.id)">
+                <div class="circular">
+                    <img-lazy-load [src]="item.imgPath" class="ver-midd"></img-lazy-load>
+                    <p class="common-sub-title">{{item.categoryName}}</p>
+                </div>
+            </ion-col>
+        </ion-row>
+    </div>
+</ion-content>

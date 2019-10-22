@@ -1,0 +1,46 @@
+@import "../../../global";
+.withdraw{
+  margin: 1rem 0 1rem -0.5rem;
+  span{
+    font-size: 3rem;
+  }
+  input{
+    border: none;
+    background: transparent;
+    width: 80%;
+  }
+}
+
+.btns{
+  margin: 1rem 0 2rem;
+  .btn{
+    padding: 0.4rem 2.5rem;
+    margin-right: 0.3rem;
+  }
+  .btn-select{
+    color: $main-color;
+    border-color: $main-color;
+  }
+}
+.btn{
+  color: $content-color;
+  border: 1px solid $tip-color;
+  background-color: transparent;
+  padding: 0.7rem 2rem;
+  font-size: 17px;
+  border-radius: 2rem;
+}
+
+
+.btn-yellow{
+  border: 1px solid $main-color;
+  background-color: $main-color;
+  padding: 0.7rem 2rem;
+  font-size: 17px;
+  color: white;
+  border-radius: 2rem;
+}
+
+.btn-full{
+  width: 100%;
+}

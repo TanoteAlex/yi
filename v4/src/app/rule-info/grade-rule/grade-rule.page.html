@@ -1,0 +1,63 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-segment [(ngModel)]="pet">
+            <ion-segment-button value="member" (click)="ordersFilter('member')">
+                会员介绍
+            </ion-segment-button>
+            <ion-segment-button value="growth" (click)="ordersFilter('growth')">
+                成长值介绍
+            </ion-segment-button>
+        </ion-segment>
+        <goback></goback>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-list class="content" *ngFor="let item of list1">
+        <p class="common-font">1、{{item.title}}</p>
+        <span class="greys common-notice">{{item.content}}</span>
+    </ion-list>
+
+    <ion-list *ngIf="pet == 'member'">
+        <ion-row>
+            <img src="assets/app_icon/customer/成功icon@2x.png" width="10%" height="10%">
+            <ion-col size="2" class="linecontainer">
+                <span class="line"></span>
+            </ion-col>
+            <img src="assets/app_icon/customer/成功icon@2x.png" width="10%" height="10%">
+            <ion-col size="2" class="linecontainer">
+                <span class="line"></span>
+            </ion-col>
+            <img src="assets/app_icon/customer/成功icon@2x.png" width="10%" height="10%">
+            <ion-col size="2" class="linecontainer">
+                <span class="line"></span>
+            </ion-col>
+            <img src="assets/app_icon/customer/成功icon@2x.png" width="10%" height="10%">
+        </ion-row>
+    </ion-list>
+
+    <ion-list class="grid" *ngIf="pet == 'growth'">
+        <ion-row class="color">
+            <ion-col size="3">
+                <p>来源</p>
+            </ion-col>
+            <ion-col size="4">
+                <p>成长值奖励</p>
+            </ion-col>
+            <ion-col size="5">
+                <p>详细说明</p>
+            </ion-col>
+        </ion-row>
+        <ion-row *ngFor="let item of list2">
+            <ion-col size="3">
+                <p>{{item.origin}}</p>
+            </ion-col>
+            <ion-col size="4" class="red">
+                <p>+{{item.score}}</p>
+            </ion-col>
+            <ion-col size="5">
+                <p> {{item.explain}}</p>
+            </ion-col>
+        </ion-row>
+    </ion-list>
+</ion-content>

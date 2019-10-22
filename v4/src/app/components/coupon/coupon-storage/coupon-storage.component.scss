@@ -1,0 +1,14 @@
+$coupon-color: #E54545;
+//@import "../show-coupon/show-coupon.component";
+@import "../coupon";
+.hy-ticket.ticket-selected {
+  background: url("../../../../assets/app_icon/new_coupon/background_4.png") no-repeat;
+  background-size: 100% 100% ;
+}
+.storage{
+  position: relative;
+  .feel-word{
+    position: absolute;
+    bottom: 2px;
+  }
+}

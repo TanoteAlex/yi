@@ -1,0 +1,56 @@
+@import "../../../global";
+ion-content{
+  --background: url("../../../assets/app_icon/new_inviter/code-bg.png");
+}
+.code-outer{
+  width:273px;
+  height:326px;
+  text-align: center;
+  position: absolute;
+  top: calc(50% - 60px);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: url("../../../assets/app_icon/new_inviter/code-bg1.png");
+  background-size: 100% 100%;
+  .share-title{
+    margin-top: 20px;
+    font-family:PingFang-SC-Bold sans-serif;
+    font-weight:bold;
+    color:rgba(253,235,186,1);
+    @extend .common-sub-title;
+  }
+  .code-img{
+    margin: 29px auto 0;
+    width:221px;
+    height:227px;
+    border-radius:5px;
+  }
+}
+
+.share-container{
+  width: 100%;
+  height:120px;
+  text-align: center;
+  padding: 14px;
+  background:linear-gradient(0deg,rgba(254,47,63,1) 0%,rgba(254,117,86,1) 100%);
+  position: absolute;
+  bottom: 0;
+  .share-btns{
+    margin: 18px 60px;;
+    @extend .flex-space-around;
+    .btn-outer{
+      text-align: center;
+      @extend .common-notice;
+      @extend .white;
+      @extend .flex-col;
+      .btn-inner{
+        width:50px;
+        height:50px;
+        padding: 8px;
+        background:rgba(254,244,228,1);
+        box-shadow:1.5px 2px 2px 0 rgba(190,49,52,0.68);
+        border-radius:3px;
+      }
+    }
+  }
+}

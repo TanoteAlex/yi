@@ -1,0 +1,70 @@
+
+
+<page-header [title]="'查看信息'"></page-header>
+
+<nz-card>
+    <nz-form-item>
+
+
+                    <nz-form-label nzXs="10" nzSm="3" nzFor="guid">GUID</nz-form-label>
+                    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+                        <nz-form-text>{{couponGrantConfig.guid}}</nz-form-text>
+                    </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+
+                    <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="couponId">优惠券（coupon表ID）</nz-form-label>
+                    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+                        <nz-form-text>{{couponGrantConfig.couponId}}</nz-form-text>
+                    </nz-form-control>
+
+                    <nz-form-label nzXs="10" nzSm="3" nzFor="grantStrategy">发放策略（1一次性发放，2分批发放）</nz-form-label>
+                    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+                        <nz-form-text>{{couponGrantConfig.grantStrategy}}</nz-form-text>
+                    </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+
+                    <nz-form-label nzXs="10" nzSm="3" nzFor="grantNode">一次性发放节点（1购买，2收货，3评论，4超过三包时效）</nz-form-label>
+                    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+                        <nz-form-text>{{couponGrantConfig.grantNode}}</nz-form-text>
+                    </nz-form-control>
+
+                    <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="state">状态（0启用1禁用）</nz-form-label>
+                    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+                        <nz-form-text>{{couponGrantConfig.state}}</nz-form-text>
+                    </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+
+                    <nz-form-label nzXs="10" nzSm="3" nzFor="remark">备注</nz-form-label>
+                    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+                        <nz-form-text>{{couponGrantConfig.remark}}</nz-form-text>
+                    </nz-form-control>
+
+                    <nz-form-label nzXs="10" nzSm="3" nzFor="createTime">创建时间</nz-form-label>
+                    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+                        <nz-form-text>{{couponGrantConfig.createTime}}</nz-form-text>
+                    </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+
+                    <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="deleted">删除（0否1是）</nz-form-label>
+                    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+                        <nz-form-text>{{couponGrantConfig.deleted}}</nz-form-text>
+                    </nz-form-control>
+
+                    <nz-form-label nzXs="10" nzSm="3" nzFor="delTime">删除时间</nz-form-label>
+                    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+                        <nz-form-text>{{couponGrantConfig.delTime}}</nz-form-text>
+                    </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+        <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 7 }">
+            <button nz-button nzType="primary" type="submit" [routerLink]="'../../edit/'+ couponGrantConfig.id">编辑</button>
+            <button nz-button class="ml-sm" type="button" (click)="goBack()">返回</button>
+        </nz-form-control>
+    </nz-form-item>
+
+</nz-card>

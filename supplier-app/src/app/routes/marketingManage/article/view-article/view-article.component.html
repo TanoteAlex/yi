@@ -1,0 +1,107 @@
+<page-header [title]="'查看信息'"></page-header>
+
+<nz-card>
+
+  <nz-form-item>
+
+    <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="title">文章标题</nz-form-label>
+    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+      <nz-form-text>{{article.title}}</nz-form-text>
+    </nz-form-control>
+
+
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzXs="10" nzSm="3" nzFor="subtitle">文章副标题</nz-form-label>
+    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+      <nz-form-text>{{article.subtitle}}</nz-form-text>
+    </nz-form-control>
+
+    <nz-form-label nzXs="10" nzSm="3" nzFor="author">作者</nz-form-label>
+    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+      <nz-form-text>{{article.author}}</nz-form-text>
+    </nz-form-control>
+
+
+  </nz-form-item>
+
+
+  <nz-form-item>
+    <nz-form-label nzXs="10" nzSm="3" nzFor="content">文章内容</nz-form-label>
+    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+      <nz-form-text>{{article.content}}</nz-form-text>
+    </nz-form-control>
+
+  </nz-form-item>
+
+  <nz-form-item>
+
+    <nz-form-label nzXs="10" nzSm="3" nzFor="url">商品链接</nz-form-label>
+    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+      <nz-form-text>{{article.url}}</nz-form-text>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+
+    <nz-form-label nzXs="10" nzSm="3" nzFor="articleType">文章类型</nz-form-label>
+    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+      <!--（1专题，2主题）-->
+      <nz-form-text *ngIf="article.articleType==1">专题</nz-form-text>
+      <nz-form-text *ngIf="article.articleType==2">主题</nz-form-text>
+    </nz-form-control>
+
+    <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="state">显示</nz-form-label>
+    <!--（0显示1不显示）-->
+    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+      <nz-form-text *ngIf="article.state==0">显示</nz-form-text>
+      <nz-form-text *ngIf="article.state==1">不显示</nz-form-text>
+    </nz-form-control>
+  </nz-form-item>
+  <!--<nz-form-item>-->
+
+    <!--<nz-form-label nzXs="10" nzSm="3" nzFor="collectionQuantity">收藏量</nz-form-label>-->
+    <!--<nz-form-control nzXs="16" nzSm="8" nzMd="7">-->
+      <!--<nz-form-text>{{article.collectionQuantity}}</nz-form-text>-->
+    <!--</nz-form-control>-->
+
+    <!--<nz-form-label nzXs="10" nzSm="3" nzFor="readQuantity">阅读量</nz-form-label>-->
+    <!--<nz-form-control nzXs="16" nzSm="8" nzMd="7">-->
+      <!--<nz-form-text>{{article.readQuantity}}</nz-form-text>-->
+    <!--</nz-form-control>-->
+  <!--</nz-form-item>-->
+  <!--<nz-form-item>-->
+
+    <!--<nz-form-label nzXs="10" nzSm="3" nzFor="commentQuantity">评论量</nz-form-label>-->
+    <!--<nz-form-control nzXs="16" nzSm="8" nzMd="7">-->
+      <!--<nz-form-text>{{article.commentQuantity}}</nz-form-text>-->
+    <!--</nz-form-control>-->
+
+    <!--<nz-form-label nzXs="10" nzSm="3" nzFor="createTime">创建时间</nz-form-label>-->
+    <!--<nz-form-control nzXs="16" nzSm="8" nzMd="7">-->
+      <!--<nz-form-text>{{article.createTime}}</nz-form-text>-->
+    <!--</nz-form-control>-->
+  <!--</nz-form-item>-->
+
+  <!--<nz-form-item>-->
+     <!--<nz-form-label nzXs="10" nzSm="3" nzFor="sort">排序</nz-form-label>-->
+      <!--<nz-form-control nzXs="16" nzSm="8" nzMd="7">-->
+      <!--<nz-form-text>{{article.sort}}</nz-form-text>-->
+    <!--</nz-form-control>-->
+  <!--</nz-form-item>-->
+
+  <nz-form-item>
+    <nz-form-label nzXs="10" nzSm="3" nzFor="imgPath">商品图片</nz-form-label>
+    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+      <nz-form-text><img class="table-img-customer-details" src="{{article.imgPath}}"></nz-form-text>
+    </nz-form-control>
+  </nz-form-item>
+
+
+  <nz-form-item>
+    <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 7 }">
+      <button nz-button nzType="primary" type="submit" [routerLink]="'../../edit/'+ article.id">编辑</button>
+      <button nz-button class="ml-sm" type="button" (click)="goBack()">返回</button>
+    </nz-form-control>
+  </nz-form-item>
+
+</nz-card>

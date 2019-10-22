@@ -1,0 +1,49 @@
+@import "../../global";
+
+.head {
+  height: 100%;
+  background-color: #000;
+  opacity: 0.4;
+  transform: translateZ(0);
+  z-index: -1;
+}
+
+.body {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  .content {
+    background: white;
+    min-height: 250px;
+    height: 100%;
+    padding: 15px 0;
+    z-index: 9999;
+    ion-list {
+      background-color: white;
+    }
+    ion-row {
+      margin: 1rem 0 0;
+    }
+  }
+}
+
+.group {
+  display: flex;
+  height: 220px;
+  margin-top: 10px;
+}
+
+.provinceGroup, .cityGroup {
+  flex: 1;
+  overflow: scroll;
+}
+
+.communityGroup {
+  flex: 2;
+  overflow: scroll;
+}
+
+.selected{
+  color: red;
+}
+

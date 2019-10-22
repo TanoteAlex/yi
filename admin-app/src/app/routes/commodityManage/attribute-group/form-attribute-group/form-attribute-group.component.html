@@ -1,0 +1,84 @@
+<page-header [title]="title"></page-header>
+<nz-card [nzBordered]="false">
+  <form nz-form [formGroup]="commonForm">
+
+    <nz-form-item>
+      <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="category">商品分类</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8">
+        <app-category-tree-select #categoryTreeSelect [isCheck]="false" [showRoot]="false"
+                                  (result)="setCommodityCategory($event)">
+        </app-category-tree-select>
+        <nz-form-explain class="has-error" *ngIf="commonForm.get('category').dirty&&commonForm.get('category').errors">
+          <ng-container *ngFor="let error of formErrors.category">
+            <nz-form-explain *ngIf="commonForm.get('category').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="groupName">属性名</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+        <input nz-input formControlName="groupName" id="groupName" placeholder="请输入属性名">
+        <nz-form-explain *ngIf="commonForm.get('groupName').dirty&&commonForm.get('groupName').errors">
+          <ng-container *ngFor="let error of formErrors.groupName">
+            <nz-form-explain *ngIf="commonForm.get('groupName').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item formArrayName="attributes">
+      <nz-form-label nzXs="3" nzSm="3" nzRequired>属性值</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8">
+        <div *ngFor="let form of attrArryForm.controls;let i=index;" [formGroupName]="i">
+          <input nz-input style="width: 80%" formControlName="attrValue" id="attrValue" placeholder="请输入属性值">
+          <button (click)="deleteName(i)" style="float: right;margin-top: 4px" nz-button nzType="primary"
+                  type="button">删除
+          </button>
+          <app-dynamic-upload *ngIf="commonForm.value.showMode == 2"
+                              [fileList]="(commonForm.value?.attributes[i]?.imgPath!='' && commonForm.value?.attributes[i]?.imgPath!=null) ? [{url:commonForm.value?.attributes[i]?.imgPath}]:[]"
+                              (onFileListChange)="getProductImgPath($event,i)"></app-dynamic-upload>
+
+        </div>
+        <button (click)="addNewTemplate()" nz-button nzType="primary" type="button">添加</button>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="showMode">属性显示方式</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8">
+        <nz-radio-group formControlName="showMode" id="showMode">
+          <label nz-radio [nzValue]="1">纯文字</label>
+          <label nz-radio [nzValue]="2">纯图片</label>
+        </nz-radio-group>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzXs="3" nzSm="3" nzFor="remark">备注</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8">
+        <textarea nz-input formControlName="remark" id="remark" style="height: 120px" placeholder="请输入备注"></textarea>
+        <nz-form-explain *ngIf="commonForm.get('remark').dirty&&commonForm.get('remark').errors">
+          <ng-container *ngFor="let error of formErrors.remark">
+            <nz-form-explain *ngIf="commonForm.get('remark').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 18 }">
+        <nz-modal-customer [showButton]="false" (ok)="onSubmit()" [title]="'提示！'" [content]="'确认要提交吗？'"
+                           [buttonName]="'提交'">
+          <nz-divider nzType="vertical"></nz-divider>
+        </nz-modal-customer>
+        <button nz-button class="ml-sm" type="button" (click)="goBack()">返回</button>
+      </nz-form-control>
+    </nz-form-item>
+
+  </form>
+</nz-card>

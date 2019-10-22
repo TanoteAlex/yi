@@ -1,0 +1,65 @@
+<page-header [title]="'查看小区信息'"></page-header>
+
+<nz-card>
+
+  <nz-form-item>
+
+    <nz-form-label nzXs="10" nzSm="3" nzFor="memberId">管理员</nz-form-label>
+    <!--（member表ID）-->
+    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+      <nz-form-text>{{community?.member?.username}}</nz-form-text>
+    </nz-form-control>
+
+    <nz-form-label nzXs="10" nzSm="3" nzFor="city">用户小区</nz-form-label>
+    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+      <nz-form-text>
+        {{this.transform(community.province)}}{{this.transform(community.city)}}{{this.transform(community.district)}}{{community.address}}
+      </nz-form-text>
+    </nz-form-control>
+
+  </nz-form-item>
+  <nz-form-item>
+
+    <nz-form-label nzXs="10" nzSm="3" nzFor="commissionRate">提成比例</nz-form-label>
+    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+      <nz-form-text>{{community.commissionRate}}</nz-form-text>
+    </nz-form-control>
+
+    <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="state">状态</nz-form-label>
+    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+      <!--（0启用1禁用）-->
+      <nz-form-text *ngIf="community.state==0">已启用</nz-form-text>
+      <nz-form-text *ngIf="community.state==1">已禁用</nz-form-text>
+    </nz-form-control>
+
+  </nz-form-item>
+  <nz-form-item>
+
+    <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="receivingAddress">小区收货地址</nz-form-label>
+    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+      <nz-form-text>{{community.receivingAddress}}</nz-form-text>
+    </nz-form-control>
+
+    <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="description">小区介绍</nz-form-label>
+    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+      <nz-form-text>{{community.description}}</nz-form-text>
+    </nz-form-control>
+
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="imgPath">小区图片</nz-form-label>
+    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+      <nz-form-text><img class="table-img-customer-details" src="{{community.imgPath}}"></nz-form-text>
+    </nz-form-control>
+  </nz-form-item>
+
+
+  <nz-form-item>
+    <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 7 }">
+      <button nz-button nzType="primary" type="submit" [routerLink]="'../../edit/'+ community.id">编辑</button>
+      <button nz-button class="ml-sm" type="button" (click)="goBack()">返回</button>
+    </nz-form-control>
+  </nz-form-item>
+
+</nz-card>

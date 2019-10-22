@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>美周壹壹优选</title>
+</head>
+<body>
+<script>
+    /**
+     * 分享说明，CommodityPage，为页面名字，id同样为页面相同的传入参数，preMemberId为上级用户
+     * /tabs/HomePage，等首页信息单独处理，传入HomePage，在wechatecode另外判断跳转，需要其它的再添加
+     */
+    //wechatShare.html?CommodityPage&id=260&preMemberId=115
+    var href = window.location.href;
+    var urlInfo = href.split('?')[1].replace(/&/g, ";");
+    var h5Serve = href.indexOf('test') === -1 ? 'http://h5.my11mall.com/' : 'http://test.h5.my11mall.com/';
+
+    var config = {
+        appid: 'wx624636d7fc542eb3',
+        redirect_uri: h5Serve + 'wechatCode.html;',
+        response_type: 'code',
+        scope: 'snsapi_userinfo',
+        state: 'STATE'
+    };
+    config.redirect_uri += urlInfo;
+    // alert( config.redirect_uri );
+
+    window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${config.appid}&redirect_uri=${config.redirect_uri}&response_type=${config.response_type}&scope=${config.scope}&state=${config.state}#wechat_redirect`
+
+
+</script>
+</body>
+</html>

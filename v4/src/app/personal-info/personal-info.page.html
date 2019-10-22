@@ -1,0 +1,57 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>个人中心</ion-title>
+        <goback></goback>
+        <span class="red right" (click)="goPersonalCenter()">完成</span>
+    </ion-toolbar>
+</ion-header>
+<ion-content no-padding>
+    <ion-list class="common-list avatar" text-center>
+        <img (click)="changeAvatar()" onerror="this.src='assets/imgs/null-category.png'"
+             [src]="personalData?.avater" height="65" width="65" class="radius">
+        <br/><br/>
+        <input id="avatarImage" style="display: none" #avatarImage type="file" accept="image/*">
+        <input id="avatarCamera" style="display: none" #avatarCamera type="file" accept="image/*" capture="camera">
+        <span class="tex1">点击修改头像</span>
+    </ion-list>
+
+    <form [formGroup]="personalForm">
+        <ion-list class="common-list" lines="none">
+            <ion-item>
+                <ion-label class="common-sub-title" style="width: 20%;">昵&nbsp;&nbsp;&nbsp;&nbsp;称</ion-label>
+                <ion-item style="width: 80%">
+                    <input class="common-sub-title common-input" type="text" maxlength="10" formControlName="nickname"/>
+                </ion-item>
+            </ion-item>
+
+            <ion-item lines="none">
+                <ion-label class="common-sub-title" style="width: 20%;">性&nbsp;&nbsp;&nbsp;&nbsp;别</ion-label>
+                <ion-radio-group formControlName="sex" style="width: 80%;">
+                    <ion-item lines="none">
+                        <ion-radio color="light" value="0"></ion-radio>
+                        <ion-label>男</ion-label>
+                    </ion-item>
+                    <ion-item lines="none">
+                        <ion-radio color="light" value="1"></ion-radio>
+                        <ion-label>女</ion-label>
+                    </ion-item>
+                </ion-radio-group>
+            </ion-item>
+            <ion-item class="birthday">
+                <ion-label class="common-sub-title" style="width: 20%;">生&nbsp;&nbsp;&nbsp;&nbsp;日</ion-label>
+                <ion-datetime formControlName="birthday" [placeholder]="'选择生日'" [cancelText]="'取消'"
+                              [doneText]="'确定'" displayFormat="YYYY-MM-DD" pickerFormat="YYYY-MM-DD" class="common-sub-title" style="width: 80%;">
+                </ion-datetime>
+            </ion-item>
+        </ion-list>
+        <div class="common-hr"></div>
+        <ion-list class="common-list" lines="none">
+            <ion-item class="city" lines="none">
+                <ion-label class="common-sub-title" style="width: 20%;">所在城市</ion-label>
+                <districts [multiCity]="multiCity" (result)="changMultiCity($event)" style="width: 80%;"></districts>
+            </ion-item>
+        </ion-list>
+    </form>
+
+
+</ion-content>

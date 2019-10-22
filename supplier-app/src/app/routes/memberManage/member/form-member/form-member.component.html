@@ -1,0 +1,66 @@
+<page-header [title]="title"></page-header>
+<nz-card [nzBordered]="false">
+  <form nz-form [formGroup]="commonForm">
+
+    <nz-form-item>
+
+      <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="username">会员账号</nz-form-label>
+      <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+        <nz-form-text>{{member?.username}}</nz-form-text>
+      </nz-form-control>
+
+      <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="nickname">会员昵称</nz-form-label>
+      <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+        <nz-form-text>{{member?.nickname}}</nz-form-text>
+      </nz-form-control>
+
+    </nz-form-item>
+
+    <nz-form-item>
+
+      <nz-form-label nzXs="10" nzSm="3" nzRequired >上级会员</nz-form-label>
+      <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+        <nz-form-text>{{member?.parent ? member.parent.username : '-'}}</nz-form-text>
+      </nz-form-control>
+
+      <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="memberLevel">会员等级</nz-form-label>
+      <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+        <app-modal-selecet
+          [showCol]="[{name:'id',value:'编码',isShow:false},{name:'name',value:'等级名',isShow:true}]"
+          [select]="commonForm.value.memberLevel"
+          [resultName]="commonForm.value.memberLevel.name"
+          [baseService]="memberLevelService"
+          (result)="setMemberLevel($event)">
+        </app-modal-selecet>
+      </nz-form-control>
+
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="address">地区</nz-form-label>
+      <nz-form-control nzXs="16" nzSm="8" nzMd="7" nzHasFeedback>
+        <nz-province-basic [values]="position"  (result)="setProvince($event)"></nz-province-basic>
+      </nz-form-control>
+
+      <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="address">小区</nz-form-label>
+      <nz-form-control nzXs="16" nzSm="8" nzMd="7" nzHasFeedback>
+        <input nz-input formControlName="address" id="address" placeholder="输入小区">
+        <nz-form-explain *ngIf="commonForm.get('address').dirty && commonForm.get('address').errors">
+          <ng-container *ngFor="let error of formErrors.address">
+            <nz-form-explain *ngIf="commonForm.get('address').errors[error.name]">{{ error.msg }}</nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 7 }">
+        <nz-modal-customer (ok)="onSubmit()" [title]="'提示！'" [content]="'确认要提交吗？'"
+                           [buttonName]="'提交'" >
+          <nz-divider nzType="vertical"></nz-divider>
+        </nz-modal-customer>
+        <button nz-button class="ml-sm" type="button" (click)="goBack()">返回</button>
+      </nz-form-control>
+    </nz-form-item>
+
+  </form>
+</nz-card>

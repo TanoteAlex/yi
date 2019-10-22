@@ -1,0 +1,60 @@
+<div style="text-align: left" id="summernote1" [innerHtml]="sanitizer.bypassSecurityTrustHtml(ckeditorContent)"></div>
+
+
+<nz-modal class="custom-modal" [(nzVisible)]="isVisible" nzTitle="我的图片" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+  <div class="custom-content" nz-row>
+    <ul nz-col nzSpan="5" nz-menu [nzMode]="'vertical'">
+      <li (click)="_changeMenu(categoryMenu)" [ngStyle]="{'background-color':categoryMenu.click?'#b3e0f5':'white'}" nz-submenu *ngFor="let categoryMenu of categoryMenus">
+        <span title>{{categoryMenu.label}}</span>
+      </li>
+    </ul>
+    <div style="padding: 10px;height: 530px;line-height: 1.5;" nz-col nzSpan="19">
+      <div nz-row style="height: 5%;">
+        <div nz-col nzSpan="12">
+          <button (click)="uploadImg()" style="margin-right: 10px" nz-button>上传图片</button>
+          <input type="file" multiple="multiple" style="display: none" id="editorUploadImgInput">
+          <nz-input-group style="width: 50%" nzSearch [nzSuffix]="suffixIconButton">
+            <input [(ngModel)]="_searchValue" type="text" nz-input placeholder="请输入">
+          </nz-input-group>
+          <ng-template #suffixIconButton>
+            <button (click)="_findByName()" nz-button nzType="primary" nzSearch><i class="anticon anticon-search"></i></button>
+          </ng-template>
+        </div>
+        <div style="float: right" nz-col nzSpan="12">
+          <nz-radio-group [(ngModel)]="radioValue" [nzButtonStyle]="'solid'">
+            <label (click)="_changeSort()" nz-radio-button nzValue="time">上传时间
+              <i *ngIf="radioValue=='time'&&!_isDesc" class="anticon anticon-caret-up"></i>
+              <i *ngIf="radioValue=='time'&&_isDesc" class="anticon anticon-caret-down"></i>
+            </label>
+            <label (click)="_changeSort()" nz-radio-button nzValue="name">图片名称
+              <i *ngIf="radioValue=='name'&&!_isDesc" class="anticon anticon-caret-up"></i>
+              <i *ngIf="radioValue=='name'&&_isDesc" class="anticon anticon-caret-down"></i>
+            </label>
+          </nz-radio-group>
+        </div>
+      </div>
+      <div class="custom-loading" *ngIf="loading">
+        <nz-spin></nz-spin>
+      </div>
+      <div *ngIf="!loading" nz-row nzType="flex" nzJustify="start" [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32, xl: 32, xxl: 32 }"
+           style="height: 80%;width:100%;margin-left: 0px; margin-right: 0px;">
+        <div nz-col nzSpan="6" *ngFor="let img of imgs;let i=index" (click)="clickImg(i)" style="height: 150px;text-align: center;">
+          <img [ngStyle]="{'border':img.click?'1px solid #1890ff':'1px solid white'}" style="height: 120px;padding: 5px;width: 100%" [src]="img.imgPath">
+          <p style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">{{img.name}}</p>
+        </div>
+      </div>
+      <div style="position: absolute;height: 10%;padding-top: 15px;bottom: 0;">
+        <nz-pagination
+          [nzData]="imgs"
+          [nzSize]="'small'"
+          [nzPageSize]="pageQuery.requests.pageSize"
+          [nzTotal]="pageQuery.responses.totalElements"
+          [(nzPageIndex)]="pageQuery.requests.page"
+          (nzPageIndexChange)="pageIndexChange()"></nz-pagination>
+      </div>
+    </div>
+  </div>
+
+
+</nz-modal>
+

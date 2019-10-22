@@ -1,0 +1,200 @@
+<!--
+<page-header [title]="'优惠券列表'">
+  <ng-template #breadcrumb>
+    <nz-breadcrumb>
+      <nz-breadcrumb-item>
+        <a [routerLink]="['/dashboard/grant-coupon/list']">营销管理</a>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item>优惠券管理</nz-breadcrumb-item>
+    </nz-breadcrumb>
+  </ng-template>
+</page-header>
+
+<nz-tabset>
+  <nz-tab nzTitle="{{menu.name}}" *ngFor="let menu of menus;let i=index" (nzClick)="onItemClick(i)">
+
+    <nz-card [nzBordered]="false">
+      <form nz-form [nzLayout]="'inline'" [formGroup]="searchForm" class="search__form">
+        <nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32, xl: 32, xxl: 32  }">
+
+          <nz-col nzMd="8" nzSm="24">
+            <nz-form-item>
+              <nz-form-label>优惠券名称</nz-form-label>
+              <nz-form-control>
+                <input nz-input formControlName="couponName" placeholder="请输入优惠券名称">
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+
+          <nz-col>
+            <button nz-button [nzType]="'primary'" (click)="searchData()" [nzLoading]="loading">查询</button>
+            <button nz-button (click)="clearSearch()" class="mx-sm">重置</button>
+          </nz-col>
+        </nz-row>
+      </form>
+
+      <button nz-button [routerLink]="'../add'" [nzType]="'primary'">
+        <i class="anticon anticon-plus"></i>
+        <span>新建</span>
+      </button>
+
+      <nz-table
+        #ajaxTable
+        [nzShowSizeChanger]="true"
+        [nzFrontPagination]="false"
+        [nzData]="datas"
+        [nzLoading]="loading"
+        [nzTotal]="pageQuery.responses.totalElements"
+        [(nzPageIndex)]="pageQuery.page"
+        [(nzPageSize)]="pageQuery.pageSize"
+        (nzPageIndexChange)="searchData()"
+        (nzPageSizeChange)="searchData(true)">
+
+        <thead (nzSortChange)="sort($event)" nzSingleSort>
+        <tr>
+          <th>优惠券名称</th>
+          <th>面值</th>
+          <th>发放数量</th>
+          <th>使用数量</th>
+          <th>类型</th>
+          <th>开始时间</th>
+          <th>结束时间</th>
+          <th>固定天数</th>
+          <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let data of ajaxTable.data">
+          <td>{{data.couponName}}</td>
+          <td>{{data.parValue}}</td>
+          <td>{{data.quantity}}</td>
+          <td>{{data.useQuantity}}</td>
+          <td *ngIf="data.validType==1">时间段</td>
+          <td *ngIf="data.validType==2">固定天数</td>
+          <td>{{data.startTime}}</td>
+          <td>{{data.endTime}}</td>
+          <td>{{data.fixedDay}}</td>
+          <td>
+            <a [routerLink]="'../edit/'+data.id">编辑
+              <nz-divider nzType="vertical"></nz-divider>
+            </a>
+            <a [routerLink]="'../view/'+data.id">详情
+              <nz-divider nzType="vertical"></nz-divider>
+            </a>
+            <nz-modal-customer (ok)="remove(data.id)" [title]="'提示！'" [content]="'确认要删除吗？'"
+                               [buttonName]="'删除'" >
+              <nz-divider nzType="vertical"></nz-divider>
+            </nz-modal-customer>
+          </td>
+        </tr>
+        </tbody>
+      </nz-table>
+    </nz-card>
+
+  </nz-tab>
+</nz-tabset>
+
+
+
+-->
+
+<form nz-form [formGroup]="searchForm">
+      <nz-card nzTitle="发放优惠券" nzType="inner">
+        <div class="large AccountInfo">
+          <nz-form-item>
+            <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="couponId">选中优惠券</nz-form-label>
+              <nz-form-control nzXs="16" nzSm="8" nzMd="7" nzHasFeedback>
+                <select nz-input formControlName="couponId" (change)="memberType()" >
+                  <option *ngFor="let mt of linkTypes" [value]="mt.id">{{mt.couponName}}</option>
+                </select>
+              </nz-form-control>
+
+
+
+
+          </nz-form-item>
+          <nz-form-item >
+            <nz-form-label nzXs="10" nzSm="3" ></nz-form-label>
+            <a  *ngFor="let mt of linkTypes" >
+              <a *ngIf="mt.id==this.searchForm.value.couponId">
+                <span *ngIf="mt.validType==1">
+                 时间段: {{mt.startTime}}至{{mt.endTime}}
+                </span>
+                <span *ngIf="mt.validType==2">
+                  固定天数:{{mt.fixedDay}}
+                </span><br>
+                <span>
+                    还剩{{mt.quantity-mt.receiveQuantity}}张
+                </span>
+              </a>
+            </a>
+          </nz-form-item>
+
+
+          <nz-form-item>
+              <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="grantType">发放范围</nz-form-label>
+              <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+                <nz-radio-group formControlName="grantType" id="grantType">
+                  <label nz-radio [nzValue]="1">指定条件发放</label>
+                  <label nz-radio [nzValue]="2">指定用户名发放</label>
+                </nz-radio-group>
+                <!--<nz-form-explain *ngIf="commonForm.get('grantType').dirty && commonForm.get('grantType').errors">
+                  <ng-container *ngFor="let error of formErrors.grantType">
+                    <nz-form-explain *ngIf="commonForm.get('grantType').errors[error.name]">{{ error.msg }}</nz-form-explain>
+                  </ng-container>
+                </nz-form-explain>-->
+              </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item *ngIf="this.searchForm.value.grantType==1">
+             <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="grantType"></nz-form-label>
+
+            <!--  <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+              <nz-radio-group formControlName="grantType" id="grantType">
+                <label nz-radio [nzValue]="1">指定条件发放</label>
+                <label nz-radio [nzValue]="2">指定用户名发放</label>
+              </nz-radio-group>
+              &lt;!&ndash;<nz-form-explain *ngIf="commonForm.get('grantType').dirty && commonForm.get('grantType').errors">
+                <ng-container *ngFor="let error of formErrors.grantType">
+                  <nz-form-explain *ngIf="commonForm.get('grantType').errors[error.name]">{{ error.msg }}</nz-form-explain>
+                </ng-container>
+              </nz-form-explain>&ndash;&gt;
+            </nz-form-control>-->
+          </nz-form-item>
+
+          <nz-form-item *ngIf="this.searchForm.value.grantType==2">
+                <nz-form-label nzXs="10" nzSm="3" nzFor="member">选择会员</nz-form-label>
+                <nz-form-control nzXs="16" nzSm="8" nzMd="7" nzHasFeedback>
+
+          <!--        <app-modal-selecet
+                    [showCol]="[{name:'id',value:'编码',isShow:true},{name:'username',value:'账号',isShow:true}]"
+                    [select]="commonForm.value.member"
+                    [resultName]="selectCommodityName"
+                    [baseService]="commodityService"
+                    [isMulti]="true"
+                    (result)="setCommoditySupplier($event)">
+                  </app-modal-selecet>-->
+                  <app-modal-selecet
+                      [pageQuery]="pageQuery"
+                      [showCol]="[{name:'id',value:'编码',isShow:true},{name:'username',value:'账号',isShow:true},{name:'nickname',value:'昵称',isShow:true}]"
+                      [select]="searchForm.value.members"
+                      [resultName]="'请选择'"
+                      [baseService]="memberService"
+                      [isMulti]="true"
+                      (result)="setCoupon($event)">
+                  </app-modal-selecet>
+                </nz-form-control>
+          </nz-form-item>
+        </div>
+      </nz-card>
+      <nz-form-item>
+        <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 7 }">
+          <nz-modal-customer [showButton]="false" (ok)="onSubmit()" [title]="'提示！'" [content]="'确认要提交吗？'"
+                             [buttonName]="'提交'">
+            <nz-divider nzType="vertical"></nz-divider>
+          </nz-modal-customer>
+          <button nz-button class="ml-sm" type="button" (click)="goBack()">返回</button>
+        </nz-form-control>
+      </nz-form-item>
+
+</form>

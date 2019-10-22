@@ -1,0 +1,33 @@
+
+
+<page-header [title]="'查看信息'"></page-header>
+
+<nz-card>
+    <nz-form-item>
+
+                    <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="recommendId">推荐位（recommend表ID）</nz-form-label>
+                    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+                        <nz-form-text>{{recommendCommodity.recommendId}}</nz-form-text>
+                    </nz-form-control>
+
+                    <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="commodityId">商品（commodity表ID）</nz-form-label>
+                    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+                        <nz-form-text>{{recommendCommodity.commodityId}}</nz-form-text>
+                    </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+
+                    <nz-form-label nzXs="10" nzSm="3" nzFor="sort">排序</nz-form-label>
+                    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+                        <nz-form-text>{{recommendCommodity.sort}}</nz-form-text>
+                    </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+        <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 7 }">
+            <button nz-button nzType="primary" type="submit" [routerLink]="'../../edit/'+ recommendCommodity.id">编辑</button>
+            <button nz-button class="ml-sm" type="button" (click)="goBack()">返回</button>
+        </nz-form-control>
+    </nz-form-item>
+
+</nz-card>

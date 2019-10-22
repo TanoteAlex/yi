@@ -1,0 +1,29 @@
+@import "../../../global";
+
+.head {
+  height: 100%;
+  z-index: 10;
+  background: rgba(0,0,0,0.4);
+}
+
+.body {
+  position: fixed;
+  width: 60%;
+  right: 20%;
+  z-index: 10000;
+
+  background-color: white;
+  border-radius: 10px;
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: white;
+    z-index: 9999;
+    padding: 20px 10px 10px;
+    height: 100%;
+    overflow: scroll;
+    border-radius: 10px;
+  }
+}

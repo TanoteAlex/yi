@@ -1,0 +1,42 @@
+<page-header [title]="'文章详情'"></page-header>
+
+<nz-card>
+
+  <nz-card nzTitle="文章信息" nzType="inner">
+
+    <desc-list class="mb-lg">
+      <desc-list-item term="文章标题">{{article.title}}</desc-list-item>
+      <desc-list-item term="文章副标题">{{article.subtitle}}</desc-list-item>
+
+      <desc-list-item term="状态">
+        <span *ngIf="article.state==0">显示</span>
+        <span *ngIf="article.state==1">不显示</span>
+      </desc-list-item>
+    </desc-list>
+
+  </nz-card>
+
+  <nz-card nzTitle="文章图片" nzType="inner">
+
+    <nz-form-control>
+      <nz-form-text><img class="table-img-customer-details" src="{{article.imgPath}}"></nz-form-text>
+    </nz-form-control>
+
+  </nz-card>
+
+  <nz-card nzTitle="文章内容" nzType="inner">
+
+    <nz-form-control nzXs="17" nzSm="17" nzMd="17">
+      <div [innerHtml]="sanli.bypassSecurityTrustHtml(article.content)" style="height:500px;overflow-y:auto"></div>
+    </nz-form-control>
+
+  </nz-card>
+
+  <nz-form-item>
+    <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 17 }">
+      <button nz-button nzType="primary" type="submit" [routerLink]="'../../edit/'+ article.id">编辑</button>
+      <button nz-button class="ml-sm" type="button" (click)="goBack()">返回</button>
+    </nz-form-control>
+  </nz-form-item>
+
+</nz-card>

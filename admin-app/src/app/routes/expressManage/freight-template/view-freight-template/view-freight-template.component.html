@@ -1,0 +1,36 @@
+<page-header [title]="'查看模板信息'"></page-header>
+
+<nz-card>
+
+  <nz-card nzTitle="模板信息" nzType="inner">
+
+    <desc-list class="mb-lg">
+      <desc-list-item term="模板编号">{{freightTemplate.templateNo}}</desc-list-item>
+      <desc-list-item term="模板名称">{{freightTemplate.templateName}}</desc-list-item>
+      <desc-list-item term="计费方式">
+        <span *ngIf="freightTemplate.chargeMode==1">按重量计费</span>
+        <span *ngIf="freightTemplate.chargeMode==2">按件数计费</span>
+      </desc-list-item>
+      <desc-list-item term="状态">
+        <span *ngIf="freightTemplate.state==0">已启用</span>
+        <span *ngIf="freightTemplate.state==1">已禁用</span>
+      </desc-list-item>
+      <desc-list-item term="首重/件">{{freightTemplate.presetWeight}}</desc-list-item>
+      <desc-list-item term="首费">{{freightTemplate.presetFee}}</desc-list-item>
+      <desc-list-item term="续重/件">{{freightTemplate.extraWeight}}</desc-list-item>
+      <desc-list-item term="续费">{{freightTemplate.extraFee}}</desc-list-item>
+      <desc-list-item term="配送地址">
+        <span *ngFor="let region of freightTemplate.regions">{{region.province}}&nbsp;</span>
+      </desc-list-item>
+    </desc-list>
+
+  </nz-card>
+
+  <nz-form-item>
+    <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 20 }">
+      <button nz-button nzType="primary" type="submit" [routerLink]="'../../edit/'+ freightTemplate.id">编辑</button>
+      <button nz-button class="ml-sm" type="button" (click)="goBack()">返回</button>
+    </nz-form-control>
+  </nz-form-item>
+
+</nz-card>

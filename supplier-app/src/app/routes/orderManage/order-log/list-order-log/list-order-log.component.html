@@ -1,0 +1,92 @@
+<page-header [title]="'订单日志列表'">
+  <ng-template #breadcrumb>
+    <nz-breadcrumb>
+      <nz-breadcrumb-item>
+        <a [routerLink]="['/dashboard/order-log/list']">订单管理</a>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item>日志管理</nz-breadcrumb-item>
+    </nz-breadcrumb>
+  </ng-template>
+</page-header>
+
+<nz-card [nzBordered]="false">
+  <form nz-form [nzLayout]="'inline'" [formGroup]="searchForm" class="search__form">
+    <nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32, xl: 32, xxl: 32  }">
+
+      <nz-col nzMd="6" nzSm="24">
+        <nz-form-item>
+          <nz-form-label>订单编号</nz-form-label>
+          <nz-form-control>
+            <input nz-input formControlName="orderNo" placeholder="请输入订单编号">
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+
+      <nz-col nzMd="6" nzSm="24">
+        <nz-form-item>
+          <nz-form-label>订单状态</nz-form-label>
+          <nz-form-control>
+            <nz-select formControlName="state" [nzPlaceHolder]="'不限'">
+              <nz-option [nzLabel]="'创建订单'" [nzValue]="'1'"></nz-option>
+              <nz-option [nzLabel]="'支付成功'" [nzValue]="'2'"></nz-option>
+              <nz-option [nzLabel]="'开始配送'" [nzValue]="'3'"></nz-option>
+              <nz-option [nzLabel]="'确认收货'" [nzValue]="'4'"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+
+      <nz-col nzMd="6" nzSm="24">
+        <nz-form-item>
+          <nz-form-label>操作人</nz-form-label>
+          <nz-form-control>
+            <input nz-input formControlName="operator" placeholder="请输入操作人">
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+
+      <nz-col [nzSpan]="expandForm ? 24 : 6" [class.text-right]="expandForm">
+        <button nz-button [nzType]="'primary'" (click)="searchData()" [nzLoading]="loading">查询</button>
+        <button nz-button (click)="clearSearch()" class="mx-sm">重置</button>
+      </nz-col>
+    </nz-row>
+  </form>
+
+  <nz-table
+    #ajaxTable
+    [nzShowSizeChanger]="true"
+    [nzFrontPagination]="false"
+    [nzData]="datas"
+    [nzLoading]="loading"
+    [nzTotal]="pageQuery.responses.totalElements"
+    [(nzPageIndex)]="pageQuery.page"
+    [(nzPageSize)]="pageQuery.pageSize"
+    (nzPageIndexChange)="searchData()"
+    (nzPageSizeChange)="searchData(true)">
+
+    <thead (nzSortChange)="sort($event)" nzSingleSort>
+    <tr>
+      <th>订单编号</th>
+      <th>订单状态</th>
+      <th>操作时间</th>
+      <th>操作人</th>
+      <th>备注说明</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of ajaxTable.data">
+      <td>{{data.orderNo}}</td>
+      <td>
+        <span *ngIf="data.state==1">创建订单</span>
+        <span *ngIf="data.state==2">支付成功</span>
+        <span *ngIf="data.state==3">开始配送</span>
+        <span *ngIf="data.state==4">确认收货</span>
+      </td>
+      <td>{{data.operateTime}}</td>
+      <td>{{data.operator}}</td>
+      <td>{{data.remark}}</td>
+    </tr>
+    </tbody>
+  </nz-table>
+</nz-card>
+

@@ -1,0 +1,75 @@
+<page-header [title]="'查看信息'"></page-header>
+
+<nz-card>
+  <nz-form-item>
+
+
+    <nz-form-label nzXs="10" nzSm="3" nzFor="guid">GUID</nz-form-label>
+    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+      <nz-form-text>{{accountRecord.guid}}</nz-form-text>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+
+    <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="memberId">会员（member表ID）</nz-form-label>
+    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+      <nz-form-text>{{accountRecord.member}}</nz-form-text>
+    </nz-form-control>
+
+    <nz-form-label nzXs="10" nzSm="3" nzFor="operateType">操作类型（1收入2支出）</nz-form-label>
+    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+      <nz-form-text>{{accountRecord.operateType}}</nz-form-text>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+
+    <nz-form-label nzXs="10" nzSm="3" nzFor="serialNo">流水号</nz-form-label>
+    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+      <nz-form-text>{{accountRecord.serialNo}}</nz-form-text>
+    </nz-form-control>
+
+    <nz-form-label nzXs="10" nzSm="3" nzFor="tradeAmount">交易金额</nz-form-label>
+    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+      <nz-form-text>{{accountRecord.tradeAmount}}</nz-form-text>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+
+    <nz-form-label nzXs="10" nzSm="3" nzFor="balance">账户余额</nz-form-label>
+    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+      <nz-form-text>{{accountRecord.balance}}</nz-form-text>
+    </nz-form-control>
+
+    <nz-form-label nzXs="10" nzSm="3" nzFor="tradeType">交易类型（1佣金转入2在线支付3提现4小区提成）</nz-form-label>
+    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+      <nz-form-text>{{accountRecord.tradeType}}</nz-form-text>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+
+    <nz-form-label nzXs="10" nzSm="3" nzFor="tradeMode">交易方式（1店铺佣金2余额）</nz-form-label>
+    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+      <nz-form-text>{{accountRecord.tradeMode}}</nz-form-text>
+    </nz-form-control>
+
+    <nz-form-label nzXs="10" nzSm="3" nzFor="tradeTime">交易时间</nz-form-label>
+    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+      <nz-form-text>{{accountRecord.tradeTime}}</nz-form-text>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+
+    <nz-form-label nzXs="10" nzSm="3" nzFor="remark">备注</nz-form-label>
+    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+      <nz-form-text>{{accountRecord.remark}}</nz-form-text>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 7 }">
+      <button nz-button nzType="primary" type="submit" [routerLink]="'../../edit/'+ accountRecord.id">编辑</button>
+      <button nz-button class="ml-sm" type="button" (click)="goBack()">返回</button>
+    </nz-form-control>
+  </nz-form-item>
+
+</nz-card>

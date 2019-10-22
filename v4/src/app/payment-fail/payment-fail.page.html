@@ -1,0 +1,33 @@
+<!--普通订单-->
+<ion-header>
+  <ion-toolbar>
+    <!--<ion-title *ngIf="orderType == undefined">支付成功</ion-title>-->
+    <ion-title>支付失败</ion-title>
+    <!--<ion-title *ngIf="orderType == 'openGroup'">拼团详情</ion-title>-->
+    <span class="right red" (click)="goHome()">完成</span>
+  </ion-toolbar>
+</ion-header>
+
+<!--<ion-content class="normal" *ngIf="orderType == undefined">-->
+<ion-content class="normal">
+  <ion-list text-center>
+    <div class="success-icon">
+      <img src="../../assets/app_icon/basic/失败@3x.png" height="60" width="60"/>
+    </div>
+
+    <div>
+      <p class="common-title black">订单支付失败</p>
+      <span class="grey common-sub-title">&nbsp;</span>
+      <span class="grey common-sub-title">支付遇到问题，请尝试重新支付</span><br/>
+      <span class="common-font">&nbsp;</span>
+      <span class="common-font">&nbsp;</span>
+    </div>
+
+  </ion-list>
+  <div class="btns">
+    <ion-button shape="round" fill="outline" color="danger" (click)="goDeliverMyOrder()">查看订单</ion-button>
+    <ion-button shape="round" color="danger" (click)="goPayAgain()">重新支付</ion-button>
+  </div>
+
+  <footer-tip [tips]="list"></footer-tip>
+</ion-content>

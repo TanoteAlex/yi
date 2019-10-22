@@ -1,0 +1,14 @@
+@import "../../global";
+
+p {
+  line-height: 30px;
+  color: $content-color;
+}
+
+.isNew {
+  width: 100%;
+  text-align: center;
+  font-size: 1rem;
+  color: #999;
+  margin-top: 100px;
+}

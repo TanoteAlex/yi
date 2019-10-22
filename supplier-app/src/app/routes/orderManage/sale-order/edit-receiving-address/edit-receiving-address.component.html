@@ -1,0 +1,47 @@
+<page-header [title]="'修改收货地址'"></page-header>
+
+<nz-card nzType="inner" nzTitle="修改收货地址">
+
+  <nz-form-item>
+    <nz-form-label class="col-sm-2 form-control-label mt-1 text-sm-right border-show back-color-v2">订单编号
+    </nz-form-label>
+    <nz-form-control class="col-sm-10 text-align-left border-show" style="padding: 4px">
+      <nz-form-text style="margin-bottom: 0px!important;">{{saleOrder.orderNo}}</nz-form-text>
+    </nz-form-control>
+  </nz-form-item>
+  <form nz-form [formGroup]="commonForm">
+    <nz-card nzType="inner" nzTitle="新收货地址">
+
+      <nz-form-control class="col-sm-10">
+        <nz-form-label class="col-sm-2">收货人</nz-form-label>
+        <input nz-input formControlName="consignee" class="col-sm-5" type="text">
+      </nz-form-control>
+
+      <nz-form-control class="col-sm-10">
+        <nz-form-label class="col-sm-2">手机号</nz-form-label>
+        <input nz-input formControlName="consigneePhone" class="col-sm-5" type="text">
+      </nz-form-control>
+
+      <!-- <nz-form-control class="col-sm-10">
+         <nz-form-label class="col-sm-2">所在地</nz-form-label>
+         <input nz-input formControlName="CONSIGNEE_ADDR" class="col-sm-5" type="text">
+       </nz-form-control>-->
+      <nz-form-control class="col-sm-10">
+        <nz-form-label class="col-sm-2">所在地</nz-form-label>
+        <nz-province-basic [values]="position" (result)="setProvince($event)"></nz-province-basic>
+      </nz-form-control>
+
+      <nz-form-control class="col-sm-10">
+        <nz-form-label class="col-sm-2">详细地址</nz-form-label>
+        <input nz-input formControlName="detailed" class="col-sm-5" type="text">
+      </nz-form-control>
+
+      <nz-form-control class="col-sm-10" style="text-align: right">
+        <button nz-button class="ml-sm" nzType="primary" type="submit" (click)="submit()">保存</button>
+        <button nz-button class="ml-sm" type="button" (click)="goBack()">取消</button>
+      </nz-form-control>
+    </nz-card>
+  </form>
+
+</nz-card>
+

@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>送礼专区</ion-title>
+    <goback></goback>
+    <span class="header-right-span" (click)="goConfirmGift()">礼包</span>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content no-padding>
+  <ion-list>
+    <div *ngIf="data?.imgPath" class="banner-img" (click)="goUrl(data)">
+      <img-lazy-load [src]="data?.imgPath | thumbnailPipe : 'l'"></img-lazy-load>
+    </div>
+
+    <ion-row>
+      <ion-col size="6" class="commodity-item" *ngFor="let item of data?.commodities" (click)="goCommodity(item.id)">
+        <div style="margin: 5px;background: white">
+          <div class="commodity-2-main-img">
+            <img onerror="this.src='../../assets/imgs/null-category.png'" [src]="item.imgPath  | thumbnailPipe : 's'"/>
+          </div>
+          <div class="commodity-name">{{item.commodityName}}</div>
+          <p class="red">¥
+            <span class="common-font">{{item.currentPrice}}</span>&nbsp;
+            <del class="grey"> ￥{{item.originalPrice}}</del>
+          </p>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-list>
+</ion-content>

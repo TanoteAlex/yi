@@ -1,0 +1,108 @@
+@import "../../../global";
+$hy-danger-color:#D11C4B;
+
+.grey{
+  color:#CFD6DC!important;
+}
+.red{
+  color:$hy-danger-color!important;
+}
+
+ion-content{
+  background-color: #f0f0f0;
+}
+
+.group-item{
+  margin-bottom: 12px;
+  background-color: white;
+  .commodity-item{
+    padding: 16px 11px 10px 10px;
+    position: relative;
+    @extend .flex-center;
+    .commodity-img{
+      width: 100px;
+      height: 100px;
+      margin-right: 10px;
+      img-lazy-load ::ng-deep img{
+        border-radius: 10px;
+      }
+    }
+    .commodity-info{
+      flex: 1;
+      .productShorName{
+        margin-top: 6px;
+        @extend .common-small-spec;
+        @extend .grey;
+      }
+    }
+  }
+  .group-member{
+    margin-bottom: 11px;
+    padding: 10px 0 8px;
+    border-top: 1px solid #ccc;
+    @extend .flex-center;
+    @extend .flex-col;
+    .join-member{
+      margin: 0 14px;
+      @extend .flex-center;
+      &>div{
+        width: 45px;
+        height: 45px;
+        margin: 0 10px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        background-size: 100% 100%!important;
+      }
+    }
+    .group-num{
+      margin: 11px 0 6px;
+      font-weight: bold;
+      @extend .common-sub-notice;
+    }
+  }
+  .join-btn{
+    width: 61px;
+    height: 25px;
+    padding: 2px;
+    border-radius: 5px;
+    background-color: $hy-danger-color;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    @extend .white;
+    @extend .common-sub-notice;
+    @extend .flex-center;
+  }
+}
+
+.group-label{
+  margin: 10px 7px 12px 0;
+  background: $hy-danger-color;
+  border-radius: 3px;
+  //width: 31px;
+  height: 12px;
+  @extend .white;
+  @extend .common-more-small-spec;
+  @extend .flex-center;
+}
+
+.loading{
+  position: absolute;
+  top: 30%;
+  left: 50%;
+}
+
+.no-list{
+  background: url("../../../assets/app_icon/customer/无记录@2x.png") no-repeat center center;
+  width: 100%;
+  height: 270px;
+  position: absolute;
+  top: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  @extend .greys;
+  @extend .common-sub-notice;
+}

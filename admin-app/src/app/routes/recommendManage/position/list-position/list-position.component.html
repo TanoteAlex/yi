@@ -1,0 +1,89 @@
+<page-header [title]="'位置列表'">
+  <ng-template #breadcrumb>
+    <nz-breadcrumb>
+      <nz-breadcrumb-item>
+        <a [routerLink]="['/dashboard/position/list']">推荐系统</a>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item>位置管理</nz-breadcrumb-item>
+    </nz-breadcrumb>
+  </ng-template>
+</page-header>
+
+<nz-tabset>
+  <nz-tab nzTitle="{{menu.name}}" *ngFor="let menu of menus;let i=index" (nzClick)="onItemClick(i)">
+    <nz-card [nzBordered]="false">
+      <form nz-form [nzLayout]="'inline'" [formGroup]="searchForm" class="search__form">
+        <nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32, xl: 32, xxl: 32  }">
+
+          <nz-col nzXs="6" nzSm="6">
+            <nz-form-item>
+              <nz-form-label>名称</nz-form-label>
+              <nz-form-control>
+                <input nz-input formControlName="name" placeholder="请输入名称">
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+
+          <nz-col [nzSpan]="expandForm ? 24 : 6" [class.text-right]="expandForm">
+            <button nz-button [nzType]="'primary'" (click)="searchData()" [nzLoading]="loading">查询</button>
+            <button nz-button (click)="clearSearch()" class="mx-sm">重置</button>
+          </nz-col>
+        </nz-row>
+      </form>
+
+      <button nz-button [routerLink]="'../add'" [nzType]="'primary'">
+        <i class="anticon anticon-plus"></i>
+        <span>新建</span>
+      </button>
+
+      <nz-table
+        #ajaxTable
+        [nzShowSizeChanger]="true"
+        [nzFrontPagination]="false"
+        [nzData]="datas"
+        [nzLoading]="loading"
+        [nzTotal]="pageQuery.responses.totalElements"
+        [(nzPageIndex)]="pageQuery.page"
+        [(nzPageSize)]="pageQuery.pageSize"
+        (nzPageIndexChange)="searchData()"
+        (nzPageSizeChange)="searchData(true)">
+
+        <thead (nzSortChange)="sort($event)" nzSingleSort>
+        <tr>
+          <th>名称</th>
+          <th>位置类型</th><!--（1广告2推荐）-->
+          <th>备注</th>
+          <th nzWidth="10%">状态</th><!--（0启用1禁用）-->
+          <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let data of ajaxTable.data;let i=index">
+          <td>{{data.name}}</td>
+          <td *ngIf="data.positionType==1">首页轮播图</td>
+          <td *ngIf="data.positionType==2">楼层推荐位</td>
+          <td *ngIf="data.positionType==3">今日推荐位</td>
+          <td *ngIf="data.positionType==4">购物车推荐位</td>
+          <td *ngIf="data.positionType==5">邀请有礼推荐位</td>
+          <td *ngIf="data.positionType==6">优惠券推荐位</td>
+          <td *ngIf="data.positionType==7">双星专区</td>
+          <td>{{data.remark}}</td>
+          <td>
+            <nz-switch nzCheckedChildren="启用" nzUnCheckedChildren="禁用" (ngModelChange)="chooseSwitch(i)"
+                       [ngModel]="data.state==0"></nz-switch>
+          </td>
+          <td>
+            <a [routerLink]="'../edit/'+data.id">编辑
+            </a>
+            <!--<nz-modal-customer *ngIf="data.state==1" (ok)="remove(data.id)" [title]="'提示！'" [content]="'确认要删除吗？'"
+                               [buttonName]="'删除'">
+            </nz-modal-customer>-->
+          </td>
+        </tr>
+        </tbody>
+      </nz-table>
+    </nz-card>
+  </nz-tab>
+</nz-tabset>
+
+

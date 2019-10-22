@@ -1,0 +1,39 @@
+ion-tab-button ion-icon{
+  font-size: 2rem !important;
+}
+
+ion-tab-button{
+  ion-icon[aria-label=home]:before{
+    content:url("../../assets/app_icon/tab/home.svg");
+  }
+  ion-icon[aria-label=compass]:before{
+    content:url("../../assets/app_icon/tab/category.svg");
+  }
+  ion-icon[aria-label=navigate]:before{
+    content:url("../../assets/app_icon/tab/loveLife.svg");
+  }
+  ion-icon[aria-label=notifications]:before{
+    content:url("../../assets/app_icon/tab/shoppingCart.svg");
+  }
+  ion-icon[aria-label=octocat]:before{
+    content:url("../../assets/app_icon/tab/customerCenter.svg");
+  }
+}
+
+ion-tab-button[aria-selected=true]{
+  ion-icon[aria-label=home]:before{
+    content:url("../../assets/app_icon/tab/home_on.svg");
+  }
+  ion-icon[aria-label=compass]:before{
+    content:url("../../assets/app_icon/tab/category_on.svg");
+  }
+  ion-icon[aria-label=navigate]:before{
+    content:url("../../assets/app_icon/tab/loveLife_on.svg");
+  }
+  ion-icon[aria-label=notifications]:before{
+    content:url("../../assets/app_icon/tab/shoppingCart_on.svg");
+  }
+  ion-icon[aria-label=octocat]:before{
+    content:url("../../assets/app_icon/tab/customerCenter_on.svg");
+  }
+}

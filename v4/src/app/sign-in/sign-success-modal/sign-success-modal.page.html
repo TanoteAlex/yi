@@ -1,0 +1,22 @@
+<div class="head" (click)="goBack()"></div>
+<div class="body" [ngStyle]="{'height': '300px', 'top': 'calc(50% - 150px)'}">
+    <div class="content">
+        <span class="close-icon" (click)="goBack()"></span>
+
+        <div class="common-title white success-info">签到成功</div>
+        <div class="common-spec white">已连续签到{{data.signDays}}天</div>
+        <div class="share-tip">
+            <div class="sign-bg">
+                <img src="../../../assets/app_icon/home/已签到奖励icon@2x.png">
+            </div>
+            <div class="common-spec greys">&nbsp;</div>
+            <div *ngFor="let list of data.rewards">
+                <div *ngFor="let item of list.prizes">
+                    <div class="common-font greys">{{item.reminder}}</div>
+                </div>
+            </div>
+            <!--<div class="common-spec grey">再签到<span class="black">6</span>天可获得额外奖励哦~</div>-->
+        </div>
+
+    </div>
+</div>

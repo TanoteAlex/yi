@@ -1,0 +1,31 @@
+@import "../../global";
+/*公有*/
+.nolist {
+  background: url("../../assets/app_icon/customer/无记录@2x.png") no-repeat center center;
+
+}
+
+.common-list {
+  .common-notice {
+    margin-left: 0.5rem;
+  }
+
+  .order-bottom {
+    ion-col {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+    ion-button {
+      --border-radius: 1.1rem;
+    }
+  }
+  .button-outline-ios-dark {
+    border-color: #999;
+  }
+}
+
+.loading{
+  position: absolute;
+  top: 30%;
+  left: 50%;
+}

@@ -1,0 +1,71 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>申请售后</ion-title>
+        <goback></goback>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content no-padding>
+    <form [formGroup]="commonForm">
+        <ion-list class="common-list" lines="none">
+
+            <ion-item>
+                <ion-label class="common-sub-title" style="width: 30%">货物状态</ion-label>
+                <label class="common-sub-title" style="width: 70%;" (click)="openReturnType()"
+                       [ngClass]="commonForm.value.afterSaleType ? 'black' : 'grey'">{{commonForm.value.afterSaleType||"请选择货物状态"}}
+                </label>
+            </ion-item>
+
+            <ion-item *ngIf="commonForm.value.afterSaleType">
+                <ion-label class="common-sub-title" style="width: 30%">退款原因</ion-label>
+                <label class="common-sub-title" style="width: 70%;" (click)="openReasonModal()"
+                       [ngClass]="commonForm.value.afterSaleReason ? 'black' : 'grey'">{{commonForm.value.afterSaleReason||"请选择退款原因"}}
+                </label>
+            </ion-item>
+
+            <ion-item>
+                <ion-label class="common-sub-title">问题描述</ion-label>
+            </ion-item>
+            <div style="padding: 0 8px;">
+                <ion-textarea placeholder="请输入描述内容" maxlength="100" class="common-sub-title" formControlName="problemDesc"
+                              (ionBlur)="blur()"></ion-textarea>
+            </div>
+
+            <ion-item *ngIf="commonForm.value.afterSaleType=='已收到货'">
+                <ion-label class="common-sub-title">上传凭证</ion-label>
+                <span class="red small">(最多3张)</span>
+            </ion-item>
+            <div *ngIf="commonForm.value.afterSaleType=='已收到货'">
+                <div style="display: inline" class="returnImg">
+                    <span *ngFor="let attachment of commonForm.value.attachmentVos ; let index = index" style="position: relative">
+                        <img [src]="attachment.url" height="65" width="65" style="position: relative">
+                        <img class="img-delete" src="../../assets/app_icon/classification/弹窗close-icon@2x.png" (click)="deleteImg(index)">
+                    </span>
+                    <img *ngIf="commonForm.value.attachmentVos.length<=2" style="padding: 10px;border: 1px solid #ccc;border-radius: 5px;background-color: #f8f9fa;"
+                         (click)="changeAvatar()" src="assets/app_icon/basic/评论添加图片icon@3x.png" height="65" width="65">
+                </div>
+                <input id="avatarImage" style="display: none" #avatarImage type="file" accept="image/*">
+                <input id="avatarCamera" style="display: none" #avatarCamera type="file" accept="image/*" capture="camera">
+            </div>
+
+        </ion-list>
+        <div class="common-hr"></div>
+        <ion-list class="common-list">
+            <ion-list-header>联系方式</ion-list-header>
+            <ion-item lines="none">
+                <ion-label class="common-sub-title" position="fixed"><p class="greys">联系人</p></ion-label>
+                <label><input class="common-sub-title common-input" type="text" formControlName="contact"/></label>
+            </ion-item>
+            <ion-item>
+                <ion-label class="common-sub-title" position="fixed"><p class="greys">联系电话</p></ion-label>
+                <label><input class="common-sub-title common-input" type="text" formControlName="contactPhone"/></label>
+            </ion-item>
+        </ion-list>
+    </form>
+
+    <ion-button shape="round" expand="full" color="danger" padding [disabled]="!commonForm.valid" (click)="commit()">提&nbsp;&nbsp;交
+    </ion-button>
+
+    <footer-tip [tips]="list" text-wrap class="footer-tip"></footer-tip>
+
+</ion-content>

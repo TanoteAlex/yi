@@ -1,0 +1,29 @@
+@import "../../../global";
+
+.head {
+  height: 100%;
+  background-color: #000;
+  opacity: 0.4;
+  transform: translateZ(0);
+  z-index: -1;
+}
+
+.body {
+  //padding: 1rem;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.content {
+  background: white;
+  height: 100%;
+  z-index: 9999;
+  ion-row:not(:last-of-type) {
+    border-bottom: 1px solid $divid-color;
+  }
+}
+
+ion-row{
+  padding: 8px 0;
+}

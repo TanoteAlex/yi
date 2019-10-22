@@ -1,0 +1,531 @@
+// http://ionicframework.com/docs/theming/
+@import "~@ionic/angular/css/core.css";
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+:root .tab-btn-selected {
+  color: #7A1EA1 !important;
+}
+
+.common-icon {
+  width: 22px;
+  height: 22px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.common-big-icon-no-float {
+  width: 22px;
+  height: 22px;
+  margin: auto;
+}
+
+.common-small-icon {
+  width: 16px;
+  height: 16px;
+  float: left;
+}
+
+ion-note {
+  font-size: 13px;
+}
+
+.sc-ion-card-ios-h {
+  margin: 12px;
+}
+
+.margin-bottom {
+  margin-bottom: 8px;
+}
+
+// http://ionicframework.com/docs/theming/
+
+// App Global Sass
+// --------------------------------------------------
+// Put style rules here that you want to apply globally. These
+// styles are for the entire app and not just one component.
+// Additionally, this file can be also used as an entry point
+// to import other Sass files to be included in the output CSS.
+//
+// Shared Sass variables, which can be used to adjust Ionic's
+// default Sass variables, belong in "theme/variables.scss".
+//
+// To declare rules for a specific mode, create a child rule
+// for the .md, .ios, or .wp mode classes. The mode class is
+// automatically applied to the <body> element in the app.
+$main-skin-color: #4056ae;
+$main-color: #ff334b;
+$pop-color: #000000;
+$normal-color: #333333;
+$content-color: #666666;
+$tip-color: #999999;
+$input-color: #cccccc; //提示性
+$divid-color: #e5e5e5;
+$space-color: #f8f9fa;
+$blank-color: #ffffff;
+$yellow-color:#fabe00;
+$light-divid-color:#f2f2f2;
+@media only screen and (min-width: 500px) {
+  .adapt-img {
+    max-height: 400px!important;
+  }
+}
+@media only screen and (max-width: 400px) {
+  .adapt-img {
+    max-height: 165px!important;
+  }
+}
+
+.list-ios:not(.list-inset):not(.list-ios-lines-none) .item:last-child {
+  --border-width: 0 !important;
+}
+
+.inner-scroll {
+  background-color: #f8f9fa !important;
+}
+
+//地区组件样式覆盖
+.picker-toolbar-multi-picker-cancel {
+  text-align: left !important;
+}
+
+.tab-button-text {
+  color: #111c78;
+}
+
+::-webkit-scrollbar {
+  display: none !important;
+}
+
+ion-label, p {
+  font-size: 12px !important;
+}
+
+ion-icon {
+  font-size: 2.5rem !important;
+}
+
+ion-card {
+  box-shadow: 0 0 10px 1px $divid-color !important;
+}
+
+.common-head {
+  .right {
+    color: #ff334b;
+    text-align: right;
+    margin: auto !important;
+    padding-right: 0.5rem !important;
+  }
+  ion-label {
+    text-align: right;
+    margin: auto !important;
+  }
+
+}
+
+.common-list {
+  p, ion-label {
+  }
+  padding: 0 !important;
+  ion-item, ion-col {
+  }
+}
+
+.ver-midd {
+  margin: auto;
+}
+
+.common-title {
+  font-size: 20px !important;
+}
+
+.common-font {
+  font-size: 17px !important;
+}
+
+.common-sub-title {
+  font-size: 14px !important;
+}
+
+.common-notice {
+  font-size: 13px !important;
+}
+
+.common-sub-notice{
+  font-size: 12px !important;
+}
+
+.common-spec {
+  font-size: 11px !important;
+}
+
+.common-small-spec {
+  font-size: 9px !important;
+}
+
+.common-more-small-spec{
+  font-size: 8px !important;
+}
+
+.common-hr {
+  margin: 0 !important;
+  height: 0.5rem !important;
+  background-color: $space-color !important;
+}
+
+.item-inner {
+  border-bottom-width: 0 !important;
+  padding: 0 !important;
+}
+
+.toolbar-title-ios {
+  font-size: 16px !important;
+}
+
+/*后期加入的公用样式*/
+$border-color: #e6e6e6;
+$blue-color: #4056ae;
+$light-notice-color:#353535;
+ion-card-content {
+  margin-top: 0 !important;
+}
+
+.black {
+  color: $normal-color !important;
+}
+
+.greys {
+  color: $content-color
+}
+
+.grey, .gray {
+  color: $tip-color
+}
+
+.red {
+  color: $main-color !important;
+}
+
+.blue {
+  color: $blue-color;
+}
+
+.white {
+  color: $blank-color!important;
+}
+
+.light-grey{
+  color:$light-notice-color!important;
+}
+
+.right {
+  float: right;
+  text-align: right;
+}
+
+.left {
+  float: left;
+  text-align: left;
+}
+
+.small {
+  font-size: 1rem;
+}
+
+.scroll-content {
+  background-color: $space-color !important;
+}
+
+.radius {
+  border-radius: 50%
+}
+
+.common-list {
+  background-color: white;
+  margin-bottom: 8px;
+}
+
+.bg-white {
+  background-color: white;
+}
+
+/*切换*/
+ion-segment {
+  background-color: white;
+  border-bottom: 1px solid $divid-color;
+  padding: 2px 0;
+
+  --border-color: transparent;
+  --ion-color-primary: #666;
+  --border-radius: 0;
+
+  --color-checked: red;
+  --border-color-checked: transparent;
+  --background-checked: transparent;
+
+}
+
+.list-ios {
+  margin: 0;
+}
+
+.head-icon {
+  img {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+  }
+}
+
+/*没有列表时*/
+.nolist {
+  text-align: center;
+  height: 20rem;
+  padding-top: 15rem;
+}
+
+ion-textarea {
+  padding: 5px 5px;
+  height: 200px !important;
+  border-radius: 5px;
+  border: $divid-color 1px solid;
+}
+
+/*一般为右上角 完成 图标*/
+ion-header {
+  .right {
+    margin-right: 10px;
+  }
+}
+
+/*右箭头样式*/
+.icon-forward {
+  color: #ccc;
+  font-size: 1.5rem !important;
+}
+
+/*改变radio样式,radio和checkbox样式相同*/
+ion-radio {
+  background-color: transparent;
+  width: 20px;
+  height: 20px;
+  border: 1px solid $content-color;
+  border-radius: 50%;
+  box-sizing: initial;
+}
+
+.radio-checked {
+  background: $main-color;
+  border-radius: 50%;
+  border-color: $main-color;
+}
+
+ion-checkbox {
+  --size: 20px;
+  --width:22px;
+  --height:22px;
+}
+
+ion-list-header {
+  border-bottom: 1px solid $divid-color;
+}
+
+.bottom-divid {
+  border-bottom: 1px solid $divid-color;
+}
+
+ion-toast {
+  z-index: 99999;
+}
+
+/*显示一行，超过省略*/
+.text-wrap {
+  overflow: hidden; /*超出部分隐藏*/
+  white-space: nowrap; /*不换行*/
+  text-overflow: ellipsis; /*超出部分省略号显示*/
+}
+
+/*输入框样式*/
+.common-input {
+  border: none;
+  width: 100%;
+  height: 100%;
+}
+
+/*搜索栏圆角*/
+.search-bar ::ng-deep {
+  div input {
+    border-radius: 20px !important;
+  }
+}
+
+/*商品下面的分隔线*/
+.commodity-divid ::ng-deep {
+  commodity-item:not(:last-of-type) {
+    .common-shopping {
+      border-bottom: 1px solid $divid-color;
+    }
+  }
+}
+
+/*input placehold样式*/
+input::-webkit-input-placeholder {
+  color: #cccccc;
+}
+
+/*按钮之间的分隔线*/
+.line-divid {
+  width: 95%;
+  border-bottom: 1px solid $divid-color;
+  @extend .ver-midd
+}
+
+/*为广告位设置的，上方内容的最小高度*/
+.min-height{
+  min-height: 60%;
+}
+
+/*center-modal,组件必要样式，否则改组件样式部分失效*/
+center-modal{
+  height: 100%!important;
+}
+
+/*分享按钮*/
+.shareIcon {
+  width: 25px;
+  position: absolute;
+  right: 10px;
+  top: 7px;
+}
+
+/**
+分享modal样式
+ */
+/*.share{
+  button{
+    display: inline-block;
+    width: 45px;
+    height: 45px;
+    vertical-align: bottom;
+  }
+  .weChat{
+    //display: inline-block;
+  }
+  .weChatFriends{
+    //display: inline-block;
+  }
+}*/
+
+/**
+app分享
+ */
+.share {
+  .weChat {
+    background: url("assets/app_icon/customer/朋友圈@3x.png") top center no-repeat;
+    //background-position: top center;
+  }
+  .weChatFriends {
+    background: url("assets/app_icon/customer/分享微信@3x.png") top center no-repeat;
+    //background-position: top center;
+  }
+  .action-sheet-group {
+    height: 140px;
+  }
+  .action-sheet-title {
+    border-bottom: none;
+  }
+  .action-sheet-button {
+    width: 100px;
+    height: 90px;
+    color: #000;
+    background-size: 50%;
+    background-color: transparent;
+    position: relative;
+    border-bottom: none;
+    span {
+      position: absolute;
+      top: 20px;
+      left: 0;
+      font-size: 16px;
+    }
+  }
+}
+
+img-lazy-load{
+  width: 100%;
+  height: 100%;
+}
+
+/*ion-header右边文字*/
+.header-right-span{
+  float: right;
+  margin-right: 0.5rem;
+  color: $main-color;
+  @extend .common-notice;
+}
+
+/**
+商品label
+ */
+.hy-label{
+  padding: 1.5px 2px 0;
+  margin-right: 3px;
+  border: 0.5px solid rgb(222,50,50);
+  border-radius: 4px;
+  line-height: 18px;
+  @extend .red;
+  @extend .common-notice;
+}
+
+/**
+新v4样式问题
+ */
+ion-item{
+  --background:white;
+  --inner-border-width:0;
+  //background-color: white;
+}
+.item-inner{
+  border-bottom: none;
+}
+.show-modal{
+  --background: transparent;
+}
+
+/**
+flex样式
+ */
+.flex-center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-space-between{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.flex-space-around{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.flex-col{
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-wrap{
+  flex-wrap: wrap;
+}

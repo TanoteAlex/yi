@@ -1,0 +1,24 @@
+$coupon-color: #EAA01E;
+//@import "../show-coupon/show-coupon.component";
+@import "../coupon";
+.hy-ticket {
+  flex-direction: row-reverse;
+  background: url("../../../../assets/app_icon/new_coupon/background_2@2x.png") no-repeat;
+  background-size: 100% 100%;
+  .ticket-date-info {
+    flex: 1;
+    justify-content: space-around;
+    @extend .flex-col;
+    .corner-img {
+      background: url("../../../../assets/app_icon/new_coupon/yellow@2x.png") no-repeat;
+      background-size: 100% 100%;
+      align-self: flex-start;
+      margin-left: 10px;
+    }
+  }
+}
+
+.hy-ticket.ticket-selected {
+  background: url("../../../../assets/app_icon/new_coupon/background_3.png") no-repeat;
+  background-size: 100% 100%;
+}

@@ -1,0 +1,38 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title class="title-icon">彩虹科技大厦</ion-title>
+        <goback></goback>
+        <span class="red right" (click)="goMyGroup()">已开团</span>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-toolbar>
+        <ion-searchbar class="search-bar" placeholder="请输入商品名"></ion-searchbar>
+        <ion-label class="right red common-sub-title">搜索</ion-label>
+    </ion-toolbar>
+
+    <div class="segment-scroll">
+        <div class="segment-btn" *ngFor="let item of segmentList" (click)="listFilter(item.id)" [ngClass]="selectId == item.id ? 'active': ''">{{item.title}}</div>
+    </div>
+
+    <ion-list>
+        <ion-row>
+            <ion-col size="6" class="commodity-item" *ngFor="let item of item">
+                <div style="margin: 5px;background: white">
+                    <div class="commodity-2-main-img">
+                        <img onerror="this.src='../../assets/imgs/null-category.png'" [src]="item.imgPath  | thumbnailPipe : 's'"/>
+                        <div class="group-num">{{item.num}}人团</div>
+                    </div>
+                    <div class="commodity-name"><span class="title-tip">{{item.label}}</span>{{item.commodityName}}</div>
+                    <p class="red">¥
+                        <span class="common-font">{{item.currentPrice}}</span>&nbsp;
+                        <del class="grey"> ￥{{item.originalPrice}}</del>
+                    </p>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-list>
+
+
+</ion-content>

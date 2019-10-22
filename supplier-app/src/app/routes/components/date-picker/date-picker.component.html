@@ -1,0 +1,67 @@
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">{{title}}</h4>
+        <span class="close" aria-label="Close" (click)="close('Cross click')">
+            <div aria-hidden="true" style="transform: scale(2.5)">&times;</div>
+        </span>
+    </div>
+    <div class="modal-body">
+      <nz-table #rowSelectionTable [nzData]="_anys"
+                #ajaxTable
+                [nzFrontPagination]="false"
+                [nzTotal]="pageQuery.responses.totalElements"
+                [(nzPageIndex)]="pageQuery.page"
+                [(nzPageSize)]="pageQuery.pageSize"
+                (nzPageIndexChange)="pageChange($event)">
+        <thead>
+        <tr>
+          <th *ngIf="isMulti" nzShowCheckbox [(nzChecked)]="allChecked" [nzIndeterminate]="indeterminate"
+               (nzCheckedChange)="checkAll($event)"></th>
+          <th *ngIf="!isMulti"></th>
+          <th *ngFor="let item of showCol">{{item.value}}</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let data of _anys" (click)="getSelect(data,data.id)">
+          <td *ngIf="isMulti" nzShowCheckbox [(nzChecked)]="data.checked" [nzDisabled]="data.disabled"
+               (nzCheckedChange)="refreshStatus($event)"></td>
+          <td *ngIf="!isMulti"><input type="radio" [checked]="data.id==select.id"></td>
+          <!--<td *ngIf="isMulti"><input type="checkbox" name="itemasd" [checked]="getMultCheck(data)"></td>-->
+          <td *ngFor="let col of showCol">{{data[col.name]}}</td>
+        </tr>
+        </tbody>
+      </nz-table>
+
+    </div>
+    <!--<div class="modal-footer">-->
+        <!--<button nz-button nzType="primary" class="btn btn-outline-dark" (click)="c('Save click')">{{sureButton}}</button>-->
+    <!--</div>-->
+</ng-template>
+
+<button nz-button nzType="primary" (click)="open(content)">{{resultName}}</button>
+<!--<table class="table table-hover">-->
+<!--<thead>-->
+<!--<tr>-->
+<!--<th></th>-->
+<!--<th *ngFor="let item of showCol">{{item.value}}</th>-->
+<!--</tr>-->
+<!--</thead>-->
+<!--<tbody>-->
+<!--<ng-template [ngIf]="_anys|isNotEmpty">-->
+<!--<tr *ngFor="let item of _anys"-->
+<!--(click)="getSelect(item,item.id)">-->
+<!--<td *ngIf="!isMulti"><input type="radio" [checked]="item.id==select.id"></td>-->
+<!--<td *ngIf="isMulti"><input type="checkbox" name="itemasd" [checked]="getMultCheck(item)"></td>-->
+<!--<th *ngFor="let col of showCol">{{item[col.name]}}</th>-->
+<!--</tr>-->
+<!--<ngb-pagination class="d-flex justify-content-center"-->
+<!--[collectionSize]="pageQuery.responses.totalElements"-->
+<!--[(page)]="pageQuery.page" [maxSize]="pageQuery.pageSize"-->
+<!--[rotate]="true" [boundaryLinks]="true"-->
+<!--(pageChange)="pageChange($event)"></ngb-pagination>-->
+<!--</ng-template>-->
+<!--</tbody>-->
+<!--</table>-->
+
+<!--<app-no-data-tip [isShow]="_anys|isEmpty"></app-no-data-tip>-->

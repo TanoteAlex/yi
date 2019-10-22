@@ -1,0 +1,95 @@
+<page-header [title]="title"></page-header>
+<nz-card [nzBordered]="false">
+  <form nz-form [formGroup]="commonForm">
+
+    <nz-form-item>
+      <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="username">会员账号</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8">
+        <nz-form-text>{{member?.username}}</nz-form-text>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="nickname">会员昵称</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8">
+        <nz-form-text>{{member?.nickname}}</nz-form-text>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="memberLevel">会员等级</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8">
+        <app-modal-selecet #memberLevelModalSelect
+          [showCol]="[{name:'discount',value:'折扣%',isShow:false},{name:'name',value:'等级名',isShow:true}]"
+          [select]="commonForm.value.memberLevel"
+          [resultName]="commonForm.value.memberLevel ? commonForm.value.memberLevel.name : '请选择'"
+          [baseService]="memberLevelService"
+          (result)="setMemberLevel($event)">
+        </app-modal-selecet>
+        <nz-form-explain class="has-error" *ngIf="commonForm.get('memberLevel').dirty && commonForm.get('memberLevel').errors">
+          <ng-container *ngFor="let error of formErrors.memberLevel">
+            <nz-form-explain *ngIf="commonForm.get('memberLevel').errors[error.name]">{{ error.msg }}</nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzXs="3" nzSm="3" >上级会员</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8">
+        <app-modal-selecet #parentMemberModalSelect
+                           [filters]="[{filterName:'username',name:'账号',value:''}]"
+                           [showCol]="[{name:'username',value:'账号',isShow:true},{name:'nickname',value:'会员昵称',isShow:false}]"
+                           [select]="commonForm.value.parent"
+                           [resultName]="commonForm.value.parent ? commonForm.value.parent.username :'请选择'"
+                           [baseService]="memberService"
+                           (result)="setMember($event)">
+        </app-modal-selecet>
+
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+
+      <nz-form-label nzXs="3" nzSm="3" nzFor="community">所属小区</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8">
+        <app-modal-selecet #communityModalSelect
+          [pageQuery]="communityPageQuery"
+          [filters]="[{filterName:'address',name:'小区名称',value:''}]"
+          [showCol]="[{name:'id',value:'小区编号',isShow:false},{name:'address',value:'小区名称',isShow:true}]"
+          [select]="commonForm.value.community"
+          [resultName]="commonForm.value.community ? commonForm.value.community.address : '请选择'"
+          [baseService]="communityService"
+          (result)="setCommunity($event)">
+        </app-modal-selecet>
+      </nz-form-control>
+
+    </nz-form-item>
+
+    <nz-form-item>
+
+      <nz-form-label nzXs="3" nzSm="3"  nzFor="province">地区</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+        <nz-province-basic [values]="position" (result)="setProvince($event)"></nz-province-basic>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzXs="3" nzSm="3"  nzFor="address">小区</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+        <input nz-input formControlName="address" id="address" placeholder="输入小区">
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 18 }">
+        <nz-modal-customer [showButton]="false" (ok)="onSubmit()" [title]="'提示！'" [content]="'确认要提交吗？'"
+                           [buttonName]="'提交'">
+          <nz-divider nzType="vertical"></nz-divider>
+        </nz-modal-customer>
+        <button nz-button class="ml-sm" type="button" (click)="goBack()">返回</button>
+      </nz-form-control>
+    </nz-form-item>
+
+  </form>
+</nz-card>

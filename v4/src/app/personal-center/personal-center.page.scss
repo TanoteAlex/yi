@@ -1,0 +1,4 @@
+.list-ios:not(.list-inset):not(.list-ios-lines-none) .item:last-child {
+  --border-width: 0 !important;
+  width: 100% !important;
+}

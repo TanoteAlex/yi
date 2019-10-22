@@ -1,0 +1,90 @@
+@import "../../../global.scss";
+
+.nickname {
+  min-width: 75px;
+}
+
+.title-name {
+  padding-bottom: 10px;
+  div {
+    width: 100%;
+  }
+}
+
+.detail {
+  .card {
+    box-shadow: none !important;
+  }
+}
+
+.commodity-evaluation {
+  background-color: white;
+  ion-button {
+    display: block;
+    --border-radius: 1.1rem;
+    --margin-end: auto;
+    --margin-start: auto;
+  }
+  .evaluation-item {
+    padding: 0 10px 20px 10px;
+  }
+}
+
+.common-list {
+  padding: 0 10px !important;
+}
+
+.detail-script {
+  img {
+    width: 100%;
+  }
+}
+
+.evaluation {
+  ion-list-header {
+    padding: 15px 0 15px 15px;
+  }
+  .evaluation-item {
+    margin-top: 10px;
+  }
+}
+
+star {
+  padding-top: 5px;
+  height: 40px;
+}
+
+ion-label {
+  font-size: 13px !important;
+}
+
+.params {
+  ion-item {
+    --padding-top: 5px;
+    --padding-bottom: 5px;
+  }
+}
+
+.comment-item:not(:last-of-type) {
+  border-bottom: 1px solid $divid-color;
+}
+
+.hy-flex{
+  display: flex;
+}
+
+.comment-body{
+  flex: 1;
+}
+
+.ml-1{
+  margin-left: 1rem;
+}
+
+.comment-author{
+  height: 2rem;
+  @extend .greys;
+  @extend .flex-space-between;
+}
+
+

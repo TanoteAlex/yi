@@ -1,0 +1,95 @@
+<page-header [title]="'爱生活'">
+  <ng-template #breadcrumb>
+    <nz-breadcrumb>
+      <nz-breadcrumb-item>
+        <a [routerLink]="['/article/list']">营销管理</a>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item>爱生活</nz-breadcrumb-item>
+    </nz-breadcrumb>
+  </ng-template>
+</page-header>
+
+<nz-tabset>
+  <nz-tab nzTitle="{{menu.name}}" *ngFor="let menu of menus;let i=index" (nzClick)="onItemClick(i)">
+
+    <nz-card [nzBordered]="false">
+      <form nz-form [nzLayout]="'inline'" [formGroup]="searchForm" class="search__form">
+        <nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32, xl: 32, xxl: 32  }">
+
+          <nz-col nzMd="8" nzSm="24">
+            <nz-form-item>
+              <nz-form-label>文章标题</nz-form-label>
+              <nz-form-control>
+                <input nz-input formControlName="title" placeholder="请输入文章标题">
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+
+        </nz-row>
+      </form>
+
+      <button nz-button [routerLink]="'../add'" [nzType]="'primary'">
+        <i class="anticon anticon-plus"></i>
+        <span>新建</span>
+      </button>
+
+      <nz-table
+        #ajaxTable
+        [nzShowSizeChanger]="true"
+        [nzFrontPagination]="false"
+        [nzData]="datas"
+        [nzLoading]="loading"
+        [nzTotal]="pageQuery.responses.totalElements"
+        [(nzPageIndex)]="pageQuery.page"
+        [(nzPageSize)]="pageQuery.pageSize"
+        (nzPageIndexChange)="searchData()"
+        (nzPageSizeChange)="searchData(true)">
+
+        <thead (nzSortChange)="sort($event)" nzSingleSort>
+        <tr>
+          <th>文章标题</th>
+          <th>文章副标题</th>
+          <th>作者</th>
+          <th>图片</th>
+
+          <th>创建时间</th>
+          <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let data of ajaxTable.data">
+          <td>{{data.title}}</td>
+          <td>{{data.subtitle}}</td>
+          <td>{{data.author}}</td>
+          <td><img class="table-img-customer" [src]="data?.imgPath"></td>
+
+          <td>{{data.createTime}}</td>
+          <td>
+            <a [routerLink]="'../edit/'+data.id">编辑
+              <nz-divider nzType="vertical"></nz-divider>
+            </a>
+            <a [routerLink]="'../view/'+data.id">详情
+              <nz-divider nzType="vertical"></nz-divider>
+            </a>
+
+            <nz-modal-customer *ngIf="data.state==1" (ok)="upShelf(data.id)" [title]="'提示！'" [content]="'确认要上架吗？'"
+                               [buttonName]="'上架'">
+              <nz-divider nzType="vertical"></nz-divider>
+            </nz-modal-customer>
+            <nz-modal-customer *ngIf="data.state==1" (ok)="remove(data.id)" [title]="'提示！'" [content]="'确认要删除吗？'"
+                               [buttonName]="'删除'">
+              <nz-divider nzType="vertical"></nz-divider>
+            </nz-modal-customer>
+            <nz-modal-customer *ngIf="data.state==0" (ok)="downShelf(data.id)" [title]="'提示！'" [content]="'确认要下架吗？'"
+                               [buttonName]="'下架'">
+              <nz-divider nzType="vertical"></nz-divider>
+            </nz-modal-customer>
+          </td>
+        </tr>
+        </tbody>
+      </nz-table>
+    </nz-card>
+
+  </nz-tab>
+</nz-tabset>
+

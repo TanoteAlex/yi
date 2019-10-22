@@ -1,0 +1,111 @@
+<page-header [title]="'退货列表'">
+  <ng-template #breadcrumb>
+    <nz-breadcrumb>
+      <nz-breadcrumb-item>
+        <a [routerLink]="['/dashboard/return-order/list']">订单管理</a>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item>退货处理</nz-breadcrumb-item>
+    </nz-breadcrumb>
+  </ng-template>
+</page-header>
+
+<nz-card [nzBordered]="false">
+  <form nz-form [nzLayout]="'inline'" [formGroup]="searchForm" class="search__form">
+    <nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32, xl: 32, xxl: 32  }">
+
+      <nz-col nzXs="6" nzSm="6">
+        <nz-form-item>
+          <nz-form-label>服务单号</nz-form-label>
+          <nz-form-control>
+            <input nz-input formControlName="returnNo" placeholder="请输入服务单号">
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+
+      <nz-col nzXs="6" nzSm="6">
+        <nz-form-item>
+          <nz-form-label>会员账号</nz-form-label>
+          <nz-form-control>
+            <input nz-input formControlName="username" placeholder="请输入会员账号">
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+
+      <nz-col [nzSpan]="expandForm ? 24 : 6" [class.text-right]="expandForm">
+        <button nz-button [nzType]="'primary'" (click)="searchData()" [nzLoading]="loading">查询</button>
+        <button nz-button (click)="clearSearch()" class="mx-sm">重置</button>
+      </nz-col>
+    </nz-row>
+  </form>
+
+  <nz-table
+    #ajaxTable
+    [nzShowSizeChanger]="true"
+    [nzFrontPagination]="false"
+    [nzData]="datas"
+    [nzLoading]="loading"
+    [nzTotal]="pageQuery.responses.totalElements"
+    [(nzPageIndex)]="pageQuery.page"
+    [(nzPageSize)]="pageQuery.pageSize"
+    (nzPageIndexChange)="searchData()"
+    (nzPageSizeChange)="searchData(true)">
+
+    <thead (nzSortChange)="sort($event)" nzSingleSort>
+    <tr>
+      <th>服务单号</th>
+      <th>商品信息</th>
+      <th>申请时间</th>
+      <th>收货人信息</th>
+      <th>实际支付</th>
+      <th>退款金额</th>
+      <th>处理时间</th>
+      <th>状态</th>
+      <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let returnOrder of ajaxTable.data">
+      <td>{{returnOrder.returnNo}}</td>
+      <td>
+        <div *ngFor="let commoditys of returnOrder.saleOrder.saleOrderItems" style="display: table">
+          <div style=" float: left">
+            <img class="table-img-customer" [src]="commoditys?.commodityImg">&nbsp;&nbsp;
+          </div>
+          <div style=" float: left">
+            {{commoditys.commodityName}}<br><br>
+            ￥{{commoditys.price}}&nbsp;({{commoditys.quantity}}件)
+          </div>
+        </div>
+      </td>
+      <td>{{returnOrder.applyTime}}</td>
+      <td>
+        {{returnOrder.saleOrder.consignee}}
+        <br>
+        {{returnOrder.saleOrder.consigneePhone}}
+        <br>
+        {{returnOrder.saleOrder.consigneeAddr.substring(0,6)|districtPipe}}
+        {{returnOrder.saleOrder.consigneeAddr.substring(6,12)|districtPipe}}
+        {{returnOrder.saleOrder.consigneeAddr.substring(12,18)|districtPipe}}
+        {{returnOrder.saleOrder.consigneeAddr.substring(18,30)}}
+      </td>
+      <td>{{returnOrder.saleOrder.payAmount}}</td>
+      <td>{{returnOrder.refundAmount}}</td>
+      <td>{{returnOrder.handleTime}}</td>
+      <td>
+        <span *ngIf="returnOrder?.processType==0"></span>
+        <span *ngIf="returnOrder?.processType==1">确认退货</span>
+        <span *ngIf="returnOrder?.processType==2">拒绝退货</span>
+        <span *ngIf="returnOrder?.processType==3">确认收货</span>
+        <span *ngIf="returnOrder?.processType==4">确认退款</span>
+        <span *ngIf="returnOrder?.processType==5">拒绝退款</span>
+      </td>
+      <!--<td *ngIf="returnOrder.processs==null"></td>-->
+      <td>
+        <a [routerLink]="'../view/'+returnOrder.id">详情
+        </a>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+</nz-card>
+

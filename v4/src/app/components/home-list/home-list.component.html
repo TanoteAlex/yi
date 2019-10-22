@@ -1,0 +1,12 @@
+<ion-list class="common-list">
+    <!--<ng-template #banner></ng-template>-->
+    <!--<ng-template #buttonList></ng-template>-->
+    <!--<ng-template #commodities></ng-template>-->
+    <p>{{banners.length}}{{commodities.length}}</p>
+    <banner-slide [banners]="banners"></banner-slide>
+
+    <app-show-buttons-list></app-show-buttons-list>
+
+    <app-show-commodities [id]="item.id" [item]="item" *ngFor="let item of commodities | sortPipe "></app-show-commodities>
+
+</ion-list>

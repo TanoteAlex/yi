@@ -1,0 +1,27 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>
+            爱生活
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content #content >
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="正在加载..."></ion-refresher-content>
+    </ion-refresher>
+
+    <ion-card *ngFor="let item of ArticleVo" (click)="goDetail(item.id)" [id]="item.id">
+        <img-lazy-load [src]="item.imgPath | thumbnailPipe : 'l'"></img-lazy-load>
+        <ion-row>
+                <p class="common-font black" style="margin-bottom: 0">{{item.title}}</p>
+        </ion-row>
+        <ion-row>
+                <p class="common-notice greys">{{item.subtitle}}</p>
+        </ion-row>
+    </ion-card>
+
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="正在加载..."></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>

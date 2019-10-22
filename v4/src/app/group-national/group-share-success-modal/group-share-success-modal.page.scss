@@ -1,0 +1,25 @@
+center-modal {
+  text-align: center;
+  .success-info{
+    margin-top: 65px;
+  }
+  .share-tip{
+    margin-top: 30px;
+    ion-button{
+      --height: 35px;
+    }
+    div{
+      margin: 10px;
+    }
+  }
+}
+
+center-modal ::ng-deep .body {
+  background-color: white;
+  border-radius: 10px;
+  .content {
+    background: url("../../../assets/app_icon/home/签到成功弹窗-banner@2x.png") no-repeat !important;
+    background-size: 100% !important;
+    background-position-y: -40px!important;
+  }
+}

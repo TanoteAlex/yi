@@ -1,0 +1,30 @@
+@import "../../../global";
+
+.head {
+  height: 100%;
+  background-color: #000;
+  opacity: 0.4;
+  transform: translateZ(0);
+  z-index: -1;
+}
+
+.body {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  .content {
+    background: white;
+    height: 100%;
+    z-index: 9999;
+    ion-header {
+      height: 20px;
+    }
+    ion-title {
+      font-weight: normal !important;
+      margin-bottom: 10px;
+    }
+    ion-row:not(:last-of-type) {
+      border-bottom: 1px solid $divid-color;
+    }
+  }
+}

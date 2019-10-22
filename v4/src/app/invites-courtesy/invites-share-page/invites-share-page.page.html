@@ -1,0 +1,30 @@
+<div class="head"></div>
+<div class="body">
+  <div class="content">
+    <ion-row justify-content-center>
+      <div class="invite-share-title1">更&nbsp;多&nbsp;好&nbsp;礼&nbsp;等&nbsp;你&nbsp;来</div>
+    </ion-row>
+    <ion-row justify-content-center>
+      <div class="invite-share-title2">好&nbsp;友&nbsp;扫&nbsp;一&nbsp;扫&nbsp;注&nbsp;册&nbsp;得&nbsp;好&nbsp;礼</div>
+    </ion-row>
+    <ion-row justify-content-center>
+      <div class="invite-share-qrcode-img">
+        <div>
+          <!--<img src="../../../assets/app_icon/new_inviter/invites-share-qrcode.png">-->
+          <img class="code-img" [src]=myCode >
+        </div>
+      </div>
+    </ion-row>
+    <ion-row justify-content-center>
+      <div class="invite-share-title3">扫&nbsp;码&nbsp;分&nbsp;享&nbsp;好&nbsp;礼</div>
+    </ion-row>
+  </div>
+
+  <ion-row justify-content-center>
+    <div class="invite-share-close" (click)="close()">
+      <img src="../../../assets/app_icon/new_inviter/invites-share-close.png">
+    </div>
+  </ion-row>
+
+  <canvas id="canvas" #canvas width="310" height="288" style="display: none"></canvas>
+</div>

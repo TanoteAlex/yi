@@ -1,0 +1,63 @@
+<page-header [title]="'查看信息'"></page-header>
+
+<nz-card>
+  <nz-form-item>
+    <nz-form-label nzXs="10" nzSm="3" nzFor="title">标题</nz-form-label>
+    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+      <nz-form-text>{{inviteActivity.title}}</nz-form-text>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label nzXs="10" nzSm="3" nzFor="banner">banner图</nz-form-label>
+    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+      <img class="table-img-customer" [src]="inviteActivity?.banner">
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label nzXs="10" nzSm="3" nzFor="startTime">开始时间</nz-form-label>
+    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+      <nz-form-text>{{inviteActivity.startTime}}</nz-form-text>
+    </nz-form-control>
+
+    <nz-form-label nzXs="10" nzSm="3" nzFor="endTime">结束时间</nz-form-label>
+    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+      <nz-form-text>{{inviteActivity.endTime}}</nz-form-text>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label nzXs="10" nzSm="3"  nzFor="inviteFlag">邀请成功标示</nz-form-label>
+    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+      <nz-form-text *ngIf="inviteActivity.inviteFlag === 1">注册</nz-form-text>
+      <nz-form-text *ngIf="inviteActivity.inviteFlag === 2">购买</nz-form-text>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzXs="10" nzSm="3"  nzFor="state">状态</nz-form-label>
+    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+      <nz-form-text>{{inviteActivity.state ==0 ?'启用':'禁用'}}</nz-form-text>
+    </nz-form-control>
+  </nz-form-item>
+
+  <!-- <nz-form-item>
+    <nz-form-label nzXs="10" nzSm="3" nzFor="rule">活动规则</nz-form-label>
+    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+      <nz-form-text>{{inviteActivity.rule}}</nz-form-text>
+    </nz-form-control>
+  </nz-form-item> -->
+  <nz-card nzTitle="活动规则" nzType="inner">
+    <nz-form-control nzXs="17" nzSm="17" nzMd="17">
+      <div [innerHtml]="sanli.bypassSecurityTrustHtml(inviteActivity.rule)" style="height:500px;overflow-y:auto"></div>
+    </nz-form-control>
+  </nz-card>
+
+  <nz-form-item>
+    <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 7 }">
+      <button nz-button nzType="primary" type="submit" [routerLink]="'../../edit/'+ inviteActivity.id">编辑</button>
+      <button nz-button class="ml-sm" type="button" (click)="goBack()">返回</button>
+    </nz-form-control>
+  </nz-form-item>
+
+</nz-card>

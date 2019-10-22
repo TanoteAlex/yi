@@ -1,0 +1,22 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>填写评论</ion-title>
+        <goback></goback>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content no-padding>
+    <ion-list class="common-list">
+        <ion-row>
+            <ion-col style="display: inherit">
+                <p class="common-sub-title red">{{article?.title}}</p>
+            </ion-col>
+        </ion-row>
+        <div style="position: relative">
+            <ion-textarea placeholder="请输入评论内容" maxlength="100" class="common-sub-title" [(ngModel)]="content" (ionBlur)="blur()"></ion-textarea>
+            <span class="tip common-spec">{{content.length}}/100</span>
+        </div>
+
+        <ion-button expand="full" shape="round" color="danger" (click)="comment()">发&nbsp;表&nbsp;评&nbsp;论</ion-button>
+    </ion-list>
+</ion-content>

@@ -1,0 +1,63 @@
+<page-header [title]="'查看信息'"></page-header>
+
+<nz-card>
+  <nz-form-item>
+
+
+    <nz-form-label nzXs="10" nzSm="3" nzFor="guid">GUID</nz-form-label>
+    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+      <nz-form-text>{{supplierAccount.guid}}</nz-form-text>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+
+    <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="supplier">供应商（supplier表）</nz-form-label>
+    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+      <nz-form-text>{{supplierAccount.supplier}}</nz-form-text>
+    </nz-form-control>
+
+    <nz-form-label nzXs="10" nzSm="3" nzFor="amount">账户金额-待定字段</nz-form-label>
+    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+      <nz-form-text>{{supplierAccount.amount}}</nz-form-text>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+
+    <nz-form-label nzXs="10" nzSm="3" nzFor="balance">账户余额</nz-form-label>
+    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+      <nz-form-text>{{supplierAccount.balance}}</nz-form-text>
+    </nz-form-control>
+
+    <nz-form-label nzXs="10" nzSm="3" nzFor="freezeAmount">冻结金额</nz-form-label>
+    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+      <nz-form-text>{{supplierAccount.freezeAmount}}</nz-form-text>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+
+    <nz-form-label nzXs="10" nzSm="3" nzFor="withdrawAmount">提现金额</nz-form-label>
+    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+      <nz-form-text>{{supplierAccount.withdrawAmount}}</nz-form-text>
+    </nz-form-control>
+
+    <nz-form-label nzXs="10" nzSm="3" nzFor="createTime">创建时间</nz-form-label>
+    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+      <nz-form-text>{{supplierAccount.createTime}}</nz-form-text>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+
+    <nz-form-label nzXs="10" nzSm="3" nzFor="remark">备注</nz-form-label>
+    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+      <nz-form-text>{{supplierAccount.remark}}</nz-form-text>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 7 }">
+      <button nz-button nzType="primary" type="submit" [routerLink]="'../../edit/'+ supplierAccount.id">编辑</button>
+      <button nz-button class="ml-sm" type="button" (click)="goBack()">返回</button>
+    </nz-form-control>
+  </nz-form-item>
+
+</nz-card>

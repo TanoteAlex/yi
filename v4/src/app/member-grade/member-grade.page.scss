@@ -1,0 +1,22 @@
+@import "../../global";
+@import "../growth-value/growth-value.page";
+
+.bg-img {
+  position: absolute;
+  width: 100%;
+  height: 200px;
+  background: url("../../assets/app_icon/customer/会员等级banner@2x.png") no-repeat;
+  background-size: cover;
+  .bg-grade {
+    width: 144px;
+    height: 120px;
+    margin-top: 35px;
+    background: url("../../assets/app_icon/customer/成长值icon@2x.png") no-repeat center;
+    background-size: 100% 100%;
+    & > div {
+      color: $blank-color;
+      font-size: 35px !important;
+      padding-top: 30px;
+    }
+  }
+}

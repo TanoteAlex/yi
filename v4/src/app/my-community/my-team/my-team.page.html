@@ -1,0 +1,32 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>小区成员</ion-title>
+        <goback></goback>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content no-padding>
+    <div *ngFor="let item of memberList" class="team-item flex-center">
+        <div class="team-avatar">
+            <img onerror="this.src='../../assets/imgs/null-category.png'" [src]="item.avater">
+        </div>
+        <div class="team-member">
+            <div>{{item.nickname}}</div>
+            <div class="grey common-spec">注册时间：{{item.createTime.substr(0,16)}}</div>
+        </div>
+        <!--<div class="common-sub-title">推广<span class="red">{{item.promotionNum}}</span>人</div>-->
+    </div>
+
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="正在加载..."></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+    <div class="nolist" *ngIf="!memberList?.length">
+        <ion-label class="grey">暂无人员记录~</ion-label>
+    </div>
+
+    <div class="loading" *ngIf="isLoading">
+        <ion-spinner></ion-spinner>
+    </div>
+
+</ion-content>

@@ -1,0 +1,154 @@
+@import "../../../global";
+
+ion-toolbar {
+  --ion-toolbar-background-color: white;
+  ion-searchbar {
+    display: inline-block;
+    padding-top: 3px;
+    width: 88%;
+    padding-bottom: 0;
+    height: 40px;
+    --background: #f7f7fb;
+  }
+}
+
+ion-segment {
+  padding: 0;
+  border: none;
+  ion-segment-button {
+    height: 46px;
+    background-color: $space-color;
+    @extend .common-sub-title;
+  }
+}
+
+.banner{
+  background: url("../../../assets/app_icon/activity/明日预告banner@2x.png") no-repeat;
+  background-size: 100%;
+  text-align: center;
+  height: 100px;
+  display: flex;
+  .banner-content{
+    font-size: 22px;
+    @extend .red;
+    .banner-icon{
+      width: 20px;
+      height: 20px;
+      margin-top: 4px;
+      margin-right: 5px;
+      float: left;
+    }
+    .now-icon{
+      background: url("../../../assets/app_icon/activity/抢购icon@2x.png") no-repeat;
+      background-size: 100%;
+    }
+    .soon-icon{
+      background: url("../../../assets/app_icon/activity/开抢时间icon@2x.png") no-repeat;
+      background-size: 100%;
+    }
+  }
+  .remain-time{
+    margin: 10px 0;
+    @extend .red;
+    @extend .common-notice;
+  }
+  .remain-time ::ng-deep time-count{
+    .time-count{
+      color: white;
+      span{
+        background: $main-color;
+        color: white;
+      }
+    }
+  }
+}
+
+.commodity-list {
+  background-color: white;
+  .commodity {
+    padding: 5px 10px;
+    position: relative;
+    .title-tip {
+      border: 1px solid $main-color;
+      display: inline-block;
+      padding: 0 3px;
+      border-radius: 3px;
+      margin-right: 5px;
+      @extend .red
+    }
+    .tip {
+      border-radius: 9px;
+      background-color: #ffeaed;
+      padding: 1px 9px;
+      display: inline-block;
+      @extend .red;
+    }
+  }
+  ion-row:not(:last-of-type) {
+    .common-shopping {
+      border-bottom: 1px solid $divid-color;
+    }
+  }
+  .forward {
+    position: absolute;
+    right: 0;
+    background-color: $main-color;
+    border-radius: 3px;
+    padding: 0 5px 0 15px;
+    ion-note {
+      vertical-align: super;
+    }
+  }
+
+  .flash-tip{
+    margin-top: 7px;
+    color: #ffae00;
+    @extend .common-notice;
+  }
+  .remind-btn{
+    background: url("../../../assets/app_icon/activity/提醒我icon@2x.png") no-repeat;
+    background-size: 100%;
+    width: 83px;
+    height: 28px;
+    right: 0;
+  }
+}
+
+.bottom {
+  position: absolute;
+  bottom: 7px;
+}
+
+p {
+  margin: 3px 0;
+}
+
+.percent-outer{
+  display: flex;
+  .percent {
+    display: inline-block;
+    height: 13px;
+    line-height: 20px;
+    border-radius: 10px;
+    background: #EEE;
+    margin-top: 7px;
+    flex:1;
+    .inner {
+      background: red;
+      height: 100%;
+      border-radius: 10px;
+      display: block;
+      text-align: right;
+      line-height: 100%;
+      padding-right: 5px;
+      @extend .white;
+      @extend .common-spec;
+    }
+  }
+  .percent-tip{
+    margin-left: 10px;
+    margin-top: 5px;
+    @extend .common-notice;
+    @extend .red;
+  }
+}

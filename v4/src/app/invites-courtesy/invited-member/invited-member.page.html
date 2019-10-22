@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>邀请好友人数</ion-title>
+    <goback></goback>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="first-container">
+    <div class="common-notice white">我的历史记录</div>
+    <div class="container">
+      <div>
+        <div>{{invitesNum.totalNum}}</div>
+        <div>累计获得好友人数</div>
+      </div>
+      <div>
+        <div>{{invitesNum.successNum}}</div>
+        <div>已购买成功人数</div>
+      </div>
+      <div>
+        <div>{{invitesNum.failureNum}}</div>
+        <div>已注册成功人数</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="second-container">
+    <div class="common-notice black">参加活动购买人数<span class="invited-main-color" *ngIf="false">&nbsp;(还差8个可领取iPhoneX)</span></div>
+    <div class="invited-member">
+      <div class="table-head">
+        <div>姓名</div>
+        <div>物品</div>
+        <div>时间</div>
+      </div>
+      <div class="table-body">
+        <div *ngFor="let item of successOrders">
+          <div>{{item.nickname}}</div>
+          <div>{{item.commodityName}}</div>
+          <div>{{item.orderTime}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="second-container">
+    <div class="common-notice black">注册人数</div>
+    <div class="invited-member">
+      <div class="table-head">
+        <div>姓名</div>
+        <div></div>
+        <div>未购买</div>
+      </div>
+      <div class="table-body">
+        <div *ngFor="let item of failureMembers">
+          <div>{{item.nickname}}</div>
+          <div></div>
+          <div style="color:rgba(250,114,111,1);">
+            ---<!--<div class="remind-btn" (click)="remind(item.phone)">提醒</div>-->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="third-container">
+    <div (click)="goInviteCode()">继续邀请</div>
+  </div>
+</ion-content>

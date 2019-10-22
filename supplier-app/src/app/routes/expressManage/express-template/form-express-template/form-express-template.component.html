@@ -1,0 +1,51 @@
+<page-header [title]="title"></page-header>
+<nz-card [nzBordered]="false">
+  <form nz-form [formGroup]="commonForm1">
+
+    <nz-card nzTitle="快递模板" nzType="inner" formArrayName="arryControl">
+      <div style="margin-bottom: 10px" *ngFor="let form of arryControl.controls;let i=index;" [formGroupName]="i">
+        <nz-card nzTitle="模板{{i+1}}" nzType="inner">
+          <!--<div nz-row class="theTitle">-->
+          <!--<div nz-col nzSpan="24"><h5></h5></div>-->
+          <!--</div>-->
+          <div nz-row class="layout">
+            <!--<div nz-col nzSpan="6">
+                  <p>编号</p>
+                  <input nz-input formControlName="templateNo" id="templateNo" placeholder="编号">
+                </div>-->
+            <div nz-col nzSpan="8">
+              <p>单据名称</p>
+              <input nz-input formControlName="templateName" id="templateName" placeholder="单据名称">
+            </div>
+            <div nz-col nzSpan="8">
+              <p>单据打印项</p>
+              <input nz-input style="width: 50%" formControlName="printHigh" id="printHigh" placeholder="高">
+              <input nz-input style="width: 50%" formControlName="printWidth" id="printWidth" placeholder="宽">
+            </div>
+            <div nz-col nzSpan="8" style="text-align: center">
+              <p>操作</p>
+              <nz-radio-group formControlName="state" id="state">
+                <label nz-radio [nzValue]="0">启用</label>
+                <label nz-radio [nzValue]="1">禁用</label>
+              </nz-radio-group>
+              <label><a (click)="deleteName(i)">删除</a></label>
+            </div>
+          </div>
+        </nz-card>
+      </div>
+    </nz-card>
+  </form>
+  <nz-form-item>
+    <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 18 }">
+
+      <nz-modal-customer [showButton]="false" (ok)="onSubmit()" [title]="'提示！'" [content]="'确认要提交吗？'"
+                         [buttonName]="'提交'">
+        <nz-divider nzType="vertical"></nz-divider>
+      </nz-modal-customer>
+      <button nz-button class="ml-sm" type="button" (click)="goBack()">返回</button>
+      <button nz-button class="ml-sm" type="button" (click)="addNewTemplate()">添加物流模板</button>
+    </nz-form-control>
+  </nz-form-item>
+
+
+</nz-card>

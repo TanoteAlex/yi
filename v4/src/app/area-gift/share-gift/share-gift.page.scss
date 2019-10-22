@@ -1,0 +1,35 @@
+@import "../../../global";
+@import "../area-gift.page";
+
+ion-content{
+  text-align: center;
+  background-color: blue;
+  .content{
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    background-color: white;
+    margin-top: 3rem;
+    .avatar{
+      width: 4.5rem;
+      height: 4.5rem;
+      margin: -2rem auto 0;
+      background-color: white;
+      border:1px solid $divid-color;
+      @extend .radius
+    }
+    .gift{
+      margin: 1rem;
+      padding: 0 0.5rem;
+      border: 1px solid $yellow-color;
+      border-radius: 0.5rem;
+      max-height: 220px;
+      overflow: scroll;
+    }
+    .btns{
+      display: flex;
+      justify-content: space-around;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+    }
+  }
+}

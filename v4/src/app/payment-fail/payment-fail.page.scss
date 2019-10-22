@@ -1,0 +1,29 @@
+ion-content{
+  --ion-background-color: white;
+}
+.normal {
+  .success-icon {
+    margin-top: 35px;
+  }
+  ion-content, ion-list {
+    background-color: white;
+  }
+
+  .btns {
+    text-align: center;
+    margin: 50px 0 0;
+    --padding-start: 30px;
+    --padding-end: 30px;
+    ion-button {
+      margin: 0 10px;
+      --height: 35px;
+    }
+  }
+  footer-tip ::ng-deep {
+    div {
+      padding-left: 0 !important;
+    }
+    position: absolute;
+    bottom: 5px;
+  }
+}

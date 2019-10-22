@@ -1,0 +1,46 @@
+<!--<ion-tabs>
+    <ion-tab (ionSelect)="selectTab(0)" label="首页"  href="/tabs/(home:home)">
+        <ion-router-outlet name="home"></ion-router-outlet>
+    </ion-tab>
+    <ion-tab (ionSelect)="selectTab(1)" label="分类" href="/tabs/(category:category)">
+        <ion-router-outlet name="category"></ion-router-outlet>
+    </ion-tab>
+    <ion-tab (ionSelect)="selectTab(2)" label="爱生活" href="/tabs/(loveLife:loveLife)">
+        <ion-router-outlet name="loveLife"></ion-router-outlet>
+    </ion-tab>
+    <ion-tab (ionSelect)="selectTab(3)" label="购物车" href="/tabs/(shoppingCart:shoppingCart)">
+        <ion-router-outlet name="shoppingCart"></ion-router-outlet>
+    </ion-tab>
+    <ion-tab (ionSelect)="selectTab(4)" label="我的" href="/tabs/(customerCenter:customerCenter)">
+        <ion-router-outlet name="customerCenter"></ion-router-outlet>
+    </ion-tab>
+</ion-tabs>-->
+
+<ion-tabs>
+    <ion-tab-bar slot="bottom">
+        <ion-tab-button (ionSelect)="selectTab(0)" tab="home">
+            <ion-icon name="home"></ion-icon>
+            <ion-label>首页</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button (ionSelect)="selectTab(1)" tab="category">
+            <ion-icon name="compass"></ion-icon>
+            <ion-label>分类</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button (ionSelect)="selectTab(2)" tab="loveLife">
+            <ion-icon name="navigate"></ion-icon>
+            <ion-label>爱生活</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button (ionSelect)="selectTab(3)" tab="shoppingCart">
+            <ion-icon name="notifications"></ion-icon>
+            <ion-label>购物车</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button (ionSelect)="selectTab(4)" tab="customerCenter">
+            <ion-icon name="octocat"></ion-icon>
+            <ion-label>我的</ion-label>
+        </ion-tab-button>
+    </ion-tab-bar>
+</ion-tabs>

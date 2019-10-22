@@ -1,0 +1,158 @@
+@import "../../global.scss";
+
+ion-segment {
+  margin: 0 auto 2px;
+  background-color: transparent;
+  border-bottom:transparent;
+  ion-segment-button{
+    --border-radius: 0;
+  }
+  .segment-button-checked{
+    .segment-line{
+      border-bottom: 1.5px solid;
+    }
+  }
+  .segment-line{
+    height: 1.5px;
+    width: 40px;
+    position: relative;
+    bottom: -3px;
+  }
+}
+
+.nickname {
+  min-width: 75px;
+}
+
+.title-name {
+  .commodity-name{
+    font-size: 15px;
+  }
+  .commodity-short-name{
+    margin: 9px 0 15px;
+    @extend .grey;
+    @extend .common-sub-notice;
+  }
+  .commodity-price{
+    &>span{
+      margin-right: 16px;
+    }
+  }
+}
+
+.detail {
+  .card {
+    box-shadow: none !important;
+  }
+}
+
+.common-list {
+  padding: 0 10px !important;
+}
+
+.detail-script {
+  img {
+    width: 100%;
+  }
+}
+
+ion-footer {
+  img {
+    width: 32px;
+    height: 32px;
+    margin-left: 0.5rem;
+    margin-top: 8px;
+  }
+  ion-toolbar {
+    --padding-top: 0;
+    --padding-bottom: 0;
+    ion-button {
+      float: right;
+      --border-width: 0;
+    }
+    .add-shopping-cart {
+      --background: #f2f2f8;
+      color: #111c78;
+    }
+    .toolbar-container {
+      background-color: white;
+    }
+  }
+}
+
+ion-label {
+  font-size: 13px !important;
+}
+
+.params {
+  ion-item {
+    --padding-top: 5px;
+    --padding-bottom: 5px;
+  }
+}
+
+.sendCoupon{
+  padding: 10px;
+  @extend .common-sub-title;
+  @extend .flex-space-between;
+  .sendCoupon-content{
+    @extend .greys
+  }
+}
+
+.sendCoupon-tip{
+  background-color: $main-color;
+  padding: 2px 5px;
+  margin-right: 5px;
+  border-radius: 4px;
+  @extend .white
+}
+
+.bottom-btn{
+  background-color: rgb(222,50,50);
+  color: rgb(255,255,255);
+  border-radius: 10px;
+  display: inline-block;
+  width: 91px;
+  height: 34px;
+  font-size: 12px;
+  text-align: center;
+  line-height: 34px;
+  float: right;
+  margin-top: 8px;
+  margin-bottom: 6px;
+  margin-left: 26px;
+}
+
+.hy-red{
+  color: rgb(222,50,50);
+}
+.hy-green{
+  color: #333333;
+}
+
+.hy-black{
+  color: #999999;
+}
+
+.hy-f-title{
+  font-size: 18px;
+}
+.hy-f-font{
+  font-size: 12px;
+}
+.hy-f-spec{
+  font-size: 9px;
+}
+
+.share-btn{
+  width: 35px;
+  height: 35px;
+  -ms-grid-row-align: center;
+  align-self: center;
+  background: url("../../assets/app_icon/new_commodity/share_code.png") no-repeat;
+  background-size: 100% 100%;
+  position: absolute;
+  top: 30%;
+  right: 10px;
+}

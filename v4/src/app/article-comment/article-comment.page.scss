@@ -1,0 +1,22 @@
+@import "../../global";
+ion-content {
+  .common-list {
+    padding: 10px !important;
+    star {
+      margin: auto 10px;
+    }
+    ion-textarea {
+      padding: 0 10px!important;
+      margin-bottom: 20px;
+    }
+    button {
+      margin-top: 40px;
+    }
+    .tip{
+      position: absolute;
+      right: 10px;
+      top: 175px;
+      @extend .grey
+    }
+  }
+}

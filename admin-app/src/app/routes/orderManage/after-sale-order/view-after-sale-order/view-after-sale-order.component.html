@@ -1,0 +1,387 @@
+<page-header [title]="'查看售后信息'"></page-header>
+
+<nz-card>
+
+  <nz-card nzTitle="售后进度状态" nzType="inner">
+
+    <nz-steps
+      *ngIf="afterSaleOrder.afterSaleType == 2 && afterSaleOrder.processState== 1 || afterSaleOrder.processState== 2 || afterSaleOrder.processState== 3"
+      [nzCurrent]="afterSaleOrder.processState-1" nzProgressDot>
+      <nz-step
+        [nzTitle]="'待审核'" [nzDescription]="createDesc">
+        <ng-template #createDesc></ng-template>
+      </nz-step>
+      <nz-step [nzTitle]="'待收货'" [nzDescription]="checkedDesc">
+        <ng-template #checkedDesc></ng-template>
+      </nz-step>
+      <nz-step
+        [nzTitle]="'待退款'">
+        <ng-template></ng-template>
+      </nz-step>
+      <nz-step
+        [nzTitle]="'拒绝退货'">
+        <ng-template></ng-template>
+      </nz-step>
+      <nz-step
+        [nzTitle]="'拒绝退款'">
+        <ng-template></ng-template>
+      </nz-step>
+      <nz-step
+        [nzTitle]="'已完成'">
+        <ng-template></ng-template>
+      </nz-step>
+    </nz-steps>
+
+    <nz-steps *ngIf="afterSaleOrder.afterSaleType == 2 && afterSaleOrder.processState==4"
+              [nzCurrent]="afterSaleOrder.processState-1" nzProgressDot>
+      <nz-step
+        [nzTitle]="'待审核'" [nzDescription]="createDesc">
+        <ng-template #createDesc></ng-template>
+      </nz-step>
+      <nz-step [nzTitle]="'待收货'" [nzDescription]="checkedDesc">
+        <ng-template #checkedDesc></ng-template>
+      </nz-step>
+      <nz-step
+        [nzTitle]="'待退款'">
+        <ng-template></ng-template>
+      </nz-step>
+      <nz-step
+        [nzTitle]="'已完成'">
+        <ng-template></ng-template>
+      </nz-step>
+    </nz-steps>
+
+    <nz-steps *ngIf="afterSaleOrder.afterSaleType == 2 && afterSaleOrder.processState==5"
+              [nzCurrent]="afterSaleOrder.processState-4" nzProgressDot>
+      <nz-step
+        [nzTitle]="'待审核'" [nzDescription]="createDesc">
+        <ng-template #createDesc></ng-template>
+      </nz-step>
+      <nz-step
+        [nzTitle]="'拒绝退货'">
+        <ng-template></ng-template>
+      </nz-step>
+    </nz-steps>
+
+    <nz-steps *ngIf="afterSaleOrder.afterSaleType == 2 && afterSaleOrder.processState==6"
+              [nzCurrent]="afterSaleOrder.processState-3" nzProgressDot>
+      <nz-step
+        [nzTitle]="'待审核'" [nzDescription]="createDesc">
+        <ng-template #createDesc></ng-template>
+      </nz-step>
+      <nz-step [nzTitle]="'待收货'" [nzDescription]="checkedDesc">
+        <ng-template #checkedDesc></ng-template>
+      </nz-step>
+      <nz-step
+        [nzTitle]="'待退款'">
+        <ng-template></ng-template>
+      </nz-step>
+      <nz-step
+        [nzTitle]="'拒绝退款'">
+        <ng-template></ng-template>
+      </nz-step>
+    </nz-steps>
+
+    <nz-steps *ngIf="afterSaleOrder.afterSaleType == 1 && afterSaleOrder.processState==1"
+              [nzCurrent]="afterSaleOrder.processState-1" nzProgressDot>
+      <nz-step
+        [nzTitle]="'待审核'" [nzDescription]="createDesc">
+        <ng-template #createDesc></ng-template>
+      </nz-step>
+      <nz-step
+        [nzTitle]="'拒绝退款'">
+        <ng-template></ng-template>
+      </nz-step>
+      <nz-step
+        [nzTitle]="'已完成'">
+        <ng-template></ng-template>
+      </nz-step>
+    </nz-steps>
+
+    <nz-steps *ngIf="afterSaleOrder.afterSaleType == 1 && afterSaleOrder.processState==4"
+              [nzCurrent]="afterSaleOrder.processState-3" nzProgressDot>
+      <nz-step
+        [nzTitle]="'待审核'" [nzDescription]="createDesc">
+        <ng-template #createDesc></ng-template>
+      </nz-step>
+      <nz-step
+        [nzTitle]="'已完成'">
+        <ng-template></ng-template>
+      </nz-step>
+    </nz-steps>
+
+    <nz-steps *ngIf="afterSaleOrder.afterSaleType == 1 && afterSaleOrder.processState==6"
+              [nzCurrent]="afterSaleOrder.processState-5" nzProgressDot>
+      <nz-step
+        [nzTitle]="'待审核'" [nzDescription]="createDesc">
+        <ng-template #createDesc></ng-template>
+      </nz-step>
+      <nz-step
+        [nzTitle]="'拒绝退款'">
+        <ng-template></ng-template>
+      </nz-step>
+    </nz-steps>
+
+  </nz-card>
+
+  <nz-card nzTitle="基本信息" nzType="inner">
+
+    <desc-list class="mb-lg">
+      <desc-list-item
+        term="售后单号">{{afterSaleOrder.afterSaleNo}}
+      </desc-list-item>
+      <desc-list-item term="订单编号">{{afterSaleOrder?.orderNo}}</desc-list-item>
+      <desc-list-item term="用户账号">{{afterSaleOrder?.member?.username}}</desc-list-item>
+      <desc-list-item term="申请状态">
+        <span *ngIf="afterSaleOrder.applyState==1">审核中</span>
+        <span *ngIf="afterSaleOrder.applyState==2">处理中</span>
+        <span *ngIf="afterSaleOrder.applyState==3">已完成</span>
+      </desc-list-item>
+      <desc-list-item term="申请时间">{{afterSaleOrder.applyTime}}</desc-list-item>
+      <desc-list-item term="联系人">{{afterSaleOrder.contact}}</desc-list-item>
+      <desc-list-item term="联系电话">{{afterSaleOrder.contactPhone}}</desc-list-item>
+      <desc-list-item term="订单金额">{{afterSaleOrder.orderAmount}}</desc-list-item>
+      <desc-list-item term="支付金额">{{afterSaleOrder.payAmount}}</desc-list-item>
+      <desc-list-item term="退款金额">{{afterSaleOrder.refundAmount}}</desc-list-item>
+      <desc-list-item term="实际退款金额">{{afterSaleOrder.actualRefundAmount}}</desc-list-item>
+    </desc-list>
+
+  </nz-card>
+
+  <nz-card nzTitle="原因描述" nzType="inner">
+
+    <desc-list class="mb-lg">
+      <desc-list-item term="退货原因">{{afterSaleOrder.afterSaleReason}}</desc-list-item>
+      <desc-list-item term="问题描述">{{afterSaleOrder.problemDesc}}</desc-list-item>
+    </desc-list>
+
+  </nz-card>
+
+  <nz-card nzTitle="凭证照片" nzType="inner">
+
+    <span *ngFor="let imgs of afterSaleOrder.attachmentVos">
+      <img [src]="imgs?.filePath" class="table-img-customer-return">
+    </span>
+
+  </nz-card>
+
+  <nz-card nzTitle="退货信息" nzType="inner" *ngIf="afterSaleOrder.afterSaleType == 2">
+    <desc-list class="mb-lg">
+      <desc-list-item term="订单金额">{{afterSaleOrder.orderAmount}}</desc-list-item>
+      <desc-list-item term="支付金额">{{afterSaleOrder.payAmount}}</desc-list-item>
+      <desc-list-item term="退款金额">{{afterSaleOrder.refundAmount}}</desc-list-item>
+      <desc-list-item term="实际退款金额">{{afterSaleOrder.actualRefundAmount}}</desc-list-item>
+    </desc-list>
+  </nz-card>
+
+  <nz-card nzTitle="退货处理" nzType="inner" *ngIf="afterSaleOrder.afterSaleType == 2">
+
+    <div widget class="card border-0 box-shadow"
+         *ngIf="afterSaleOrder.processState >= 1 && afterSaleOrder.processState <= 3">
+
+      <div class="card-body widget-body" [formGroup]="commonForm">
+        <form class="form-horizontal" formGroupName="afterSaleProcess">
+
+          <div class="form-group row text-sm-right">
+            <nz-form-label class="col-sm-2 form-control-label mt-1">处理人员<span class="text-danger">*</span>
+            </nz-form-label>
+            <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+              <app-modal-selecet
+                [pageQuery]="userPageQuery"
+                [filters]="[{filterName:'fullName',name:'姓名',value:''}]"
+                [showCol]="[{name:'username',value:'用户名',isShow:false},{name:'fullName',value:'姓名',isShow:true}]"
+                [select]="commonForm.value.afterSaleProcess.user"
+                [resultName]="commonForm.value.afterSaleProcess.user.fullName"
+                [baseService]="userService"
+                (result)="setProcessUser($event)">
+              </app-modal-selecet>
+            </nz-form-control>
+          </div>
+
+          <div class="form-group row text-sm-right">
+            <nz-form-label class="col-sm-2 form-control-label mt-1">处理信息</nz-form-label>
+
+            <nz-form-control nzXs="8" nzSm="8">
+              <input nz-input type="text" formControlName="processInfo"
+                     placeholder="请输入处理信息">
+            </nz-form-control>
+          </div>
+
+          <div class="form-group row" *ngIf="afterSaleOrder.processState == 1">
+            <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 8 }">
+              <nz-modal-customer [showButton]="false" (ok)="returnRefund(afterSaleOrder.id,2)" [title]="'提示！'"
+                                 [content]="'确定确认退货吗？'" [buttonName]="'确认退货'">
+                <nz-divider nzType="vertical"></nz-divider>
+              </nz-modal-customer>&nbsp;&nbsp;
+              <nz-modal-customer [showButton]="false" (ok)="returnRefund(afterSaleOrder.id,5)" [title]="'提示！'"
+                                 [content]="'确定拒绝退货吗？'" [buttonName]="'拒绝退货'">
+                <nz-divider nzType="vertical"></nz-divider>
+              </nz-modal-customer>
+            </nz-form-control>
+          </div>
+
+          <div class="form-group row" *ngIf="afterSaleOrder.processState == 2">
+            <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 10 }">
+              <nz-modal-customer [showButton]="false" (ok)="returnRefund(afterSaleOrder.id,3)" [title]="'提示！'"
+                                 [content]="'确定确认收货吗？'" [buttonName]="'确认收货'">
+                <nz-divider nzType="vertical"></nz-divider>
+              </nz-modal-customer>&nbsp;&nbsp;
+
+            </nz-form-control>
+          </div>
+
+          <div class="form-group row" *ngIf="afterSaleOrder.processState == 3">
+            <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 8 }">
+              <nz-modal-customer [showButton]="false" (ok)="returnRefund(afterSaleOrder.id,4)" [title]="'提示！'"
+                                 [content]="'确定确认退款吗？'" [buttonName]="'确认退款'">
+                <nz-divider nzType="vertical"></nz-divider>
+              </nz-modal-customer>&nbsp;&nbsp;
+              <nz-modal-customer [showButton]="false" (ok)="returnRefund(afterSaleOrder.id,6)" [title]="'提示！'"
+                                 [content]="'确定拒绝退款吗？'" [buttonName]="'拒绝退款'">
+                <nz-divider nzType="vertical"></nz-divider>
+              </nz-modal-customer>
+            </nz-form-control>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+
+    <nz-table
+      #ajaxTable
+      [nzShowSizeChanger]="true"
+      [nzFrontPagination]="false"
+      [nzData]="afterSaleProcesss"
+      [nzLoading]="loading"
+      [nzTotal]="pageQuery.responses.totalElements"
+      [(nzPageIndex)]="pageQuery.page"
+      [(nzPageSize)]="pageQuery.pageSize"
+      (nzPageIndexChange)="searchData()"
+      (nzPageSizeChange)="searchData(true)">
+
+      <thead (nzSortChange)="sort($event)" nzSingleSort>
+      <tr>
+        <th>处理人</th>
+        <th>处理类型</th>
+        <th>处理信息</th>
+        <th>处理时间</th>
+        <th>备注</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let afterSaleProcess of ajaxTable.data">
+        <td>{{afterSaleProcess.processPerson}}</td>
+        <td>
+          <span *ngIf="afterSaleProcess.processType == 1">待审核</span>
+          <span *ngIf="afterSaleProcess.processType == 2">待收货</span>
+          <span *ngIf="afterSaleProcess.processType == 3">待退款</span>
+          <span *ngIf="afterSaleProcess.processType == 4">已完成</span>
+          <span *ngIf="afterSaleProcess.processType == 5">拒绝退货</span>
+          <span *ngIf="afterSaleProcess.processType == 6">拒绝退款</span>
+        </td>
+        <td>{{afterSaleProcess.processInfo}}</td>
+        <td>{{afterSaleProcess.processDate}}</td>
+        <td>{{afterSaleProcess.remark}}</td>
+      </tr>
+      </tbody>
+    </nz-table>
+
+  </nz-card>
+
+  <nz-card nzTitle="退款处理" nzType="inner" *ngIf="afterSaleOrder.afterSaleType == 1">
+
+    <div widget class="card border-0 box-shadow"
+         *ngIf="afterSaleOrder.processState >= 1 && afterSaleOrder.processState <= 3">
+
+      <div class="card-body widget-body" [formGroup]="commonForm">
+        <form class="form-horizontal " formGroupName="afterSaleProcess">
+          <div class="form-group row text-sm-right">
+            <nz-form-label class="col-sm-2 form-control-label mt-1">处理人员<span
+              class="text-danger">*</span></nz-form-label>
+            <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+              <app-modal-selecet
+                [pageQuery]="userPageQuery"
+                [filters]="[{filterName:'fullName',name:'姓名',value:''}]"
+                [showCol]="[{name:'username',value:'用户名',isShow:false},{name:'fullName',value:'姓名',isShow:true}]"
+                [select]="commonForm.value.afterSaleProcess.user"
+                [resultName]="commonForm.value.afterSaleProcess.user.fullName"
+                [baseService]="userService"
+                (result)="setProcessUser($event)">
+              </app-modal-selecet>
+            </nz-form-control>
+          </div>
+          <div class="form-group row text-sm-right">
+            <nz-form-label class="col-sm-2 form-control-label mt-1">处理信息</nz-form-label>
+
+            <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+              <input nz-input type="text" formControlName="processInfo"
+                     placeholder="请输入处理信息">
+            </nz-form-control>
+          </div>
+
+          <div class="form-group row" *ngIf="afterSaleOrder.processState == 1">
+            <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 8 }">
+              <nz-modal-customer [showButton]="false" (ok)="returnRefund(afterSaleOrder.id,4)" [title]="'提示！'"
+                                 [content]="'确定确认退款吗？'" [buttonName]="'确认退款'">
+                <nz-divider nzType="vertical"></nz-divider>
+              </nz-modal-customer>&nbsp;&nbsp;
+              <nz-modal-customer [showButton]="false" (ok)="returnRefund(afterSaleOrder.id,6)" [title]="'提示！'"
+                                 [content]="'确定拒绝退款吗？'" [buttonName]="'拒绝退款'">
+                <nz-divider nzType="vertical"></nz-divider>
+              </nz-modal-customer>
+            </nz-form-control>
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+    <nz-table
+      #ajaxTable
+      [nzShowSizeChanger]="true"
+      [nzFrontPagination]="false"
+      [nzData]="afterSaleProcesss"
+      [nzLoading]="loading"
+      [nzTotal]="pageQuery.responses.totalElements"
+      [(nzPageIndex)]="pageQuery.page"
+      [(nzPageSize)]="pageQuery.pageSize"
+      (nzPageIndexChange)="searchData()"
+      (nzPageSizeChange)="searchData(true)">
+
+      <thead (nzSortChange)="sort($event)" nzSingleSort>
+      <tr>
+        <th>处理人</th>
+        <th>处理类型</th>
+        <th>处理信息</th>
+        <th>处理时间</th>
+        <th>备注</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let afterSaleProcess of ajaxTable.data">
+        <td>{{afterSaleProcess.processPerson}}</td>
+        <td>
+          <span *ngIf="afterSaleProcess.processType == 1">待审核</span>
+          <span *ngIf="afterSaleProcess.processType == 2">待收货</span>
+          <span *ngIf="afterSaleProcess.processType == 3">待退款</span>
+          <span *ngIf="afterSaleProcess.processType == 4">已完成</span>
+          <span *ngIf="afterSaleProcess.processType == 5">拒绝退货</span>
+          <span *ngIf="afterSaleProcess.processType == 6">拒绝退款</span>
+        </td>
+        <td>{{afterSaleProcess.processInfo}}</td>
+        <td>{{afterSaleProcess.processDate}}</td>
+        <td>{{afterSaleProcess.remark}}</td>
+      </tr>
+      </tbody>
+    </nz-table>
+
+  </nz-card>
+
+  <nz-form-item>
+    <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 18 }">
+      <button nz-button class="ml-sm" type="button" (click)="goBack()">返回</button>
+    </nz-form-control>
+  </nz-form-item>
+
+</nz-card>

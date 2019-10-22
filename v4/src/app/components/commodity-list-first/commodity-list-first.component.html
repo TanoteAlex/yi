@@ -1,0 +1,26 @@
+<ion-list class="bg-white show-mode">
+    <div class="hy-warp" *ngFor="let item of commodityList" (click)="goCommodity(item.id)">
+        <div class="hy-commodity">
+            <div class="hy-commodity-img">
+                <!--<img-lazy-load [src]="item.imgPath  | thumbnailPipe : 's'"></img-lazy-load>-->
+                <img [defaultImage]="'assets/loading.gif'" [lazyLoad]="item?.imgPath  | thumbnailPipe : 's'" [offset]="100">
+            </div>
+            <div class="flex-col">
+                <div class="text-wrap common-sub-title">{{item?.commodityName}}</div><!--
+                <div class="hy-commodity-tip">
+                    <span class="hy-label" *ngIf="item.returnVoucher">返{{item?.returnVoucher}}元券</span>
+                    <span class="hy-label" *ngIf="item?.freightSet==1 && item?.unifiedFreight==0">包邮</span>
+                    <span class="hy-label" *ngIf="item?.commodityType==1">批发</span>
+                </div>-->
+                <div class="red common-spec text-wrap" style="margin-top: 8px">
+                    ￥<span class="common-font">{{item?.currentPrice}}</span>&nbsp;
+                    <span class="grey" *ngIf="item?.levelPrices && item?.levelPrices.length">vip￥{{getVip(item)}}&nbsp;</span>
+                    <!--<span class="hy-label" *ngIf="labelContent(item)">{{labelContent(item)}}</span>-->
+                    <span class="hy-label" *ngIf="item?.returnVoucher">返{{item?.returnVoucher}}元券</span>
+                    <span class="hy-label" *ngIf="item?.freightSet==1 && item?.unifiedFreight==0">包邮</span>
+                    <span class="hy-label" *ngIf="item?.commodityType==1">批发</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</ion-list>

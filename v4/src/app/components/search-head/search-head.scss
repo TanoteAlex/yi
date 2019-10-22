@@ -1,0 +1,45 @@
+@import "../../../global";
+
+.location-icon {
+  background: url("../../../assets/app_icon/home/地址icon@2x.png") no-repeat center center;
+  background-size: 95%;
+  height: 19px;
+  margin-right: 3px;
+}
+
+.alert-icon {
+  background: url("../../../assets/app_icon/home/01-01消息icon@2x.png");
+  background-size: 100%;
+}
+
+.searchbar-ios {
+  background: transparent !important;
+  border-bottom: none;
+}
+
+.location {
+  width: 100px;
+  margin-left: 10px;
+  &>span{
+    font-size: 12px;
+    display: block;
+  }
+}
+
+ion-searchbar {
+  display: inline-block;
+  padding-top: 4px;
+  padding-bottom: 0;
+  height: 40px;
+}
+
+.home {
+  .sc-ion-searchbar-ios-h {
+    --placeholder-color: #999;
+  }
+  .sc-ion-searchbar-ios-h {
+    --color-icon: #999
+  }
+}
+
+

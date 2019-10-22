@@ -1,0 +1,44 @@
+
+<ion-content no-padding>
+  <div class="content-bg">
+    <div style="padding-top: 53vh">
+      <ion-row>
+        <ion-col size="2">
+
+        </ion-col>
+        <ion-col size="8" style="padding-left: 1.5rem;padding-right: 1.5rem;">
+          <input type="text" placeholder="请输入手机号" class="common-input" [(ngModel)]="params.usertel" minlength="11" maxlength="11"/>
+        </ion-col>
+        <ion-col size="2">
+        </ion-col>
+      </ion-row>
+
+      <ion-row style="padding-top: 2vh;">
+        <ion-col size="2">
+
+        </ion-col>
+        <ion-col size="8" style="padding-left: 1.5rem;padding-right: 1.5rem;">
+          <input type="text" placeholder="短信验证码" class="common-input" [(ngModel)]="params.vcode" minlength="4" maxlength="4"/>
+        </ion-col>
+        <ion-col size="2" class="proving">
+          <div style="margin-left: -30vw;">
+            <img src="../../../assets/app_icon/invite-register/vertical-bar.png" style="padding-top: 0.5rem;height: 2rem;">
+            <ion-button fill="clear" size="small" class="give-code-button" [disabled]="!verifyCode.disable" (click)="getCode()">
+              {{verifyCode.verifyCodeTips}}
+            </ion-button>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row justify-content-center style="padding-top: 2vh;">
+        <ion-text class="register-button" (click)="goToRegister()">立&nbsp;即&nbsp;领&nbsp;取</ion-text>
+      </ion-row>
+
+      <ion-row justify-content-center style="padding-top: 2vh;">
+        <ion-text class="register-text" (click)="goToWechatLogin()">老用户邀好友赢大奖</ion-text>
+      </ion-row>
+    </div>
+
+
+  </div>
+</ion-content>

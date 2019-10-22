@@ -1,0 +1,192 @@
+# 开发环境配置
+debug: true
+
+logging:
+  path: C:/tmp/logs
+  config: classpath:logback-spring.xml
+  level:
+    com.yi: INFO
+    org.springframework: INFO
+    org.hibernate: INFO
+    org.quartz: INFO
+
+yi:
+  cluster-name: dev
+  host: localhost
+  web-port: 8084
+  
+  db-host: localhost
+  db-port: 3306
+  db-name: yi
+  db-user: root
+  db-password: 123456
+  
+  attachment:
+    domain: http://${yi.host}:${yi.web-port}
+    fileAttachPath: /files/attach/
+    fileDataPath: /files/data/
+    fileDownloadPath: /rest/file/fileDownload/
+    thumbnail:
+      width: 300
+      height: 300
+  login:
+    require:
+      url:
+      json:
+      js:
+      header:
+        name: RELOGIN
+        content:
+
+  searchBaseUrl: http://localhost:8085/yi-search/
+
+#文件上传文件存储工程目录方便版本管理
+YI_HOME: C:/disk/yi/${yi.cluster-name}
+
+domain:
+  name: http://${yi.host}:${yi.web-port}
+
+server:
+  port: ${yi.web-port}
+  servlet:
+    session:
+      timeout: 1440
+
+  tomcat:
+    basedir: "C:/disk/yi/yi-${yi.web-port}"
+    uri-encoding: UTF-8
+    accesslog:
+      enabled: true
+      directory: logs
+      buffered: false
+      pattern: combined
+  ssl:
+    enabled: false
+
+spring:
+  application:
+    name: yi-admin
+  profiles:
+    #开发环境
+    active: dev
+  devtools:
+    restart:
+      #设置重启的目录
+      #additional-paths: src/main/java
+      #exclude: static/**,templates/**
+      #热部署生效
+      enabled: true
+
+  #Redis配置
+  redis:
+    # Redis数据库索引 默认0 0-15 16个库 
+    database: 0
+    # Redis服务器地址 
+    host: 127.0.0.1
+    # Redis服务器连接端口
+    port: 6379
+    # Redis服务器连接密码（默认为空）
+    password:
+    # 连接超时时间（毫秒）
+    timeout: 5000
+    lettuce:
+      pool:
+        # 连接池最大连接数（使用负值表示没有限制）默认8
+        max-active: 8
+        # 连接池最大阻塞等待时间（使用负值表示没有限制）默认-1
+        max-wait: -1
+        # 连接池中的最大空闲连接 默认8
+        max-idle: 8
+        # 连接池中的最小空闲连接 默认0
+        min-idle: 0
+
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 120MB
+
+  messages:
+    encoding: UTF-8
+
+  aop:
+    proxy-target-class: true
+
+  autoconfigure:
+    exclude:
+      #多数据源环境下必须排除掉 DataSourceAutoConfiguration，否则会导致循环依赖报错
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+
+  jpa:
+    database: MYSQL
+    # Show or not log for each sql query
+    show-sql: false
+    generate-ddl: false
+    hibernate:
+      # Hibernate ddl auto (none, validate, update, create, create-drop)
+      ddl-auto: none
+      naming:
+#        strategy: org.hibernate.cfg.ImprovedNamingStrategy
+        physical-strategy: com.yihz.common.orm.ImprovedPhysicalNamingStrategy
+
+    properties:
+      hibernate:
+        statement_inspector: com.yihz.common.orm.CustomStatementInspector
+        dialect: org.hibernate.dialect.MySQL5Dialect
+        globally_quoted_identifiers: true
+        generate_statistics: false
+        ejb: 
+         interceptor: com.yi.core.config.interceptor.EntityEmptyInterceptor
+#        cache:
+#          #use_query_cache: true
+#          use_second_level_cache: false
+#          provider_class: org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory
+#        search:
+#          default:
+#            directory_provider: org.hibernate.search.store.impl.FSDirectoryProvider
+#            indexBase: /disk/hibernate/${yi.cluster-name}
+#            lucene_version: LUCENE_5_5_4
+
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    #设置URL,否则datasource初始化出错
+    url: jdbc:mysql://${yi.db-host}:${yi.db-port}/${yi.db-name}?useUnicode=true&autoReconnect=true&useSSL=false
+    username: ${yi.db-user}
+    password: ${yi.db-password}
+    
+  # JavaMailSender 163邮件服务器 配置
+  mail:
+    #邮件服务器主机名
+    host: smtp.qiye.163.com
+    #邮件服务器端口
+    port: 25
+    #用户名
+    username: admin@51utopia.com
+    #密码/授权码
+    password: x7cgg64UGKsLBSLv
+    #发送邮件协议名称  默认stmp
+#    protocol: stmp 
+    #编码格式 默认UTF-8
+#    default-encoding: UTF-8 
+    properties: 
+      mail: 
+        stmp:
+          #发送服务器需要身份验证
+          auth: true
+          #超时
+          timeout: 25000
+          #开启安全协议
+          ssl:
+            enable: true
+          starttls:
+            enable: true
+            required: true
+
+javax:
+  persistence:
+    sharedCache:
+      mode: ENABLE_SELECTIVE

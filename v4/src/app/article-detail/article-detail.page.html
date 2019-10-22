@@ -1,0 +1,95 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>{{article?.title}}</ion-title>
+        <goback [isShare]="preMemberId!=''"></goback>
+        <img src="../../assets/app_icon/customer/分享icon@3x.png" class="shareIcon" (click)="openShareModal()"/>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content no-padding>
+    <banner-slide [banners]="article?.attachmentVos"></banner-slide>
+    <ion-list class="common-list content">
+        <ion-row style="padding: 0 10px;">
+            <ion-col>
+                <ion-label class="common-title">{{article?.title}}</ion-label>
+            </ion-col>
+        </ion-row>
+        <ion-row style="padding: 0 10px;">
+            <ion-col>
+                <ion-avatar></ion-avatar>
+            </ion-col>
+            <ion-col class="right ver-midd grey"><p>{{article?.createTime.substr(0,10)}}</p></ion-col>
+        </ion-row>
+
+        <ion-row class="common-notice greys" style="padding:0 10px">
+            <div [innerHTML]=article?.content></div>
+        </ion-row>
+    </ion-list>
+
+    <div class="common-hr"></div>
+    <ion-list class="common-list" *ngIf="article?.articleCommodities">
+        <ion-list-header>相关商品</ion-list-header>
+        <commodity-item *ngFor="let item of article?.articleCommodities | sortPipe" [commodity]="item" (click)="goCommodity(item)">
+            <!--<p class="common-notice">
+                <span class="red">￥{{item.currentPrice}}</span>
+                <del class="grey"> ￥{{item.originalPrice}}</del>
+                <span class="shop">
+                    <img src="../../assets/app_icon/home/购物车-商品icon@2x.png" width="25" height="25">
+                </span>
+            </p>-->
+
+            <p class="common-notice text-wrap">
+                <span class="red common-font">￥{{item?.currentPrice}}</span>&nbsp;
+                <!--<del class="grey"> ￥{{item?.originalPrice}}</del>-->
+                <span class="grey" *ngIf="item?.levelPrices && item?.levelPrices.length">vip￥{{getVip(item)}}&nbsp;</span>
+                <span class="hy-label" *ngIf="item?.returnVoucher">返{{item?.returnVoucher}}元券</span>
+                <span class="hy-label" *ngIf="item?.freightSet==1 && item?.unifiedFreight==0">包邮</span>
+                <span class="hy-label" *ngIf="item?.commodityType==1">批发</span>
+            </p>
+        </commodity-item>
+    </ion-list>
+
+    <div class="common-hr"></div>
+    <ion-list class="common-list">
+        <ion-list-header>
+            最新评论
+            <img src="../../assets/app_icon/basic/评论icon@2x.png" width="25" height="25" class="right"
+                 (click)="goWriteComment()">
+        </ion-list-header>
+        <div text-wrap *ngFor="let item of articleEvaluation | sortPipe : 'commentTime' : true " class="content">
+            <ion-avatar slot="start">
+                <img src="../../assets/app_icon/customer/用户头像.png"/>
+            </ion-avatar>
+            <span class="common-notice">{{item.commentator}}</span>
+            <div class="evaluation-content">
+                <p class="common-notice black">
+                    {{item.commentContent}}
+                <p class="grey">{{item.commentTime}}</p>
+            </div>
+        </div>
+
+        <ion-button size="small" fill="outline" shape="round" color="danger" class="check-evaluation" (click)="allEvaluation()" *ngIf="!isShowAllEvaluation">
+            查看所有评价({{article?.articleComments.length}})
+        </ion-button>
+
+        <ion-button size="small" fill="outline" shape="round" color="danger" class="check-evaluation" (click)="closeEvaluation()" *ngIf="isShowAllEvaluation">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;收&nbsp;&nbsp;&nbsp;&nbsp;起&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </ion-button>
+
+    </ion-list>
+
+    <ion-list class="recommend" no-padding>
+        <div class="head-icon bottom-divid" text-center margin padding-bottom>
+            <img src="../../assets/app_icon/basic/专题icon@3x.png" height="20" width="20"/>专题推荐
+        </div>
+        <div *ngFor="let item of articleVo" (click)="goDetail(item.id)" class="article-list">
+            <img-lazy-load [src]="item.imgPath | thumbnailPipe : 'l'"></img-lazy-load>
+            <ion-row>
+                <p class="common-font black" style="margin-bottom: 0">{{item.title}}</p>
+            </ion-row>
+            <ion-row>
+                <p class="common-notice greys">{{item.subtitle}}</p>
+            </ion-row>
+        </div>
+    </ion-list>
+</ion-content>

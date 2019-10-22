@@ -1,0 +1,56 @@
+<page-header [title]="title"></page-header>
+<nz-card [nzBordered]="false">
+  <form nz-form [formGroup]="commonForm">
+    <nz-form-item>
+      <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="integral">积分</nz-form-label>
+      <nz-form-control nzXs="16" nzSm="8" nzMd="7" nzHasFeedback>
+        <input nz-input formControlName="integral" id="integral" placeholder="输入积分">
+        <nz-form-explain *ngIf="commonForm.get('integral').dirty&&commonForm.get('integral').errors">
+          <ng-container *ngFor="let error of formErrors.integral">
+            <nz-form-explain *ngIf="commonForm.get('integral').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="cash">抵现金额</nz-form-label>
+      <nz-form-control nzXs="16" nzSm="8" nzMd="7" nzHasFeedback>
+        <input nz-input formControlName="cash" id="cash" placeholder="输入抵现金额">
+        <nz-form-explain *ngIf="commonForm.get('cash').dirty&&commonForm.get('cash').errors">
+          <ng-container *ngFor="let error of formErrors.cash">
+            <nz-form-explain *ngIf="commonForm.get('cash').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="state">状态</nz-form-label>
+      <nz-form-control nzXs="16" nzSm="8" nzMd="7" nzHasFeedback>
+        <nz-radio-group formControlName="state" id="state">
+          <label nz-radio [nzValue]="0">启用</label>
+          <label nz-radio [nzValue]="1">禁用</label>
+        </nz-radio-group>
+        <nz-form-explain *ngIf="commonForm.get('state').dirty && commonForm.get('state').errors">
+          <ng-container *ngFor="let error of formErrors.state">
+            <nz-form-explain *ngIf="commonForm.get('state').errors[error.name]">{{ error.msg }}</nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 7 }">
+        <nz-modal-customer [showButton]="false" (ok)="onSubmit()" [title]="'提示！'" [content]="'确认要提交吗？'"
+                           [buttonName]="'提交'">
+          <nz-divider nzType="vertical"></nz-divider>
+        </nz-modal-customer>
+        <button nz-button class="ml-sm" type="button" (click)="goBack()">返回</button>
+      </nz-form-control>
+    </nz-form-item>
+
+  </form>
+</nz-card>

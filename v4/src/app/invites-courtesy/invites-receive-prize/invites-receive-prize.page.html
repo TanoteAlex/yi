@@ -1,0 +1,55 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>
+            领取奖品
+        </ion-title>
+        <goback></goback>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="home-bg">
+    <div class="fire-worker1"></div>
+    <div class="fire-worker2"></div>
+    <div class="fire-worker3"></div>
+    <div class="home-center-area">
+        <ion-row justify-content-center>
+            <div class="prize-title">收到一份礼物</div>
+        </ion-row>
+        <ion-row justify-content-center>
+            <div class="commodity-background-img">
+                <div class="prize-commodity-img">
+                    <!--<img src="../../../assets/app_icon/new_inviter/commodity.png">-->
+                    <img-lazy-load [src]="invitePrize?.product?.productImgPath | thumbnailPipe"></img-lazy-load>
+                </div>
+            </div>
+        </ion-row>
+        <ion-row justify-content-center>
+            <ion-text class="prize-commodity-name">
+                {{invitePrize?.product?.productName}}
+            </ion-text>
+        </ion-row>
+        <ion-row justify-content-center style="padding-top: 5vh;">
+            <div class="prize-button" *ngIf="!received" (click)="receive()">立&nbsp;即&nbsp;领&nbsp;取</div>
+        </ion-row>
+    </div>
+    <ion-row justify-content-center style="padding-top: 2em;">
+        <!--<div class="prize-button-bottom">领取成功</div>-->
+        <ion-list class="common-list" style="width: 100%;">
+            <ion-row padding-left *ngIf="shippingAddress != undefined" class="address">
+                <ion-col size="2" class="ver-midd" text-center>
+                    <img src="../../assets/app_icon/customer/地址信息icon@2x.png" width="20" height="25">
+                </ion-col>
+                <ion-col size="10" (click)="goChooseConsignee()">
+                    <ion-item>
+                        <ion-label>
+                            <p class="black common-font  margin-bottom">{{shippingAddress?.fullName}}&nbsp;&nbsp;&nbsp;{{shippingAddress?.phone}}</p>
+                            <p class="black">{{shippingAddress?.province
+                                |districtPipe}}{{shippingAddress?.city|districtPipe}}{{shippingAddress?.district|districtPipe}}{{shippingAddress?.address}}</p>
+                        </ion-label>
+                        <ion-icon class="icon-forward" name="ios-arrow-forward"></ion-icon>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+        </ion-list>
+    </ion-row>
+</ion-content>

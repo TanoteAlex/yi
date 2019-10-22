@@ -1,0 +1,32 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>发布评价</ion-title>
+        <goback></goback>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content no-padding>
+    <form [formGroup]="evaluationForm">
+        <ion-list class="common-list" *ngFor="let product of products;let i=index" [formGroupName]="i">
+            <ion-row>
+                <ion-col size="3" class="img">
+                    <img onerror="this.src='../../assets/imgs/null-category.png'" [src]="product.imgPath">
+                </ion-col>
+                <ion-col class="info">
+                    <h2 class="common-font">{{product.productName}}</h2>
+                    <p class="common-sub-title greys">商品评分</p>
+                    <star (result)="star($event,i)"></star>
+                </ion-col>
+            </ion-row>
+            <ion-textarea placeholder="请输入评论内容" maxlength="100" formControlName="commentContent" (ionBlur)="blur()">
+            </ion-textarea>
+
+            <!--<div class="evaImg">-->
+            <!--<img (click)="changeAvatar($event,i)" [src]="evaImg" height="65" width="65">-->
+            <!--</div>-->
+            <br/><br/>
+            <div class="common-hr"></div>
+        </ion-list>
+    </form>
+    <ion-button expand="full" shape="round" color="danger" (click)="comment()" padding>发&nbsp;表&nbsp;评&nbsp;论</ion-button>
+</ion-content>

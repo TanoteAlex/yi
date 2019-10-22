@@ -1,0 +1,85 @@
+<page-header [title]="title"></page-header>
+<nz-card [nzBordered]="false">
+  <form nz-form [formGroup]="commonForm">
+
+    <nz-form-item>
+      <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="questionType">问题类型</nz-form-label>
+
+      <nz-form-control nzXs="16" nzSm="8" nzMd="7" nzHasFeedback>
+        <app-modal-selecet #questionTypeModalSelect
+          [pageQuery]="questionTypePageQuery"
+          [showCol]="[{name:'id',value:'编码',isShow:false},{name:'typeName',value:'分类名',isShow:true}]"
+          [select]="commonForm.value.questionType"
+          [resultName]="commonForm.value.questionType ? commonForm.value.questionType.typeName : '请选择'"
+          [baseService]="questionTypeService"
+          (result)="setQuestionType($event)">
+        </app-modal-selecet>
+        <nz-form-explain  class="has-error" *ngIf="commonForm.get('questionType').dirty&&commonForm.get('questionType').errors">
+          <ng-container *ngFor="let error of formErrors.questionType">
+            <nz-form-explain *ngIf="commonForm.get('questionType').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzXs="10" nzSm="3" nzFor="sort">排序</nz-form-label>
+      <nz-form-control nzXs="16" nzSm="8" nzMd="7" nzHasFeedback>
+        <nz-input-number nz-input style="width: 50%" [nzMin]="1" [nzMax]="127" [nzStep]="1" [nzPrecision]="0"
+                         formControlName="sort"
+                         id="sort"
+                         nzPlaceHolder="请输入排序号"></nz-input-number>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="askQuestion">提出问题</nz-form-label>
+      <nz-form-control nzXs="16" nzSm="8" nzMd="7" nzHasFeedback>
+        <textarea nz-input style="width: 100%;height: 50px" formControlName="askQuestion" id="askQuestion" nzAutosize placeholder="请输入提出问题"></textarea>
+        <nz-form-explain *ngIf="commonForm.get('askQuestion').dirty&&commonForm.get('askQuestion').errors">
+          <ng-container *ngFor="let error of formErrors.askQuestion">
+            <nz-form-explain *ngIf="commonForm.get('askQuestion').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="answerQuestion">回答问题</nz-form-label>
+      <nz-form-control nzXs="16" nzSm="8" nzMd="7" nzHasFeedback>
+          <textarea nz-input style="width: 100%;height: 150px" formControlName="answerQuestion" id="answerQuestion"
+                    placeholder="请输入问题答案"></textarea>
+          <nz-form-explain *ngIf="commonForm.get('answerQuestion').dirty&&commonForm.get('answerQuestion').errors">
+          <ng-container *ngFor="let error of formErrors.answerQuestion">
+            <nz-form-explain *ngIf="commonForm.get('answerQuestion').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="state">状态</nz-form-label>
+      <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+        <nz-radio-group formControlName="state" id="state">
+          <label nz-radio [nzValue]="0">启用</label>
+          <label nz-radio [nzValue]="1">禁用</label>
+        </nz-radio-group>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 17 }">
+        <!--<button nz-button nzType="primary" type="submit" (click)="onSubmit()">提交</button>-->
+        <nz-modal-customer [showButton]="false" (ok)="onSubmit()" [title]="'提示！'" [content]="'确认要提交吗？'"
+                           [buttonName]="'提交'">
+          <nz-divider nzType="vertical"></nz-divider>
+        </nz-modal-customer>
+        <button nz-button class="ml-sm" type="button" (click)="goBack()">返回</button>
+      </nz-form-control>
+    </nz-form-item>
+
+  </form>
+</nz-card>

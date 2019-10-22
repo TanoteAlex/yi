@@ -1,0 +1,7 @@
+<div class="banner-slides" *ngIf="banners?.length > 0">
+    <ion-slides #slides [options]="slideOpts" [initialSlide]="0" [pager]="true" [loop]="true">
+        <ion-slide *ngFor="let banner of banners " (click)="goUrl(banner)" [ngStyle]="{'height':height}">
+            <img [defaultImage]="'assets/loading.gif'" [lazyLoad]="banner.filePath | thumbnailPipe : 'l'" [offset]="100" />
+        </ion-slide>
+    </ion-slides>
+</div>

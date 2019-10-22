@@ -1,0 +1,43 @@
+@import "../../global";
+
+.common-list {
+  .add-address, .address {
+    height: 70px;
+    ion-item {
+      margin: auto;
+    }
+  }
+  ion-item {
+    width: 100%;
+  }
+}
+.radiu {
+  width: fit-content;
+  padding: 1px 6px;
+  border-radius: 10px;
+  background-color: #ffeaed;
+}
+
+ion-footer {
+  height: 45px;
+  ion-toolbar{
+    --padding-end: 0;
+    --padding-top: 0;
+  }
+  .shopping-pay {
+    float: right;
+    --margin-top: 0;
+  }
+}
+.calculate{
+  padding: 0 10px !important;
+  ion-row:not(:last-of-type){
+    @extend .bottom-divid
+  }
+  ion-row{
+    margin: 5px 0;
+  }
+  .pay-info{
+      --margin-top: 5px;
+  }
+}

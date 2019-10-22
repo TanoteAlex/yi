@@ -1,0 +1,31 @@
+@import "../../../global";
+.show-mode{
+  display: flex;
+  flex-wrap: wrap;
+  margin: 2px;
+}
+.hy-warp{
+  width: 50%;
+}
+
+.hy-commodity{
+  border: 0.5px solid $light-divid-color;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 3px;
+  @extend .flex-col;
+}
+
+.hy-commodity-tip{
+  height: 21px;
+}
+
+/*
+.backCoupon{
+  background-color: $main-color;
+  padding: 1px 5px;
+  border-radius: 4px;
+  margin-right: 3px;
+  @extend .white;
+  @extend .common-spec;
+}*/

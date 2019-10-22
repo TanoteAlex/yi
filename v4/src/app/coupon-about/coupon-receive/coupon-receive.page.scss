@@ -1,0 +1,61 @@
+.receive-btn {
+  border: 1px solid red;
+  color: red;
+  background-color: transparent;
+  border-radius: 1rem;
+  width: 5rem;
+  height: 1.5rem;
+  float: right;
+}
+button[disabled]{
+  border-color: #ccc;
+  color: #ccc;
+}
+
+.common-list {
+  margin: 10px !important;
+  //padding: 5px !important;
+  .big {
+    font-size: 2rem !important;
+  }
+}
+
+.coupon {
+  background-image: url("../../../assets/app_icon/basic/优惠券底@3x.png");
+  background-size: 100% 100%;
+  position: relative;
+}
+
+.corner {
+  width: 40px;
+  height: 37px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.coupon-type {
+  width: 60px;
+  position: absolute;
+  top: -15px;
+  left: 0;
+}
+
+/*
+.disable ::ng-deep {
+  .hy-ticket{
+    $coupon-color:rgba(110,110,110,1);
+    .corner-img{
+      background: url("../../../assets/app_icon/new_coupon/grey1.png") no-repeat!important;
+      background-size: 100% 100%!important;
+    }
+    .coupon-color{
+      color: $coupon-color;
+    }
+    .cou-btn{
+      color: $coupon-color;
+      border: 1px solid $coupon-color;
+      border-radius: 3px;
+    }
+  }
+}*/

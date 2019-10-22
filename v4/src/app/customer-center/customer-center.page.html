@@ -1,0 +1,106 @@
+<ion-content style="background-color: #f0f0f0;width: 100%;height: 100%">
+
+    <div class="flex-col">
+        <div class="customer-head-background">
+            <div class="head-container">
+                <div class="member-avater" (click)="goPersonalCenter()">
+                    <img onerror="this.src='../../assets/app_icon/new_customer/null_icon.png'" width="80" height="80" class="radius"
+                         [src]="member?.avater">
+                </div>
+                <div class="member-info" ngClass="member ? 'logined' : '' " (click)="goPersonalCenter()">
+                    <div class="customer-name">{{member?.nickname || "马上登陆"}}</div>
+                    <div *ngIf="!member" class="vip-tip common-sub-notice">登陆后更多服务</div>
+                    <div *ngIf="member?.memberLevel?.rank > 1" class="vip">
+                        <div class="common-spec">
+                            <span class="vip-icon"></span>VIP
+                        </div>
+                        <div class="vip-tip">享全场vip价</div>
+                    </div>
+                </div>
+                <div class="member-setter">
+                    <div (click)="goSystemSet()">
+                        <img src="../../assets/app_icon/new_customer/Personal%20center_icon_settings@2x_.png" width="24px" height="22px">
+                    </div>
+                    <div class="sign-btn sign" (click)="goSignIn()" *ngIf="!customerInfo.signState">签到</div>
+                    <div class="sign-btn sign signed" *ngIf="customerInfo.signState">已签到</div>
+                </div>
+            </div>
+            <div class="customer-head-center">
+                <div (click)="goCoupan()" style="flex:2">
+                    <div>{{customerInfo.couponNum}}张</div>
+                    <div class="common-sub-notice">我的券</div>
+                </div>
+                <div class="customer-interval-style"></div>
+                <div (click)="goMyBalance()" style="flex:2">
+                    <div>￥{{member?.account?.balance || 0.00}}元</div>
+                    <div class="common-sub-notice">账户余额</div>
+                </div>
+                <div class="customer-interval-style"></div>
+                <div (click)="goMemberGrade()" style="flex:2">
+                    <div>{{member?.account?.availableIntegral || 0}}</div>
+                    <div class="common-sub-notice">可用积分</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cus-card bg-white">
+            <div class="cus-card-head" (click)="goMyOrderPage()">
+                <div>我的订单</div>
+                <ion-icon class="icon-forward" name="ios-arrow-forward"></ion-icon>
+            </div>
+            <div class="cus-card-btns">
+                <div (click)="goMyOrderPage('unpaid')">
+                    <img src="../../assets/app_icon/new_customer/center_icon_photo.png">
+                    <div>待付款</div>
+                    <span class="bubble" *ngIf="customerInfo.waitPayNum">{{customerInfo.waitPayNum}}</span>
+                </div>
+                <div (click)="goMyOrderPage('deliver')">
+                    <img src="../../assets/app_icon/new_customer/Personal%20center_icon_photo2.png">
+                    <div>待收货</div>
+                    <span class="bubble" *ngIf="customerInfo.waitReceiptNum">{{customerInfo.waitReceiptNum}}</span>
+                </div>
+                <div (click)="goMyOrderPage('stayEvaluation')">
+                    <img src="../../assets/app_icon/new_customer/Personal%20center_icon_photo3.png">
+                    <div>待评价</div>
+                    <span class="bubble" *ngIf="customerInfo.waitCommentNum">{{customerInfo.waitCommentNum}}</span>
+                </div>
+                <div (click)="goAfterSales()">
+                    <img src="../../assets/app_icon/new_customer/Personal%20center_icon_photo4.png">
+                    <div>退款与售后</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="invite" (click)="goInvitesHome()">
+        <img src="../../assets/app_icon/new_banner/banner_1.png" />
+    </div>
+
+    <div class="cus-card bg-white">
+        <div class="cus-card-head">
+            <div>我的服务</div>
+        </div>
+        <div class="cus-card-btns">
+            <div (click)="goMyGroup('all')">
+                <img src="../../assets/app_icon/new_customer/Personal%20center_icon_photo5.png">
+                <div>我的拼团</div>
+            </div>
+            <div (click)="goMyCommunity()">
+                <img src="../../assets/app_icon/new_customer/Personal%20center_icon_photo6.png">
+                <div>我的小区</div>
+            </div>
+            <div (click)="goMyAddress()">
+                <img src="../../assets/app_icon/new_customer/Personal%20center_icon_photo7.png">
+                <div>收货地址</div>
+            </div>
+            <div (click)="goLocation()">
+                <img src="../../assets/app_icon/new_customer/Personal%20center_icon_photo8.png">
+                <div>{{localCity || "请定位"}}</div>
+            </div>
+            <div (click)="goTel()">
+                <img src="../../assets/app_icon/new_customer/Personal_Customer_service.png">
+                <div>联系客服</div>
+            </div>
+        </div>
+    </div>
+</ion-content>

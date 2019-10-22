@@ -1,0 +1,30 @@
+<ion-content no-padding>
+    <ion-toolbar>
+        <ion-searchbar class="search-bar" style="text-align: left" [animated]="false" placeholder="省名" (ionInput)="getItems($event)" class="right">
+        </ion-searchbar>
+        <goback></goback>
+    </ion-toolbar>
+    <ion-list class="common-list">
+        <ion-item #location0 class="local" lines="none">
+            <ion-label class="common-sub-title greys">当前省份
+                <span>{{currentCity}}</span>
+            </ion-label>
+        </ion-item>
+
+        <ion-list-header class="grey">热门省份</ion-list-header>
+        <ion-row class="hot-city">
+            <ion-col size="4" *ngFor="let item of hotCity,let i=index">
+                <ion-button expand="full" color="light" shape="round" (click)="selectCity(item, i)"
+                            [ngClass]="cityListIndex == i ? 'choose' : ''">{{item}}
+                </ion-button>
+            </ion-col>
+        </ion-row>
+
+        <ion-item-group>
+            <ion-list-header class="bottom-divid">全国省份</ion-list-header>
+            <ion-item *ngFor="let item of items" lines="none">
+                <ion-label (click)="selectCity(item)">{{item}}</ion-label>
+            </ion-item>
+        </ion-item-group>
+    </ion-list>
+</ion-content>

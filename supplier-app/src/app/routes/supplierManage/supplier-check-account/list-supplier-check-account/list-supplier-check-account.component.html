@@ -1,0 +1,83 @@
+
+<page-header [title]="'供应商对账明细'">
+    <ng-template #breadcrumb>
+        <nz-breadcrumb>
+            <nz-breadcrumb-item>
+                <a [routerLink]="['/supplier-check-account/list']">供应商管理</a>
+            </nz-breadcrumb-item>
+            <nz-breadcrumb-item>供应商对账明细</nz-breadcrumb-item>
+        </nz-breadcrumb>
+    </ng-template>
+</page-header>
+
+<nz-card [nzBordered]="false">
+    <form nz-form [nzLayout]="'inline'" [formGroup]="searchForm" class="search__form">
+        <nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32, xl: 32, xxl: 32  }">
+
+            <nz-col nzMd="8" nzSm="24">
+                <nz-form-item>
+                    <nz-form-label>供应商名称</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="supplierName" placeholder="请输入供应商名称">
+                    </nz-form-control>
+                </nz-form-item>
+            </nz-col>
+
+            <nz-col nzMd="8" nzSm="24">
+                <nz-form-item>
+                    <nz-form-label>商品名称</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="productName" placeholder="请输入商品名称">
+                    </nz-form-control>
+                </nz-form-item>
+            </nz-col>
+
+            <nz-col>
+                <button nz-button [nzType]="'primary'" (click)="searchData()" [nzLoading]="loading">查询</button>
+                <button nz-button (click)="clearSearch()" class="mx-sm">重置</button>
+
+            </nz-col>
+        </nz-row>
+    </form>
+
+    <nz-table
+            #ajaxTable
+            [nzShowSizeChanger]="true"
+            [nzFrontPagination]="false"
+            [nzData]="datas"
+            [nzLoading]="loading"
+            [nzTotal]="pageQuery.responses.totalElements"
+            [(nzPageIndex)]="pageQuery.page"
+            [(nzPageSize)]="pageQuery.pageSize"
+            (nzPageIndexChange)="searchData()"
+            (nzPageSizeChange)="searchData(true)">
+
+        <thead (nzSortChange)="sort($event)" nzSingleSort>
+        <tr>
+          <th>供应商名称</th>
+          <th>订单编号</th>
+          <th>商品编号</th>
+          <th>商品名称</th>
+          <th>供货价</th>
+          <th>数量</th>
+          <th>下单时间</th>
+          <th>应结货款</th>
+          <th>结算时间</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let supplierCheckAccount of ajaxTable.data">
+          <td>{{supplierCheckAccount.supplierName}}</td>
+          <td>{{supplierCheckAccount.saleOrderNo}}</td>
+          <td>{{supplierCheckAccount.productNo}}</td>
+          <td>{{supplierCheckAccount.productName}}</td>
+          <td>{{supplierCheckAccount.supplyPrice}}</td>
+          <td>{{supplierCheckAccount.quantity}}</td>
+          <td>{{supplierCheckAccount.orderTime}}</td>
+          <td>{{supplierCheckAccount.settlementAmount}}</td>
+          <td>{{supplierCheckAccount.settlementTime}}</td>
+        </tr>
+        </tbody>
+    </nz-table>
+</nz-card>
+

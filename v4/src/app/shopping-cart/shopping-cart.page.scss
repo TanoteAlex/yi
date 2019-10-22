@@ -1,0 +1,116 @@
+@import "../../global.scss";
+@import "../../theme/button-style";
+
+ion-content{
+  --background: white;
+}
+
+.nolist {
+  background: url("../../assets/app_icon/shop_cart/购物车无商品@2x.png") no-repeat center center;
+  background-size: 50%;
+  ion-button {
+    --padding-end: 35px;
+    --padding-start: 35px;
+    --height: 35px;
+  }
+}
+
+.no-list {
+  margin-top: 20%;
+  height: 10rem;
+  background: url("../../assets/app_icon/shop_cart/购物车无商品@2x.png") no-repeat center center;
+  background-size: 50%;
+  .button-native {
+    padding: 0 40px !important;
+  }
+}
+
+.common-list {
+  ion-item-group {
+    margin: 10px 5px 0 5px;
+    box-shadow: 0 0 10px 1px $divid-color;
+    border-radius: 10px;
+    p {
+      margin: 0.5rem !important;
+    }
+    ion-row {
+      background-color: white !important;
+    }
+    .vipPrice{
+      @extend .common-small-spec;
+      @extend .grey;
+    }
+  }
+  .info-show {
+    background-color: #f9e5e8;
+    height: 25px;
+    img {
+      width: 15px;
+      height: 15px;
+      vertical-align: middle;
+      margin: 0 5px;
+    }
+    ion-icon {
+      color: $main-color;
+    }
+    p {
+      color: $main-color;
+      margin: 0;
+      display: inline-block;
+    }
+  }
+}
+
+.common-normal-add-close {
+  background-color: $space-color;
+  padding: 1px;
+  float: right;
+  border-radius: 3px;
+  span {
+    padding: 0 0.5rem 0 0.5rem !important;
+  }
+  .common-title {
+    background-color: white;
+  }
+}
+.customer-toolbar {
+  --padding-top:0;
+  --padding-end:0
+}
+ion-footer {
+  height: 45px;
+  padding: 0 !important;
+  box-shadow: 0 0 10px 1px #e5e5e5;
+  .toolbar {
+    padding: 0 !important;
+  }
+  .shopping-pay {
+    --padding-end: 25px;
+    --padding-start: 25px;
+    --margin-top: 0;
+  }
+  .shopping-delete {
+    --border-radius: 15px;
+    --padding-start: 20px;
+    --padding-end: 20px;
+    float: right;
+    margin-right: 15px;
+  }
+  .pay-info {
+    &>span{
+      padding-top: 0.4rem;
+      display: inline-block;
+      margin-left: -1rem;
+      @extend .red;
+    }
+  }
+  .choose-all {
+    margin: 5px auto !important;
+  }
+}
+
+.loading {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+}

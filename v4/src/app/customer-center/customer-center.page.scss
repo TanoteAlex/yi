@@ -1,0 +1,150 @@
+@import "../../global";
+
+$vip-color: #F9D54D;
+$vip-tip: #FFF1F5;
+
+.ion-content {
+  background-color: #f0f0f0;
+  width: 100%;
+  height: 100%;
+}
+
+.name-font {
+  font-size: 24px;
+}
+
+.vip-icon {
+  background: url("../../assets/app_icon/new_customer/center_icon_vip@2x.png") no-repeat;
+  background-size: 100% 100%;
+  width: 17px;
+  height: 12px;
+  display: inline-block;
+}
+
+.customer-head-background {
+  background-image: url("../../assets/app_icon/new_customer/background@2x.png");
+  background-size: 100% 100%;
+  height: 169px;
+  justify-content: space-between;
+  @extend .flex-col;
+}
+
+.head-container {
+  padding: 25px 15px 0;
+  @extend .flex-space-between;
+  .member-avater {
+    width: 99px;
+  }
+  .member-info {
+    flex: 1;
+    .customer-name {
+      @extend .name-font;
+      @extend .white;
+    }
+    .vip-tip {
+      font-size: 7px;
+      color: $vip-tip;
+    }
+    .vip {
+      color: $vip-color;
+    }
+  }
+  .member-info.logined {
+    .customer-name {
+      @extend .common-title;
+    }
+  }
+  .member-setter {
+    width: 72px;
+    height: 84px;
+    text-align: right;
+    justify-content: space-between;
+    align-items: flex-end;
+    @extend .flex-col;
+    .sign-btn {
+      width: 47px;
+      height: 18px;
+      border-radius: 5px;
+      text-align: center;
+      @extend .common-sub-notice
+    }
+    .sign {
+      color: #FFE6EC;
+      border: 1px solid rgba(255, 236, 241, 1);
+    }
+    .signed {
+      border:none;
+      background-color:#AB002C;
+    }
+  }
+}
+
+.customer-head-center {
+  height: 48px;
+  background-color: rgba(210, 148, 221, 0.5);
+  @extend .flex-space-around;
+  & > div {
+    @extend .white;
+    @extend .flex-center;
+    @extend .flex-col;
+    & > {
+      margin: 1px;
+      @extend .common-sub-title
+    }
+  }
+  .customer-interval-style {
+    border: 0.5px #FFFFFF solid;
+    width: 1px;
+    height: 28px;
+    opacity: 0.2;
+  }
+}
+
+.cus-card {
+  padding: 0 15px 0 13px;
+  @extend .flex-col;
+  .cus-card-head {
+    height: 41px;
+    font-size: 15px;
+    border-bottom: 0.5px solid #C2C2C2;
+    @extend .flex-space-between;
+  }
+  .cus-card-btns {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    @extend .common-notice;
+    & > div {
+      height: 75px;
+      position: relative;
+      width: 25%;
+      @extend .flex-center;
+      @extend .flex-col;
+      img {
+        width: 29px;
+        height: 25px;
+        margin-bottom: 7px;
+      }
+    }
+  }
+}
+
+.invite {
+  //height: 100px;
+  margin: 12px 0;
+  @extend .bg-white;
+}
+
+.bubble {
+  width: 14px;
+  height: 14px;
+  position: absolute;
+  left: 57%;
+  top: 9%;
+  color: #D11C4B;
+  border: 0.5px solid #D11C4B;
+  background-color: white;
+  @extend .radius;
+  @extend .common-spec;
+  @extend .flex-center;
+}

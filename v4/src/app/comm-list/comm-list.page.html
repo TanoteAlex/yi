@@ -1,0 +1,50 @@
+<ion-header class="head">
+    <ion-toolbar>
+        <goback></goback>
+        <ion-searchbar class="search-bar" (ionInput)="getItems($event)" placeholder="搜索"></ion-searchbar>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-segment [(ngModel)]="sort">
+        <ion-segment-button value="hot" (click)="commoditiesFilter('hot')" style="flex-direction: row-reverse">
+            <span>人气排序</span>
+            <ion-icon [hidden]="sort != 'hot'" [name]=hotSegmentIcon class="segment-icon"></ion-icon>
+        </ion-segment-button>
+        <ion-segment-button value="price" (click)="commoditiesFilter('price')" style="flex-direction: row-reverse">
+            <span>价格排序</span>
+            <ion-icon [hidden]="sort != 'price'" [name]=priceSegmentIcon class="segment-icon"></ion-icon>
+        </ion-segment-button>
+        <ion-segment-button (click)="goScreen()" style="flex-direction: row">
+            <span>商品筛选</span>
+            <span class="screen"></span>
+        </ion-segment-button>
+        <ion-icon name="menu" class="style-icon" (click)="changStyle()"></ion-icon>
+    </ion-segment>
+
+    <!--两种展示方式，平铺/列表-->
+    <ion-list class="common-list commodity-divid" *ngIf="styleType=='2'">
+        <commodity-item *ngFor="let item of list" [commodity]="item" (click)="goCommodity(item)">
+            <p class="text-wrap">
+                <span class="red common-font">￥{{item.currentPrice}}</span>&nbsp;
+                <!--<del class="grey common-spec"> ￥{{item.originalPrice}}</del>-->
+                <span class="grey" *ngIf="item?.levelPrices && item?.levelPrices.length">vip￥{{getVip(item)}}&nbsp;</span>
+                <span class="hy-label" *ngIf="item?.returnVoucher">返{{item?.returnVoucher}}元券</span>
+                <span class="hy-label" *ngIf="item?.freightSet==1 && item?.unifiedFreight==0">包邮</span>
+                <span class="hy-label" *ngIf="item?.commodityType==1">批发</span>
+            </p>
+        </commodity-item>
+    </ion-list>
+
+    <div class="show-mode-4" *ngIf="styleType=='1'">
+        <app-commodity-list-first [commodityList]="list"></app-commodity-list-first>
+    </div>
+
+    <div class="loading" *ngIf="isLoading">
+        <ion-spinner></ion-spinner>
+    </div>
+
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="正在加载..."></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>

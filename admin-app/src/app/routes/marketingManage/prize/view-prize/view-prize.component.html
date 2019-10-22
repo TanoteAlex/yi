@@ -1,0 +1,89 @@
+
+
+<page-header [title]="'查看信息'"></page-header>
+
+<nz-card>
+    <nz-form-item>
+
+
+                    <nz-form-label nzXs="10" nzSm="3" nzFor="guid">GUID</nz-form-label>
+                    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+                        <nz-form-text>{{prize.guid}}</nz-form-text>
+                    </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+
+                    <nz-form-label nzXs="10" nzSm="3" nzFor="code">奖品编码</nz-form-label>
+                    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+                        <nz-form-text>{{prize.code}}</nz-form-text>
+                    </nz-form-control>
+
+                    <nz-form-label nzXs="10" nzSm="3" nzFor="name">奖品名称</nz-form-label>
+                    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+                        <nz-form-text>{{prize.name}}</nz-form-text>
+                    </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+
+                    <nz-form-label nzXs="10" nzSm="3" nzFor="prizeType">奖品类型（1积分，2商品，3优惠券）</nz-form-label>
+                    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+                        <nz-form-text>{{prize.prizeType}}</nz-form-text>
+                    </nz-form-control>
+
+                    <nz-form-label nzXs="10" nzSm="3" nzFor="integral">积分</nz-form-label>
+                    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+                        <nz-form-text>{{prize.integral}}</nz-form-text>
+                    </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+
+                    <nz-form-label nzXs="10" nzSm="3" nzFor="commodityId">商品（commodity表ID）</nz-form-label>
+                    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+                        <nz-form-text>{{prize.commodityId}}</nz-form-text>
+                    </nz-form-control>
+
+                    <nz-form-label nzXs="10" nzSm="3" nzFor="couponId">优惠券（coupon表ID）</nz-form-label>
+                    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+                        <nz-form-text>{{prize.couponId}}</nz-form-text>
+                    </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+
+                    <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="state">状态（0启用1禁用）</nz-form-label>
+                    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+                        <nz-form-text>{{prize.state}}</nz-form-text>
+                    </nz-form-control>
+
+                    <nz-form-label nzXs="10" nzSm="3" nzFor="remark">备注</nz-form-label>
+                    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+                        <nz-form-text>{{prize.remark}}</nz-form-text>
+                    </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+
+                    <nz-form-label nzXs="10" nzSm="3" nzFor="createTime">创建时间</nz-form-label>
+                    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+                        <nz-form-text>{{prize.createTime}}</nz-form-text>
+                    </nz-form-control>
+
+                    <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="deleted">删除（0否1是）</nz-form-label>
+                    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+                        <nz-form-text>{{prize.deleted}}</nz-form-text>
+                    </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+
+                    <nz-form-label nzXs="10" nzSm="3" nzFor="delTime">删除时间</nz-form-label>
+                    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+                        <nz-form-text>{{prize.delTime}}</nz-form-text>
+                    </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+        <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 7 }">
+            <button nz-button nzType="primary" type="submit" [routerLink]="'../../edit/'+ prize.id">编辑</button>
+            <button nz-button class="ml-sm" type="button" (click)="goBack()">返回</button>
+        </nz-form-control>
+    </nz-form-item>
+
+</nz-card>

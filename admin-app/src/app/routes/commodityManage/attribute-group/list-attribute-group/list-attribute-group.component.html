@@ -1,0 +1,72 @@
+<page-header [title]="'商品属性列表'">
+  <ng-template #breadcrumb>
+    <nz-breadcrumb>
+      <nz-breadcrumb-item>
+        <a [routerLink]="['/dashboard/attribute-group/list']">商品管理</a></nz-breadcrumb-item>
+      <nz-breadcrumb-item>商品属性</nz-breadcrumb-item>
+    </nz-breadcrumb>
+  </ng-template>
+</page-header>
+
+<nz-card [nzBordered]="false">
+  <form nz-form [nzLayout]="'inline'" [formGroup]="searchForm"
+        class="search__form">
+    <nz-row
+      [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32, xl: 32, xxl: 32  }">
+
+      <nz-col nzXs="6" nzSm="6">
+        <nz-form-item>
+          <nz-form-label>属性名称</nz-form-label>
+          <nz-form-control><input nz-input
+                                  formControlName="groupName" placeholder="请输入属性名称"></nz-form-control>
+        </nz-form-item>
+      </nz-col>
+
+      <nz-col [nzSpan]="expandForm ? 24 : 6" [class.text-right]="expandForm">
+        <button nz-button [nzType]="'primary'" (click)="searchData()" [nzLoading]="loading">查询</button>
+        <button nz-button (click)="clearSearch()" class="mx-sm">重置</button>
+      </nz-col>
+
+    </nz-row>
+  </form>
+
+  <button nz-button [routerLink]="'../add'" [nzType]="'primary'">
+    <i class="anticon anticon-plus"></i> <span>新建</span>
+  </button>
+
+  <nz-table #ajaxTable [nzShowSizeChanger]="true"
+            [nzFrontPagination]="false" [nzData]="datas" [nzLoading]="loading"
+            [nzTotal]="pageQuery.responses.totalElements"
+            [(nzPageIndex)]="pageQuery.page" [(nzPageSize)]="pageQuery.pageSize"
+            (nzPageIndexChange)="searchData()"
+            (nzPageSizeChange)="searchData(true)">
+
+    <thead (nzSortChange)="sort($event)" nzSingleSort>
+    <tr>
+      <th>属性名称</th>
+      <th>商品分类</th>
+      <th>排序</th>
+      <th>备注</th>
+      <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of ajaxTable.data">
+      <td>{{data.groupName}}</td>
+      <td>{{data.category?.categoryName}}</td>
+      <td>{{data.sort}}</td>
+      <td>{{data.remark}}</td>
+      <td>
+        <a [routerLink]="'../edit/'+data.id">编辑
+          <nz-divider nzType="vertical"></nz-divider>
+        </a>
+        <nz-modal-customer (ok)="remove(data.id)" [title]="'提示！'"
+                           [content]="'确认要删除吗？'"
+                           [buttonName]="'删除'">
+        </nz-modal-customer>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+</nz-card>
+

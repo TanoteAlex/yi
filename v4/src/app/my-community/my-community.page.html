@@ -1,0 +1,50 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>我的小区</ion-title>
+        <goback></goback>
+    </ion-toolbar>
+</ion-header>
+
+
+<ion-content no-padding>
+    <img onerror="this.src='../../assets/app_icon/home/小区图.jpg'" [src]="item?.imgPath | thumbnailPipe : 'l'" width="100%" height="200">
+
+    <ion-list class="common-list">
+        <div text-center padding (click)="chooseCommunity()">
+            <span>{{item?.address}}</span>
+            <ion-icon class="icon-forward" name="ios-arrow-forward"></ion-icon>
+        </div>
+    </ion-list>
+    <div class="common-hr" *ngIf="member?.memberType"></div>
+    <ion-list justify-content-evenly style="display: flex;padding: 10px 0!important;" *ngIf="member?.memberType">
+        <div class="flex-center" (click)="goCommunityPerformance()" >
+            <span>小区业绩</span>
+            <ion-icon class="icon-forward" name="ios-arrow-forward"></ion-icon>
+        </div>
+        <div class="flex-center" (click)="goCommunityTeam()">
+            <span>小区成员</span>
+            <ion-icon class="icon-forward" name="ios-arrow-forward"></ion-icon>
+        </div>
+    </ion-list>
+    <div class="common-hr"></div>
+
+    <ion-list class="common-list">
+        <ion-row class="bottom-divid">
+            <ion-col size="3"><p class="greys">收货点</p></ion-col>
+            <ion-col size="8"><p>{{item?.receivingAddress}}</p></ion-col>
+        </ion-row>
+        <ion-row class="bottom-divid">
+            <ion-col size="3"><p class="greys">管理员</p></ion-col>
+            <ion-col size="8"><p>{{item?.member?.nickname}}</p></ion-col>
+        </ion-row>
+    </ion-list>
+
+    <ion-list margin-top lines="none">
+        <ion-item>
+            <div class="common-sub-title greys description">
+                <div [innerHtml]=item?.description></div>
+            </div>
+        </ion-item>
+    </ion-list>
+
+</ion-content>

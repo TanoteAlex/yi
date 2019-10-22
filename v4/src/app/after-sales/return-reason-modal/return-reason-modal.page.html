@@ -1,0 +1,8 @@
+<div class="head" (click)="goBack()"></div>
+<div class="body">
+    <div padding class="content">
+        <ion-row *ngFor="let item of reasonVo">
+            <ion-label class="common-sub-title greys" (click)="selectReason(item)">{{item}}</ion-label>
+        </ion-row>
+    </div>
+</div>

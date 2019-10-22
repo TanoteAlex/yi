@@ -1,0 +1,66 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>记录详情</ion-title>
+        <goback></goback>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content no-padding>
+    <ion-list class="info">
+        <ion-row class="bottom-divid">
+            <ion-col size="3"><p class="greys">服务单号</p></ion-col>
+            <ion-col size="8"><p>{{returnOrder?.afterSaleNo}}</p></ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="3"><p class="greys">申请时间</p></ion-col>
+            <ion-col size="8"><p>{{returnOrder?.applyTime}}</p></ion-col>
+        </ion-row>
+    </ion-list>
+    <div class="common-hr"></div>
+
+    <ion-list class="progress">
+        <ion-row>
+            <ion-col size="3" align-self-center><p class="greys">审核进度</p></ion-col>
+            <ion-col size="9">
+                <ion-item (click)="goAuditProgress()" no-padding>
+                    <ion-note text-wrap>{{returnOrder?.afterSaleProcesses[returnOrder?.afterSaleProcesses?.length-1]?.processInfo}}</ion-note>
+                    <ion-icon class="icon-forward right" name="ios-arrow-forward"></ion-icon>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <!--<ion-row class="ver-midd progress status">
+            <ion-col *ngFor="let step of progress,let i = index">
+                <img [src]="step.Img">
+                <ion-label>{{step.tip}}</ion-label>
+                <p>{{step.date}}</p>
+                <p>{{step.time}}</p>
+                <ion-col class="line" *ngIf="i != progress.length-1"
+                         [ngStyle]="{'border-color':step.tip == '待定' ? '#ccc' : '#ff334b' }"></ion-col>
+            </ion-col>
+        </ion-row>-->
+    </ion-list>
+    <div class="common-hr"></div>
+
+    <ion-list lines="none" class="padding">
+        <ion-list-header no-padding class="greys">问题描述</ion-list-header>
+        <ion-item no-padding class="greys"><p>{{returnOrder?.problemDesc}}</p></ion-item>
+
+        <ion-list-header no-padding class="greys" *ngIf="returnOrder?.attachmentVos">上传凭证</ion-list-header>
+        <ion-item style="margin: 5px;" no-padding class="greys">
+            <img style="margin-right: 10px;" *ngFor="let attachment of returnOrder?.attachmentVos" [src]="attachment.filePath" height="65" width="65">
+        </ion-item>
+    </ion-list>
+    <div class="common-hr"></div>
+
+    <ion-list lines="none" class="padding">
+        <ion-list-header no-padding class="greys">审核留言</ion-list-header>
+        <div class="greys">
+            <p>
+                亲爱的客户，很抱歉您的商品出现这样的问题。请准备好商品全套（商品、附件、发票原件、包装）,寄回地址将在审核通过后以短信形式告知，或在申请记录中查询，不支持到付及平邮。如收到的商品后情况属实，我们会尽快为您办理。感谢您对我们的支持。提示：为避免数据遗失或泄露，请您提前做好数据备份，壹壹优选将不承担相应责任。
+            </p>
+            <p>●广东省深圳市壹壹优选售后服务部</p>
+            <p>●美周壹壹优选</p>
+            <!--<p>●邮政编码：518000</p>-->
+        </div>
+    </ion-list>
+</ion-content>

@@ -1,0 +1,161 @@
+<script src="view-sale-order.component.ts"></script>
+<page-header [title]="'查看订单信息'"></page-header>
+
+<nz-card>
+  <nz-card
+    [nzBordered]="false" class="mb-lg" nzTitle="订单进度">
+    <nz-steps
+      [nzCurrent]="saleOrder.orderState-1" nzProgressDot>
+      <nz-step
+        [nzTitle]="'待付款'" [nzDescription]="createDesc">
+        <ng-template
+          #createDesc>
+          <nz-form-control>
+            <nz-modal-customer
+              class="operation" *ngIf="saleOrder.orderState==1" [showButton]="true"
+              (ok)="goUpdateOrderState(saleOrder.id,'5')" [title]="'提示！'"
+              [content]="'确认要关闭交易吗？'" [buttonName]="'关闭交易'">
+            </nz-modal-customer>
+          </nz-form-control>
+          <nz-form-control>
+            <a *ngIf="saleOrder.orderState==1"
+               [routerLink]="'../../editPrice/'+saleOrder.id">修改价格</a>
+          </nz-form-control>
+          <nz-form-control>
+            <a *ngIf="saleOrder.orderState==1"
+               [routerLink]="'../../editRecevingAddress/'+saleOrder.id">修改收货地址</a>
+          </nz-form-control>
+        </ng-template>
+      </nz-step>
+      <nz-step [nzTitle]="'待发货'" [nzDescription]="checkedDesc">
+        <ng-template
+          #checkedDesc>
+          <nz-form-control>
+            <nz-deliver-goods [saleOrderView]="saleOrder" [comment]="true"
+                              *ngIf="saleOrder.orderState==2 && ((saleOrder.orderType == 0) ||(saleOrder.orderType == 3)|| (saleOrder.orderType == 2 && saleOrder.groupState == 3))" [id]="saleOrder.id" (ok)="deliver()" [title]="'发货'" [buttonName]="'发货'">
+            </nz-deliver-goods>
+          </nz-form-control>
+          <nz-form-control>
+            <a *ngIf="saleOrder.orderState==2"
+               [routerLink]="'../../editRecevingAddress/'+saleOrder.id">修改收货地址</a>
+          </nz-form-control>
+        </ng-template>
+      </nz-step>
+      <nz-step
+        [nzTitle]="'已发货'">
+        <ng-template></ng-template>
+      </nz-step>
+      <nz-step
+        [nzTitle]="'已完成'">
+        <ng-template></ng-template>
+      </nz-step>
+    </nz-steps>
+    <div class="steps-content"></div>
+  </nz-card>
+</nz-card>
+
+<nz-card nzTitle="买家信息" nzType="inner">
+  <desc-list
+    class="mb-lg">
+    <desc-list-item term="会员昵称">{{saleOrder?.member?.nickname}}</desc-list-item>
+    <desc-list-item term="会员账号">{{saleOrder?.member?.username}}</desc-list-item>
+    <desc-list-item term="收货人信息">{{saleOrder.consignee}} {{saleOrder.consigneePhone}}
+      {{saleOrder.consigneeAddr?.substring(0,6)|districtPipe}}{{saleOrder.consigneeAddr?.substring(6,12)|districtPipe}}{{saleOrder.consigneeAddr?.substring(12,18)|districtPipe}}{{saleOrder.consigneeAddr?.substring(18,30)}}
+    </desc-list-item>
+    <desc-list-item
+      term="配送方式">{{saleOrder.deliveryMode}}
+    </desc-list-item>
+    <desc-list-item
+      term="物流公司">{{this.transformation[saleOrder.expressCompany]}}
+    </desc-list-item>
+    <desc-list-item
+      term="快递单号">{{saleOrder.expressNo}}
+    </desc-list-item>
+    <desc-list-item
+      term="买家留言">{{saleOrder.buyerMessage}}
+    </desc-list-item>
+  </desc-list>
+</nz-card>
+
+<nz-card nzTitle="订单信息" nzType="inner">
+  <desc-list
+    class="mb-lg">
+    <desc-list-item term="订单编号">{{saleOrder.orderNo}}</desc-list-item>
+    <desc-list-item term="支付方式">
+      <span *ngIf="saleOrder.payMode==0">-</span>
+      <span *ngIf="saleOrder.payMode==1">支付宝</span>
+      <span *ngIf="saleOrder.payMode==2">微信</span>
+      <span *ngIf="saleOrder.payMode==3">银联</span>
+      <span *ngIf="saleOrder.payMode==4">余额</span>
+    </desc-list-item>
+    <desc-list-item term="下单时间">{{saleOrder.orderTime}}</desc-list-item>
+    <desc-list-item
+      term="付款时间">{{saleOrder.paymentTime}}
+    </desc-list-item>
+    <desc-list-item
+      term="发货时间">{{saleOrder.deliveryTime}}
+    </desc-list-item>
+    <desc-list-item
+      term="成交时间">{{saleOrder.receiptTime}}
+    </desc-list-item>
+  </desc-list>
+</nz-card>
+<nz-card>
+
+  <div class="text-lg mb-md">订单商品</div>
+  <table class="table table-hover">
+    <tr>
+      <th>商品图片</th>
+      <th>商品名称</th>
+      <th>单价</th>
+      <th>供应商</th>
+      <th>数量</th>
+      <th>优惠</th>
+      <th>小计</th>
+    </tr>
+
+    <tr *ngFor="let saleOrderItem of saleOrder?.saleOrderItems">
+      <td><img class="table-img-customer" [src]="saleOrderItem?.commodity?.imgPath"></td>
+      <td>{{saleOrderItem?.commodity.commodityName}}</td>
+      <td>{{saleOrderItem?.price}}</td>
+      <td>{{saleOrderItem?.supplier.supplierName}}</td>
+      <td>{{saleOrderItem?.quantity}}</td>
+      <td>{{saleOrderItem?.discount}}</td>
+      <td>{{saleOrderItem?.subtotal}}</td>
+    </tr>
+
+  </table>
+
+</nz-card>
+<nz-card>
+
+  <div class="text-lg mb-md">优惠信息</div>
+  <table class="table table-hover">
+    <tr>
+      <th>商品合计</th>
+      <th>优惠券</th>
+      <th>代金券</th>
+      <th>积分抵扣</th>
+      <th>余额</th>
+      <th>运费</th>
+      <th>实际支付</th>
+    </tr>
+
+    <tr>
+      <td>{{saleOrder.orderAmount}}</td>
+      <td>{{saleOrder.couponAmount}}</td>
+      <td>{{saleOrder.voucherAmount}}</td>
+      <td>{{saleOrder.integralCashAmount}}</td>
+      <td>{{saleOrder.balance}}</td>
+      <td>{{saleOrder.freight}}</td>
+      <td>{{saleOrder.payAmount}}</td>
+    </tr>
+  </table>
+
+  <nz-form-item>
+    <nz-form-control
+      [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 18 }">
+      <button nz-button class="ml-sm" type="button" (click)="goBack()">返回</button>
+    </nz-form-control>
+  </nz-form-item>
+</nz-card>

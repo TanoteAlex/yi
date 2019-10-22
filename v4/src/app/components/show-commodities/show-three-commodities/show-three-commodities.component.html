@@ -1,0 +1,63 @@
+<div class="border-bottom" style="display: flex; padding: 5px 0;margin: 0 5px" *ngFor="let threeItem of _item;let i = index">
+    <div class="show-mode-3 border-right">
+        <div class="wrap-1" (click)="goCommodity(threeItem[0].id)">
+            <div>
+                <img-lazy-load class="commodity-3-main-img" [src]="threeItem[0].imgPath | thumbnailPipe : 's'"></img-lazy-load>
+            </div>
+            <div>
+                <div class="text-wrap common-sub-title">{{threeItem[0].commodityName}}</div>
+                <div class="red common-spec text-wrap" style="display:flex;padding-top: 15px;align-items: center">
+                    ￥<span class="common-font">{{threeItem[0].currentPrice}}</span>&nbsp;
+                    <span class="grey" *ngIf="threeItem[0]?.levelPrices && threeItem[0]?.levelPrices.length">vip￥{{getVip(threeItem[0])}}&nbsp;</span>
+
+                    <div class="hy-commodity-tip">
+                        <span class="hy-label" *ngIf="threeItem[0]?.returnVoucher">返{{threeItem[0]?.returnVoucher}}元券</span>
+                        <span class="hy-label" *ngIf="threeItem[0]?.freightSet==1 && threeItem[0]?.unifiedFreight==0">包邮</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="hy-two-commodity show-mode-3">
+        <div class="flex-col border-bottom" (click)="goCommodity(threeItem[1].id)">
+            <div class="text-wrap common-sub-title">{{threeItem[1].commodityName}}</div>
+            <div class="hy-flex-between">
+                <div>
+                    <div class="hy-commodity-tip">
+                        <span class="hy-label" *ngIf="threeItem[1]?.returnVoucher">返{{threeItem[1]?.returnVoucher}}元券</span>
+                        <span class="hy-label" *ngIf="threeItem[1]?.freightSet==1 && threeItem[1]?.unifiedFreight==0">包邮</span>
+                    </div>
+                    <div class="red common-spec">
+                        ￥<span class="common-font">{{threeItem[1].currentPrice}}</span>
+                    </div>
+                    <div class="grey common-spec">
+                        <span class="grey" *ngIf="threeItem[1]?.levelPrices && threeItem[1]?.levelPrices.length">vip￥{{getVip(threeItem[1])}}&nbsp;</span>
+                    </div>
+                </div>
+                <div class="hy-two-commodity-img">
+                    <img-lazy-load class="commodity-3-main-img" [src]="threeItem[1].imgPath | thumbnailPipe : 's'"></img-lazy-load>
+                </div>
+            </div>
+        </div>
+        <div class="flex-col" (click)="goCommodity(threeItem[2].id)">
+            <div class="text-wrap common-sub-title">{{threeItem[2].commodityName}}</div>
+            <div class="hy-flex-between">
+                <div>
+                    <div class="hy-commodity-tip">
+                        <span class="hy-label" *ngIf="threeItem[2]?.returnVoucher">返{{threeItem[2]?.returnVoucher}}元券</span>
+                        <span class="hy-label" *ngIf="threeItem[2]?.freightSet==1 && threeItem[2]?.unifiedFreight==0">包邮</span>
+                    </div>
+                    <div class="red common-spec">
+                        ￥<span class="common-font">{{threeItem[2].currentPrice}}</span>
+                    </div>
+                    <div class="grey common-spec">
+                        <span class="grey" *ngIf="threeItem[2]?.levelPrices && threeItem[2]?.levelPrices.length">vip￥{{getVip(threeItem[2])}}&nbsp;</span>
+                    </div>
+                </div>
+                <div class="hy-two-commodity-img">
+                    <img-lazy-load class="commodity-3-main-img" [src]="threeItem[2].imgPath | thumbnailPipe : 's'"></img-lazy-load>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

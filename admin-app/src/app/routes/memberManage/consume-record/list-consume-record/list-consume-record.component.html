@@ -1,0 +1,77 @@
+<page-header [title]="'消费记录'">
+  <ng-template #breadcrumb>
+    <nz-breadcrumb>
+      <nz-breadcrumb-item>
+        <a [routerLink]="['/dashboard/consume-record/list']">会员管理</a>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item>消费记录</nz-breadcrumb-item>
+    </nz-breadcrumb>
+  </ng-template>
+</page-header>
+
+<nz-card [nzBordered]="false">
+  <form nz-form [nzLayout]="'inline'" [formGroup]="searchForm" class="search__form">
+    <nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32, xl: 32, xxl: 32  }">
+
+      <nz-col nzXs="6" nzSm="6">
+        <nz-form-item>
+          <nz-form-label>会员账号</nz-form-label>
+          <nz-form-control>
+            <input nz-input formControlName="username" placeholder="请输入会员账号">
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+
+      <nz-col nzXs="6" nzSm="6">
+        <nz-form-item>
+          <nz-form-label>时间段</nz-form-label>
+          <nz-form-control>
+            <nz-range-picker (ngModelChange)="changeRange($event)" formControlName="tradeTime"></nz-range-picker>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+
+      <nz-col [nzSpan]="expandForm ? 24 : 6" [class.text-right]="expandForm">
+        <button nz-button [nzType]="'primary'" (click)="searchData()" [nzLoading]="loading">查询</button>
+        <button nz-button (click)="clearSearch()" class="mx-sm">重置</button>
+      </nz-col>
+    </nz-row>
+  </form>
+
+  <nz-table
+    #ajaxTable
+    [nzShowSizeChanger]="true"
+    [nzFrontPagination]="false"
+    [nzData]="datas"
+    [nzLoading]="loading"
+    [nzTotal]="pageQuery.responses.totalElements"
+    [(nzPageIndex)]="pageQuery.page"
+    [(nzPageSize)]="pageQuery.pageSize"
+    (nzPageIndexChange)="searchData()"
+    (nzPageSizeChange)="searchData(true)">
+
+    <thead (nzSortChange)="sort($event)" nzSingleSort>
+    <tr>
+      <th>流水号</th>
+      <th>会员账号</th>
+      <th>交易金额</th>
+      <!-- <th>账户余额</th> -->
+      <th>交易时间</th>
+      <th>备注</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of ajaxTable.data">
+      <td>{{data.serialNo}}</td>
+      <td>{{data.member?.username}}</td>
+      <td>
+        <span *ngIf="data.operateType == 1">+</span><span *ngIf="data.operateType == 2">-</span>{{data.tradeAmount}}
+      </td>
+      <!-- <td>{{data.balance}}</td> -->
+      <td>{{data.tradeTime}}</td>
+      <td>{{data.remark}}</td>
+    </tr>
+    </tbody>
+  </nz-table>
+</nz-card>
+

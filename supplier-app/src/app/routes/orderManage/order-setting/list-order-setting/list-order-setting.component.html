@@ -1,0 +1,90 @@
+<page-header [title]="'订单设置'">
+  <ng-template #breadcrumb>
+    <nz-breadcrumb>
+      <nz-breadcrumb-item>
+        <a [routerLink]="['/dashboard/order-setting/list']">订单管理</a>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item>订单设置</nz-breadcrumb-item>
+    </nz-breadcrumb>
+  </ng-template>
+</page-header>
+
+<nz-card [nzBordered]="false">
+  <div class="back-color-v2 border-show" style="padding: 10px" col-sm-12></div>
+  <form [formGroup]="searchForm" *ngFor="let orderSetting of datas;let i=index">
+
+    <nz-form-item *ngIf="orderSetting.id==1">
+
+      <nz-form-label nzXs="10" nzSm="3" nzRequired>秒杀订单超过</nz-form-label>
+      <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+        <input nz-input value="{{orderSetting?.timeout}}" type="number"
+               (blur)="updateTimeoutValue(orderSetting.id,$event.target.value,orderSetting.timeout)">
+      </nz-form-control>
+      <nz-form-text style="line-height: 39.9999px;" nzXs="10" nzSm="3">
+        <span *ngIf="orderSetting.timeUnit == 1">天</span>
+        <span *ngIf="orderSetting.timeUnit == 2">小时</span>
+        <span *ngIf="orderSetting.timeUnit == 3">分钟</span>
+        &nbsp;未付款，订单自动关闭
+      </nz-form-text>
+
+    </nz-form-item>
+
+    <nz-form-item *ngIf="orderSetting.id==2">
+      <nz-form-label nzXs="10" nzSm="3" nzRequired>正常订单超过</nz-form-label>
+      <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+        <input nz-input value="{{orderSetting?.timeout}}" type="number"
+               (blur)="updateTimeoutValue(orderSetting.id,$event.target.value,orderSetting.timeout)">
+      </nz-form-control>
+      <nz-form-text style="line-height: 39.9999px;" nzXs="10" nzSm="3">
+        <span *ngIf="orderSetting.timeUnit == 1">天</span>
+        <span *ngIf="orderSetting.timeUnit == 2">小时</span>
+        <span *ngIf="orderSetting.timeUnit == 3">分钟</span>
+        &nbsp;未付款，订单自动关闭
+      </nz-form-text>
+    </nz-form-item>
+
+    <nz-form-item *ngIf="orderSetting.id==3">
+      <nz-form-label nzXs="10" nzSm="3" nzRequired>发货超过</nz-form-label>
+      <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+        <input nz-input value="{{orderSetting?.timeout}}" type="number"
+               (blur)="updateTimeoutValue(orderSetting.id,$event.target.value,orderSetting.timeout)">
+      </nz-form-control>
+      <nz-form-text style="line-height: 39.9999px;" nzXs="10" nzSm="3">
+        <span *ngIf="orderSetting.timeUnit == 1">天</span>
+        <span *ngIf="orderSetting.timeUnit == 2">小时</span>
+        <span *ngIf="orderSetting.timeUnit == 3">分钟</span>
+        &nbsp;未收货，订单自动完成
+      </nz-form-text>
+    </nz-form-item>
+
+    <nz-form-item *ngIf="orderSetting.id==4">
+      <nz-form-label nzXs="10" nzSm="3" nzRequired>正常完成超过</nz-form-label>
+      <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+        <input nz-input value="{{orderSetting?.timeout}}" type="number"
+               (blur)="updateTimeoutValue(orderSetting.id,$event.target.value,orderSetting.timeout)">
+      </nz-form-control>
+      <nz-form-text style="line-height: 39.9999px;" nzXs="10" nzSm="3">
+        <span *ngIf="orderSetting.timeUnit == 1">天</span>
+        <span *ngIf="orderSetting.timeUnit == 2">小时</span>
+        <span *ngIf="orderSetting.timeUnit == 3">分钟</span>
+        &nbsp;自动完成交易，不能申请售后
+      </nz-form-text>
+    </nz-form-item>
+
+    <nz-form-item *ngIf="orderSetting.id==5">
+      <nz-form-label nzXs="10" nzSm="3" nzRequired>正常完成超过</nz-form-label>
+      <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+        <input nz-input value="{{orderSetting?.timeout}}" type="number"
+               (blur)="updateTimeoutValue(orderSetting.id,$event.target.value,orderSetting.timeout)">
+      </nz-form-control>
+      <nz-form-text style="line-height: 39.9999px;" nzXs="10" nzSm="3">
+        <span *ngIf="orderSetting.timeUnit == 1">天</span>
+        <span *ngIf="orderSetting.timeUnit == 2">小时</span>
+        <span *ngIf="orderSetting.timeUnit == 3">分钟</span>
+        &nbsp;自动五星好评
+      </nz-form-text>
+    </nz-form-item>
+
+  </form>
+</nz-card>
+

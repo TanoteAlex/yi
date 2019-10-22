@@ -1,0 +1,21 @@
+@import "../../../global";
+.purchaseItem {
+  position: relative;
+  .purchaseInfo {
+    margin-left: 10px;
+  }
+  .forward {
+    position: absolute;
+    right: 0;
+    background-color: $main-color;
+    border-radius: 3px;
+    padding: 0 0 1px 8px;
+    ion-note {
+      vertical-align: super;
+    }
+  }
+}
+ion-item {
+  --padding-start: 10px;
+}
+

@@ -1,0 +1,63 @@
+<page-header [title]="'查看信息'"></page-header>
+
+<nz-card>
+
+  <nz-card nzTitle="开团信息" nzType="inner">
+
+    <desc-list class="mb-lg">
+      <desc-list-item term="会员昵称">{{groupBuyOrder.member?.nickname}}</desc-list-item>
+      <desc-list-item term="团购商品">{{groupBuyOrder.groupBuyActivityProduct?.product.productShortName}}</desc-list-item>
+      <desc-list-item term="订单编号">{{groupBuyOrder.saleOrder?.orderNo}}</desc-list-item>
+      <desc-list-item term="团购状态">
+        <span *ngIf="groupBuyOrder.state == 1">待付款</span>
+        <span *ngIf="groupBuyOrder.state == 2">拼团中</span>
+        <span *ngIf="groupBuyOrder.state == 3">已成团</span>
+        <span *ngIf="groupBuyOrder.state == 4">已失效</span>
+      </desc-list-item>
+      <desc-list-item term="时间段">{{groupBuyOrder.startTime}} -- {{groupBuyOrder.endTime}}</desc-list-item>
+      <desc-list-item term="备注">{{groupBuyOrder.remark}}</desc-list-item>
+    </desc-list>
+
+  </nz-card>
+
+  <nz-card nzTitle="参团信息" nzType="inner">
+
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>订单号</th>
+          <th>参团人</th>
+          <th>参团商品</th>
+          <th>团购状态</th>
+          <th>参团时间</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="groupBuyOrder.joinGroupBuys?.length > 0">
+        <tr *ngFor="let joinGroupBuy of groupBuyOrder.joinGroupBuys">
+          <td>{{joinGroupBuy.saleOrder.orderNo}}</td>
+          <td>{{joinGroupBuy.member.nickname}}</td>
+          <td>{{joinGroupBuy.groupBuyActivityProduct.product.productShortName}}</td>
+          <td>
+            <span *ngIf="joinGroupBuy.state == 1">待付款</span>
+            <span *ngIf="joinGroupBuy.state == 2">拼团中</span>
+            <span *ngIf="joinGroupBuy.state == 3">已成团</span>
+            <span *ngIf="joinGroupBuy.state == 4">已失效</span>
+          </td>
+          <td>{{joinGroupBuy.createTime}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="groupBuyOrder.joinGroupBuys?.length == 0" style="text-align: center;color: red;font-size: 16px">
+     暂无数据
+    </div>
+
+  </nz-card>
+
+
+  <nz-form-item>
+    <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 18 }">
+      <button nz-button class="ml-sm" type="button" (click)="goBack()">返回</button>
+    </nz-form-control>
+  </nz-form-item>
+
+</nz-card>

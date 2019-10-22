@@ -1,0 +1,29 @@
+@import "../../../global";
+ion-content{
+  --background: #f9665c;
+}
+.rule-container{
+  width: 341px;
+  min-height: 584px;
+  margin: 5px auto 15px;
+  background-color: rgba(254,251,242,1);;
+}
+.rule-head{
+  width: 100%;
+}
+.rule-body{
+  padding: 20px 27px;
+  font-weight:400;
+  .rule-title{
+    margin-bottom: 8px;
+    font-family:PingFang-SC-Regular sans-serif;
+    color:rgba(0,0,0,1);
+    @extend .common-sub-title;
+  }
+  .rule-text{
+    font-family:PingFang-SC-Regular sans-serif;
+    color:rgba(65,65,65,1);
+    margin-bottom: 14px;
+    @extend .common-sub-notice;
+  }
+}

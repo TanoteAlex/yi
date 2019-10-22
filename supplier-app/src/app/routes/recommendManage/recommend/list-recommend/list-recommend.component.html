@@ -1,0 +1,88 @@
+<page-header [title]="'查询推荐位'">
+  <ng-template #breadcrumb>
+    <nz-breadcrumb>
+      <nz-breadcrumb-item>
+        <a [routerLink]="['/recommend/list']">推荐系统</a>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item>推荐位设置</nz-breadcrumb-item>
+    </nz-breadcrumb>
+  </ng-template>
+</page-header>
+
+<nz-card [nzBordered]="false">
+  <form nz-form [nzLayout]="'inline'" [formGroup]="searchForm" class="search__form">
+    <nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32, xl: 32, xxl: 32  }">
+
+      <nz-col nzMd="8" nzSm="24">
+        <nz-form-item>
+          <nz-form-label>推荐位标题</nz-form-label>
+          <nz-form-control>
+            <input nz-input formControlName="title" placeholder="请输入推荐位标题">
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+
+      <nz-col>
+        <button nz-button [nzType]="'primary'" (click)="searchData()" [nzLoading]="loading">查询</button>
+        <button nz-button (click)="clearSearch()" class="mx-sm">重置</button>
+      </nz-col>
+    </nz-row>
+  </form>
+
+  <button nz-button [routerLink]="'../add'" [nzType]="'primary'">
+    <i class="anticon anticon-plus"></i>
+    <span>新建</span>
+  </button>
+
+  <nz-table
+    #ajaxTable
+    [nzShowSizeChanger]="true"
+    [nzFrontPagination]="false"
+    [nzData]="datas"
+    [nzLoading]="loading"
+    [nzTotal]="pageQuery.responses.totalElements"
+    [(nzPageIndex)]="pageQuery.page"
+    [(nzPageSize)]="pageQuery.pageSize"
+    (nzPageIndexChange)="searchData()"
+    (nzPageSizeChange)="searchData(true)">
+
+    <thead (nzSortChange)="sort($event)" nzSingleSort>
+    <tr>
+
+      <th>推荐位标题</th>
+      <th>创建时间</th>
+      <th>状态</th>
+      <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let recommend of ajaxTable.data">
+      <td>{{recommend.title}}</td>
+      <td>{{recommend.createTime}}</td>
+
+      <td>
+        <span *ngIf="recommend.state==0">已启用</span>
+        <span *ngIf="recommend.state==1">已禁用</span>
+      </td>
+      <td>
+        <a [routerLink]="'../edit/'+recommend.id">编辑
+          <nz-divider nzType="vertical"></nz-divider>
+        </a>
+        <nz-modal-customer *ngIf="recommend.state==0" (ok)="disable(recommend.id)" [title]="'提示！'" [content]="'确认要禁用吗？'"
+                           [buttonName]="'禁用'" >
+          <nz-divider nzType="vertical"></nz-divider>
+        </nz-modal-customer>
+        <nz-modal-customer *ngIf="recommend.state==1" (ok)="enable(recommend.id)" [title]="'提示！'" [content]="'确认要启用吗？'"
+                           [buttonName]="'启用'" >
+          <nz-divider nzType="vertical"></nz-divider>
+        </nz-modal-customer>
+        <nz-modal-customer *ngIf="recommend.state==1" (ok)="remove(recommend.id)" [title]="'提示！'" [content]="'确认要删除吗？'"
+                           [buttonName]="'删除'" >
+          <nz-divider nzType="vertical"></nz-divider>
+        </nz-modal-customer>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+</nz-card>
+

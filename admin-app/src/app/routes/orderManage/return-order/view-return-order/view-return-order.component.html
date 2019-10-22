@@ -1,0 +1,249 @@
+<page-header [title]="'查看退货信息'"></page-header>
+
+<nz-card>
+
+  <nz-card nzTitle="退货进度" nzType="inner">
+
+    <nz-steps
+      [nzCurrent]="returnOrder.processType" nzProgressDot>
+      <nz-step
+        [nzTitle]="'待处理'" [nzDescription]="createDesc">
+        <ng-template #createDesc></ng-template>
+      </nz-step>
+      <nz-step [nzTitle]="'确认退货'" [nzDescription]="checkedDesc">
+        <ng-template #checkedDesc></ng-template>
+      </nz-step>
+      <nz-step
+        [nzTitle]="'拒绝退货'">
+        <ng-template></ng-template>
+      </nz-step>
+      <nz-step
+        [nzTitle]="'确认收货'">
+        <ng-template></ng-template>
+      </nz-step>
+      <nz-step
+        [nzTitle]="'确认退款'">
+        <ng-template></ng-template>
+      </nz-step>
+    </nz-steps>
+
+  </nz-card>
+
+  <nz-card nzTitle="基本信息" nzType="inner">
+
+    <desc-list class="mb-lg">
+      <desc-list-item term="服务单号">{{returnOrder.returnNo}}</desc-list-item>
+      <desc-list-item term="订单编号">{{returnOrder.saleOrder?.orderNo}}</desc-list-item>
+      <desc-list-item term="用户账号">{{returnOrder?.member?.username}}</desc-list-item>
+      <desc-list-item term="申请状态">
+        <span *ngIf="returnOrder.state==1">待处理</span>
+        <span *ngIf="returnOrder.state==2">待收货</span>
+        <span *ngIf="returnOrder.state==3">已完成</span>
+      </desc-list-item>
+      <desc-list-item term="申请时间">{{returnOrder.applyTime}}</desc-list-item>
+      <desc-list-item term="联系人">{{returnOrder.contact}}</desc-list-item>
+      <desc-list-item term="联系电话">{{returnOrder.consigneePhone}}</desc-list-item>
+    </desc-list>
+
+  </nz-card>
+
+  <nz-card nzTitle="原因描述" nzType="inner">
+
+    <desc-list class="mb-lg">
+      <desc-list-item term="退货原因">{{returnOrder.returnReason}}</desc-list-item>
+      <desc-list-item term="问题描述">{{returnOrder.problemDescription}}</desc-list-item>
+    </desc-list>
+
+  </nz-card>
+
+  <nz-card nzTitle="凭证照片" nzType="inner">
+
+    <span *ngFor="let imgs of returnOrder.attachmentVos">
+      <img class="table-img-customer-details"
+           [src]="imgs?.filePath">
+    </span>
+
+  </nz-card>
+
+  <nz-card nzTitle="退货信息" nzType="inner">
+    <desc-list class="mb-lg">
+      <desc-list-item term="收货人姓名">{{returnOrder.consignee}}</desc-list-item>
+      <desc-list-item term="联系电话">{{returnOrder.consigneePhone}}</desc-list-item>
+      <desc-list-item term="订单金额">{{returnOrder.saleOrder?.orderAmount}}</desc-list-item>
+      <desc-list-item term="运费">{{returnOrder.freight}}</desc-list-item>
+      <desc-list-item term="确认退款金额">{{returnOrder.refundAmount}}</desc-list-item>
+      <desc-list-item term="所在区域">{{position[0]|districtPipe}}{{position[1]|districtPipe}}{{position[2]|districtPipe}}
+      </desc-list-item>
+      <desc-list-item term="详细地址">
+        {{position[0]|districtPipe}}{{position[1]|districtPipe}}{{position[2]|districtPipe}}{{position[3]}}
+      </desc-list-item>
+    </desc-list>
+  </nz-card>
+
+  <nz-card nzTitle="退货处理" nzType="inner">
+
+    <div widget class="card border-0 box-shadow" *ngIf="returnOrder.state==1">
+
+      <div class="card-body widget-body" [formGroup]="commonForm">
+        <form class="form-horizontal " formGroupName="returnProcess">
+
+          <div class="form-group row text-sm-right">
+            <nz-form-label class="col-sm-2 form-control-label mt-1">处理人员<span class="text-danger">*</span>
+            </nz-form-label>
+            <nz-form-control nzXs="16" nzSm="8" nzMd="7" nzHasFeedback>
+              <app-modal-selecet
+                [showCol]="[{name:'username',value:'用户名',isShow:false},{name:'fullName',value:'姓名',isShow:true}]"
+                [select]="commonForm.value.returnProcess?.user"
+                [resultName]="freightTemplateName"
+                [baseService]="userService"
+                (result)="setMemberLevel($event)">
+              </app-modal-selecet>
+            </nz-form-control>
+          </div>
+
+          <div class="form-group row text-sm-right">
+            <nz-form-label class="col-sm-2 form-control-label mt-1">操作备注</nz-form-label>
+
+            <nz-form-control nzXs="16" nzSm="8" nzMd="7" nzHasFeedback>
+              <input nz-input type="text" formControlName="remark"
+                     placeholder="请输入操作备注">
+            </nz-form-control>
+          </div>
+
+          <div class="form-group row">
+            <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 8 }">
+              <nz-modal-customer [showButton]="false" (ok)="refusalToConfirm(returnOrder.id,1)" [title]="'提示！'"
+                                 [content]="'确定确认退货吗？'" [buttonName]="'确认退货'">
+                <nz-divider nzType="vertical"></nz-divider>
+              </nz-modal-customer>&nbsp;&nbsp;
+              <nz-modal-customer [showButton]="false" (ok)="refusalToConfirm(returnOrder.id,2)" [title]="'提示！'"
+                                 [content]="'确定拒绝退货吗？'" [buttonName]="'拒绝退货'">
+                <nz-divider nzType="vertical"></nz-divider>
+              </nz-modal-customer>
+            </nz-form-control>
+          </div>
+        </form>
+
+      </div>
+    </div>
+
+    <div widget class="card border-0 box-shadow" *ngIf="returnOrder.state==2">
+
+      <div class="card-body widget-body" [formGroup]="commonForm">
+        <form class="form-horizontal " formGroupName="returnProcess">
+
+          <div class="form-group row text-sm-right">
+            <nz-form-label class="col-sm-2 form-control-label mt-1">处理人员<span
+              class="text-danger">*</span></nz-form-label>
+            <nz-form-control nzXs="16" nzSm="8" nzMd="7" nzHasFeedback>
+              <app-modal-selecet
+                [showCol]="[{name:'username',value:'用户名',isShow:false},{name:'fullName',value:'姓名',isShow:true}]"
+                [select]="commonForm.value.returnProcess?.user"
+                [resultName]="freightTemplateName"
+                [baseService]="userService"
+                (result)="setMemberLevel($event)">
+              </app-modal-selecet>
+            </nz-form-control>
+          </div>
+
+          <div class="form-group row text-sm-right">
+            <nz-form-label class="col-sm-2 form-control-label mt-1">操作备注</nz-form-label>
+
+            <nz-form-control nzXs="16" nzSm="8" nzMd="7" nzHasFeedback>
+              <input nz-input type="text" formControlName="remark"
+                     placeholder="请输入操作备注">
+            </nz-form-control>
+          </div>
+
+          <div class="form-group row">
+            <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 8 }">
+              <nz-modal-customer [showButton]="false" (ok)="refusalToConfirm(returnOrder.id,3)" [title]="'提示！'"
+                                 [content]="'确定确认收货吗？'" [buttonName]="'确认收货'">
+                <nz-divider nzType="vertical"></nz-divider>
+              </nz-modal-customer>
+            </nz-form-control>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+
+    <div widget class="card border-0 box-shadow" *ngIf="returnOrder.state==3">
+
+      <div class="card-body widget-body" *ngFor="let returnProcess of returnOrder.returnProcesses">
+
+        <div class="form-group row text-sm-right">
+          <nz-form-label class="col-sm-2 form-control-label mt-1">处理人员<span
+            class="text-danger">*</span></nz-form-label>
+
+          <nz-form-control nzXs="16" nzSm="8" nzMd="7" nzHasFeedback>
+            <input nz-input type="text" disabled
+                   value="{{returnProcess?.user?.fullName}}">
+          </nz-form-control>
+        </div>
+
+        <div class="form-group row text-sm-right">
+          <nz-form-label class="col-sm-2 form-control-label mt-1">处理备注<span
+            class="text-danger">*</span></nz-form-label>
+
+          <nz-form-control nzXs="16" nzSm="8" nzMd="7" nzHasFeedback>
+            <input nz-input type="text" disabled
+                   value="{{returnProcess?.remark}}">
+          </nz-form-control>
+        </div>
+
+      </div>
+    </div>
+
+    <div widget class="card border-0 box-shadow" *ngIf="returnOrder.state == 4">
+
+      <div class="card-body widget-body" [formGroup]="commonForm">
+        <form class="form-horizontal " formGroupName="returnProcess">
+
+          <div class="form-group row text-sm-right">
+            <nz-form-label class="col-sm-2 form-control-label mt-1">处理人员<span
+              class="text-danger">*</span></nz-form-label>
+            <nz-form-control nzXs="16" nzSm="8" nzMd="7" nzHasFeedback>
+              <app-modal-selecet
+                [showCol]="[{name:'username',value:'用户名',isShow:false},{name:'fullName',value:'姓名',isShow:true}]"
+                [select]="commonForm.value.returnProcess?.user"
+                [resultName]="freightTemplateName"
+                [baseService]="userService"
+                (result)="setMemberLevel($event)">
+              </app-modal-selecet>
+            </nz-form-control>
+          </div>
+
+          <div class="form-group row text-sm-right">
+            <nz-form-label class="col-sm-2 form-control-label mt-1">操作备注</nz-form-label>
+
+            <nz-form-control nzXs="16" nzSm="8" nzMd="7" nzHasFeedback>
+              <input nz-input type="text" formControlName="remark"
+                     placeholder="请输入操作备注">
+            </nz-form-control>
+          </div>
+
+          <div class="form-group row">
+            <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 8 }">
+              <nz-modal-customer [showButton]="false" (ok)="refusalToConfirm(returnOrder.id,4)" [title]="'提示！'"
+                                 [content]="'确定确认退款吗？'" [buttonName]="'确认退款'">
+                <nz-divider nzType="vertical"></nz-divider>
+              </nz-modal-customer>&nbsp;&nbsp;
+              <nz-modal-customer [showButton]="false" (ok)="refusalToConfirm(returnOrder.id,5)" [title]="'提示！'"
+                                 [content]="'确定拒绝退款吗？'" [buttonName]="'拒绝退款'">
+                <nz-divider nzType="vertical"></nz-divider>
+              </nz-modal-customer>
+            </nz-form-control>
+          </div>
+        </form>
+      </div>
+    </div>
+  </nz-card>
+  <nz-form-item>
+    <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 20 }">
+      <button nz-button class="ml-sm" type="button" (click)="goBack()">返回</button>
+    </nz-form-control>
+  </nz-form-item>
+
+</nz-card>

@@ -1,0 +1,28 @@
+<center-modal [height]="'80%'" [top]="'10%'" [showClose]="false">
+  <div class="coupon-header"></div>
+  <div class="coupon-container">
+    <div class="inner-container">
+      <div class="coupon-title">代金券</div>
+
+      <div class="flex-space-between">
+        <div class="diamond-line"></div>
+        <div class="diamond"></div>
+        <div class="diamond-line"></div>
+      </div>
+
+      <div class="main-text">{{text}}</div>
+
+      <div class="main-coupon">
+        <div class="coupon-info">
+          <div class="bigger-font"><span class="big-font">￥</span>{{price}}</div>
+          <div class="common-more-small-spec">有效期：{{getTime(startTime)}}-{{getTime(endTime)}}</div>
+        </div>
+      </div>
+
+      <div class="coupon-btn">
+        <div (click)="goBack()">知道了</div>
+        <div (click)="goHome()">去体验</div>
+      </div>
+    </div>
+  </div>
+</center-modal>

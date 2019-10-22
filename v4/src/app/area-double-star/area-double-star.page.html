@@ -1,0 +1,53 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>优划算专区</ion-title>
+        <goback></goback>
+    </ion-toolbar>
+</ion-header>
+<!--后期修改了应用功能，名不副实，名字暂时没改-->
+<ion-content no-padding>
+    <div class="banner-img" style="height:10rem;" (click)="goUrl(data)">
+        <img-lazy-load [src]="data?.imgPath | thumbnailPipe : 'l'"></img-lazy-load>
+    </div>
+
+    <ion-grid padding-top padding-start padding-end>
+        <ion-row>
+            <ion-col>
+                <div class="card-item">
+                    <div class="title1">Wen Ju</div>
+                    <div class="title2">文具文具</div>
+                    <ion-button shape="round" color="light" size="small">立即查看</ion-button>
+                </div>
+            </ion-col>
+            <ion-col>
+                <div class="card-item">
+                    <div class="title1">Jia Ting Jie Ju</div>
+                    <div class="title2">家庭洁具</div>
+                    <ion-button shape="round" color="light" size="small">立即查看</ion-button>
+                </div>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <div class="card-item">
+                    <div class="title1">Wen Ju</div>
+                    <div class="title2">文具文具</div>
+                    <ion-button shape="round" color="light" size="small">立即查看</ion-button>
+                </div>
+            </ion-col>
+            <ion-col>
+                <div class="card-item">
+                    <div class="title1">Jia Ting Jie Ju</div>
+                    <div class="title2">家庭洁具</div>
+                    <ion-button shape="round" color="light" size="small">立即查看</ion-button>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <ion-list padding *ngIf="data?.recommendCommodities">
+        <ion-list-header class="list-header">更多好货</ion-list-header>
+        <app-commodity-list-first [commodityList]="data?.recommendCommodities"></app-commodity-list-first>
+    </ion-list>
+
+</ion-content>

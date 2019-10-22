@@ -1,0 +1,35 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>我的余额</ion-title>
+        <goback></goback>
+    </ion-toolbar>
+</ion-header>
+<ion-content no-padding style="height: 100%;">
+    <div class="content">
+        <div style="padding-top: 5rem">
+            <p>账户余额(元)</p>
+            <p class="money">{{balance}}</p>
+            <ion-row class="button ">
+                <ion-item (click)="goFineBalance()" lines="none">
+                    <ion-label>收支明细</ion-label>
+                    <ion-icon class="icon-forward" name="ios-arrow-forward"></ion-icon>
+                </ion-item>
+            </ion-row>
+        </div>
+    </div>
+
+    <div class="balance-item" *ngFor="let order of accountRecord | sortPipe : 'tradeTime' : true">
+        <div class="balance-remark">
+            <div class="common-notice">{{order.remark}}</div>
+            <div class="grey">{{order.tradeTime}}</div>
+        </div>
+        <div>
+            <b class="right red common-notice">
+                <span *ngIf="order.operateType==1">+</span>
+                <span *ngIf="order.operateType==2">-</span>
+                {{order.tradeAmount}}
+            </b>
+        </div>
+    </div>
+
+</ion-content>

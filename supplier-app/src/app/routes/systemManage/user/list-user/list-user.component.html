@@ -1,0 +1,113 @@
+
+<page-header [title]="'成员管理'">
+    <ng-template #breadcrumb>
+        <nz-breadcrumb>
+            <nz-breadcrumb-item>
+                <a [routerLink]="['/user/list']">系统管理</a>
+            </nz-breadcrumb-item>
+            <nz-breadcrumb-item>成员管理</nz-breadcrumb-item>
+        </nz-breadcrumb>
+    </ng-template>
+</page-header>
+
+<nz-card [nzBordered]="false">
+    <form nz-form [nzLayout]="'inline'" [formGroup]="searchForm" class="search__form">
+        <nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32, xl: 32, xxl: 32  }">
+
+
+            <nz-col nzMd="8" nzSm="24">
+                <nz-form-item>
+                    <nz-form-label>部门</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="deptName" placeholder="请输入部门">
+                    </nz-form-control>
+                </nz-form-item>
+            </nz-col>
+
+            <nz-col nzMd="8" nzSm="24">
+                <nz-form-item>
+                    <nz-form-label>姓名</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="fullName" placeholder="请输入姓名">
+                    </nz-form-control>
+                </nz-form-item>
+            </nz-col>
+
+            <nz-col nzMd="8" nzSm="24">
+                <nz-form-item>
+                    <nz-form-label>工号</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="jobNo" placeholder="请输入工号">
+                    </nz-form-control>
+                </nz-form-item>
+            </nz-col>
+
+
+            <nz-col [nzSpan]="expandForm ? 24 : 8" [class.text-right]="expandForm">
+                <button nz-button [nzType]="'primary'" (click)="searchData()" [nzLoading]="loading">查询</button>
+                <button nz-button (click)="clearSearch()" class="mx-sm">重置</button>
+            </nz-col>
+        </nz-row>
+    </form>
+
+    <button nz-button [routerLink]="'../add'" [nzType]="'primary'">
+        <i class="anticon anticon-plus"></i>
+        <span>新建</span>
+    </button>
+
+    <nz-table
+            #ajaxTable
+            [nzShowSizeChanger]="true"
+            [nzFrontPagination]="false"
+            [nzData]="datas"
+            [nzLoading]="loading"
+            [nzTotal]="pageQuery.responses.totalElements"
+            [(nzPageIndex)]="pageQuery.page"
+            [(nzPageSize)]="pageQuery.pageSize"
+            (nzPageIndexChange)="searchData()"
+            (nzPageSizeChange)="searchData(true)">
+
+        <thead (nzSortChange)="sort($event)" nzSingleSort>
+        <tr>
+            <th>部门</th>
+            <th>用户名</th>
+            <th>姓名</th>
+            <th>工号</th>
+            <th>状态</th>
+            <th>创建时间</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let user of ajaxTable.data">
+          <td>{{user?.dept?.deptName}}</td>
+          <td>{{user.username}}</td>
+          <td>{{user.fullName}}</td>
+          <td>{{user.jobNo}}</td>
+          <td>
+            <span *ngIf="user.state==0">已启用</span>
+            <span *ngIf="user.state==1">已禁用</span>
+          </td>
+          <td>{{user.createTime}}</td>
+            <td>
+                <a [routerLink]="'../edit/'+user.id">编辑<nz-divider nzType="vertical"></nz-divider></a>
+                <a [routerLink]="'../view/'+user.id">详情<nz-divider nzType="vertical"></nz-divider></a>
+              <nz-modal-customer *ngIf="user.state==0" (ok)="disable(user.id)" [title]="'提示！'" [content]="'确认要禁用吗？'"
+                                 [buttonName]="'禁用'" >
+                <nz-divider nzType="vertical"></nz-divider>
+              </nz-modal-customer>
+              <nz-modal-customer *ngIf="user.state==1" (ok)="enable(user.id)" [title]="'提示！'" [content]="'确认要启用吗？'"
+                                 [buttonName]="'启用'" >
+                <nz-divider nzType="vertical"></nz-divider>
+              </nz-modal-customer>
+              <nz-modal-customer *ngIf="user.state==1" (ok)="remove(user.id)" [title]="'提示！'" [content]="'确认要删除吗？'"
+                                 [buttonName]="'删除'" >
+                <nz-divider nzType="vertical"></nz-divider>
+              </nz-modal-customer>
+
+            </td>
+        </tr>
+        </tbody>
+    </nz-table>
+</nz-card>
+

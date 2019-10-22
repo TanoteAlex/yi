@@ -1,0 +1,201 @@
+<page-header [title]="'销售订单列表'">
+  <ng-template #breadcrumb>
+    <nz-breadcrumb>
+      <nz-breadcrumb-item>
+        <a [routerLink]="['/dashboard/sale-order/list']">订单管理</a>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item>销售订单</nz-breadcrumb-item>
+    </nz-breadcrumb>
+  </ng-template>
+</page-header>
+
+<nz-tabset>
+  <nz-tab nzTitle="{{menu.name}}" *ngFor="let menu of menus;let i=index" (nzClick)="onItemClick(i)">
+    <nz-card [nzBordered]="false">
+      <form nz-form [nzLayout]="'inline'" [formGroup]="searchForm" class="search__form">
+        <nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32, xl: 32, xxl: 32  }">
+
+          <nz-col nzXs="6" nzSm="6">
+            <nz-form-item>
+              <nz-form-label>订单编号</nz-form-label>
+              <nz-form-control>
+                <input nz-input formControlName="orderNo" placeholder="请输入订单编号">
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+          
+          <nz-col nzXs="6" nzSm="6">
+            <nz-form-item>
+              <nz-form-label>会员</nz-form-label>
+              <nz-form-control>
+                <input nz-input formControlName="username" placeholder="请输入会员账号">
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+          
+     	<nz-col nzXs="6" nzSm="6">
+            <nz-form-item>
+              <nz-form-label>商品名称</nz-form-label>
+              <nz-form-control>
+                <input nz-input formControlName="commodityName" placeholder="请输入商品名称">
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+          
+         <nz-col nzXs="6" nzSm="6">
+            <nz-form-item>
+              <nz-form-label>供应商</nz-form-label>
+              <nz-form-control>
+                <input nz-input formControlName="supplierName" placeholder="请输入供应商名称">
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+
+          <nz-col nzXs="6" nzSm="6">
+            <nz-form-item>
+              <nz-form-label>时间段</nz-form-label>
+              <nz-form-control>
+                <nz-range-picker (ngModelChange)="changeRange($event)" formControlName="createTime"
+                                 [nzFormat]="dateFormat"></nz-range-picker>
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+
+          <nz-col nzXs="6" nzSm="6">
+            <nz-form-item>
+              <nz-form-label>收货人</nz-form-label>
+              <nz-form-control>
+                <input nz-input formControlName="consignee" placeholder="请输入收货人">
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+
+          <nz-col nzXs="6" nzSm="6">
+            <nz-form-item>
+              <nz-form-label>收货人电话</nz-form-label>
+              <nz-form-control>
+                <input nz-input formControlName="consigneePhone" placeholder="请输入收货人电话">
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+
+          <nz-col nzXs="6" nzSm="6">
+            <nz-form-item>
+              <nz-form-label>订单类型</nz-form-label>
+              <nz-form-control>
+                <nz-select formControlName="orderType" [nzPlaceHolder]="'不限'">
+                  <nz-option *ngFor="let types of orderTypes" [nzLabel]="types.name"
+                             [nzValue]="types.id"></nz-option>
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+
+          <nz-col [nzSpan]="expandForm ? 24 : 6" [class.text-right]="expandForm">
+            <button nz-button [nzType]="'primary'" (click)="searchData()" [nzLoading]="loading">查询</button>
+            <button nz-button (click)="clearSearch()" class="mx-sm">重置</button>
+            <button nz-button [nzType]="'primary'" (click)="downloadExcel()">导出Excel</button>
+          </nz-col>
+        </nz-row>
+      </form>
+
+      <nz-table
+        #ajaxTable
+        [nzShowSizeChanger]="true"
+        [nzFrontPagination]="false"
+        [nzData]="datas"
+        [nzLoading]="loading"
+        [nzTotal]="pageQuery.responses.totalElements"
+        [(nzPageIndex)]="pageQuery.page"
+        [(nzPageSize)]="pageQuery.pageSize"
+        (nzPageIndexChange)="searchData()"
+        (nzPageSizeChange)="searchData(true)">
+
+        <thead (nzSortChange)="sort($event)" nzSingleSort>
+        <tr>
+          <th nzWidth="9%">订单编号</th>
+          <th nzWidth="15%">商品信息</th>
+          <th nzWidth="15%">供应商</th>
+          <th nzWidth="7%">会员</th>
+          <th nzWidth="7%">订单金额</th>
+          <th nzWidth="10%">支付金额</th>
+          <th nzWidth="7%">订单类型</th>
+          <th nzWidth="6%">支付方式</th>
+          <th nzWidth="7%">订单状态</th>
+          <th nzWidth="7%">下单时间</th>
+          <th nzWidth="10%">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- <a *ngFor="let e of logistics">
+           {{e}}
+         </a>-->
+        <tr *ngFor="let saleOrder of ajaxTable.data,let i=index">
+          <td>{{saleOrder.orderNo}}</td>
+          <td>
+            <div *ngFor="let orderItem of saleOrder.saleOrderItems" style="display: table">
+              <div style=" float: left">
+                <img class="table-img-customer" [src]="orderItem?.product.productImgPath">&nbsp;&nbsp;
+              </div>
+              <div style=" float: left">
+                {{orderItem?.product.productShortName}}<br><br>
+                ￥{{orderItem.price}}&nbsp;({{orderItem.quantity}}件)
+              </div>
+            </div>
+          </td>
+          <td>{{saleOrder?.supplier?.supplierName}}</td>
+          <td>{{saleOrder?.member?.username}}</td>
+          <td>{{saleOrder.orderAmount}}</td>
+          <td>
+            <p>优惠券：{{saleOrder.couponAmount}}</p>
+            <p>代金券：{{saleOrder.voucherAmount}}</p>
+            <p>积分抵扣：{{saleOrder.integralCashAmount}}</p>
+            <p>余额：{{saleOrder.balance}}</p>
+            <p>实付金额：{{saleOrder.payAmount}}</p>
+          </td>
+          <td>
+            <span *ngIf="saleOrder.orderType==0">普通订单</span>
+            <span *ngIf="saleOrder.orderType==1">礼物订单</span>
+            <span *ngIf="saleOrder.orderType==2">团购订单</span>
+            <span *ngIf="saleOrder.orderType==3">奖品订单</span>
+          </td>
+          <td>
+            <span *ngIf="saleOrder.payMode==0">-</span>
+            <span *ngIf="saleOrder.payMode==1">支付宝</span>
+            <span *ngIf="saleOrder.payMode==2">微信</span>
+            <span *ngIf="saleOrder.payMode==3">银联</span>
+            <span *ngIf="saleOrder.payMode==4">余额</span>
+          </td>
+          <td>
+            <span *ngIf="saleOrder.orderState==1">待付款</span>
+            <span *ngIf="saleOrder.orderState==2">待发货</span>
+            <span *ngIf="saleOrder.orderState==3">已发货</span>
+            <span *ngIf="saleOrder.orderState==4">已完成</span>
+            <span *ngIf="saleOrder.orderState==5">已关闭</span>
+          </td>
+          <td>{{saleOrder.createTime}}</td>
+          <td>
+            <nz-deliver-goods [saleOrderView]="saleOrder" [comment]="true"
+                              *ngIf="saleOrder.orderState==2 && ((saleOrder.orderType == 0) ||(saleOrder.orderType == 3)|| (saleOrder.orderType == 2 && saleOrder.groupState == 3))"
+                              [id]="saleOrder.id" (ok)="deliver()"
+                              [title]="'确认发货信息及交易详情'" [buttonName]="'发货'">
+              <nz-divider nzType="vertical"></nz-divider>
+            </nz-deliver-goods>
+            <span *ngIf="saleOrder.orderState!=5">
+              <a [routerLink]="'../view/'+saleOrder.id">查看订单</a>
+            </span>
+            <span *ngIf="saleOrder.orderState==5">
+              <nz-modal-customer (ok)="goUpdateOrderState(saleOrder.id,'1')" [title]="'提示！'" [content]="'确认要恢复订单吗？'"
+                                 [buttonName]="'恢复订单'">
+            </nz-modal-customer>
+            </span>
+          </td>
+        </tr>
+        </tbody>
+      </nz-table>
+    </nz-card>
+
+  </nz-tab>
+</nz-tabset>
+
+

@@ -1,0 +1,142 @@
+<page-header [title]="'团购列表'">
+  <ng-template #breadcrumb>
+    <nz-breadcrumb>
+      <nz-breadcrumb-item>
+        <a [routerLink]="['/dashboard/group-buy-activity/list']">团购管理</a>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item>团购活动</nz-breadcrumb-item>
+    </nz-breadcrumb>
+  </ng-template>
+</page-header>
+
+<nz-tabset>
+  <nz-tab nzTitle="{{menu.name}}" *ngFor="let menu of menus;let i=index" (nzClick)="onItemClick(i)">
+
+    <nz-card [nzBordered]="false">
+      <form nz-form [nzLayout]="'inline'" [formGroup]="searchForm" class="search__form">
+        <nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32, xl: 32, xxl: 32  }">
+
+          <nz-col nzXs="6" nzSm="6">
+            <nz-form-item>
+              <nz-form-label>团购活动名称</nz-form-label>
+              <nz-form-control>
+                <input nz-input formControlName="activityName" placeholder="请输入团购活动名称">
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+
+          <nz-col nzXs="6" nzSm="6">
+            <nz-form-item>
+              <nz-form-label>审核状态</nz-form-label>
+              <nz-form-control>
+                <nz-select formControlName="audited" [nzPlaceHolder]="'不限'">
+                  <nz-option *ngFor="let auditedState of auditeds" [nzLabel]="auditedState.name"
+                             [nzValue]="auditedState.id"></nz-option>
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+          <nz-col nzXs="6" nzSm="6">
+            <nz-form-item>
+              <nz-form-label>发布状态</nz-form-label>
+              <nz-form-control>
+                <nz-select formControlName="published" [nzPlaceHolder]="'不限'">
+                  <nz-option *ngFor="let publishedState of publisheds" [nzLabel]="publishedState.name"
+                             [nzValue]="publishedState.id"></nz-option>
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+
+          <nz-col [nzSpan]="expandForm ? 24 : 6" [class.text-right]="expandForm">
+            <button nz-button [nzType]="'primary'" (click)="searchData()" [nzLoading]="loading">查询</button>
+            <button nz-button (click)="clearSearch()" class="mx-sm">重置</button>
+          </nz-col>
+        </nz-row>
+      </form>
+
+      <button nz-button [routerLink]="'../add'" [nzType]="'primary'">
+        <i class="anticon anticon-plus"></i>
+        <span>新建</span>
+      </button>
+
+      <nz-table
+        #ajaxTable
+        [nzShowSizeChanger]="true"
+        [nzFrontPagination]="false"
+        [nzData]="groupBuyActivitys"
+        [nzLoading]="loading"
+        [nzTotal]="pageQuery.responses.totalElements"
+        [(nzPageIndex)]="pageQuery.page"
+        [(nzPageSize)]="pageQuery.pageSize"
+        (nzPageIndexChange)="searchData()"
+        (nzPageSizeChange)="searchData(true)">
+
+        <thead (nzSortChange)="sort($event)" nzSingleSort>
+        <tr>
+          <th>团购活动名称</th>
+          <th>优先级</th>
+          <!--<th>团购活动类型</th>-->
+          <th>审核状态</th>
+          <th>发布状态</th>
+          <th>终结状态</th>
+          <th>活动时间段</th>
+          <th>创建时间</th>
+          <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let groupBuyActivity of ajaxTable.data">
+          <td>{{groupBuyActivity.activityName}}</td>
+          <td>{{groupBuyActivity.priority}}</td>
+          <!--<td>{{groupBuyActivity.type}}</td>-->
+          <td>
+            <span *ngIf="groupBuyActivity.audited == 0">待审核</span>
+            <span *ngIf="groupBuyActivity.audited == 1">已审核</span>
+          </td>
+          <td>
+            <span *ngIf="groupBuyActivity.published == 0">未发布</span>
+            <span *ngIf="groupBuyActivity.published == 1">已发布</span>
+          </td>
+          <td>
+            <span *ngIf="groupBuyActivity.finished == 0">未终结</span>
+            <span *ngIf="groupBuyActivity.finished == 1">已终结</span>
+          </td>
+          <td>
+            <p style="margin-bottom: 0px;padding: 5px" *ngFor="let time of groupBuyActivity.groupBuyActivityTimes">
+              {{time.startTime}} 
+              <br/>{{time.endTime}}
+            </p>
+          </td>
+          <td>{{groupBuyActivity.createTime}}</td>
+          <td>
+            <a [routerLink]="'../edit/'+groupBuyActivity.id">编辑
+              <nz-divider nzType="vertical"></nz-divider>
+            </a>
+            <a [routerLink]="'../view/'+groupBuyActivity.id">详情
+              <nz-divider nzType="vertical"></nz-divider>
+            </a>
+            <nz-modal-customer *ngIf="groupBuyActivity.audited == 0" [auditing]="true"
+                               (result)="auditing(groupBuyActivity.id,$event)"
+                               [title]="'团购审核！'" [content]="'请选择审核人？'"
+                               [buttonName]="'审核'">
+              <nz-divider nzType="vertical"></nz-divider>
+            </nz-modal-customer>
+            <nz-modal-customer (ok)="remove(groupBuyActivity.id)" [title]="'提示！'"
+                               [content]="'确认要删除吗？'"
+                               [buttonName]="'删除'">
+              <nz-divider nzType="vertical"></nz-divider>
+            </nz-modal-customer>
+            <nz-modal-customer *ngIf="groupBuyActivity.published == 0 && groupBuyActivity.audited == 1" (ok)="publish(groupBuyActivity.id)" [title]="'提示！'"
+                               [content]="'确认要发布该活动吗？'"
+                               [buttonName]="'发布'">
+            </nz-modal-customer>
+          </td>
+        </tr>
+        </tbody>
+      </nz-table>
+    </nz-card>
+
+  </nz-tab>
+</nz-tabset>
+

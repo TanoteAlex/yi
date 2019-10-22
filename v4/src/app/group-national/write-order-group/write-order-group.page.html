@@ -1,0 +1,113 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>填写订单</ion-title>
+        <goback></goback>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content no-padding>
+    <ion-list class="common-list">
+        <ion-row *ngIf="shippingAddressVo == undefined" class="add-address">
+            <ion-item class="grey" (click)="goAddConsignee()">
+                <ion-label>请添加地址</ion-label>
+                <ion-icon class="icon-forward" name="ios-arrow-forward"></ion-icon>
+            </ion-item>
+        </ion-row>
+
+        <ion-row padding-left *ngIf="shippingAddressVo != undefined" class="address">
+            <ion-col size="2" class="ver-midd" text-center>
+                <img src="../../assets/app_icon/customer/地址信息icon@2x.png" width="20" height="25">
+            </ion-col>
+            <ion-col size="10" (click)="goChooseConsignee()">
+                <ion-item>
+                    <ion-label>
+                        <p class="black common-font  margin-bottom">{{shippingAddressVo?.fullName}}&nbsp;&nbsp;&nbsp;{{shippingAddressVo?.phone}}</p>
+                        <p class="black">{{shippingAddressVo?.province
+                            |districtPipe}}{{shippingAddressVo?.city|districtPipe}}{{shippingAddressVo?.district|districtPipe}}{{shippingAddressVo?.address}}</p>
+                    </ion-label>
+                    <ion-icon class="icon-forward" name="ios-arrow-forward"></ion-icon>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+    </ion-list>
+    <div class="common-hr"></div>
+
+    <ion-list class="common-list commodity-divid">
+        <ion-list-header>商品信息</ion-list-header>
+        <commodity-item *ngFor="let commodity of ordersDetail?.productList" [commodity]="commodity">
+            <p class="common-notice" style="margin: 0.5rem">
+                <span class="red">￥{{commodity.actualPrice}}</span>
+                <span>&nbsp;&nbsp;<del class="common-spec grey" *ngIf="commodity.price > commodity.actualPrice">￥{{commodity.price}}</del></span>
+                <span class="right red">x{{commodity.quantity}}</span>
+            </p>
+        </commodity-item>
+
+        <ion-row>
+            <ion-item (click)="goMyCoupon(ordersDetail.coupons)">
+                <ion-label>优惠券</ion-label>
+                <ion-note>
+                    <p *ngIf="!ordersDetail?.couponAmount">{{ordersDetail?.coupons?.length}}张可用</p>
+                    <p class="red" *ngIf="ordersDetail?.couponAmount">-{{coupon?.couponAmount}}</p>
+                </ion-note>
+                <ion-icon class="icon-forward" name="ios-arrow-forward"></ion-icon>
+            </ion-item>
+        </ion-row>
+        <ion-row>
+            <ion-item (click)="goMyStorage(ordersDetail.vouchers)">
+                <ion-label>代金券</ion-label>
+                <ion-note>
+                    <p *ngIf="!ordersDetail?.voucherAmount">{{ordersDetail?.vouchers?.length}}张可用</p>
+                    <p class="red" *ngIf="ordersDetail?.voucherAmount">-{{storage?.voucherAmount}}</p>
+                </ion-note>
+                <ion-icon class="icon-forward" name="ios-arrow-forward"></ion-icon>
+            </ion-item>
+        </ion-row>
+
+        <ion-row>
+            <ion-item>
+                <ion-label>运费</ion-label>
+                <div size="9" align-self-center>
+                    <!--<span class="radiu red" *ngIf="false">满88元免邮</span>-->
+                    <p class="grey right" style="padding: 0 10px;">￥{{ordersDetail?.freight}}</p>
+                </div>
+            </ion-item>
+        </ion-row>
+
+        <div class="common-notice flex-space-between bg-white" style="padding: 10px 15px;" *ngIf="ordersDetail?.balance">
+            <div>使用余额进行抵扣{{ordersDetail?.balance}}元</div>
+            <div>
+                <ion-checkbox color="danger" [checked]="ordersDetail.useBalance" (click)="useBalance()"></ion-checkbox>
+            </div>
+        </div>
+
+        <ion-row *ngIf="ordersDetail">
+            <ion-item>
+                <ion-label class="common-notice" style="width: 20%;">买家留言:</ion-label>
+                <ion-item style="width: 80%">
+                    <input class="common-sub-title common-input" type="text" placeholder="请输入留言信息" [(ngModel)]="ordersDetail.buyerMessage"/>
+                </ion-item>
+            </ion-item>
+        </ion-row>
+        <ion-row style="height: 44px;">
+            <ion-col style="text-align: right;padding-right: 15px;">
+                <span class="common-notice">订单小计</span><span class="red common-font">￥{{ordersDetail?.payAmount}}</span>
+            </ion-col>
+        </ion-row>
+        <div class="common-hr"></div>
+    </ion-list>
+</ion-content>
+
+<ion-footer>
+    <ion-toolbar>
+        <ion-row>
+            <ion-col size="8" style="padding-top: 10px;">
+                <p class="pay-info" no-margin>&nbsp;应付金额：<span class="red common-font">￥{{ordersDetail?.payAmount}}</span></p>
+            </ion-col>
+            <ion-col size="4" class="ver-midd" no-padding>
+                <ion-button style="width: 100%;" expand="full" color="danger" class="shopping-pay" (click)="goOrderPay()">
+                    提交订单
+                </ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-toolbar>
+</ion-footer>

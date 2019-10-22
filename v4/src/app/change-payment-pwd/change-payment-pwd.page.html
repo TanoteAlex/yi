@@ -1,0 +1,28 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>设置支付密码</ion-title>
+        <goback></goback>
+        <span class="red right" (click)="goAccountsSecurity()">完成</span>
+    </ion-toolbar>
+</ion-header>
+<!--支付密码无用，该页面无用-->
+
+<ion-content no-padding>
+    <form [formGroup]="commonForm">
+        <ion-list class="common-list" lines="none">
+            <ion-item *ngIf="haspaypsw">
+                <ion-label class="common-sub-title greys" position="fixed">旧密码</ion-label>
+                <label><input class="common-input common-sub-title" type="password" placeholder="请输入旧密码" formControlName="oldword"/></label>
+            </ion-item>
+            <ion-item>
+                <ion-label class="common-sub-title greys" position="fixed">密码</ion-label>
+                <label><input class="common-input common-sub-title" type="password" placeholder="请输入支付密码(6-20位数字)" formControlName="password"/></label>
+            </ion-item>
+            <div class="common-hr"></div>
+            <ion-item>
+                <ion-label class="common-sub-title greys" position="fixed">确认密码</ion-label>
+                <label><input class="common-input common-sub-title" type="password" placeholder="再次输入支付密码" formControlName="configword"></label>
+            </ion-item>
+        </ion-list>
+    </form>
+</ion-content>

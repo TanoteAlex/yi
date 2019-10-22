@@ -1,0 +1,121 @@
+<page-header [title]="'查看 '+ groupBuyActivity.activityName +' 信息'"></page-header>
+
+<nz-card>
+
+  <nz-card nzTitle="团购活动信息" nzType="inner">
+
+    <desc-list class="mb-lg">
+      <desc-list-item term="团购活动封面"><img class="table-img-customer-details" [src]="groupBuyActivity.coverUrl">
+      </desc-list-item>
+      <desc-list-item term="团购活动名称">{{groupBuyActivity.activityName}}</desc-list-item>
+      <desc-list-item term="优先级">{{groupBuyActivity.priority}}</desc-list-item>
+      <desc-list-item term="发布人">{{groupBuyActivity.publishUser?.fullName}}</desc-list-item>
+      <desc-list-item term="发布状态">
+        <span *ngIf="groupBuyActivity.published == 0">未发布</span>
+        <span *ngIf="groupBuyActivity.published == 1">已发布</span>
+      </desc-list-item>
+      <desc-list-item term="运费设置">
+        <span *ngIf="groupBuyActivity.hasPost == 1">卖家包邮</span>
+        <span *ngIf="groupBuyActivity.hasPost == 2">买家承担运费</span>
+      </desc-list-item>
+      <desc-list-item term="是否支持优惠券">
+        <span *ngIf="groupBuyActivity.hasCoupon == 0">不支持</span>
+        <span *ngIf="groupBuyActivity.hasCoupon == 1">支持</span>
+      </desc-list-item>
+      <desc-list-item term="审核状态">
+        <span *ngIf="groupBuyActivity.audited == 0">未审核</span>
+        <span *ngIf="groupBuyActivity.audited == 1">已审核</span>
+      </desc-list-item>
+      <desc-list-item term="审核人" *ngIf="groupBuyActivity.audited == 1">{{groupBuyActivity.auditUser.fullName}}</desc-list-item>
+      <desc-list-item term="审核时间" *ngIf="groupBuyActivity.audited == 1">{{groupBuyActivity.auditDate}}</desc-list-item>
+    </desc-list>
+
+  </nz-card>
+
+  <nz-card nzTitle="团购设置" nzType="inner">
+
+    <p>活动时间段：</p>
+    <p><span *ngFor="let time of groupBuyActivity.groupBuyActivityTimes">{{time.startTime}} --
+      {{time.endTime}}&nbsp;&nbsp;</span>
+    </p>
+    <p></p>
+    <!--<p>活动会员等级：</p>-->
+    <!--<p *ngIf="memberLevels"><span *ngFor="let level of memberLevels">{{level.name}}&nbsp;&nbsp;</span></p>-->
+    <!--<p *ngIf="memberLevels.length == 0">全部会员</p>-->
+    <!--<p></p>-->
+
+    <nz-card nzTitle="商品属性" nzType="inner">
+
+      <table class="address-border" style="width: 100%">
+        <thead>
+        <tr>
+          <th>商品</th>
+          <th>货品</th>
+          <th>拼团价</th>
+          <th>成团人数</th>
+          <th>活动库存</th>
+        </tr>
+        </thead>
+        <tbody *ngFor="let product of groupBuyActivity.groupBuyActivityProducts;let i = index">
+        <tr class="success" *ngIf="i>=(page-1)*pageSize && i<page*pageSize">
+          <td>{{product.commodity.commodityShortName}}</td>
+          <td>{{product.product.productShortName}}</td>
+          <td>{{product.groupBuyPrice}}</td>
+          <td>{{product.groupBuyQuantity}}</td>
+          <td>{{product.stockUpQuantity}}</td>
+        </tr>
+        </tbody>
+      </table>
+      <nav aria-label="Page navigation" style="text-align: right;padding: 10px" *ngIf="totalPages>1">
+        <button nz-button class="ml-sm" type="button" (click)="topPage()">首页</button>
+        <button nz-button class="ml-sm" type="button" (click)="previousPage()">上一页</button>&nbsp;
+        <input nz-input #inPage style="width: 10%" (keyup.enter)="changePage(inPage.value)"
+               (blur)="changePage(inPage.value)" value={{page}}>
+        <button nz-button class="ml-sm" type="button" (click)="nextPage()">下一页</button>
+        <button nz-button class="ml-sm" type="button" (click)="endPage()">尾页</button>
+      </nav>
+
+    </nz-card>
+
+    <nz-card nzTitle="团购审核" nzType="inner" *ngIf="groupBuyActivity.audited == 0">
+
+      <nz-form-item>
+
+        <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="auditUser">审核人</nz-form-label>
+        <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+          <app-modal-selecet
+            [pageQuery]="userPageQuery"
+            [filters]="[{filterName:'fullName',name:'姓名',value:''}]"
+            [showCol]="[{name:'jobNo',value:'工号',isShow:false},{name:'fullName',value:'姓名',isShow:true}]"
+            [select]="commonForm.value.auditUser"
+            [resultName]="commonForm.value.auditUser ? commonForm.value.auditUser.fullName : '请选择'"
+            [baseService]="userService"
+            (result)="setUser($event)">
+          </app-modal-selecet>
+          <nz-form-explain class="has-error" *ngIf="commonForm.get('auditUser').dirty&&commonForm.get('auditUser').errors">
+            <ng-container *ngFor="let error of formErrors.auditUser">
+              <nz-form-explain *ngIf="commonForm.get('auditUser').errors[error.name]">{{ error.msg }}
+              </nz-form-explain>
+            </ng-container>
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+      <div class="form-group row">
+        <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 8 }">
+          <nz-modal-customer [showButton]="false" (ok)="auditing(groupBuyActivity.id)" [title]="'提示！'"
+                             [content]="'确定同意审核吗？'" [buttonName]="'同意审核'">
+            <nz-divider nzType="vertical"></nz-divider>
+          </nz-modal-customer>
+        </nz-form-control>
+      </div>
+
+    </nz-card>
+
+    <nz-form-item>
+      <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 18 }">
+        <button nz-button nzType="primary" type="submit" [routerLink]="'../../edit/'+ groupBuyActivity.id">编辑</button>
+        <button nz-button class="ml-sm" type="button" (click)="goBack()">返回</button>
+      </nz-form-control>
+    </nz-form-item>
+
+  </nz-card>

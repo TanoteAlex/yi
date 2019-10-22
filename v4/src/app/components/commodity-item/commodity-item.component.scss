@@ -1,0 +1,28 @@
+.common-sub-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.radiu {
+  width: fit-content;
+  padding: 1px 6px;
+  border-radius: 10px;
+  background-color: #ffeaed;
+}
+
+p {
+  margin: 0.5rem !important;
+}
+
+.commodity-img {
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  .invalid-icon{
+    position: absolute;
+    z-index: 100;
+    width: 70px;
+    height: 70px;
+  }
+}

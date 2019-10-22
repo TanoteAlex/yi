@@ -1,0 +1,46 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>系统设置</ion-title>
+        <goback></goback>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content no-padding>
+    <ion-list class="common-list">
+        <!--<ion-row>
+            <ion-item (click)="goVersionUp()">
+                <ion-label>版本号</ion-label>
+                <ion-icon class="icon-forward" name="ios-arrow-forward"></ion-icon>
+            </ion-item>
+        </ion-row>-->
+        <!--<div class="line-divid"></div>-->
+        <!--<ion-row>-->
+            <!--<ion-item (click)="goVersionUp()">-->
+                <!--<ion-label>检查更新</ion-label>-->
+                <!--<ion-icon class="icon-forward" name="ios-arrow-forward"></ion-icon>-->
+            <!--</ion-item>-->
+        <!--</ion-row>-->
+        <!--<div class="common-hr"></div>-->
+
+        <ion-row>
+            <ion-item (click)="clearCache()">
+                <ion-label>清除缓存</ion-label>
+                <ion-note class="grey">&nbsp;</ion-note>
+                <ion-icon class="icon-forward" name="ios-arrow-forward"></ion-icon>
+            </ion-item>
+        </ion-row>
+        <div class="line-divid"></div>
+        <ion-row>
+            <ion-item (click)="goAccountsSecurity()">
+                <ion-label>账户安全</ion-label>
+                <ion-icon class="icon-forward" name="ios-arrow-forward"></ion-icon>
+            </ion-item>
+        </ion-row>
+        <div class="common-hr"></div>
+        <div class="common-hr"></div>
+        <div class="common-hr"></div>
+        <ion-row justify-content-center>
+            <ion-button fill="clear" color="danger" (click)="loginOut()">退出登录</ion-button>
+        </ion-row>
+    </ion-list>
+</ion-content>

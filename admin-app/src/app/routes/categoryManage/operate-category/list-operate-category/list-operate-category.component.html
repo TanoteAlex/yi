@@ -1,0 +1,58 @@
+<page-header [title]="'运营分类列表'">
+  <ng-template #breadcrumb>
+    <nz-breadcrumb>
+      <nz-breadcrumb-item>
+        <a [routerLink]="['/dashboard/operate-category/list']">分类管理</a>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item>运营分类</nz-breadcrumb-item>
+    </nz-breadcrumb>
+  </ng-template>
+</page-header>
+
+<nz-card [nzBordered]="false">
+
+  <button nz-button [routerLink]="'../add'" [nzType]="'primary'">
+    <i class="anticon anticon-plus"></i>
+    <span>新建</span>
+  </button>
+  <nz-table #nzTable [nzData]="data">
+    <thead>
+    <tr>
+      <th>分类名称</th>
+      <!--<th>分类编码</th>-->
+      <th>图片路径</th>
+      <th>排序</th>
+      <th>备注</th>
+      <th>创建时间</th>
+      <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <ng-template ngFor let-data [ngForOf]="nzTable.data">
+      <ng-template ngFor let-item [ngForOf]="expandDataCache[data.id]">
+        <tr *ngIf="(item.parent&&item.parent.expand)||!(item.parent)">
+          <td [nzIndentSize]="item.level*20" [nzShowExpand]="item.children&&item.children.length!=0" *ngIf="!item.del"
+              [(nzExpand)]="item.expand" (nzExpandChange)="collapse(expandDataCache[data.id],item,$event)">
+            {{item?.categoryName}}{{item.del}}
+          </td>
+          <!--<td *ngIf="!item.del">{{item.categoryNo}}</td>-->
+          <td *ngIf="!item.del"><img class="table-img-customer" [src]="item?.imgPath"></td>
+          <td *ngIf="!item.del">{{item.sort}}</td>
+          <td *ngIf="!item.del">{{item.remark}}</td>
+          <td *ngIf="!item.del">{{item.createTime}}</td>
+          <td *ngIf="!item.del">
+            <a [routerLink]="'../edit/'+item.id">编辑
+              <nz-divider nzType="vertical"></nz-divider>
+            </a>
+            <nz-modal-customer (ok)="remove(item,data)" [title]="'提示！'" [content]="'确认要删除吗？'"
+                               [buttonName]="'删除'">
+            </nz-modal-customer>
+          </td>
+        </tr>
+      </ng-template>
+    </ng-template>
+    </tbody>
+  </nz-table>
+
+</nz-card>
+

@@ -1,0 +1,71 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-segment [(ngModel)]="select">
+            <ion-segment-button value="introduce">
+                商品介绍
+            </ion-segment-button>
+            <ion-segment-button value="detail">
+                图文详情
+            </ion-segment-button>
+            <ion-segment-button value="evaluation">
+                商品评价
+            </ion-segment-button>
+        </ion-segment>
+        <goback [isShare]="preMemberId != undefined"></goback>
+        <img src="../../assets/app_icon/customer/分享icon@3x.png" class="shareIcon" (click)="openShareModal()"/>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <commodity-detail [commodity]="commodity" [select]="select" (onCustomEvent)="onCustom($event)">
+        <ion-list lines="none" class="bg-white params">
+            <ion-row class="title-name">
+                <div text-center>
+                    <h5><span class="title-tip">{{groupInfo?.label}}</span>{{commodity?.commodityName}}</h5>
+                    <p class="grey common-notice">{{commodity?.commodityShortName}}</p>
+
+                    <span class="common-sub-title red">￥</span>
+                    <span class="common-title red">{{groupInfo?.groupPrice}}</span>&nbsp;
+                    <del class="grey common-sub-title">￥{{groupInfo?.product.currentPrice}}</del>
+                </div>
+            </ion-row>
+
+            <!--二期-->
+            <div class="line-divid"></div>
+            <ion-item>
+                <ion-label class="left red">仅剩100件</ion-label>
+                <ion-note class="right red">本次结束剩余
+                    <time-count [isDefault]="true"></time-count>
+                </ion-note>
+            </ion-item>
+
+            <div class="common-hr"></div>
+            <ion-item (click)="serviceModal()">
+                <ion-label>服务说明</ion-label>
+                <ion-note>无忧退货 快速退款 免费包邮</ion-note>
+                <ion-icon class="icon-forward" name="ios-arrow-forward"></ion-icon>
+            </ion-item>
+            <div class="line-divid"></div>
+
+            <!--<ion-item (click)="paramsModal()">
+              <ion-label>商品参数</ion-label>
+              <ion-note>查看</ion-note>
+              <ion-icon class="icon-forward" name="ios-arrow-forward"></ion-icon>
+            </ion-item>
+            <div class="line-divid"></div>-->
+
+            <ion-item (click)="goGroupWriteOrder()">
+                <ion-label>规格</ion-label>
+                <ion-note>{{groupInfo?.product.productShortName}}</ion-note>
+                <ion-icon class="icon-forward" name="ios-arrow-forward"></ion-icon>
+            </ion-item>
+        </ion-list>
+    </commodity-detail>
+</ion-content>
+
+<ion-footer>
+    <ion-toolbar>
+        <img src="../../../assets/app_icon/home/购物车-商品icon@2x.png" (click)="goShoppingCart()"/>
+        <!--<ion-button shape="round" color="light" class="add-shopping-cart" (click)="addCart()" *ngIf="!groupInfo">加入购物车</ion-button>-->
+        <ion-button shape="round" color="danger" (click)="goGroupWriteOrder()" *ngIf="groupInfo">开团抢购</ion-button>&nbsp;&nbsp;
+    </ion-toolbar>
+</ion-footer>

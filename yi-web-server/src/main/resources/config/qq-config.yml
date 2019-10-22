@@ -1,0 +1,8 @@
+#QQ配置
+qq:
+  app_id: 101521224
+  app_key: a091b3dbcb70acf606fa421576171cb6
+  open_id_url: 'https://graph.qq.com/oauth2.0/me'
+  union_id_url: 'https://graph.qq.com/oauth2.0/me'
+  user_info_url: 'https://graph.qq.com/user/get_user_info'
+  success_code: '0'

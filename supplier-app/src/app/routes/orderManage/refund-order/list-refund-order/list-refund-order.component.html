@@ -1,0 +1,93 @@
+<page-header [title]="'退款列表'">
+  <ng-template #breadcrumb>
+    <nz-breadcrumb>
+      <nz-breadcrumb-item>
+        <a [routerLink]="['/dashboard/refund-order/list']">订单管理</a>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item>退款处理</nz-breadcrumb-item>
+    </nz-breadcrumb>
+  </ng-template>
+</page-header>
+
+<nz-card [nzBordered]="false">
+  <form nz-form [nzLayout]="'inline'" [formGroup]="searchForm" class="search__form">
+    <nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32, xl: 32, xxl: 32  }">
+
+      <nz-col nzXs="6" nzSm="6">
+        <nz-form-item>
+          <nz-form-label>服务单号</nz-form-label>
+          <nz-form-control>
+            <input nz-input formControlName="refundNo" placeholder="请输入服务单号">
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+
+      <nz-col nzXs="6" nzSm="6">
+        <nz-form-item>
+          <nz-form-label>会员账号</nz-form-label>
+          <nz-form-control>
+            <input nz-input formControlName="username" placeholder="请输入会员账号">
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+
+      <nz-col [nzSpan]="expandForm ? 24 : 6" [class.text-right]="expandForm">
+        <button nz-button [nzType]="'primary'" (click)="searchData()" [nzLoading]="loading">查询</button>
+        <button nz-button (click)="clearSearch()" class="mx-sm">重置</button>
+      </nz-col>
+
+    </nz-row>
+
+
+  </form>
+
+  <!--<button nz-button [routerLink]="'../add'" [nzType]="'primary'">-->
+  <!--<i class="anticon anticon-plus"></i>-->
+  <!--<span>新建</span>-->
+  <!--</button>-->
+
+  <nz-table
+    #ajaxTable
+    [nzShowSizeChanger]="true"
+    [nzFrontPagination]="false"
+    [nzData]="datas"
+    [nzLoading]="loading"
+    [nzTotal]="pageQuery.responses.totalElements"
+    [(nzPageIndex)]="pageQuery.page"
+    [(nzPageSize)]="pageQuery.pageSize"
+    (nzPageIndexChange)="searchData()"
+    (nzPageSizeChange)="searchData(true)">
+
+    <thead (nzSortChange)="sort($event)" nzSingleSort>
+    <tr>
+
+      <th>服务单号</th>
+      <th>申请时间</th>
+      <th>会员账号</th>
+      <th>退款金额</th>
+      <th>处理时间</th>
+      <th>审批状态</th>
+      <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let refundOrder of ajaxTable.data">
+      <td>{{refundOrder.refundNo}}</td>
+      <td>{{refundOrder.applyTime}}</td>
+      <td>{{refundOrder?.member?.username}}</td>
+      <td>{{refundOrder.orderAmount}}</td>
+      <td>{{refundOrder.handleTime}}</td>
+      <!-- <td *ngIf="refundOrder.processs==''"></td>-->
+      <td>
+        <span *ngIf="refundOrder.processType==1">确认退款</span>
+        <span *ngIf="refundOrder.processType==2">拒绝退款</span>
+      </td>
+      <td>
+        <a [routerLink]="'../view/'+refundOrder.id">详情
+        </a>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+</nz-card>
+

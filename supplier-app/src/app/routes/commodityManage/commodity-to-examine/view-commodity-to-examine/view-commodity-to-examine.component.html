@@ -1,0 +1,72 @@
+<page-header [title]="'查看 ' + commodity.commodityName + ' 信息'"></page-header>
+<nz-card>
+
+  <nz-card nzTitle="商品信息" nzType="inner">
+
+    <desc-list class="mb-lg">
+      <desc-list-item term="商品编码">{{commodity.commodityNo}}</desc-list-item>
+      <desc-list-item term="商品名称">{{commodity.commodityName}}</desc-list-item>
+      <desc-list-item term="商品简称">{{commodity.commodityShortName}}</desc-list-item>
+      <desc-list-item term="商品体积">{{commodity.volume}}&nbsp;m²</desc-list-item>
+      <desc-list-item term="商品重量">{{commodity.weight}}&nbsp;kg</desc-list-item>
+      <desc-list-item term="排序号">{{commodity.sort}}</desc-list-item>
+    </desc-list>
+
+  </nz-card>
+
+  <nz-card nzTitle="商品设置信息" nzType="inner">
+
+    <desc-list class="mb-lg">
+      <desc-list-item term="佣金比例">{{commodity.commissionRate}}&nbsp;%</desc-list-item>
+      <desc-list-item term="是否上架">
+        <span *ngIf="commodity.shelfState==1">立即上架</span>
+        <span *ngIf="commodity.shelfState==2">放入仓库</span>
+      </desc-list-item>
+      <desc-list-item term="库存设置">
+        <span *ngIf="commodity.stockSet==1">下单减库存</span>
+        <span *ngIf="commodity.stockSet==2">支付减库存</span>
+      </desc-list-item>
+      <desc-list-item term="运费设置">
+        <span *ngIf="commodity.freightSet==1">统一运费</span>
+        <span *ngIf="commodity.freightSet==2">运费模板</span>
+      </desc-list-item>
+      <desc-list-item term="统一运费" *ngIf="commodity.freightSet==1">{{commodity.unifiedFreight}}</desc-list-item>
+      <desc-list-item term="运费模板" *ngIf="commodity.freightSet==2">{{commodity.freightTemplate.templateName}}</desc-list-item>
+      <desc-list-item term="参加分销">
+        <span *ngIf="commodity.distribution==0">参加</span>
+        <span *ngIf="commodity.distribution==1">不参加</span>
+      </desc-list-item>
+      <desc-list-item term="销售地区">
+        <span *ngFor="let region of commodity.regions;let i=index">{{region.area?.name}}&nbsp;&nbsp;</span>
+      </desc-list-item>
+    </desc-list>
+
+  </nz-card>
+
+  <nz-card nzTitle="商品图片" nzType="inner">
+
+    <nz-form-control>
+      <nz-form-text>
+        <span *ngFor="let attachmentVo of commodity.attachmentVos">
+          <img class="table-img-customer-details" [src]="attachmentVo.filePath">
+        </span>
+      </nz-form-text>
+    </nz-form-control>
+
+  </nz-card>
+
+  <nz-card nzTitle="商品介绍" nzType="inner">
+
+    <nz-form-control nzXs="17" nzSm="17" nzMd="17">
+      <div [innerHtml]="sanli.bypassSecurityTrustHtml(commodity.description)" style="height:500px;overflow-y:auto"></div>
+    </nz-form-control>
+
+  </nz-card>
+
+  <nz-form-item>
+    <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 20 }">
+      <button nz-button class="ml-sm" type="button" (click)="goBack()">返回</button>
+    </nz-form-control>
+  </nz-form-item>
+
+</nz-card>

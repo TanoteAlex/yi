@@ -1,0 +1,82 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>我的订单</ion-title>
+        <goback></goback>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content no-padding>
+
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content
+                pullingIcon="arrow-dropdown"
+                pullingText="下拉刷新"
+                refreshingSpinner="circles"
+                refreshingText="正在加载...">
+        </ion-refresher-content>
+    </ion-refresher>
+
+    <ion-segment [(ngModel)]="afterSale">
+        <ion-segment-button value="apply" (click)="ordersFilter('apply')">
+            售后申请
+        </ion-segment-button>
+        <ion-segment-button value="applyRecord" (click)="ordersFilter('applyRecord')">
+            申请记录
+        </ion-segment-button>
+    </ion-segment>
+
+    <ion-list>
+        <ion-list class="common-list" *ngFor="let order of list ">
+            <div style="padding: 5px;">
+
+                <ion-row style="display: flex;">
+                    <ion-col size="8">
+                        <ion-label>订单编号：{{order.orderNo}}</ion-label>
+                    </ion-col>
+                    <ion-col size="4">
+                        <ion-label class="right">下单时间：{{order.paymentTime.substr(0,10)}}</ion-label>
+                    </ion-col>
+                </ion-row>
+                <div *ngFor="let commodity of order.productList | sortPipe">
+                    <commodity-item [commodity]="commodity">
+                        <p class="common-notice">
+                            <span class="red">￥{{commodity.price}}</span>
+                            <span class="right red">x{{commodity.quantity}}</span>
+                        </p>
+                    </commodity-item>
+                </div>
+                <ion-row class="order-bottom">
+                    <ion-col>
+                        <ion-label>{{order.afterSaleMsg}}</ion-label>
+                    </ion-col>
+                    <ion-col class="right">
+                        <ion-button shape="round" size="small" fill="outline" color="danger"
+                                    *ngIf="afterSale=='apply'"
+                                    [disabled]="order.afterSaleState!=1"
+                                    (click)="goApplyReturn(order)">申请售后
+                        </ion-button>
+                        <ion-button shape="round" size="small" fill="outline" color="dark"
+                                    *ngIf="afterSale=='applyRecord'"
+                                    (click)="goRecordDetailsPage(order)">查看进度
+                        </ion-button>
+                    </ion-col>
+                </ion-row>
+
+            </div>
+            <div class="common-hr"></div>
+        </ion-list>
+    </ion-list>
+        <div class="nolist" *ngIf="!list?.length && !isLoading">
+            <ion-label class="grey">暂无相关售后申请记录~</ion-label>
+        </div>
+
+        <div class="loading" *ngIf="isLoading">
+            <ion-spinner></ion-spinner>
+        </div>
+
+        <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+            <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="正在加载..."></ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+
+
+</ion-content>

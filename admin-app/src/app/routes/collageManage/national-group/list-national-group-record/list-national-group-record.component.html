@@ -1,0 +1,92 @@
+<page-header>
+  <ng-template #breadcrumb>
+    <nz-breadcrumb>
+      <nz-breadcrumb-item>
+        <a [routerLink]="['/dashboard/national-group-record/list']">拼团管理</a>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item>全国拼团记录</nz-breadcrumb-item>
+    </nz-breadcrumb>
+  </ng-template>
+</page-header>
+
+<nz-card [nzBordered]="false">
+  <form nz-form [nzLayout]="'inline'" [formGroup]="searchForm" class="search__form">
+    <nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32, xl: 32, xxl: 32  }">
+
+      <nz-col nzMd="6" nzSm="24">
+        <nz-form-item>
+          <nz-form-label>全国拼团</nz-form-label>
+          <nz-form-control>
+            <input nz-input formControlName="nationalGroup" placeholder="请输入全国拼团">
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+      <nz-col nzMd="6" nzSm="24">
+        <nz-form-item>
+          <nz-form-label>团编号</nz-form-label>
+          <nz-form-control>
+            <input nz-input formControlName="groupCode" placeholder="请输入团编号">
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+
+      <nz-col nzMd="6" nzSm="24">
+        <nz-form-item>
+          <nz-form-label>团长</nz-form-label>
+          <nz-form-control>
+            <input nz-input formControlName="member" placeholder="请输入团长">
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+
+      <nz-col [nzSpan]="expandForm ? 24 : 6" [class.text-right]="expandForm">
+        <button nz-button [nzType]="'primary'" (click)="searchData()" [nzLoading]="loading">查询</button>
+        <button nz-button (click)="clearSearch()" class="mx-sm">重置</button>
+      </nz-col>
+    </nz-row>
+  </form>
+
+  <nz-table
+    #ajaxTable
+    [nzShowSizeChanger]="true"
+    [nzFrontPagination]="false"
+    [nzData]="datas"
+    [nzLoading]="loading"
+    [nzTotal]="pageQuery.responses.totalElements"
+    [(nzPageIndex)]="pageQuery.page"
+    [(nzPageSize)]="pageQuery.pageSize"
+    (nzPageIndexChange)="searchData()"
+    (nzPageSizeChange)="searchData(true)">
+
+    <thead (nzSortChange)="sort($event)" nzSingleSort>
+    <tr>
+      <th>全国拼团</th>
+      <th>团编号</th>
+      <th>团长</th>
+      <th>成团人数</th>
+      <th>状态</th>
+      <th>创建时间</th>
+      <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of ajaxTable.data">
+      <td>{{data.nationalGroup}}</td>
+      <td>{{data.groupCode}}</td>
+      <td>{{data.member}}</td>
+      <td>{{data.groupPeople}}</td>
+      <td>{{data.state}}</td>
+      <td>{{data.delTime}}</td>
+      <td>
+        <a [routerLink]="'../edit/'+data.id">编辑
+          <nz-divider nzType="vertical"></nz-divider>
+        </a>
+        <a [routerLink]="'../view/'+data.id">详情
+          <nz-divider nzType="vertical"></nz-divider>
+        </a>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+</nz-card>
+

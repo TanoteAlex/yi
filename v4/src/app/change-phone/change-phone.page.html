@@ -1,0 +1,29 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>修改手机号码</ion-title>
+        <goback></goback>
+    </ion-toolbar>
+</ion-header>
+<!--暂无该功能-->
+
+<ion-content no-padding>
+    <div class="common-hr"></div>
+    <ion-list class="common-list" lines="none">
+        <ion-item>
+            <input class="common-input common-sub-title" type="number" placeholder="请输入新手机号" [(ngModel)]="params.phone"/>
+            <ion-button shape="round" fill="outline" size="small" color="danger" class="ver-midd" [disabled]="!verifyCode.disable" (click)="getCode()">
+                {{verifyCode.verifyCodeTips}}
+            </ion-button>
+        </ion-item>
+        <div class="line-divid"></div>
+        <ion-item>
+            <input class="common-input common-sub-title" type="text" placeholder="输入验证码" [(ngModel)]="params.vcode"/>
+        </ion-item>
+    </ion-list>
+
+    <ion-button shape="round" expand="full" color="danger" padding (click)="goBack()">确&nbsp;&nbsp;认</ion-button>
+    <br/>
+
+    <footer-tip [tips]="tip"></footer-tip>
+
+</ion-content>

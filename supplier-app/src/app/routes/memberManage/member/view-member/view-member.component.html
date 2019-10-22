@@ -1,0 +1,155 @@
+
+<page-header [title]="'会员详情'"></page-header>
+    <div class="large">
+      <div class="head">
+        <span class="size">基本信息</span>
+        <span><a [routerLink]="'../../edit/'+member.id" >编辑</a></span>
+      </div>
+      <div class="frame"  style="margin-left: 0 !important;" >
+        <div class="img">
+          <div class="images">
+
+          </div>
+        </div>
+        <div class="details">
+          <ul >
+            <li>会员ID:{{member.id}}</li>
+            <li>会员账号:{{member.username}}</li>
+            <li>会员上级:{{member?.parent?.username}}</li>
+            <li>会员昵称:{{member.nickname}}</li>
+            <li>会员等级:{{member?.memberLevel?.name}}</li>
+            <li>消费金额:{{member?.account?.consumeAmount}}</li>
+          </ul>
+        </div>
+        <div class="details">
+          <ul >
+            <li>订单数量:{{member?.account?.orderQuantity}}</li>
+            <li>注册时间:{{member.createTime}}</li>
+            <li>所在小区:{{member.address}}</li>
+            <li>成长值:{{member.createTime}}</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+
+    <div class="large AccountInfo">
+      <table width="100%" class="member" >
+        <tr >
+          <th colspan="5" style="text-align: left;padding-left: 10px">
+            <span class="size">账户信息</span>
+          </th>
+        </tr>
+        <tr>
+          <td>
+            <span class="data">{{member?.account?.orderQuantity}}</span><br />
+            <span class="according ">成交订单数</span>
+
+          </td>
+          <td>
+            <span class="data">{{member?.account?.consumeAmount}}</span><br />
+            <span class="according ">总消费额</span>
+          </td>
+          <td>
+            <span class="data">{{member?.account?.balance}}</span><br />
+            <span class="according ">账户余额</span>
+          </td>
+          <td>
+            <span class="data">{{member?.account?.freezeAmount}}</span><br />
+            <span class="according">冻结金额</span>
+          </td>
+          <td>
+            <span class="data">{{member?.account?.availableIntegral}}</span><br />
+            <span class="according ">可用积分</span>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+
+
+    <div class="large">
+      <table width="100%" class="member">
+        <tr >
+          <th colspan="5" style="text-align: left;padding-left: 10px">
+            <span class="size">收货地址</span>
+          </th>
+        </tr>
+        <tr>
+          <th>姓名</th>
+          <th>手机号码</th>
+          <th>详细地址</th>
+          <th>默认地址</th>
+        </tr>
+
+
+        <tr class="address" *ngFor="let shippingAddresss of  member?.shippingAddresss">
+          <td>{{shippingAddresss.fullName}}</td>
+          <td>{{shippingAddresss.phone}}</td>
+          <td>{{shippingAddresss.province}}{{shippingAddresss.city}}{{shippingAddresss.district}}{{shippingAddresss.address}}</td>
+          <td *ngIf="shippingAddresss.default">是</td>
+          <td *ngIf="!shippingAddresss.default">否</td>
+        </tr>
+
+
+      </table>
+    </div>
+    <div class="large">
+      <div class="head" >
+        <span class="size">消费明细</span>
+        <span><a (click)="switch=true"  style="cursor:pointer;text-decoration:underline;color: #0000FF" >消费明细</a></span>
+        <span><a (click)="switch=false" style="cursor:pointer;text-decoration:underline;color: #0000FF">余额收支明细</a></span>
+      </div>
+      <div class="frame">
+
+        <div class="large shippingaddress display" >
+          <table  width="100%"
+                  *ngIf="switch">
+            <tr>
+              <th>交易号</th>
+              <th>订单号</th>
+              <th>收货人</th>
+              <th>实付金额</th>
+              <th>订单完成时间</th>
+              <th>备注</th>
+
+            </tr>
+            <tr *ngFor="let consumeRecord of member?.consumeRecords">
+              <td>{{consumeRecord.tradeNo}}</td>
+              <td>{{consumeRecord.orderNo}}</td>
+              <td>{{consumeRecord.consignee}}</td>
+              <td>{{consumeRecord.payAmount}}</td>
+              <td>{{consumeRecord.finishTime}}</td>
+              <td>{{consumeRecord.remark}}</td>
+            </tr>
+          </table>
+
+          <table  width="100%"  *ngIf="!switch">
+            <tr >
+              <th>流水号</th>
+              <th>交易金额</th>
+              <th>账户余额</th>
+              <th>交易类型</th>
+              <th>交易方式</th>
+              <th>交易时间</th>
+              <th>备注</th>
+            </tr>
+            <tr  *ngFor="let accountRecord of member?.accountRecords">
+              <td>{{accountRecord.serialNo}}</td>
+              <td>{{accountRecord.tradeAmount}}</td>
+              <td>{{accountRecord.balance}}</td>
+              <td *ngIf="accountRecord.tradeType==1">转账</td>
+              <td *ngIf="accountRecord.tradeType==2">在线支付</td>
+              <td *ngIf="accountRecord.tradeType==3">提现</td>
+              <td *ngIf="accountRecord.tradeMode==1">店铺佣金</td>
+              <td *ngIf="accountRecord.tradeMode==2">余额</td>
+              <td>{{accountRecord.tradeTime}}</td>
+              <td>{{accountRecord.remark}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+

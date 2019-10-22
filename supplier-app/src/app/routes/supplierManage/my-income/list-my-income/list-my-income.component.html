@@ -1,0 +1,115 @@
+<page-header [title]="'我的收入'"> <ng-template #breadcrumb> <nz-breadcrumb> <nz-breadcrumb-item> <a
+	[routerLink]="['/dashboard/my-income/list']">结算管理</a> </nz-breadcrumb-item> <nz-breadcrumb-item>收入统计</nz-breadcrumb-item> </nz-breadcrumb> </ng-template> </page-header>
+
+<div nz-row [nzGutter]="24" class="pt-lg">
+	<div nz-col nzXs="6" nzSm="6">
+		<div class="count-back">
+			<p class="data">
+				<span>{{supplierAccount?.amount}}</span>
+			</p>
+			<p class="contents">
+				<span>账户总额</span>
+			</p>
+		</div>
+	</div>
+	<div nz-col nzXs="6" nzSm="6">
+		<div class="count-back">
+			<p class="data">
+				<span>{{supplierAccount?.balance}}</span>
+			</p>
+			<p class="contents">
+				<span>账户余额</span>
+			</p>
+		</div>
+	</div>
+	<div nz-col nzXs="6" nzSm="6">
+		<div class="count-back">
+			<p class="data">
+				<span>{{supplierAccount?.freezeAmount}}</span>
+			</p>
+			<p class="contents">
+				<span>冻结金额</span>
+			</p>
+		</div>
+	</div>
+	<div nz-col nzXs="6" nzSm="6">
+		<div class="count-back">
+			<p class="data">
+				<span>{{supplierAccount?.withdrawAmount}}</span>
+			</p>
+			<p class="contents">
+				<span>已提现金额</span>
+			</p>
+		</div>
+	</div>
+</div>
+<nz-card>
+
+<form nz-form [nzLayout]="'inline'" [formGroup]="searchForm" class="search__form">
+	<nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32, xl: 32, xxl: 32  }"> <nz-col nzXs="6" nzSm="6"> <nz-form-item> <nz-form-label>时间段</nz-form-label>
+	<nz-form-control> <nz-range-picker (ngModelChange)="changeRange($event)" formControlName="createTime" [nzFormat]="dateFormat"></nz-range-picker> </nz-form-control> </nz-form-item> </nz-col> <nz-col
+		[nzSpan]="expandForm ? 24 : 6" [class.text-right]="expandForm">
+	<button nz-button [nzType]="'primary'" (click)="searchData()" [nzLoading]="loading">查询</button>
+	<button nz-button (click)="clearSearch()" class="mx-sm">重置</button>
+	</nz-col> </nz-row>
+</form>
+
+<nz-table #ajaxTable [nzShowSizeChanger]="true" [nzFrontPagination]="false" [nzData]="saleOrders" [nzLoading]="loading" [nzTotal]="pageQuery.responses.totalElements"
+	[(nzPageIndex)]="pageQuery.page" [(nzPageSize)]="pageQuery.pageSize" (nzPageIndexChange)="searchData()" (nzPageSizeChange)="searchData(true)">
+
+<thead (nzSortChange)="sort($event)" nzSingleSort>
+	<tr>
+		<th nzWidth="15%">订单编号</th>
+		<th nzWidth="15%">供应商</th>
+		<th nzWidth="30%">商品信息</th>
+		<th>会员</th>
+		<th>订单金额</th>
+		<th>订单状态</th>
+		<th nzWidth="10%">下单时间</th>
+		<!--<th>操作</th>-->
+	</tr>
+</thead>
+<tbody>
+	<tr *ngFor="let saleOrder of ajaxTable.data,let i=index">
+		<td>{{saleOrder.orderNo}}</td>
+		<td>{{saleOrder.supplier.supplierName}}</td>
+		<td>
+			<div *ngFor="let orderItem of saleOrder.saleOrderItems" style="display: table">
+				<div style="float: left">
+					<img class="table-img-customer" [src]="orderItem?.product.productImgPath">&nbsp;&nbsp;
+				</div>
+				<div style="float: left">
+					{{orderItem.product.productShortName}}<br> <br> ￥{{orderItem.supplyPrice}}&nbsp;({{orderItem.quantity}}件)
+				</div>
+			</div>
+		</td>
+		<td>{{saleOrder.member.username}}</td>
+		<!-- <td *ngIf="saleOrder.state>5"></td>-->
+		<td>{{saleOrder.costAmount}}</td>
+		<td>
+			<span *ngIf="saleOrder.orderState==1">待付款</span>
+            <span *ngIf="saleOrder.orderState==2">待发货</span>
+            <span *ngIf="saleOrder.orderState==3">已发货</span>
+            <span *ngIf="saleOrder.orderState==4">已完成</span>
+            <span *ngIf="saleOrder.orderState==5">已关闭</span>
+        </td>
+		<td>{{saleOrder.createTime}}</td>
+		<!--<td>
+        <nz-deliver-goods [saleOrderView]="saleOrder" [comment]="true" *ngIf="saleOrder.state==2" [id]="saleOrder.id"
+                          (ok)="deliver()"
+                          [title]="'确认发货信息及交易详情'" [buttonName]="'发货'">
+          <nz-divider nzType="vertical"></nz-divider>
+        </nz-deliver-goods>
+        <span *ngIf="saleOrder.state!=5">
+              <a [routerLink]="'../view/'+saleOrder.id">查看订单</a>
+            </span>
+        <span *ngIf="saleOrder.state==5">
+              <nz-modal-customer (ok)="goUpdateOrderState(saleOrder.id,'1')" [title]="'提示！'" [content]="'确认要恢复订单吗？'"
+                                 [buttonName]="'恢复订单'">
+            </nz-modal-customer>
+            </span>
+      </td>-->
+	</tr>
+</tbody>
+</nz-table> </nz-card>
+

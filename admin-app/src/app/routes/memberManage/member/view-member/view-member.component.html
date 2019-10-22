@@ -1,0 +1,334 @@
+<page-header [title]="'会员详情'"></page-header>
+
+<nz-card>
+  <nz-card nzTitle="会员信息" nzType="inner">
+    <div class="large">
+      <div class="head">
+        <span class="size">基本信息</span>
+        <span><a [routerLink]="'../../edit/'+member.id">编辑</a></span>
+      </div>
+      <div class="frame" style="margin-left: 0 !important;">
+        <div class="img">
+          <div class="images" style="vertical-align: middle;overflow:hidden">
+            <img class="table-img-customer" [src]="member.avater" style="margin: 10px 0 0 0px;">
+          </div>
+        </div>
+        <div class="details">
+          <ul>
+            <li>会员ID:{{member.id}}</li>
+            <li>会员账号:{{member.username}}</li>
+            <li>会员上级:{{member.parentName}}</li>
+            <li>会员昵称:{{member.nickname}}</li>
+            <li>会员等级:{{member?.memberLevel?.name}}</li>
+          </ul>
+        </div>
+        <div class="details">
+          <ul>
+            <li>注册时间:{{member.createTime}}</li>
+            <li>详细地址:{{member.province|districtPipe}}{{member.city|districtPipe}}{{member.district|districtPipe}}{{member
+              .address}}</li>
+            <li>总消费积分:{{member.account?.totalIntegral}}</li>
+            <li>可用积分:{{member.account?.availableIntegral}}</li>
+            <li>所属小区:{{member.community?.address}}</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </nz-card>
+
+
+  <nz-card nzTitle="账户信息" nzType="inner">
+
+    <div nz-row [nzGutter]="24" class="pt-lg">
+      <div nz-col style="width: 20%;float: left">
+        <div class="count-back">
+          <p class="data">
+            <span>{{orderQuantity}}</span>
+          </p>
+          <p class="contents">
+            <span>成交订单数</span>
+          </p>
+        </div>
+      </div>
+      <div nz-col style="width: 20%;float: left">
+        <div class="count-back">
+          <p class="data">
+            <span>￥{{consumeAmount.toFixed(2)}}</span>
+          </p>
+          <p class="contents">
+            <span>总消费额</span>
+          </p>
+        </div>
+      </div>
+      <div nz-col style="width: 20%;float: left">
+        <div class="count-back">
+          <p class="data">
+            <span>￥{{member?.account?.balance}}</span>
+          </p>
+          <p class="contents">
+            <span>账户余额</span>
+          </p>
+        </div>
+      </div>
+      <div nz-col style="width: 20%;float: left">
+        <div class="count-back">
+          <p class="data">
+            <span>￥{{member?.account?.freezeAmount}}</span>
+          </p>
+          <p class="contents">
+            <span>冻结金额</span>
+          </p>
+        </div>
+      </div>
+      <div nz-col style="width: 20%;float: left">
+        <div class="count-back">
+          <p class="data">
+            <span>{{member?.account?.totalIntegral}}</span>
+          </p>
+          <p class="contents">
+            <span>剩余积分</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </nz-card>
+
+  <nz-card nzTitle="下级列表" nzType="inner">
+
+    <nz-tabset>
+      <nz-tab nzTitle="{{menu.name}}" *ngFor="let menu of menus;let i=index" (nzClick)="onItemClick1(menu.value)">
+        <nz-table
+          #ajaxTable
+          [nzShowSizeChanger]="true"
+          [nzFrontPagination]="false"
+          [nzData]="members"
+          [nzLoading]="loading"
+          [nzTotal]="pageQuery.responses.totalElements"
+          [(nzPageIndex)]="pageQuery.page"
+          [(nzPageSize)]="pageQuery.pageSize"
+          (nzPageIndexChange)="searchMemberLevels()"
+          (nzPageSizeChange)="searchMemberLevels(true)">
+
+          <thead nzSingleSort>
+          <tr>
+            <th>头像</th>
+            <th>昵称</th>
+            <th>账号</th>
+            <th>手机号</th>
+            <th>会员等级</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let member of ajaxTable.data">
+            <td>
+              <img [src]="member.avater">
+            </td>
+            <td>{{member.nickname}}</td>
+            <td>{{member.username}}</td>
+            <td>{{member.phone}}</td>
+            <td>{{member.memberLevel.name}}</td>
+          </tr>
+          </tbody>
+        </nz-table>
+      </nz-tab>
+    </nz-tabset>
+
+  </nz-card>
+
+  <nz-card nzTitle="佣金明细" nzType="inner" *ngIf="member.memberType == 1">
+
+    <nz-table
+      #ajaxTable
+      [nzShowSizeChanger]="true"
+      [nzFrontPagination]="false"
+      [nzData]="memberCommissions"
+      [nzLoading]="loading"
+      [nzTotal]="memberCommissionPageQuery.responses.totalElements"
+      [(nzPageIndex)]="memberCommissionPageQuery.page"
+      [(nzPageSize)]="memberCommissionPageQuery.pageSize"
+      (nzPageIndexChange)="searchCommissions()"
+      (nzPageSizeChange)="searchCommissions(true)">
+
+      <thead (nzSortChange)="sort($event)" nzSingleSort>
+      <tr>
+        <th>订单编号</th>
+        <th>佣金类型</th>
+        <th>结算状态</th>
+        <th>佣金金额</th>
+        <th>备注</th>
+        <th>创建时间</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of ajaxTable.data;let i=index">
+        <td>{{data.saleOrder?.orderNo}}</td>
+        <td>
+          <span *ngIf="data.commissionType == 1">一级佣金</span>
+          <span *ngIf="data.commissionType == 2">二级佣金</span>
+          <span *ngIf="data.commissionType == 3">小区佣金</span>
+        </td>
+        <td>
+          <span *ngIf="data.settlementState == 1">未结算</span>
+          <span *ngIf="data.settlementState == 2">已结算</span>
+          <span *ngIf="data.settlementState == 3">已退回</span>
+        </td>
+        <td>{{data.commissionAmount}}</td>
+        <td>{{data.remark}}</td>
+        <td>{{data.createTime}}</td>
+      </tr>
+      </tbody>
+    </nz-table>
+
+  </nz-card>
+
+  <nz-card nzTitle="收货地址" nzType="inner">
+    <div class="card-body pt-0 widget-body">
+      <table class="address-border" style="width: 100%">
+        <thead>
+        <tr>
+          <th style="width: 15%">姓名</th>
+          <th style="width: 25%">手机号码</th>
+          <th style="width: 40%">详细地址</th>
+          <th style="width: 20%">默认地址</th>
+        </tr>
+        </thead>
+        <tbody class="address" *ngFor="let shippingAddresss of  member?.shippingAddresss;let i=index">
+        <tr class="success" *ngIf="i>=(addressPage-1)*pageSize && i<addressPage*pageSize">
+          <td style="width: 15%">{{shippingAddresss.fullName}}</td>
+          <td style="width: 25%">{{shippingAddresss.phone}}</td>
+          <td style="width: 40%">
+            {{shippingAddresss.province|districtPipe}}{{shippingAddresss.city|districtPipe}}{{shippingAddresss.district|districtPipe}}{{shippingAddresss.address}}
+          </td>
+          <td style="width: 20%" *ngIf="shippingAddresss.defaulted==1">是</td>
+          <td style="width: 20%" *ngIf="shippingAddresss.defaulted==0">否</td>
+        </tr>
+        </tbody>
+      </table>
+      <nav aria-label="Page navigation" style="text-align: right;padding: 10px" *ngIf="addressTotalPages>1">
+        <button nz-button class="ml-sm" type="button" (click)="addressTopPage()">首页</button>
+        <button nz-button class="ml-sm" type="button" (click)="addressPreviousPage()">上一页</button>&nbsp;
+        <input nz-input #inPage style="width: 10%" (keyup.enter)="addressChangePage(inPage.value)"
+               (blur)="addressChangePage(inPage.value)"
+               value={{addressPage}}>
+        <button nz-button class="ml-sm" type="button" (click)="addressNextPage()">下一页</button>
+        <button nz-button class="ml-sm" type="button" (click)="addressEndPage()">尾页</button>
+      </nav>
+    </div>
+  </nz-card>
+
+  <nz-card nzTitle="会员明细" nzType="inner">
+    <div class="large">
+      <div class="head">
+        <span class="size">消费明细</span>
+        <span><a (click)="getById(member.id,true)" style="cursor:pointer;text-decoration:underline;color: #0000FF">消费明细
+        </a></span>
+        <span><a (click)="getById(member.id,false)"
+                 style="cursor:pointer;text-decoration:underline;color: #0000FF">余额收支明细</a></span>
+      </div>
+      <div class="frame">
+
+        <div class="large shippingaddress display" *ngIf="switch">
+          <table class="address-border" width="100%">
+            <thead>
+            <tr>
+              <th style="width: 15%">流水号</th>
+              <th style="width: 15%">交易金额</th>
+              <th style="width: 14%">账户余额</th>
+              <th style="width: 14%">交易类型</th>
+              <th style="width: 14%">交易方式</th>
+              <th style="width: 14%">交易时间</th>
+              <th style="width: 14%">备注</th>
+            </tr>
+            </thead>
+            <tbody *ngFor="let accountRecord of member?.accountRecords;let i=index">
+            <tr class="success" *ngIf="i>=(page-1)*pageSize && i<page*pageSize">
+              <td>{{accountRecord.serialNo}}</td>
+              <td>
+                <span *ngIf="accountRecord.operateType == 1">+{{accountRecord.tradeAmount}}</span>
+                <span *ngIf="accountRecord.operateType == 2">-{{accountRecord.tradeAmount}}</span>
+              </td>
+              <td>{{accountRecord.balance}}</td>
+              <td>
+                <span *ngIf="accountRecord.tradeType==1">佣金</span>
+                <span *ngIf="accountRecord.tradeType==2">在线支付</span>
+                <span *ngIf="accountRecord.tradeType==3">提现</span>
+              </td>
+              <td>
+                <span *ngIf="accountRecord.tradeMode==1">店铺佣金</span>
+                <span *ngIf="accountRecord.tradeMode==2">余额</span>
+              </td>
+              <td>{{accountRecord.tradeTime}}</td>
+              <td>{{accountRecord.remark}}</td>
+            </tr>
+            </tbody>
+          </table>
+          <nav aria-label="Page navigation" style="text-align: right;padding: 10px" *ngIf="totalPages>1">
+            <button nz-button class="ml-sm" type="button" (click)="topPage()">首页</button>
+            <button nz-button class="ml-sm" type="button" (click)="previousPage()">上一页</button>&nbsp;
+            <input nz-input #inPage style="width: 10%" (keyup.enter)="changePage(inPage.value)"
+                   (blur)="changePage(inPage.value)"
+                   value={{page}}>
+            <button nz-button class="ml-sm" type="button" (click)="nextPage()">下一页</button>
+            <button nz-button class="ml-sm" type="button" (click)="endPage()">尾页</button>
+          </nav>
+        </div>
+
+        <div class="large shippingaddress display" *ngIf="!switch">
+
+          <table class="address-border" width="100%">
+            <thead>
+            <tr>
+              <th style="width: 15%">流水号</th>
+              <th style="width: 15%">交易金额</th>
+              <th style="width: 14%">账户余额</th>
+              <th style="width: 14%">交易类型</th>
+              <th style="width: 14%">交易方式</th>
+              <th style="width: 14%">交易时间</th>
+              <th style="width: 14%">备注</th>
+            </tr>
+            </thead>
+            <tbody *ngFor="let accountRecord of member?.accountRecords;let i=index">
+            <tr class="success" *ngIf="i>=(page-1)*pageSize && i<page*pageSize">
+              <td>{{accountRecord.serialNo}}</td>
+              <td>
+                <span *ngIf="accountRecord.operateType == 1">+{{accountRecord.tradeAmount}}</span>
+                <span *ngIf="accountRecord.operateType == 2">-{{accountRecord.tradeAmount}}</span>
+              </td>
+              <td>{{accountRecord.balance}}</td>
+              <td>
+                <span *ngIf="accountRecord.tradeType==1">佣金</span>
+                <span *ngIf="accountRecord.tradeType==2">在线支付</span>
+                <span *ngIf="accountRecord.tradeType==3">提现</span>
+              </td>
+              <td>
+                <span *ngIf="accountRecord.tradeMode==1">店铺佣金</span>
+                <span *ngIf="accountRecord.tradeMode==2">余额</span>
+              </td>
+              <td>{{accountRecord.tradeTime}}</td>
+              <td>{{accountRecord.remark}}</td>
+            </tr>
+            </tbody>
+          </table>
+          <nav aria-label="Page navigation" style="text-align: right;padding: 10px" *ngIf="totalPages>1">
+            <button nz-button class="ml-sm" type="button" (click)="topPage()">首页</button>
+            <button nz-button class="ml-sm" type="button" (click)="previousPage()">上一页</button>&nbsp;
+            <input nz-input #inPage style="width: 10%" (keyup.enter)="changePage(inPage.value)"
+                   (blur)="changePage(inPage.value)"
+                   value={{page}}>
+            <button nz-button class="ml-sm" type="button" (click)="nextPage()">下一页</button>
+            <button nz-button class="ml-sm" type="button" (click)="endPage()">尾页</button>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </nz-card>
+
+  <nz-form-item>
+    <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 18 }">
+      <button nz-button class="ml-sm" type="button" (click)="goBack()">返回</button>
+    </nz-form-control>
+  </nz-form-item>
+
+</nz-card>
+

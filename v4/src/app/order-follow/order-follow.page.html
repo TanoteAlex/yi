@@ -1,0 +1,51 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>订单跟踪</ion-title>
+        <goback></goback>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content no-padding>
+    <ion-row class="banner">
+        <ion-col size="3" style="display: flex; margin: 10px 0">
+            <div class="commodity-bg" [ngStyle]="{'background-image': 'url(' + img + ')'}">
+                <span class="bg-black common-spec">{{totalItemNum}}件商品</span>
+            </div>
+            <!--<ion-label class="commodity-bg" [ngStyle]="{'background-image': 'url(' + img + ')'}">-->
+                <!--<span class="bg-black">{{totalItemNum}}件商品</span>-->
+            <!--</ion-label>-->
+        </ion-col>
+        <ion-col size="9" class="ver-midd">
+            <p>配送企业：<span>{{logisticsName}}</span></p>
+            <p>配送单号：<span>{{order?.expressNo}}</span></p>
+            <!--<p>联系电话：<span>95338</span></p>-->
+        </ion-col>
+    </ion-row>
+
+    <ion-list class="common-list status">
+        <ion-row class="ver-midd progress">
+            <ion-col *ngFor="let step of progress,let i = index">
+                <p>{{step.tip}}</p>
+                <div [ngClass]="i < stepImgNum ? 'passImg' : 'stayImg'"></div>
+                <ion-col class="line" *ngIf="i != progress.length-1"
+                         [ngStyle]="{'border-color':i < stepImgNum-1 ? '#ff334b' : '#ccc'}"></ion-col>
+            </ion-col>
+        </ion-row>
+    </ion-list>
+
+    <ion-list class="common-list follow">
+        <ion-row>
+            <ion-col class="greys">进度跟踪</ion-col>
+        </ion-row>
+
+        <ion-row class="logistics">
+            <ion-col class="info">
+                <div *ngFor="let item of logistics?.data, let i = index">
+                    <ion-label class="common-icon current" [ngClass]="i ===0 ? 'current': 'pass'"></ion-label>
+                    <ion-row class="common-sub-title">{{item.context}}</ion-row>
+                    <ion-row class="common-notice greys">{{item.time}}</ion-row>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-list>
+</ion-content>

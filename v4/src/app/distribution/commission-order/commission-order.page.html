@@ -1,0 +1,38 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>小区佣金</ion-title>
+        <goback></goback>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div class="flex-center commission-item" *ngFor="let item of list">
+        <div class="member-info">
+            <div class="commission-avater">
+                <img onerror="this.src='../../assets/imgs/null-category.png'" [src]="item.subordinate.avater"/>
+            </div>
+            <div class="member-name">
+                <div>{{item.subordinate.nickname}}</div>
+                <div class="grey common-spec">{{item.createTime.substr(0,16)}}</div>
+            </div>
+        </div>
+        <div class="greys"></div>
+        <div class="grey">
+            <span class="red">
+                <span>+</span>{{item.commissionAmount}}
+            </span>元
+        </div>
+    </div>
+
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="正在加载..."></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+    <div class="nolist" *ngIf="!list?.length && !isLoading">
+        <ion-label class="grey">暂无小区佣金记录~</ion-label>
+    </div>
+
+    <div class="loading" *ngIf="isLoading">
+        <ion-spinner></ion-spinner>
+    </div>
+</ion-content>

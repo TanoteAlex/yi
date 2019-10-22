@@ -1,0 +1,26 @@
+@import "../../../global";
+@import "../share-gift/share-gift.page.scss";
+
+ion-content {
+  .received-list {
+    display: flex;
+    flex-direction: column;
+    margin: 1rem;
+    text-align: left;
+    & > span {
+      border-bottom: 1px solid $divid-color;
+      padding: 0.4rem;
+    }
+    .received-item {
+      display: flex;
+      padding: 0.5rem;
+      .received-info {
+        display: flex;
+        flex: 1;
+        margin-left: 0.4rem;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+  }
+}

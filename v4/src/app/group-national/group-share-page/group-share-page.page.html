@@ -1,0 +1,52 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>参与拼团</ion-title>
+        <goback></goback>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div *ngFor="let activityProducts of orderDetail?.saleOrderItems" class="bg-white" padding-top>
+        <commodity-active [commodity]="activityProducts.product" (click)="goCommodity()">
+            <div class="bottom">
+                <p class="common-spec radiu red tip">拼团价</p>
+                <div>
+                    <span class="common-spec red">{{orderDetail?.groupBuyOrder.groupNum}}人拼￥</span>
+                    <span class="common-font red">{{activityProducts?.price}}</span>&nbsp;
+                    <del class="common-spec grey">￥{{activityProducts?.product.currentPrice}}</del>
+                </div>
+            </div>
+        </commodity-active>
+    </div>
+
+    <div class="common-hr"></div>
+
+    <div class="group-container" padding-top>
+
+        <div class="flex-center flex-col group-info">
+            <div class="common-title" *ngIf="shareState!=2">还差<span class="red">{{orderDetail?.groupBuyOrder.groupNum - orderDetail?.groupBuyOrder.joinNum}}人</span>成团</div>
+            <div class="common-title" *ngIf="shareState==2">参团人员已满~下次早点哦</div>
+
+            <div class="common-font grey" *ngIf="shareState==1">赶紧点击参加拼团吧~</div>
+            <div class="common-font grey" *ngIf="shareState==2">自己开个团吧~</div>
+            <div class="common-font grey" *ngIf="shareState==3">分享到3个群后，成团率高达98%</div>
+
+            <div class="common-font grey" text-center *ngIf="shareState!=2">
+                剩余
+                <time-count #timeCount></time-count>
+            </div>
+        </div>
+
+        <div class="group-member">
+            <div *ngFor="let item of avater; let i=index" [ngStyle]="{'background': 'url( '+item+' ) no-repeat'}">
+                <img src="../../../assets/app_icon/new_commodity/group-leader.png" width="45px" *ngIf="i==0"/>
+            </div>
+        </div>
+
+        <div margin>
+            <ion-button shape="round" color="danger" expand="full" *ngIf="shareState==1" (click)="goAddGroup()">我要参团</ion-button>
+            <ion-button shape="round" color="danger" expand="full" *ngIf="shareState==2" (click)="goHome()">返回首页</ion-button>
+            <ion-button shape="round" color="danger" expand="full" *ngIf="shareState==3" (click)="goInvitesOthers()">邀请好友拼单</ion-button>
+        </div>
+    </div>
+</ion-content>

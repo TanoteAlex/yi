@@ -1,0 +1,77 @@
+<page-header [title]="'交易记录'">
+  <ng-template #breadcrumb>
+    <nz-breadcrumb>
+      <nz-breadcrumb-item>
+        <a [routerLink]="['/consume-record/list']">财务</a>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item>交易记录</nz-breadcrumb-item>
+    </nz-breadcrumb>
+  </ng-template>
+</page-header>
+
+<nz-card [nzBordered]="false">
+  <form nz-form [nzLayout]="'inline'" [formGroup]="searchForm" class="search__form">
+    <nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32, xl: 32, xxl: 32  }">
+
+      <nz-col nzMd="8" nzSm="24">
+        <nz-form-item>
+          <nz-form-label>会员名称</nz-form-label>
+          <nz-form-control>
+            <input nz-input formControlName="username" placeholder="请输入会员名称">
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+
+      <nz-col nzMd="8" nzSm="24">
+        <nz-form-item>
+          <nz-form-label>订单号</nz-form-label>
+          <nz-form-control>
+            <input nz-input formControlName="orderNo" placeholder="请输入订单号">
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+
+      <nz-col>
+        <button nz-button [nzType]="'primary'" (click)="searchData()" [nzLoading]="loading">查询</button>
+        <button nz-button (click)="clearSearch()" class="mx-sm">重置</button>
+      </nz-col>
+    </nz-row>
+  </form>
+
+  <nz-table
+    #ajaxTable
+    [nzShowSizeChanger]="true"
+    [nzFrontPagination]="false"
+    [nzData]="datas"
+    [nzLoading]="loading"
+    [nzTotal]="pageQuery.responses.totalElements"
+    [(nzPageIndex)]="pageQuery.page"
+    [(nzPageSize)]="pageQuery.pageSize"
+    (nzPageIndexChange)="searchData()"
+    (nzPageSizeChange)="searchData(true)">
+
+    <thead (nzSortChange)="sort($event)" nzSingleSort>
+    <tr>
+      <th>会员名称</th>
+      <th>交易号</th>
+      <th>订单号</th>
+      <th>收货人</th>
+      <th>实付金额</th>
+      <th>完成时间</th>
+      <th>备注</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let consumeRecord of ajaxTable.data">
+      <td>{{consumeRecord?.member?.username}}</td>
+      <td>{{consumeRecord.tradeNo}}</td>
+      <td>{{consumeRecord.orderNo}}</td>
+      <td>{{consumeRecord.consignee}}</td>
+      <td>{{consumeRecord.payAmount}}</td>
+      <td>{{consumeRecord.finishTime}}</td>
+      <td>{{consumeRecord.remark}}</td>
+    </tr>
+    </tbody>
+  </nz-table>
+</nz-card>
+

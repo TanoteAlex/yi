@@ -1,0 +1,80 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>全国火热拼团</ion-title>
+        <goback></goback>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <div *ngFor="let groupArray of list">
+        <div class="group-item" *ngFor="let activityProducts of groupArray?.groupBuyActivityProducts">
+            <div class="commodity-item" (click)="goGroupCommodity(activityProducts)">
+                <div class="commodity-img">
+                    <img-lazy-load [src]="activityProducts?.product?.productImgPath | thumbnailPipe : 's'"></img-lazy-load>
+                </div>
+                <div class="commodity-info">
+                    <div class="common-sub-notice">{{activityProducts?.product?.productName}}</div>
+                    <div class="productShorName">{{activityProducts?.product?.productShortName}}</div>
+                    <div style="display: flex">
+                        <span class="group-label">{{activityProducts?.groupBuyQuantity}}人团</span>
+                        <span class="group-label" *ngIf="groupArray?.hasPost">包邮</span>
+                    </div>
+                    <div>
+                        <span class="red common-sub-title">￥{{activityProducts?.groupBuyPrice}}</span>&nbsp;
+                        <del class="common-more-small-spec grey">单买价￥{{activityProducts?.product.currentPrice}}</del>
+                    </div>
+                    <div class="join-btn">开团</div>
+                </div>
+            </div>
+            <div class="group-member" *ngIf="getJoinMember(activityProducts?.openGroupBuys[0])" (click)="goShoppingCart(activityProducts?.openGroupBuys[0])">
+                <div class="join-member">
+                    <div *ngFor="let item of getJoinMember(activityProducts?.openGroupBuys[0]); let i=index" [ngStyle]="{'background': 'url( '+item+' ) 100% 100% no-repeat'}">
+                        <img src="../../assets/app_icon/new_commodity/group-leader.png" width="45px" *ngIf="i==0"/>
+                    </div>
+                </div>
+                <div class="group-num">
+                    距离成功拼团还差<span class="red">{{activityProducts?.openGroupBuys[0]?.groupNum - activityProducts?.openGroupBuys[0]?.joinNum}}</span>人
+                </div>
+
+                <div class="light-grey common-spec">
+                    剩余<new-time-count [endTime]="activityProducts?.openGroupBuys[0]?.endTime"></new-time-count>结束
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--
+    <ion-list class="commodity-list">
+        <div *ngFor="let groupArray of list">
+            <div>
+                <img-lazy-load [src]="groupArray.coverUrl | thumbnailPipe : 'l' "></img-lazy-load>
+            </div>
+            <commodity-active *ngFor="let activityProducts of groupArray.groupBuyActivityProducts" [commodity]="activityProducts.product" (click)="goCommodity(activityProducts)">
+                <div class="bottom">
+                    <p class="common-spec radiu red tip">拼团价</p>
+                    <div>
+                        <span class="common-spec red">{{activityProducts?.groupBuyQuantity}}人拼￥</span>
+                        <span class="common-font red">{{activityProducts?.groupBuyPrice}}</span>&nbsp;
+                        <del class="common-spec grey">￥{{activityProducts?.product.currentPrice}}</del>
+                    </div>
+                </div>
+            </commodity-active>
+        </div>
+    </ion-list>
+-->
+    <div class="loading" *ngIf="isLoading">
+        <ion-spinner></ion-spinner>
+    </div>
+
+    <div *ngIf="!isLoading && !list.length">
+        <div class="no-list">
+            拼团活动暂时还没有开启哦~
+        </div>
+    </div>
+
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="正在加载..."></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+</ion-content>

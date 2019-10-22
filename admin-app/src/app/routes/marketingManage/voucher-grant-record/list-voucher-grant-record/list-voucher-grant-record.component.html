@@ -1,0 +1,91 @@
+<page-header [title]="'优惠券发送记录'">
+  <ng-template #breadcrumb>
+    <nz-breadcrumb>
+      <nz-breadcrumb-item>
+        <a [routerLink]="['/dashboard/coupon-grant-record/list']">营销管理</a>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item>优惠券发送记录</nz-breadcrumb-item>
+    </nz-breadcrumb>
+  </ng-template>
+</page-header>
+
+<nz-card [nzBordered]="false">
+  <form nz-form [nzLayout]="'inline'" [formGroup]="searchForm" class="search__form">
+    <nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32, xl: 32, xxl: 32  }">
+
+      <nz-col nzXs="6" nzSm="6">
+        <nz-form-item>
+          <nz-form-label>会员昵称</nz-form-label>
+          <nz-form-control>
+            <input nz-input formControlName="nickname" placeholder="请输入会员昵称">
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+
+      <nz-col nzXs="6" nzSm="6">
+        <nz-form-item>
+          <nz-form-label>代金券</nz-form-label>
+          <nz-form-control>
+            <input nz-input formControlName="couponName" placeholder="请输入代金券">
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+
+      <nz-col nzXs="6" nzSm="6">
+        <nz-form-item>
+          <nz-form-label>发放节点</nz-form-label>
+          <nz-form-control>
+            <nz-select formControlName="grantNode" [nzPlaceHolder]="'不限'">
+              <nz-option *ngFor="let node of grantNodes" [nzLabel]="node.name" [nzValue]="node.id"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+
+      <nz-col [nzSpan]="expandForm ? 24 : 6" [class.text-right]="expandForm">
+        <button nz-button [nzType]="'primary'" (click)="searchData()" [nzLoading]="loading">查询</button>
+        <button nz-button (click)="clearSearch()" class="mx-sm">重置</button>
+      </nz-col>
+    </nz-row>
+  </form>
+
+  <nz-table
+    #ajaxTable
+    [nzShowSizeChanger]="true"
+    [nzFrontPagination]="false"
+    [nzData]="couponGrantRecords"
+    [nzLoading]="loading"
+    [nzTotal]="pageQuery.responses.totalElements"
+    [(nzPageIndex)]="pageQuery.page"
+    [(nzPageSize)]="pageQuery.pageSize"
+    (nzPageIndexChange)="searchData()"
+    (nzPageSizeChange)="searchData(true)">
+
+    <thead (nzSortChange)="sort($event)" nzSingleSort>
+    <tr>
+      <th>会员昵称</th>
+      <th>代金券</th>
+      <th>发放节点</th>
+      <th>面值</th>
+      <th>创建时间</th>
+      <th>备注</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let couponGrantRecord of ajaxTable.data">
+      <td>{{couponGrantRecord.member.nickname}}</td>
+      <td>{{couponGrantRecord.coupon.couponName}}</td>
+      <td>
+      <span *ngIf="couponGrantRecord.grantNode == 1">下单</span>
+      <span *ngIf="couponGrantRecord.grantNode == 2">收货</span>
+      <span *ngIf="couponGrantRecord.grantNode == 3">评论</span>
+      <span *ngIf="couponGrantRecord.grantNode == 4">超过三包时效</span>
+      </td>
+      <td>{{couponGrantRecord.parValue}}</td>
+      <td>{{couponGrantRecord.createTime}}</td>
+      <td>{{couponGrantRecord.remark}}</td>
+    </tr>
+    </tbody>
+  </nz-table>
+</nz-card>
+

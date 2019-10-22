@@ -1,0 +1,75 @@
+<page-header [title]="title"></page-header>
+<nz-card [nzBordered]="false">
+  <form nz-form [formGroup]="commonForm">
+
+    <nz-form-item>
+      <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="name">等级名称</nz-form-label>
+      <nz-form-control nzXs="16" nzSm="8" nzMd="7" nzHasFeedback>
+        <input nz-input formControlName="name" id="name" placeholder="输入等级名称">
+        <nz-form-explain *ngIf="commonForm.get('name').dirty&&commonForm.get('name').errors">
+          <ng-container *ngFor="let error of formErrors.name">
+            <nz-form-explain *ngIf="commonForm.get('name').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+
+    </nz-form-item>
+
+    <nz-form-item>
+
+      <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="discount">折扣</nz-form-label>
+      <nz-form-control nzXs="16" nzSm="8" nzMd="7" nzHasFeedback>
+        <input nz-input formControlName="discount" id="discount" placeholder="输入折扣（0.00-100.00）%">
+        <nz-form-explain *ngIf="commonForm.get('discount').dirty&&commonForm.get('discount').errors">
+          <ng-container *ngFor="let error of formErrors.discount">
+            <nz-form-explain *ngIf="commonForm.get('discount').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="growthValue">成长值满足点</nz-form-label>
+      <nz-form-control nzXs="16" nzSm="8" nzMd="7" nzHasFeedback>
+        <input nz-input formControlName="growthValue" id="growthValue" placeholder="输入成长值满足点">
+        <nz-form-explain *ngIf="commonForm.get('growthValue').dirty&&commonForm.get('growthValue').errors">
+          <ng-container *ngFor="let error of formErrors.growthValue">
+            <nz-form-explain *ngIf="commonForm.get('growthValue').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="initial">是否默认</nz-form-label>
+      <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+        <nz-radio-group formControlName="initial" id="initial">
+          <label nz-radio [nzValue]="0">否</label>
+          <label nz-radio [nzValue]="1">是</label>
+        </nz-radio-group>
+        <nz-form-explain *ngIf="commonForm.get('initial').dirty&&commonForm.get('initial').errors">
+          <ng-container *ngFor="let error of formErrors.initial">
+            <nz-form-explain *ngIf="commonForm.get('initial').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 7 }">
+        <nz-modal-customer (ok)="onSubmit()" [title]="'提示！'" [content]="'确认要提交吗？'"
+                           [buttonName]="'提交'" >
+          <nz-divider nzType="vertical"></nz-divider>
+        </nz-modal-customer>
+        <button nz-button class="ml-sm" type="button" (click)="goBack()">返回</button>
+      </nz-form-control>
+    </nz-form-item>
+
+  </form>
+</nz-card>

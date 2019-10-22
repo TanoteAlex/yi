@@ -1,0 +1,30 @@
+<page-header [title]="'查看成员'"></page-header>
+
+<nz-card>
+
+  <nz-card nzTitle="成员信息" nzType="inner">
+
+    <desc-list class="mb-lg">
+      <desc-list-item term="部门">{{user?.dept?.deptName}}</desc-list-item>
+      <desc-list-item term="用户名">{{user.username}}</desc-list-item>
+      <desc-list-item term="姓名">{{user.username}}</desc-list-item>
+      <desc-list-item term="工号">{{user.jobNo}}</desc-list-item>
+      <desc-list-item type="password" term="密码">{{user.password}}</desc-list-item>
+      <desc-list-item term="手机号">{{user.phone}}</desc-list-item>
+      <desc-list-item term="邮箱">{{user.email}}</desc-list-item>
+      <desc-list-item term="状态">
+        <span *ngIf="user.state==0">启用</span>
+        <span *ngIf="user.state==1">禁用</span>
+      </desc-list-item>
+    </desc-list>
+
+  </nz-card>
+
+  <nz-form-item>
+    <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 17 }">
+      <button nz-button nzType="primary" type="submit" [routerLink]="'../../edit/'+ user.id">编辑</button>
+      <button nz-button class="ml-sm" type="button" (click)="goBack()">返回</button>
+    </nz-form-control>
+  </nz-form-item>
+
+</nz-card>

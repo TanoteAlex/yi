@@ -1,0 +1,118 @@
+@import "../../global";
+.common-icon {
+  position: absolute;
+  left: -32px;
+  top: -10px;
+}
+
+.commodity-bg {
+  background: url("../../assets/imgs/null-category.png");
+  background-size: 100% 100%;
+  margin-left: 10px;
+  width: 70px;
+  height: 70px;
+}
+
+.banner {
+  background: url("../../assets/app_icon/customer/订单跟踪banner底@2x.png");
+  background-size: 100% 100%;
+  p {
+    margin: 0.5rem !important;
+    color: white;
+  }
+  .bg-black {
+    text-align: center;
+    display: block;
+    width: 100%;
+    color: white;
+    background-color: #6678be;
+    margin-top: 54px;
+  }
+}
+
+.common-list {
+  margin-bottom: 8px;
+  background-color: white;
+  padding: 10px 10px 0 !important;
+  position: relative;
+}
+
+.status {
+  position: relative;
+  .progress {
+    ion-label {
+      margin-right: 0;
+    }
+    ion-col {
+      text-align: center;
+      ion-label {
+        margin-bottom: 5px;
+      }
+      img {
+        width: 40px;
+        height: 40px;
+      }
+      p {
+        @extend .greys;
+        margin: 5px 0;
+      }
+    }
+  }
+  .line {
+    border-top: 2px solid #ccc;
+    position: absolute;
+    top: 50px;
+    left: 70%;
+    width: 60%;
+  }
+}
+
+.logistics {
+  padding-top: 10px;
+  border-bottom: none !important;
+  .common-icon {
+    position: absolute;
+    left: -12px;
+    top: -4px;
+  }
+  .info {
+    padding-left: 30px;
+    div {
+      position: relative;
+      border-left: 1px solid #ccc;
+      padding-left: 25px;
+    }
+    div:not(:last-child) {
+      padding-bottom: 30px;
+    }
+  }
+  .common-notice {
+    margin: 5px 0;
+  }
+  ion-row {
+    border-bottom: none !important;
+  }
+}
+
+.stayImg{
+  height: 40px;
+  background: url("../../assets/app_icon/customer/步骤待定@2x.png") no-repeat center;
+  background-size: 40px;
+}
+
+.passImg{
+  height: 40px;
+  background: url("../../assets/app_icon/customer/步骤完成@2x.png") no-repeat center;
+  background-size: 40px;
+}
+
+.current {
+  background: url("../../assets/app_icon/customer/物流当前@2x.png");
+  background-size: 100% 100%;
+  z-index: 10;
+}
+
+.pass {
+  background: url("../../assets/app_icon/customer/物流@2x.png") no-repeat center;
+  background-size: 50% 50%;
+}

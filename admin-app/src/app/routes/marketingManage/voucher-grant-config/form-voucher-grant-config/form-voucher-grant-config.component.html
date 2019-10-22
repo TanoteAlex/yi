@@ -1,0 +1,159 @@
+<page-header [title]="title"></page-header>
+<nz-card [nzBordered]="false">
+  <form nz-form [formGroup]="commonForm">
+
+    <nz-form-item>
+      <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="commodities">指定商品</nz-form-label>
+      <nz-form-control nzXs="21" nzSm="21" nzHasFeedback>
+        <app-modal-selecet #commodityModalSelect
+                           [pageQuery]="commodityPageQuery"
+                           [filters]="[{filterName:'commodityName',name:'商品名称',value:''}]"
+                           [showCol]="[{name:'commodityNo',value:'编码',isShow:true},{name:'commodityName',value:'商品名称',isShow:true},{name:'currentPrice',value:'现价',isShow:true}]"
+                           [showTable]="[{name:'商品编号',value:'commodityNo'},{name:'商品名称',value:'commodityName'},{name:'现价',value:'currentPrice'},{name:'商品图片',value:'imgPath',type:'img'}]"
+                           [select]="commonForm.value.commodities"
+                           [isMulti]="true"
+                           [showMode]="'table'"
+                           [resultName]="commonForm.value.commodities ? commonForm.value.commodities.commodityName : '请选择'"
+                           [baseService]="commodityService"
+                           (result)="setCommodity($event)">
+        </app-modal-selecet>
+        <nz-form-explain class="has-error"
+                         *ngIf="commonForm.get('commodities').dirty&&commonForm.get('commodities').errors">
+          <ng-container *ngFor="let error of formErrors.commodities">
+            <nz-form-explain *ngIf="commonForm.get('commodities').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    
+    <nz-form-item>
+      <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="coupon">代金券</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+        <app-modal-selecet #couponModalSelect
+          [pageQuery]="couponPageQuery"
+          [filters]="[{filterName:'couponName',name:'代金券名称',value:''}]"
+          [showCol]="[{name:'couponNo',value:'代金券编号',isShow:false},{name:'parValue',value:'面值',isShow:false},{name:'couponName',value:'代金券名称',isShow:true}]"
+          [select]="commonForm.value.coupon"
+          [resultName]="commonForm.value.coupon ? commonForm.value.coupon.couponName : '请选择'"
+          [baseService]="couponService"
+          (result)="setCoupon($event)">
+        </app-modal-selecet>
+        <nz-form-explain class="has-error"
+                         *ngIf="commonForm.get('coupon').dirty&&commonForm.get('coupon').errors">
+          <ng-container *ngFor="let error of formErrors.coupon">
+            <nz-form-explain *ngIf="commonForm.get('coupon').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    
+    <nz-form-item>
+      <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="grantStrategy">发放策略</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8">
+        <nz-radio-group formControlName="grantStrategy" id="grantStrategy">
+          <label nz-radio [nzValue]="1">一次发放</label>
+          <label nz-radio [nzValue]="2">分批发放</label>
+        </nz-radio-group>
+      </nz-form-control>
+    </nz-form-item>
+    
+    <nz-form-item *ngIf="commonForm.value.grantStrategy == 1">
+      <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="grantNode">一次性发放节点</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8">
+        <nz-radio-group formControlName="grantNode" id="grantNode">
+          <label nz-radio [nzValue]="1">下单</label>
+          <label nz-radio [nzValue]="2">收货</label>
+          <label nz-radio [nzValue]="3">评论</label>
+          <label nz-radio [nzValue]="4">超过三包时效</label>
+        </nz-radio-group>
+      </nz-form-control>
+    </nz-form-item>
+    
+    <nz-form-item *ngIf="commonForm.value.grantStrategy == 2">
+      <nz-form-item style="margin-bottom: 0px!important">
+        <nz-form-label nzXs="3" nzSm="3" nzRequired>代金券发放步骤</nz-form-label>
+        <nz-form-control nzXs="8" nzSm="8">
+          <nz-form-text style="width: 35%;text-align: center">发放节点</nz-form-text>&nbsp;
+          <nz-form-text style="width: 35%;text-align: center">发放比例%</nz-form-text>
+        </nz-form-control>
+      </nz-form-item>
+      <div formArrayName="couponGrantSteps">
+        <nz-form-item *ngFor="let Step of this.commonForm.get('couponGrantSteps')?.controls;let i=index"
+                      [formGroupName]="i" style="margin-bottom: 10px!important">
+          <nz-form-control nzXs="3" nzSm="3">
+          </nz-form-control>
+          <input nz-input style="width:10%" formControlName="grantTitle" id="grantTitle" readonly
+                 placeholder="发放节点">
+          &nbsp;
+          <input nz-input style="width:10%" formControlName="grantRate" id="grantRate" placeholder="发放比例">
+        </nz-form-item>
+      </div>
+    </nz-form-item>
+    
+    <nz-form-item>
+      <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="freezeDays">冻结周期</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+        <input nz-input formControlName="freezeDays" id="freezeDays" placeholder="请输入冻结周期">
+        <nz-form-explain *ngIf="commonForm.get('freezeDays').dirty&&commonForm.get('freezeDays').errors">
+          <ng-container *ngFor="let error of formErrors.freezeDays">
+            <nz-form-explain *ngIf="commonForm.get('freezeDays').errors[error.freezeDays]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+
+    </nz-form-item>
+    <nz-form-item>
+
+      <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="thawNode">解冻节点</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8">
+        <nz-radio-group formControlName="thawNode" id="thawNode">
+          <label nz-radio [nzValue]="1">下单</label>
+          <label nz-radio [nzValue]="2">收货</label>
+          <label nz-radio [nzValue]="3">评论</label>
+          <label nz-radio [nzValue]="4">超过三包时效</label>
+        </nz-radio-group>
+      </nz-form-control>
+
+    </nz-form-item>
+    <nz-form-item>
+
+      <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="state">状态</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8">
+        <nz-radio-group formControlName="state" id="state">
+          <label nz-radio [nzValue]="0">启用</label>
+          <label nz-radio [nzValue]="1">禁用</label>
+        </nz-radio-group>
+      </nz-form-control>
+
+    </nz-form-item>
+    <nz-form-item>
+
+      <nz-form-label nzXs="3" nzSm="3" nzFor="remark">备注</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8">
+        <textarea nz-input style="width: 100%;height: 150px" formControlName="remark" id="remark"
+                  placeholder="输入备注"></textarea>
+        <nz-form-explain *ngIf="commonForm.get('remark').dirty&&commonForm.get('remark').errors">
+          <ng-container *ngFor="let error of formErrors.remark">
+            <nz-form-explain *ngIf="commonForm.get('remark').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 18 }">
+        <nz-modal-customer [showButton]="false" (ok)="onSubmit()" [title]="'提示！'" [content]="'确认要提交吗？'"
+                           [buttonName]="'提交'">
+          <nz-divider nzType="vertical"></nz-divider>
+        </nz-modal-customer>
+        <button nz-button class="ml-sm" type="button" (click)="goBack()">返回</button>
+      </nz-form-control>
+    </nz-form-item>
+
+  </form>
+</nz-card>

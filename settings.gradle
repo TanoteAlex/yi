@@ -1,0 +1,10 @@
+rootProject.name = 'yi'
+
+include 'yi-base'
+include 'yi-core'
+
+include 'yi-admin-server'
+include 'yi-web-server'
+//include 'yi-supplier-server'
+include 'yi-search'
+

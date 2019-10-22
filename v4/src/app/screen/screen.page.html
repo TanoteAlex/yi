@@ -1,0 +1,29 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>筛选商品</ion-title>
+        <goback [isModal]="true"></goback>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list class="common-list">
+        <ion-list-header class="common-sub-title">价格区间</ion-list-header>
+        <ion-row class="justify">
+            <input class="common-notice" [(ngModel)]="min" name="minimum" placeholder="最低价"><span *ngIf="max!=1e99">—</span>
+            <input class="common-notice" *ngIf="max!=1e99" [(ngModel)]="max" name="Highest" placeholder="最高价">
+        </ion-row>
+
+        <ion-row margin-top class="value">
+            <ion-col size="4" *ngFor="let item of list1">
+                <button (click)="setPrice(item)">
+                    {{item.min}}{{item.max==1e99?'及以上':'-'+item.max}}
+                </button>
+            </ion-col>
+        </ion-row>
+
+        <div class="btns" text-center>
+            <button class="reset" (click)="reset()">重置</button><button class="confirm" (click)="confirm()">确定</button>
+        </div>
+
+    </ion-list>
+</ion-content>

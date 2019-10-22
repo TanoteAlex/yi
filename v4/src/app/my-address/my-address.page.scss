@@ -1,0 +1,64 @@
+@import "../../global";
+@import "../../theme/button-style";
+
+.edit {
+  background: url("../../assets/app_icon/customer/编辑icon@2x.png") no-repeat;
+  background-size: 35%;
+  background-position-y: 50%;
+  display: inline-block;
+  ion-label{
+    margin-top: 13px;
+    margin-left: 25px;
+  }
+}
+
+.delete {
+  background: url("../../assets/app_icon/customer/删除icon@2x.png") no-repeat;
+  background-size: 35%;
+  background-position-y: 50%;
+  display: inline-block;
+  ion-label{
+    margin-top: 13px;
+    margin-left: 25px;
+  }
+}
+
+.no-list {
+  margin-top: 20%;
+  height: 10rem;
+  background: url("../../assets/app_icon/customer/无收货人数据@2x.png") no-repeat center center;
+  background-size: 50%;
+  .button-native {
+    padding: 0 40px !important;
+  }
+}
+
+.common-list {
+  margin: 10px;
+  border-radius: 10px;
+  .default {
+    color: #ff334b;
+    text-align: center;
+    border-radius: 15px;
+    border: 1px solid #ff334b;
+    padding: 2px 5px;
+    font-size: 13px;
+    margin: auto;
+    background-color: $space-color;
+  }
+}
+
+p {
+  float: left;
+  padding: 0.2rem 0 !important;
+  margin: 0.3rem 0 !important;
+}
+
+.item-ios {
+  padding-left: 0 !important;
+}
+
+ion-footer {
+  background-color: $space-color;
+  padding: 10px;
+}

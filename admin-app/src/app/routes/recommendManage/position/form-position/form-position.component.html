@@ -1,0 +1,66 @@
+<page-header [title]="title"></page-header>
+<nz-card [nzBordered]="false">
+  <form nz-form [formGroup]="commonForm">
+    <nz-form-item>
+      <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="name">名称</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+        <input nz-input formControlName="name" id="name" placeholder="输入名称">
+        <nz-form-explain *ngIf="commonForm.get('name').dirty&&commonForm.get('name').errors">
+          <ng-container *ngFor="let error of formErrors.name">
+            <nz-form-explain *ngIf="commonForm.get('name').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="positionType">位置类型</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8">
+        <select nz-input formControlName="positionType">
+          <option *ngFor="let mt of positionTypes" [value]="mt.code">{{mt.title}}</option>
+        </select>
+        <nz-form-explain *ngIf="commonForm.get('positionType').dirty&&commonForm.get('positionType').errors">
+          <ng-container *ngFor="let error of formErrors.positionType">
+            <nz-form-explain *ngIf="commonForm.get('positionType').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzXs="3" nzSm="3" nzFor="remark">备注</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+        <textarea nz-input formControlName="remark" id="remark" style="height: 150px" placeholder="输入备注"></textarea>
+        <nz-form-explain *ngIf="commonForm.get('remark').dirty&&commonForm.get('remark').errors">
+          <ng-container *ngFor="let error of formErrors.remark">
+            <nz-form-explain *ngIf="commonForm.get('remark').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="state">状态</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8">
+        <nz-radio-group formControlName="state" id="state">
+          <label nz-radio [nzValue]="0">启用</label>
+          <label nz-radio [nzValue]="1">禁用</label>
+        </nz-radio-group>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 18 }">
+        <nz-modal-customer [showButton]="false" (ok)="onSubmit()" [title]="'提示！'" [content]="'确认要提交吗？'"
+                           [buttonName]="'提交'">
+          <nz-divider nzType="vertical"></nz-divider>
+        </nz-modal-customer>
+        <button nz-button class="ml-sm" type="button" (click)="goBack()">返回</button>
+      </nz-form-control>
+    </nz-form-item>
+
+  </form>
+</nz-card>

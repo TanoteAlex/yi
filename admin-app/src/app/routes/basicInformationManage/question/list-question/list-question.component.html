@@ -1,0 +1,64 @@
+<page-header [title]="'问题列表'">
+  <ng-template #breadcrumb>
+    <nz-breadcrumb>
+      <nz-breadcrumb-item>
+        <a [routerLink]="['/dashboard/question/list']">基础信息</a>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item>问题</nz-breadcrumb-item>
+    </nz-breadcrumb>
+  </ng-template>
+</page-header>
+
+<nz-card [nzBordered]="false">
+
+  <button nz-button [routerLink]="'../add'" [nzType]="'primary'">
+    <i class="anticon anticon-plus"></i>
+    <span>新建</span>
+  </button>
+
+  <nz-table
+    #ajaxTable
+    [nzShowSizeChanger]="true"
+    [nzFrontPagination]="false"
+    [nzData]="datas"
+    [nzLoading]="loading"
+    [nzTotal]="pageQuery.responses.totalElements"
+    [(nzPageIndex)]="pageQuery.page"
+    [(nzPageSize)]="pageQuery.pageSize"
+    (nzPageIndexChange)="searchData()"
+    (nzPageSizeChange)="searchData(true)">
+
+    <thead (nzSortChange)="sort($event)" nzSingleSort>
+    <tr>
+      <th nzWidth="10%">问题类型</th>
+      <th nzWidth="21%">提出问题</th>
+      <th nzWidth="40%">回答问题</th>
+      <th nzWidth="8%">排序</th>
+      <th nzWidth="9%">状态</th>
+      <th nzWidth="12%">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of ajaxTable.data;let i=index">
+      <td>{{data.questionType.typeName}}</td>
+      <td>{{data.askQuestion}}</td>
+      <td>{{data.answerQuestion}}</td>
+      <td>{{data.sort}}</td>
+      <td>
+        <nz-switch nzCheckedChildren="启用" nzUnCheckedChildren="禁用" (ngModelChange)="chooseSwitch(i)"
+                   [ngModel]="data.state==0"></nz-switch>
+      </td>
+      <td>
+        <a [routerLink]="'../edit/'+data.id">编辑
+          <nz-divider *ngIf="data.state==1" nzType="vertical"></nz-divider>
+        </a>
+        <nz-modal-customer *ngIf="data.state==1" (ok)="remove(data.id)" [title]="'提示！'" [content]="'确认要删除吗？'"
+                           [buttonName]="'删除'">
+        </nz-modal-customer>
+
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+</nz-card>
+

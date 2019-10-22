@@ -1,0 +1,55 @@
+import {MemberBo} from "./member-bo.model";
+import {GroupBuyActivityProductBo} from "./group-buy-activity-product-bo.model";
+import {SaleOrderBo} from "./sale-order-bo.model";
+
+
+export class GroupBuyOrderBo {
+    /**
+       * 开团表ID
+     */
+    id:number;
+    /**
+       * GUID
+     */
+    guid:string;
+    /**
+       * 会员（member表ID）
+     */
+    member:MemberBo;
+    /**
+       * 团购商品（group_buy_activity_product表ID）
+     */
+    groupBuyActivityProduct:GroupBuyActivityProductBo;
+    /**
+       * 订单（订单表ID）
+     */
+    saleOrder:SaleOrderBo;
+    /**
+       * 团购状态（1待付款，2拼团中，3已成团，4已失效）
+     */
+    state:number;
+    /**
+       * 开始时间
+     */
+    startTime:string;
+    /**
+       * 结束时间
+     */
+    endTime:string;
+    /**
+       * 备注
+     */
+    remark:string;
+    /**
+       * 创建时间
+     */
+    createTime:string;
+    /**
+       * 删除（0否1是）
+     */
+    deleted:number;
+    /**
+       * 删除时间
+     */
+    delTime:string;
+}

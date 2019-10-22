@@ -1,0 +1,8 @@
+<div class="common-title" text-center *ngIf="!item?.showTitle">{{item.title}}
+    <img class="more" src="../../assets/app_icon/home/01-01标题栏更多icon@2x.png" (click)="goCommList()"/>
+</div>
+<div style="height: 150px;" *ngIf="!item?.showBanner" (click)="goUrl(item)">
+    <img-lazy-load [src]="item.imgPath | thumbnailPipe : 'l' "></img-lazy-load>
+</div>
+<ng-template #showCommoditiesContent></ng-template>
+<hr class="common-hr">

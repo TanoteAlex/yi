@@ -1,0 +1,32 @@
+@import "../../../global";
+.nolist {
+  background: url("../../../assets/app_icon/basic/无记录@2x.png") no-repeat center center;
+  background-size: 50%;
+}
+
+.team-item{
+  padding: 0.7rem 0.5rem;
+  margin-top: 0.7rem;
+  @extend .bg-white;
+  .team-avatar{
+    img {
+      width: 50px;
+      height: 50px;
+      margin-right: 10px;
+      @extend .radius;
+    }
+  }
+  .team-member{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    &>div{
+      margin: 0.2rem 0
+    }
+  }
+}
+.loading{
+  position: absolute;
+  top: 30%;
+  left: 50%;
+}

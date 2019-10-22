@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>小区业绩</ion-title>
+    <goback></goback>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content no-padding>
+  <ion-list>
+    <div class="customer-head">
+      <div class="flex-row" style="justify-content: flex-start; align-items: center ;height: 100%">
+        <img class="member-avater" onerror="this.src='../../assets/imgs/null-category.png'"
+             [src]="member?.avater">
+        <span class="common-title white">{{member?.nickname || "请登录"}}</span>
+      </div>
+    </div>
+
+    <div class="flex-row bg-white" style="justify-content: space-between;align-items: center;">
+      <div class="greys">可提现佣金:<span class="black">{{member?.account?.cashableCommission}}</span>元</div>
+      <div class="withdraw-cash-btn" (click)="goWithDrawCash()">提现</div>
+    </div>
+    <div class="common-hr"></div>
+
+    <div class="flex-row bg-white">
+      <div class="flex-col">
+        <p class="common-font red">{{member?.account?.cashedCommission}}</p>
+        <span class="common-sub-title greys">已提现佣金</span>
+      </div>
+      <div class="col-divid">
+      </div>
+      <div class="flex-col">
+        <p class="common-font red">{{member?.account?.unsettledCommission}}</p>
+        <span class="common-sub-title greys">未结算佣金</span>
+      </div>
+    </div>
+    <div class="common-hr"></div>
+
+    <div class="function-btns" style="justify-content:flex-start">
+      <div (click)="goCommissionOrder()">
+        <img src="../../assets/app_icon/customer/交易icon@2x.png">
+        <div class="common-sub-title greys">小区佣金</div>
+        <div class="common-sub-title black">{{member?.account?.totalCommission}}元</div>
+      </div>
+      <!--<div (click)="goMyTeam()">
+        <img src="../../assets/app_icon/customer/邀请icon@2x.png">
+        <div class="common-sub-title greys">小区成员</div>
+        <div class="common-sub-title black">{{teamAmount}}人</div>
+      </div>-->
+      <div (click)="goWithdrawDetail()">
+        <img src="../../assets/app_icon/customer/礼物icon@2x (2).png">
+        <div class="common-sub-title greys">提现明细</div>
+      </div>
+    </div>
+
+  </ion-list>
+</ion-content>
+

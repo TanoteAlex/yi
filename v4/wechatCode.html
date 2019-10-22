@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>美周壹壹优选</title>
+</head>
+<body>
+
+
+<script>
+    /**
+     * version  1.0
+     * auth     lemosen
+     */
+        //wechatCode.html;CommodityPage;id=260;preMemberId=120;debug=0?code=asd&state=asd
+    var href = window.location.href;
+    var webServe = href.indexOf('test') === -1 ? 'http://h5server.my11mall.com/' : 'http://test.h5server.my11mall.com/';
+    var h5Serve = href.indexOf('test') === -1 ? 'http://h5.my11mall.com/' : 'http://test.h5.my11mall.com/';
+
+    var urlInfo = getUrlInfo();
+    var code = href.split('?')[1].split('&')[0].replace('code=', '');
+
+    var gotoUrl = '';
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('get', webServe + 'weChat/authLoginForSp?code=' + code);
+    xhr.send();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            var parse = JSON.parse(xhr.response);
+            if (parse.result === 'SUCCESS') {
+                gotoUrl = h5Serve + '#/' + urlInfo + '?openId=' + parse.data.openid + '&unionId=' + parse.data.unionid;
+
+                //对微信登录做处理，有绑定则登录，没有则注册
+                if (urlInfo&&urlInfo.indexOf("weChatLogin") !== -1) {
+                    if (parse.data.isLogin) {
+                        gotoUrl = h5Serve + '#/app/tabs/home?openId=' + parse.data.openid + '&unionId=' + parse.data.unionid;
+                    } else {
+                        gotoUrl = h5Serve + '#/RegisterPage?openId=' + parse.data.openid + '&unionId=' + parse.data.unionid;
+                    }
+                }
+                if(urlInfo&&urlInfo.indexOf("toInvitesHome") !== -1){
+                    gotoUrl = h5Serve + '#/InvitesHomePage?openId=' + parse.data.openid + '&unionId=' + parse.data.unionid;
+                }
+
+            } else {
+                alert("授权失败");
+                gotoUrl = h5Serve + '#/' + urlInfo;
+            }
+            if (urlInfo&&urlInfo.debug === '1') {
+                alert(code);
+                alert(gotoUrl);
+            } else {
+                window.location.href = gotoUrl
+            }
+        }
+    };
+
+    function getUrlInfo() {
+        var info = href.split('?')[0].split('html;')[1];
+        if (info&&info.indexOf('HomePage') !== -1) {
+            return 'app/tabs/home';
+        } else {
+            return info;
+        }
+    }
+
+
+    //在这里进行跳转，带过来信息content，contentId，preMemberId。根据这些信息再进行跳转，附带unionid和openId。，暂时没用
+    function blindWeChat(opendId, unionId) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('get', webServe + 'member/bindWeChatForMp?memberId=' + memberId + '&unionId=' + unionId + '&openId=' + opendId);
+        xhr.send();
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var parse = JSON.parse(xhr.response);
+                if (parse.result === 'SUCCESS') {
+                    gotoUrl = h5Serve + '#/app/tabs/home?openId=' + parse.data.openid + '&unionId=' + parse.data.unionid
+                } else {
+                    alert("绑定失败");
+                    gotoUrl = h5Serve + '#/app/tabs/home'
+                }
+            }
+        };
+    }
+
+</script>
+</body>
+</html>

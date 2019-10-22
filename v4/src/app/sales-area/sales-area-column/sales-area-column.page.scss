@@ -1,0 +1,105 @@
+@import "../../../global";
+@import "../../home/home.page";
+
+ion-content{
+  --background-color:#F2F2F2;
+}
+
+ion-segment {
+  height: 2em;
+  --color-checked: #F05F98;
+  font-size: 28px;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+
+  ion-segment-button{
+    --border-radius: 0;
+  }
+  .segment-button-checked{
+    .segment-line{
+      border-bottom: 1.5px solid;
+    }
+  }
+  .segment-line{
+    height: 1.5px;
+    width: 40px;
+    position: relative;
+    bottom: -3px;
+  }
+}
+
+.banner-img{
+  height: 10rem;
+  width: 100%;
+}
+
+.commodity-row{
+  padding: 5px 10px 10px 10px;
+}
+
+.commodity-col{
+  padding: 5px;
+  background:rgba(255,255,255,1);
+  border-radius:10px;
+}
+
+.commodity-title1{
+  font-size:14px;
+  font-family:PingFang-SC-Medium;
+  font-weight:500;
+  color:rgba(51,51,51,1);
+  padding-top: 0.5em;
+}
+
+.commodity-title2{
+  padding-top: 0.4em;
+  padding-left: 0.3em;
+  font-size:12px;
+  font-family:PingFang-SC-Medium;
+  font-weight:500;
+  color:rgba(153,153,153,1);
+}
+
+.font-color{
+  color:#F05F97;
+}
+
+.money-tag{
+  @extend .font-color;
+  font-size: 10px;
+  padding-top: 0.3em;
+  font-family:PingFang-SC-Medium;
+  font-weight:400;
+}
+
+.money-tag2{
+  font-size: 5px;
+  padding-top: 0.3em;
+  font-family:PingFang-SC-Medium;
+  font-weight:400;
+}
+
+.commodity-currentPrice{
+  @extend .font-color;
+  font-size:18px;
+  font-family:PingFang-SC-Medium;
+  font-weight:500;
+}
+
+.label-tag{
+  margin-left: 0.2em;
+  border: 0.5px solid #F05F97;
+  font-size:13px;
+  font-family:PingFang-SC-Medium;
+  font-weight:500;
+  color:rgba(240,95,151,1);
+  border-radius: 4px;
+}
+
+.label-originalPrice-tag{
+  font-size:11px;
+  font-family:PingFang-SC-Medium;
+  font-weight:500;
+  text-decoration:line-through;
+  color:rgba(153,153,153,1);
+}

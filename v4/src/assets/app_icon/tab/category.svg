@@ -1,0 +1,14 @@
+<svg id="图层_1" data-name="图层 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 58 58">
+    <defs>
+        <style>.cls-1{fill:#111c78;opacity:0;}.cls-2{fill:#666;}.cls-3{fill:none;stroke:#666;stroke-linecap:square;stroke-linejoin:bevel;stroke-width:2px;}</style>
+    </defs>
+    <title>category</title>
+    <path class="cls-1" d="M29,0A29,29,0,1,1,0,29,29,29,0,0,1,29,0Z" transform="translate(0 0)"/>
+    <path class="cls-2" d="M24,13a2,2,0,0,1,2,2v9a2,2,0,0,1-2,2H15a2,2,0,0,1-2-2V15a2,2,0,0,1,2-2h9m0-2H15a4,4,0,0,0-4,4v9a4,4,0,0,0,4,4h9a4,4,0,0,0,4-4V15a4,4,0,0,0-4-4Z"
+          transform="translate(0 0)"/>
+    <path class="cls-2" d="M44,13a2,2,0,0,1,2,2v9a2,2,0,0,1-2,2H35a2,2,0,0,1-2-2V15a2,2,0,0,1,2-2h9m0-2H35a4,4,0,0,0-4,4v9a4,4,0,0,0,4,4h9a4,4,0,0,0,4-4V15a4,4,0,0,0-4-4Z"
+          transform="translate(0 0)"/>
+    <path class="cls-2" d="M24,33a2,2,0,0,1,2,2v9a2,2,0,0,1-2,2H15a2,2,0,0,1-2-2V35a2,2,0,0,1,2-2h9m0-2H15a4,4,0,0,0-4,4v9a4,4,0,0,0,4,4h9a4,4,0,0,0,4-4V35a4,4,0,0,0-4-4Z"
+          transform="translate(0 0)"/>
+    <path class="cls-3" d="M40.15,47.13c-4.14,0-8-2.75-8-7.47s3.36-8.55,7.51-8.55,7.5,3.83,7.5,8.55c0,2.09-1.84,3.85-2.94,5.34l2,2.13" transform="translate(0 0)"/>
+</svg>

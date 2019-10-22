@@ -1,0 +1,35 @@
+@import "../../../../global.scss";
+.more {
+  width: 17px;
+  margin-left: 10px;
+}
+
+
+.commodity {
+  padding: 5px;
+  border: 1px solid $space-color;
+  border-radius: 10px;
+}
+
+.overflow {
+  overflow: hidden;
+}
+
+
+.cart {
+  //position: relative;
+  //top: -12px;
+  //background: url('../../assets/app_icon/home/购物车-商品icon@2x.png');
+  //background-size: 100% 100%;
+  //margin: 0;
+  float: right;
+}
+
+
+.shopping {
+  display: inline-block;
+  position: relative;
+  top: 30px;
+  width: 30px;
+  height: 30px;
+}

@@ -1,0 +1,13 @@
+{
+
+  "android": {
+    "release": {
+      "keystore": "D:/yiyi_ant/v4/yihz.keystore",
+      "storePassword": "www.yihz.com",
+      "alias": "www.yihz.com",
+      "password" : "www.yihz.com",
+      "keystoreType": ""
+    }
+  }
+}
+

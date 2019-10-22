@@ -1,0 +1,42 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>审核进度</ion-title>
+        <goback></goback>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content no-padding>
+    <ion-list class="info">
+        <ion-row>
+            <ion-col size="3"><p class="greys">服务单号</p></ion-col>
+            <ion-col size="8"><p>{{returnOrder?.afterSaleNo}}</p></ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="3"><p class="greys">申请时间</p></ion-col>
+            <ion-col size="8"><p>{{returnOrder?.applyTime}}</p></ion-col>
+        </ion-row>
+        <ion-item class="tip" no-padding>
+            <img src="../../../assets/app_icon/customer/-select@2x.png" width="20"/>
+            <p class="common-sub-title">{{progress.length >0 ? progress[0].content : ''}}</p>
+        </ion-item>
+    </ion-list>
+
+    <div class="common-hr"></div>
+    <ion-list>
+        <ion-row>
+            <ion-col class="greys">进度跟踪</ion-col>
+        </ion-row>
+
+        <ion-row class="progress">
+            <ion-col class="info">
+                <div *ngFor="let item of progress | sortPipe : 'item.date', let i = index">
+                    <ion-label class="common-icon current" [ngClass]="i ===0 ? 'current': 'pass'"></ion-label>
+                    <ion-row class="common-sub-title">{{item.content}}</ion-row>
+                    <ion-row class="common-notice grey">经办人：{{item.username}}</ion-row>
+                    <ion-row class="common-notice greys">{{item.date}}</ion-row>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-list>
+
+</ion-content>

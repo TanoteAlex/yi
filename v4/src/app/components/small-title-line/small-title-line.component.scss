@@ -1,0 +1,14 @@
+@import "../../../global.scss";
+
+.line{
+  width: 50px;
+  border-bottom: 1px solid $divid-color;
+  margin: 0 15px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.text{
+  @extend .grey;
+  @extend .common-notice;
+}

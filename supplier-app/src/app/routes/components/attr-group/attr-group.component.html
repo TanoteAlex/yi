@@ -1,0 +1,92 @@
+<nz-form-item>
+  <nz-form-label nzXs="3" nzSm="3" nzRequired>商品属性</nz-form-label>
+  <nz-form-control nzXs="21" nzSm="21">
+
+    <label nz-checkbox [(ngModel)]="allChecked" (ngModelChange)="updateAllChecked()" [nzIndeterminate]="indeterminate">
+      全选
+    </label>
+    <nz-checkbox-group [(ngModel)]="_checkOptions" (ngModelChange)="updateSingleChecked()"></nz-checkbox-group>
+    <button style="margin-left: 10px" (click)="addAttrG()" nz-button type="button">添加属性组</button>
+    <button style="margin-left: 10px" *ngIf="_canAddAttrG" (click)="sureAddAttrG()" nz-button type="button">确定</button>
+    <button style="margin-left: 10px" *ngIf="_canAddAttrG" (click)="cancelAddAttrG()" nz-button type="button">取消</button>
+    <label style="margin-left: 10px;color: #f5222d">{{_attrGError}}</label>
+    <!--<nz-form-label nzXs="3" nzSm="3">{{_attrGError}}</nz-form-label>-->
+  </nz-form-control>
+</nz-form-item>
+<nz-form-item *ngIf="_canAddAttrG">
+  <nz-form-label nzXs="3" nzSm="3" nzRequired>添加属性组</nz-form-label>
+  <nz-form-control nzXs="21" nzSm="21">
+    <nz-form-item>
+      <nz-form-label nzXs="3" nzSm="3" nzRequired>属性组名称</nz-form-label>
+      <nz-form-control nzXs="21" nzSm="21">
+        <input style="width: 20%" nz-input [(ngModel)]="_newAttrG" placeholder="输入属性组名称">
+
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzXs="3" nzSm="3" *ngIf="_newAttrGShowMode == 2">属性组图片</nz-form-label>
+      <nz-form-control nzXs="21" nzSm="21">
+        <app-dynamic-upload [multi]="false" [fileList]="imgPaths"
+                            (onFileListChange)="changeAttachment($event)"></app-dynamic-upload>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzXs="3" nzSm="3">属性组展示方式</nz-form-label>
+      <nz-form-control nzXs="21" nzSm="21">
+        <nz-radio-group [(ngModel)]="_newAttrGShowMode">
+          <label nz-radio nzValue="1">纯文字</label>
+          <label nz-radio nzValue="2">纯图片</label>
+          <!--<label nz-radio nzValue="3">文字+图片</label>-->
+        </nz-radio-group>
+      </nz-form-control>
+    </nz-form-item>
+    <!--imgPath-->
+    <!--1纯文字2纯图片3文字+图片-->
+    <!--showMode-->
+
+  </nz-form-control>
+
+</nz-form-item>
+<nz-form-item *ngFor="let item of _selectAttrGroup;let i=index">
+  <nz-form-label nzXs="3" nzSm="3">{{item.label}}</nz-form-label>
+  <nz-form-control nzXs="21" nzSm="21">
+    <label *ngIf="item.attributes.length!=0" nz-checkbox [(ngModel)]="item.checkAll" (ngModelChange)="updateAttrValueAllChecked(item.checkAll,item.attributes,item.indeterminate,i)"
+           [nzIndeterminate]="item.indeterminate">
+      全选
+    </label>
+    <nz-checkbox-group [(ngModel)]="item.attributes" (ngModelChange)="updateAttrValueSingleChecked(item.checkAll,item.attributes,item.indeterminate,i)"></nz-checkbox-group>
+
+    <button style="margin-left: 10px" (click)="addAttrV(i)" nz-button type="button">添加属性值</button>
+    <button style="margin-left: 10px" *ngIf="item._canAdd" (click)="sureAddAttrV(i)" nz-button type="button">确定</button>
+    <button style="margin-left: 10px" *ngIf="item._canAdd" (click)="cancelAddAttrV(i)" nz-button type="button">取消</button>
+    <label style="margin-left: 10px;color: #f5222d">{{item._attrVError}}</label>
+  </nz-form-control>
+  <nz-form-control *ngIf="item._canAdd" nzXs="24" nzSm="24">
+    <nz-form-label  nzXs="3" nzSm="3" nzRequired>添加属性值</nz-form-label>
+    <nz-form-control  nzXs="21" nzSm="21">
+      <nz-form-item>
+        <nz-form-label nzXs="3" nzSm="3" nzRequired>属性值名称</nz-form-label>
+        <nz-form-control nzXs="21" nzSm="21">
+          <input style="width: 12%"  nz-input [(ngModel)]="item._newAttrV" placeholder="输入属性值名称">
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzXs="3" nzSm="3" >属性值图片</nz-form-label>
+        <nz-form-control nzXs="21" nzSm="21">
+          <app-dynamic-upload [multi]="false" [fileList]="imgPaths1"
+                              (onFileListChange)="changeAttachment($event,true,i)"></app-dynamic-upload>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-form-control>
+  </nz-form-control>
+
+
+</nz-form-item>
+
+<nz-form-item>
+  <nz-form-control nzXs="3" nzSm="3">
+  </nz-form-control>
+  <nz-form-control nzXs="21" nzSm="21">
+    <label style="color: #f5222d">{{_attrGFormError}}</label>
+  </nz-form-control>
+</nz-form-item>

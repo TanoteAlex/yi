@@ -1,0 +1,77 @@
+
+
+<page-header [title]="'查看信息'"></page-header>
+
+<nz-card>
+    <nz-form-item>
+
+
+                    <nz-form-label nzXs="10" nzSm="3" nzFor="guid">GUID</nz-form-label>
+                    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+                        <nz-form-text>{{basicInfo.guid}}</nz-form-text>
+                    </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+
+                    <nz-form-label nzXs="10" nzSm="3" nzFor="logoUrl">公司名称</nz-form-label>
+                    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+                        <nz-form-text>{{basicInfo.logoUrl}}</nz-form-text>
+                    </nz-form-control>
+
+                    <nz-form-label nzXs="10" nzSm="3" nzFor="companyName">公司名称</nz-form-label>
+                    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+                        <nz-form-text>{{basicInfo.companyName}}</nz-form-text>
+                    </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+
+                    <nz-form-label nzXs="10" nzSm="3" nzFor="companyAddr">公司地址</nz-form-label>
+                    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+                        <nz-form-text>{{basicInfo.companyAddr}}</nz-form-text>
+                    </nz-form-control>
+
+                    <nz-form-label nzXs="10" nzSm="3" nzFor="companyTel">公司电话</nz-form-label>
+                    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+                        <nz-form-text>{{basicInfo.companyTel}}</nz-form-text>
+                    </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+
+                    <nz-form-label nzXs="10" nzSm="3" nzFor="companyMobile">手机号码</nz-form-label>
+                    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+                        <nz-form-text>{{basicInfo.companyMobile}}</nz-form-text>
+                    </nz-form-control>
+
+                    <nz-form-label nzXs="10" nzSm="3" nzFor="companyMail">公司邮箱</nz-form-label>
+                    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+                        <nz-form-text>{{basicInfo.companyMail}}</nz-form-text>
+                    </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+
+                    <nz-form-label nzXs="10" nzSm="3" nzFor="setupTime">成立时间</nz-form-label>
+                    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+                        <nz-form-text>{{basicInfo.setupTime}}</nz-form-text>
+                    </nz-form-control>
+
+                    <nz-form-label nzXs="10" nzSm="3" nzFor="contentProfile">公司简介</nz-form-label>
+                    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+                        <nz-form-text>{{basicInfo.contentProfile}}</nz-form-text>
+                    </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+
+                    <nz-form-label nzXs="10" nzSm="3" nzFor="createTime">创建时间</nz-form-label>
+                    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+                        <nz-form-text>{{basicInfo.createTime}}</nz-form-text>
+                    </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+        <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 7 }">
+            <button nz-button nzType="primary" type="submit" [routerLink]="'../../edit/'+ basicInfo.id">编辑</button>
+            <button nz-button class="ml-sm" type="button" (click)="goBack()">返回</button>
+        </nz-form-control>
+    </nz-form-item>
+
+</nz-card>

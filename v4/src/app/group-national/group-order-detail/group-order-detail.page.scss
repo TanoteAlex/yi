@@ -1,0 +1,94 @@
+@import "../../../global";
+
+.unpaid {
+  background-image: url("../../../assets/app_icon/customer/待付款banner@2x.png")
+}
+
+.deliver {
+  background-image: url("../../../assets/app_icon/customer/待收货banner@2x.png")
+}
+
+.noevaluation {
+  background-image: url("../../../assets/app_icon/customer/待评价banner@2x.png")
+}
+
+.finish {
+  background-image: url("../../../assets/app_icon/customer/已完成banner@2x.png")
+}
+
+.cancel {
+  background-image: url("../../../assets/app_icon/customer/已取消banner@2x.png")
+}
+
+.input-wrapper {
+  display: block;
+}
+
+.banner {
+  margin-bottom: 0 !important;
+  .status {
+    background-size: 100% 100%;
+    height: 80px;
+    padding-left: 30px !important;
+    color: white;
+    padding-top: 10px;
+  }
+}
+
+.common-list {
+  padding: 10px 10px 0 !important;
+  ion-list-header {
+    padding-left: 0;
+    border-color: $divid-color;
+  }
+  --ion-margin: 8px
+}
+
+.info {
+  ion-row {
+    p {
+      font-size: 14px !important;
+      margin: 8px 0;
+    }
+    &:not(:last-of-type) {
+      border-bottom: 1px solid $divid-color !important;
+    }
+  }
+}
+
+ion-footer {
+  --ion-margin: 5px;
+  box-shadow: 0 0 10px 1px $input-color;
+  ion-toolbar {
+    --border-width: 0;
+  }
+  div {
+    display: inline-block;
+  }
+  ion-button {
+    --border-radius: 15px;
+  }
+}
+
+.list-header {
+  padding: 10px;
+  border-bottom: 1px solid #e5e5e5;
+  @extend .common-spec;
+}
+
+.group-member {
+  margin-top: 10px;
+  flex-wrap: wrap;
+  display: flex;
+  align-items: center;
+  & > div {
+    margin: 0 10px;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    background-size: 100% 100%!important;
+    @extend .radius;
+  }
+}

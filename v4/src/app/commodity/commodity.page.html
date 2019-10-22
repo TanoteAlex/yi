@@ -1,0 +1,108 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-segment [(ngModel)]="select">
+            <ion-segment-button value="introduction">
+                商品介绍<span class="segment-line"></span>
+            </ion-segment-button>
+            <ion-segment-button value="detail">
+                图文详情<span class="segment-line"></span>
+            </ion-segment-button>
+            <ion-segment-button value="evaluation">
+                商品评价<span class="segment-line"></span>
+            </ion-segment-button>
+        </ion-segment>
+        <goback [isShare]="shareData?.preMemberId != undefined"></goback>
+        <img src="../../assets/app_icon/customer/分享icon@3x.png" class="shareIcon" (click)="openShareModal()"/>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <commodity-detail #commodityDetail [commodity]="commodity" [select]="select" (onCustomEvent)="onCustom($event)">
+        <ion-list lines="none" class="bg-white params">
+            <ion-row class="title-name">
+                <div text-left style="padding: 10px 0 10px 10px; width: 100%;position: relative;">
+                    <div class="commodity-name">{{commodity.commodityName}}</div>
+                    <div class="commodity-short-name">{{commodity.commodityShortName}}</div>
+
+                    <div class="share-btn" (click)="openSharePoster()"></div>
+
+                    <div class="commodity-price">
+                        <span class="hy-red hy-f-title"><span class="hy-f-font">￥</span>{{commodity.currentPrice}}</span>
+                        <span class="hy-black hy-f-title" *ngIf="(selectProduct?.levelPrices || vipPrice)"><span class="hy-f-spec">VIP</span><span class="hy-f-font">￥</span>{{selectProduct?.levelPrices || vipPrice}}</span>
+                        <span><del class="hy-f-spec grey">￥{{commodity.originalPrice}}</del></span>
+                        <span>
+                            <span class="hy-label" *ngIf="commodity.freightSet==1 && !commodity.unifiedFreight">包邮</span>
+                            <span class="hy-label" *ngIf="commodity.commodityType==1">批发</span>
+                            <span class="hy-label" *ngIf="commodity.returnVoucher">返{{commodity?.returnVoucher}}元券</span>
+                        </span>
+                    </div>
+
+                    <!--<div class="flex-space-between grey common-sub-title">
+                        <div class="flex-col">
+                            <div>
+                                <del>￥{{commodity.originalPrice}}</del>
+                            </div>
+                            <div class="common-notice">原价</div>
+                        </div>
+                        <div class="flex-col red">
+                            <div class="common-title"><span class="common-sub-title">￥</span>{{selectProduct?.price||commodity.currentPrice}}</div>
+                            <div class="common-notice">现价</div>
+                        </div>
+                        <div class="flex-col grey" *ngIf="(selectProduct?.levelPrices || vipPrice)">
+                            <div>￥{{selectProduct?.levelPrices || vipPrice}}</div>
+                            <div class="common-notice">vip价</div>
+                        </div>
+                        <div class="flex-col grey" *ngIf="!(selectProduct?.levelPrices || vipPrice)">
+                            <div>&nbsp;</div>
+                            <div class="common-notice">&nbsp;</div>
+                        </div>
+                    </div>-->
+                </div>
+            </ion-row>
+
+            <!--买送券-->
+            <!--<div *ngIf="commodity.couponGrantConfig" (click)="openCouponGrantModal()">-->
+            <!--<div class="line-divid"></div>-->
+            <!--<div class="sendCoupon">-->
+            <!--<div>-->
+            <!--<span class="hy-label">返券</span>-->
+            <!--<span class="sendCoupon-content">购买该商品返还{{commodity.couponGrantConfig.coupon.parValue}}元代金券</span>-->
+            <!--</div>-->
+            <!--<ion-icon class="icon-forward" name="ios-arrow-forward"></ion-icon>-->
+            <!--</div>-->
+            <!--</div>-->
+
+            <div class="common-hr"></div>
+            <!--<ion-item (click)="serviceModal()">-->
+            <!--<ion-label>服务说明</ion-label>-->
+            <!--<ion-note>无忧退货 快速退款 免费包邮</ion-note>-->
+            <!--<ion-icon class="icon-forward" name="ios-arrow-forward"></ion-icon>-->
+            <!--</ion-item>-->
+            <!--<div class="line-divid"></div>-->
+
+            <ion-item (click)="paramsModal()" *ngIf="attrGroups?.length">
+                <ion-label>商品参数</ion-label>
+                <ion-note>查看</ion-note>
+                <ion-icon class="icon-forward" name="ios-arrow-forward"></ion-icon>
+            </ion-item>
+            <div class="line-divid" *ngIf="attrGroups?.length"></div>
+
+            <ion-item (click)="attrModal()">
+                <ion-label>规格选择</ion-label>
+                <ion-note *ngIf="!selectProduct && attrGroups?.length != 0">请选择规格</ion-note>
+                <ion-note *ngIf="selectProduct">{{selectProduct?.attrs.join("，")}}</ion-note>
+                <ion-icon class="icon-forward" name="ios-arrow-forward"></ion-icon>
+            </ion-item>
+        </ion-list>
+    </commodity-detail>
+</ion-content>
+
+<ion-footer>
+    <ion-toolbar>
+        <img src="../../assets/app_icon/home/购物车-商品icon@2x.png" (click)="goShoppingCart()"/>
+        <div class="bottom-btn" (click)="goWriteOrder()" *ngIf="!buyType" style="margin-right: 20px">立即购买</div>
+        <div class="bottom-btn" (click)="addCart()">加入购物车</div>
+        <!--<ion-button shape="round" color="danger" (click)="goWriteOrder()" *ngIf="!buyType">立即购买</ion-button>-->
+        <!--<ion-button shape="round" color="danger" (click)="addGift()" *ngIf="buyType=='gift'">立即送礼</ion-button>&nbsp;&nbsp;-->
+        <!--<ion-button shape="round" color="light" class="add-shopping-cart" (click)="addCart()">加入购物车</ion-button>-->
+    </ion-toolbar>
+</ion-footer>

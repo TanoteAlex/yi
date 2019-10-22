@@ -1,0 +1,118 @@
+<page-header [title]="title"></page-header>
+<nz-card [nzBordered]="false">
+  <form nz-form [formGroup]="commonForm">
+
+    <div class="large">
+      <div class="head">
+        <span class="size">基本信息</span>
+      </div>
+      <nz-form-item>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="title">文章标题</nz-form-label>
+        <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+          <input nz-input formControlName="title" id="title" placeholder="请输入文章标题">
+          <nz-form-explain *ngIf="commonForm.get('title').dirty&&commonForm.get('title').errors">
+            <ng-container *ngFor="let error of formErrors.title">
+              <nz-form-explain *ngIf="commonForm.get('title').errors[error.name]">{{ error.msg }}
+              </nz-form-explain>
+            </ng-container>
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="subtitle">文章副标题</nz-form-label>
+        <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+          <input nz-input formControlName="subtitle" id="subtitle" placeholder="请输入文章副标题">
+          <nz-form-explain *ngIf="commonForm.get('subtitle').dirty&&commonForm.get('subtitle').errors">
+            <ng-container *ngFor="let error of formErrors.subtitle">
+              <nz-form-explain *ngIf="commonForm.get('subtitle').errors[error.name]">{{ error.msg }}
+              </nz-form-explain>
+            </ng-container>
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+
+
+      <nz-form-item>
+        <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="state">是否推荐</nz-form-label>
+        <nz-form-control nzXs="8" nzSm="8">
+          <nz-radio-group formControlName="state" id="state">
+            <label nz-radio [nzValue]="0">是</label>
+            <label nz-radio [nzValue]="1">否</label>
+          </nz-radio-group>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="imgPath">商品图片</nz-form-label>
+        <nz-form-control nzXs="21" nzSm="21" nzHasFeedback>
+          <app-dynamic-upload [multi]="true" [fileList]="imgPaths"
+                              (onFileListChange)="changeAttachment($event)"></app-dynamic-upload>
+          <nz-form-explain class="has-error"
+                           *ngIf="commonForm.get('imgPath').dirty && commonForm.get('imgPath').errors">
+            <ng-container *ngFor="let error of formErrors.imgPath">
+              <nz-form-explain *ngIf="commonForm.get('imgPath').errors[error.name]">{{ error.msg }}</nz-form-explain>
+            </ng-container>
+          </nz-form-explain>
+          建议格式：.jpg、.gif、.png格式
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+	<div class="large">
+      <div class="head">
+        <span class="size">添加商品</span>
+      </div>
+      <br>
+      <nz-form-item>
+        <nz-form-label nzXs="3" nzSm="3" nzFor="commodities">选择商品</nz-form-label>
+        <nz-form-control nzXs="21" nzSm="21" nzHasFeedback>
+          <app-modal-selecet #modalSelect
+                             [pageQuery]="commodityPageQuery"
+                             [filters]="[{filterName:'commodityName',name:'商品名称',value:''}]"
+                             [showCol]="[{name:'commodityNo',value:'编码',isShow:true},{name:'commodityName',value:'商品名称',isShow:true},{name:'currentPrice',value:'现价',isShow:true}]"
+                             [showTable]="[{name:'商品编号',value:'commodityNo'},{name:'商品名称',value:'commodityName'},{name:'现价',value:'currentPrice'},{name:'商品图片',value:'imgPath',type:'img'}]"
+                             [select]="commonForm.value.commodities"
+                             [showMode]="'table'"
+                             [resultName]="commonForm.value.commodities ? commonForm.value.commodities.commodityName : '请选择'"
+                             [baseService]="commodityService"
+                             [isMulti]="true"
+                             (result)="setCommodity($event)">
+          </app-modal-selecet>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div class="large">
+      <div class="head">
+        <span class="size">正文信息</span>
+      </div>
+      <nz-form-item>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control nzXs="17" nzSm="17" [nzSm]="{ span: 18, offset: 3 }" nzHasFeedback>
+          <app-editor [ckeditorContent]="''" #editor (result)="thematicText($event)"></app-editor>
+          <!--<app-editor></app-editor>-->
+          <nz-form-explain *ngIf="commonForm.get('content').dirty && commonForm.get('content').errors">
+            <ng-container *ngFor="let error of formErrors.content">
+              <nz-form-explain *ngIf="commonForm.get('content').errors[error.name]">{{ error.msg }}</nz-form-explain>
+            </ng-container>
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <nz-form-item>
+      <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 24, offset: 18 }">
+        <nz-modal-customer [showButton]="false" (ok)="onSubmit()" [title]="'提示！'" [content]="'确认要提交吗？'"
+                           [buttonName]="'提交'">
+          <nz-divider nzType="vertical"></nz-divider>
+        </nz-modal-customer>
+        <button nz-button class="ml-sm" type="button" (click)="goBack()">返回</button>
+      </nz-form-control>
+    </nz-form-item>
+
+  </form>
+</nz-card>

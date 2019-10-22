@@ -1,0 +1,76 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title *ngIf="!orderType">支付成功</ion-title>
+        <ion-title *ngIf="orderType == 'openGroup' || orderType == 'joinGroup'">拼团详情</ion-title>
+        <span class="right red" (click)="goHome()">完成</span>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="normal">
+    <!--普通订单-->
+    <div class="normal" *ngIf="orderType == 'undefined'">
+    <!--<div class="normal">-->
+        <ion-list text-center>
+            <div class="success-icon">
+                <img src="../../assets/app_icon/basic/支付成功.png" height="60" width="60"/>
+            </div>
+
+            <div>
+                <p class="common-title black">订单支付成功</p>
+                <span class="grey common-sub-title">支付方式&nbsp;</span>
+                <span class="common-font">{{payType||"微信支付"}}</span><br/>
+                <span class="grey common-sub-title">实付金额&nbsp;</span>
+                <span class="common-font">￥{{totalAmount}}</span>
+            </div>
+
+        </ion-list>
+        <div class="btns">
+            <ion-button shape="round" fill="outline" color="danger" (click)="goDeliverMyOrder()">查看订单</ion-button>
+            <ion-button shape="round" color="danger" (click)="goHome()">回到首页</ion-button>
+        </div>
+    </div>
+
+    <!--团订单-->
+    <div class="open-group" *ngIf="orderType != 'undefined'">
+        <ion-list text-center>
+            <div class="success-icon">
+                <img src="../../assets/app_icon/basic/支付成功.png" height="60" width="60"/>
+            </div>
+
+            <div *ngIf="orderType == 'openGroup'">
+                <p class="common-title black">恭喜您，开团成功！</p>
+                <span class="grey common-sub-title">还差<span class="red">{{orderDetail?.groupBuyOrder.groupNum-orderDetail?.groupBuyOrder.joinNum}}人</span>拼团成功，剩余</span>
+                <div>
+                    <time-count #timeCount></time-count>
+                </div>
+            </div>
+
+            <div *ngIf="orderType == 'joinGroup'">
+                <p class="common-title black">恭喜您，拼单成功！</p>
+                <span class="grey common-sub-title">&nbsp;</span>
+                <!--<div>-->
+                <!--<time-count></time-count>-->
+                <!--</div>-->
+            </div>
+
+            <div class="group-member">
+                <div *ngFor="let item of avater; let i=index" [ngStyle]="{'background': 'url( '+item+' ) no-repeat'}">
+                    <img src="../../assets/app_icon/new_commodity/group-leader.png" width="45px" *ngIf="i==0"/>
+                </div>
+            </div>
+
+        </ion-list>
+        <div class="btns" *ngIf="orderType == 'openGroup'">
+            <ion-button shape="round" fill="outline" color="danger" (click)="goHome()">返回首页</ion-button>
+            <ion-button shape="round" color="danger" (click)="inviteFriends()">邀请好友</ion-button>
+        </div>
+        <div class="btns" *ngIf="orderType == 'joinGroup'">
+            <ion-button shape="round" fill="outline" color="danger" (click)="goDeliverMyOrder()">查看订单</ion-button>
+            <ion-button shape="round" color="danger" (click)="goHome()">返回首页</ion-button>
+        </div>
+    </div>
+
+    <footer-tip [tips]="list"></footer-tip>
+</ion-content>
+
+

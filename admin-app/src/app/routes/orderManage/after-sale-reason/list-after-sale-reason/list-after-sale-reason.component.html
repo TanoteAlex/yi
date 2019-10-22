@@ -1,0 +1,85 @@
+<page-header [title]="'售后原因列表'">
+  <ng-template #breadcrumb>
+    <nz-breadcrumb>
+      <nz-breadcrumb-item>
+        <a [routerLink]="['/dashboard']">订单设置</a>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item>售后原因</nz-breadcrumb-item>
+    </nz-breadcrumb>
+  </ng-template>
+</page-header>
+
+<nz-card [nzBordered]="false">
+  <form nz-form [nzLayout]="'inline'" [formGroup]="searchForm" class="search__form">
+    <nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32, xl: 32, xxl: 32  }">
+
+      <nz-col nzXs="6" nzSm="6">
+        <nz-form-item>
+          <nz-form-label>售后类型</nz-form-label>
+          <nz-form-control>
+            <nz-select formControlName="afterSaleType" [nzPlaceHolder]="'不限'">
+              <nz-option *ngFor="let saleType of types" [nzLabel]="saleType.name" [nzValue]="saleType.id"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+
+      <nz-col [nzSpan]="expandForm ? 24 : 6" [class.text-right]="expandForm">
+        <button nz-button [nzType]="'primary'" (click)="searchData()" [nzLoading]="loading">查询</button>
+        <button nz-button (click)="clearSearch()" class="mx-sm">重置</button>
+      </nz-col>
+    </nz-row>
+  </form>
+
+  <button nz-button [routerLink]="'../add'" [nzType]="'primary'">
+    <i class="anticon anticon-plus"></i>
+    <span>新建</span>
+  </button>
+
+  <nz-table
+    #ajaxTable
+    [nzShowSizeChanger]="true"
+    [nzFrontPagination]="false"
+    [nzData]="afterSaleReasons"
+    [nzLoading]="loading"
+    [nzTotal]="pageQuery.responses.totalElements"
+    [(nzPageIndex)]="pageQuery.page"
+    [(nzPageSize)]="pageQuery.pageSize"
+    (nzPageIndexChange)="searchData()"
+    (nzPageSizeChange)="searchData(true)">
+
+    <thead (nzSortChange)="sort($event)" nzSingleSort>
+    <tr>
+      <th>售后类型</th>
+      <th>售后原因</th>
+      <th>排序</th>
+      <th>状态</th>
+      <th>创建时间</th>
+      <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let afterSaleReason of ajaxTable.data">
+      <td>
+        <span *ngIf="afterSaleReason.afterSaleType == 1">退款</span>
+        <span *ngIf="afterSaleReason.afterSaleType == 2">退货退款</span>
+        <span *ngIf="afterSaleReason.afterSaleType == 3">换货</span>
+      </td>
+      <td>{{afterSaleReason.reason}}</td>
+      <td>{{afterSaleReason.sort}}</td>
+      <td>{{afterSaleReason.state}}</td>
+      <td>{{afterSaleReason.createTime}}</td>
+      <td>
+        <a [routerLink]="'../edit/'+afterSaleReason.id">编辑
+          <nz-divider nzType="vertical"></nz-divider>
+        </a>
+        <nz-modal-customer (ok)="remove(afterSaleReason.id)" [title]="'提示！'"
+                           [content]="'确认要删除吗？'"
+                           [buttonName]="'删除'">
+        </nz-modal-customer>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+</nz-card>
+

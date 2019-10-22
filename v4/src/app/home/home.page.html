@@ -1,0 +1,56 @@
+<ion-header>
+    <search-head [isHome]="true"></search-head>
+</ion-header>
+
+<ion-content #content no-padding>
+    <!--<ion-refresher (ionRefresh)="doRefresh($event)">-->
+        <!--<ion-refresher-content-->
+                <!--pullingIcon="arrow-dropdown"-->
+                <!--pullingText="下拉刷新"-->
+                <!--refreshingSpinner="circles"-->
+                <!--refreshingText="正在加载...">-->
+        <!--</ion-refresher-content>-->
+    <!--</ion-refresher>-->
+    <!--<app-refresh  [interfaceName]="'getHomePageData'" [provider]="bannerProviders" (result)="doRefresh($event)"></app-refresh>-->
+    <ion-list class="common-list">
+        <banner-slide [banners]="banners" [height]="'12rem'"></banner-slide>
+
+        <app-show-buttons-list></app-show-buttons-list>
+
+        <!--团购-->
+        <div class="group-item" *ngFor="let activityProducts of groupList?.groupBuyActivityProducts">
+            <div class="commodity-item" (click)="goGroupCommodity(activityProducts)">
+                <div class="commodity-img">
+                    <img-lazy-load [src]="activityProducts?.product?.productImgPath | thumbnailPipe : 's'"></img-lazy-load>
+                </div>
+                <div class="commodity-info">
+                    <div class="common-sub-notice">{{activityProducts?.product?.productName}}</div>
+                    <div class="productShorName">{{activityProducts?.product?.productShortName}}</div>
+                    <div style="display: flex">
+                        <span class="group-label">{{activityProducts?.groupBuyQuantity}}人团</span>
+                        <span class="group-label" *ngIf="groupArray?.hasPost">包邮</span>
+                    </div>
+                    <div>
+                        <span class="red common-sub-title">￥{{activityProducts?.groupBuyPrice}}</span>&nbsp;
+                        <del class="common-more-small-spec grey">单买价￥{{activityProducts?.product.currentPrice}}</del>
+                    </div>
+                    <div class="join-btn">开团</div>
+                </div>
+            </div>
+        </div>
+
+        <app-show-commodities [id]="item.id" [item]="item" *ngFor="let item of recommends"></app-show-commodities>
+
+    </ion-list>
+
+    <!--下拉加载更多商品-->
+
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="正在加载..."></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+    <!--<app-commodity-list-first [commodityList]="commodityList"></app-commodity-list-first>
+
+    <app-infinite [interfaceName]="'homeQuery'" [pageQuery]="pageQuery" [provider]="commodityProvider" (result)="doInfinite($event)"></app-infinite>-->
+
+    <app-affix [content]="content"></app-affix>
+</ion-content>

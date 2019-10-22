@@ -1,0 +1,13 @@
+@import "../../global";
+
+.common-list {
+  ion-button {
+    --border-radius: 1.1rem;
+    --background:#f2f2f8
+  }
+}
+
+footer-tip {
+  position: absolute;
+  bottom: 0;
+}

@@ -1,0 +1,37 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>小区业绩</ion-title>
+        <goback></goback>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div class="flex-center commission-item" *ngFor="let item of data">
+        <div class="member-info">
+            <div class="commission-avater">
+                <img onerror="this.src='../../assets/imgs/null-category.png'" [src]="item.member.avater"/>
+            </div>
+            <div class="member-name">
+                <div>{{item.member.nickname}}</div>
+                <div class="grey common-spec">{{item.orderTime.substr(0,16)}}</div>
+            </div>
+        </div>
+        <div class="greys"></div>
+        <div class="grey">
+            <span class="red">{{item.orderAmount}}</span>元
+        </div>
+    </div>
+
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="正在加载..."></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+    <div class="nolist" *ngIf="!data?.length">
+        <ion-label class="grey">暂无业绩~</ion-label>
+    </div>
+
+    <div class="loading" *ngIf="isLoading">
+        <ion-spinner></ion-spinner>
+    </div>
+
+</ion-content>

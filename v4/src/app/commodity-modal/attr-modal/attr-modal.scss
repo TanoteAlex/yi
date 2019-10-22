@@ -1,0 +1,83 @@
+@import "../../../global";
+
+.head {
+  height: 100%;
+  background-color: #000;
+  opacity: 0.4;
+  transform: translateZ(0);
+  z-index: -1;
+}
+
+.body {
+  //padding: 1rem;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  .content {
+    //border-radius: 10px;
+    background: white;
+    height: 100%;
+    padding: 15px;
+    z-index: 9995;
+    .product {
+      ion-icon {
+        margin: 10px 0;
+      }
+    }
+    .item-ios {
+      border-radius: 10px;
+    }
+    .amount {
+      margin-top: 10px;
+      margin-bottom: 30px;
+      display: block;
+      p {
+        display: inline-block;
+      }
+    }
+
+    .attr {
+      button {
+        min-width: 22%;
+        margin-right: 3%;
+        border-radius: 15px;
+        background-color: white;
+        border: 1px solid #ccc;
+        padding: 5px;
+        margin-bottom: 10px;
+        &:active {
+        }
+      }
+      .choose {
+        color: $main-color;
+        background-color: transparent;
+        border-color: $main-color;
+      }
+    }
+    .vipPrice{
+      display: flex;
+      align-items: flex-end;
+      @extend .red;
+      @extend .common-notice;
+      &>div{
+        margin-right: 1rem;
+        align-items: center;
+      }
+    }
+  }
+
+  .common-normal-add-close {
+    background-color: $space-color;
+    padding: 1px;
+    border-radius: 3px;
+    margin-top: 5px;
+    span {
+      padding: 0 0.5rem 0 0.5rem !important;
+    }
+    .common-title {
+      background-color: white;
+    }
+  }
+}
+
+

@@ -1,0 +1,29 @@
+<ion-content no-padding>
+    <img class="left backBtn" src="../../assets/app_icon/home/back@2x.png" (click)="goBack()">
+    <div class="login-photo"></div>
+    <base-login [type]="'login'" [previousPage]="previousPage">
+        <ion-row class="noline">
+            <ion-col>
+                <span class="right grey common-sub-title" (click)="goForgetPassword()">忘记密码</span>
+            </ion-col>
+        </ion-row>
+
+        <ion-row class="noline tripartite ">
+            <!--<ion-col></ion-col>-->
+            <ion-col class="center" (click)="weChatLogin()">
+                <img src="../../assets/app_icon/customer/微信@2x.png"/>
+            </ion-col>
+            <!--<ion-col class="center" (click)="qqLogin()" *ngIf="isApp">-->
+                <!--<img src="../../assets/app_icon/customer/QQ@2x.png"/>-->
+            <!--</ion-col>-->
+            <!--<ion-col></ion-col>-->
+        </ion-row>
+    </base-login>
+    <div text-center>
+        <ion-button fill="clear" class="register toRegister" (click)="goRegister()">
+            注&nbsp;&nbsp;&nbsp;&nbsp;册
+        </ion-button>
+    </div>
+
+
+</ion-content>

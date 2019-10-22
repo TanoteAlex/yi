@@ -1,0 +1,89 @@
+@import "../../global";
+
+.back-sign-img {
+  height: 100% !important;
+  width: 100%;
+  margin: 0 !important;
+}
+
+.back {
+  background-color: #f9c7ce;
+  border-radius: 8px;
+  width: 94%;
+  height: 80px;
+  //padding: 7px;
+  img {
+    height: 85%;
+    margin: 5px 0 5px 0;
+    background: url("../../assets/app_icon/home/签到奖励icon@2x.png");
+    background-size: 100% 100%;
+  }
+}
+
+.home {
+  padding-top: 35px;
+  width: 100%;
+  height: 175px;
+  background: url("../../assets/app_icon/home/01-06今日签到bannner@2x.png");
+  background-size: 100% 100%;
+}
+
+.yuan {
+  padding-top: 7.5px;
+  width: 90px;
+  height: 90px;
+  margin: auto;
+  opacity: 1;
+  background-color: #ff001f0d;
+  border-radius: 100%;
+
+  .ioc {
+    width: 75px;
+    height: 75px;
+    background-color: #f9f9f9;
+    margin: auto;
+    text-align: center;
+    border-radius: 10rem;
+    margin-bottom: 3%
+  }
+}
+
+.txt {
+  font-size: 0.3rem;
+  color: #323a86;
+}
+
+.inoimg {
+  margin-top: 10px
+}
+
+.txt2 {
+  padding: 2px;
+  border-radius: 10px;
+  background-color: #ff001f1f;
+  color: #f9f9f9;
+  font-size: 0.5rem;
+  text-align: center;
+}
+
+.body {
+  display: flex;
+  min-height: 100%;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1;
+}
+
+.bottom-tip {
+  margin: 0 15px 15px;
+}
+
+.prize{
+  position: absolute;
+  bottom: 8px;
+  width: 80%;
+  font-size: 12px;
+  color: grey;
+}

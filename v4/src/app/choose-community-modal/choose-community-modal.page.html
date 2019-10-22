@@ -1,0 +1,28 @@
+<div class="head" (click)="goBack()"></div>
+<div class="body">
+    <div class="content">
+        <ion-header>
+            <ion-title>选择小区</ion-title>
+        </ion-header>
+
+
+        <div class="group">
+            <ion-list class="provinceGroup">
+                <ion-item *ngFor="let item of proList" (click)="selectPro(item)" [ngClass]="selectedPro==item?'selected':''" lines="none">
+                    <ion-label>{{item | districtPipe}}</ion-label>
+                </ion-item>
+            </ion-list>
+            <ion-list class="cityGroup">
+                <ion-item *ngFor="let item of cityList" (click)="selectCity(item)" [ngClass]="selectedCity==item?'selected':''" lines="none">
+                    <ion-label>{{item | districtPipe}}</ion-label>
+                </ion-item>
+            </ion-list>
+            <ion-list class="communityGroup">
+                <ion-item *ngFor="let item of communityList" (click)="selectCommunity(item)" [ngClass]="selectedCommunity==item?'selected':''" lines="none">
+                    <ion-label>{{item.address}}</ion-label>
+                </ion-item>
+            </ion-list>
+        </div>
+
+    </div>
+</div>

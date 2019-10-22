@@ -1,0 +1,60 @@
+
+
+<page-header [title]="'查看秒杀活动'"></page-header>
+
+<nz-card>
+  <nz-form-item>
+
+    <nz-card nzTitle="活动信息" nzType="inner">
+
+      <desc-list class="mb-lg">
+        <desc-list-item term="活动标签">{{seckill.label}}</desc-list-item>
+        <desc-list-item term="分享标题">{{seckill.shareTitle}}</desc-list-item>
+        <desc-list-item term="开始时间">{{seckill.startTime}}</desc-list-item>
+        <desc-list-item term="结束时间">{{seckill.endTime}}</desc-list-item>
+        <desc-list-item term="货品">{{seckill.product?.productName}}</desc-list-item>
+      </desc-list>
+
+      <desc-list class="mb-lg">
+        <desc-list-item term="活动封面"><img class="table-img-customer-details" [src]="seckill.activityCover">
+        </desc-list-item>
+      </desc-list>
+
+    </nz-card>
+
+    <nz-card nzTitle="活动设置" nzType="inner">
+
+      <desc-list class="mb-lg">
+        <desc-list-item term="活动库存">{{seckill.activityStock}}</desc-list-item>
+        <desc-list-item term="秒杀价">{{seckill.seckillPrice}}</desc-list-item>
+        <desc-list-item term="限购数量">{{seckill.limitQuantity}}</desc-list-item>
+        <desc-list-item term="支付时限">{{seckill.limitPayTime}}min</desc-list-item>
+        <desc-list-item term="奖励类型">
+          <span *ngIf="seckill.rewardType==1">奖励积分</span>
+          <span *ngIf="seckill.rewardType==2">优惠券</span>
+        </desc-list-item>
+        <desc-list-item *ngIf="seckill.rewardType==1" term="奖励积分">{{seckill.rewardIntegral}}
+        </desc-list-item>
+        <desc-list-item *ngIf="seckill.rewardType==2" term="优惠券">{{seckill.coupon?.couponName}}
+        </desc-list-item>
+        <desc-list-item term="运费设置">
+          <span *ngIf="seckill.freightSet==1">卖家包邮</span>
+          <span *ngIf="seckill.freightSet==2">买家承担运费</span></desc-list-item>
+        <desc-list-item *ngIf="seckill.freightSet==2" term="运费">{{seckill.freight}}</desc-list-item>
+        <desc-list-item term="状态">
+          <span *ngIf="seckill.state==0">已启用</span>
+          <span *ngIf="seckill.state==1">已禁用</span>
+        </desc-list-item>
+      </desc-list>
+    </nz-card>
+
+
+    <nz-form-item>
+      <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 17 }">
+        <button nz-button nzType="primary" type="submit" [routerLink]="'../../edit/'+ seckill.id">编辑</button>
+        <button nz-button class="ml-sm" type="button" (click)="goBack()">返回</button>
+      </nz-form-control>
+    </nz-form-item>
+  </nz-form-item>
+
+</nz-card>

@@ -1,0 +1,32 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>会员中心</ion-title>
+        <!--<img float-right src="../../assets/app_icon/customer/标题栏-icon@2x.png" width="20" height="20"-->
+             <!--(click)="goGradeRule()">-->
+        <goback></goback>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content no-padding>
+    <div class="bg-img" text-center (click)="goGrowthValue()">
+        <div class="bg-grade ver-midd">
+            <div>{{data?.integral}}</div>
+        </div>
+    </div>
+
+    <div style="position: absolute;top: 205px;width: 100%">
+        <div class="balance-item" *ngFor="let item of list">
+            <div class="balance-remark">
+                <div class="common-notice">{{item.taskName}}</div>
+                <div class="grey">{{item.createTime}}</div>
+            </div>
+            <div>
+                <b class="right red common-notice">
+                    <span *ngIf="item.operateType==0">+</span>
+                    <span *ngIf="item.operateType==1">-</span>
+                    {{item.operateIntegral}}
+                </b>
+            </div>
+        </div>
+    </div>
+</ion-content>

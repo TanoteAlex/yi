@@ -1,0 +1,30 @@
+<div class="hy-ticket coupon" [ngClass]="{'ticket-selected':ticket.checked,'disable':disable}">
+    <div class="ticket-price-info">
+        <div>
+            <div class="big-font coupon-color heavy-font">{{ticket.parValue}}<span class="sub-font">元</span></div>
+            <div class="use-btn" text-center (click)="gotoUse(ticket.couponId);$event.stopPropagation()" *ngIf="ticket?.state.indexOf('canuse') != -1">立即使用</div>
+        </div>
+    </div>
+    <div class="ticket-date-info">
+        <div class="corner-img"></div>
+        <div class="flex-center flex-col sub-font tip-color">
+            <div class="heavy-font">{{ticket.parValue}}元{{ticket.couponName}}<span class="coupon-color">优惠券</span></div>
+            <div class="more-small-font" *ngIf="!ticket.hasOwnProperty('receiveState')">
+                有效期 {{getTime(ticket.startTime)}}-{{getTime(ticket.endTime)}}
+                <!--<span *ngIf="ticket.endTime">有效期至</span>-->
+                <!--<span class="coupon-color" [innerHtml]=getTerm(ticket.endTime,ticket.fixedDay)></span>-->
+            </div>
+
+            <div class="more-small-font" *ngIf="ticket.hasOwnProperty('receiveState')">
+                <!--有效期 {{getTime(ticket.startTime)}}-{{getTime(ticket.endTime)}}-->
+                <span *ngIf="ticket.endTime">有效期至</span>
+                <span class="coupon-color" [innerHtml]=getTerm(ticket.endTime,ticket.fixedDay)></span>
+            </div>
+        </div>
+        <div class="flex-space-between" style="margin: 5px 10px;flex-direction: row-reverse;">
+            <div class="grey more-small-font">(指定商品可用)</div>
+            <div class="send-btn" text-center *ngIf="ticket?.state.indexOf('canuse') != -1" (click)="sendOthers(ticket);$event.stopPropagation()">赠送</div>
+        </div>
+    </div>
+</div>
+

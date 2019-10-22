@@ -1,0 +1,105 @@
+
+<page-header [title]="'查询供应商'">
+    <ng-template #breadcrumb>
+        <nz-breadcrumb>
+            <nz-breadcrumb-item>
+                <a [routerLink]="['/dashboard/platform-sale-stat/list']">供应商管理</a>
+            </nz-breadcrumb-item>
+            <nz-breadcrumb-item>供应商销售统计</nz-breadcrumb-item>
+        </nz-breadcrumb>
+    </ng-template>
+</page-header>
+
+<nz-card [nzBordered]="false">
+    <form nz-form [nzLayout]="'inline'" [formGroup]="searchForm" class="search__form">
+        <nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32, xl: 32, xxl: 32  }">
+         <nz-col nzMd="8" nzSm="24">
+            <nz-form-item>
+              <nz-form-label>时间段</nz-form-label>
+              <nz-form-control>
+                <nz-range-picker (ngModelChange)="changeRange($event)" formControlName="range"  [nzFormat]="dateFormat"></nz-range-picker>
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+          <!--<nz-form-item>-->
+            <!--<nz-form-item>-->
+              <!--<nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="startTime">时间段</nz-form-label>-->
+              <!--<nz-range-picker (ngModelChange)="haha($event)"></nz-range-picker>-->
+            <!--</nz-form-item>-->
+          <!--</nz-form-item>-->
+
+
+          <!--<button nz-button [nzType]="'primary'" (click)="goplatformSaleStatController()" [nzLoading]="loading">查询</button>-->
+            <nz-col nzMd="8" nzSm="24">
+
+            </nz-col>
+
+            <nz-col [nzSpan]="expandForm ? 24 : 8" [class.text-right]="expandForm">
+               <button nz-button [nzType]="'primary'" (click)="goplatformSaleStatController()" [nzLoading]="loading">查询</button>
+
+                <button nz-button (click)="clearSearch()" class="mx-sm">重置</button>
+
+            </nz-col>
+        </nz-row>
+    </form>
+
+ <!--   <button nz-button [routerLink]="'../add'" [nzType]="'primary'">
+        <i class="anticon anticon-plus"></i>
+        <span>新建</span>
+    </button>-->
+
+    <nz-table
+            #ajaxTable
+            [nzShowSizeChanger]="true"
+            [nzFrontPagination]="false"
+            [nzData]="datas"
+            [nzLoading]="loading"
+            [nzTotal]="pageQuery.responses.totalElements"
+            [(nzPageIndex)]="pageQuery.page"
+            [(nzPageSize)]="pageQuery.pageSize"
+            (nzPageIndexChange)="searchData()"
+            (nzPageSizeChange)="searchData(true)">
+
+
+
+
+      <div class="card-body pt-0 widget-body">
+
+        <div class="large account-info">
+          <table width="100%" class="statistics" >
+            <tr class="colorr">
+              <th colspan="5" style="text-align: left;padding-left: 10px">
+                <h4>订单统计</h4>
+              </th>
+            </tr>
+            <tr>
+              <td>
+                <span class="data">{{statistics?.platformOrderNum}}</span><br/>
+                <span class="according ">平台订单数</span>
+              </td>
+              <td>
+                <span class="data">￥{{statistics?.saleAmount}}</span><br/>
+                <span class="according ">平台销售额</span>
+              </td>
+              <!--    <td>
+                      <span class="data">500%</span><br />
+                       <span class="according ">平台业绩占比</span>
+                   </td>&ndash;&gt;-->
+              <td>
+                <span class="data">￥{{statistics?.cost}}</span><br/>
+                <span class="according">成本</span>
+              </td>
+              <td>
+                <span class="data">￥{{statistics?.profit}}</span><br/>
+                <span class="according ">利润</span>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+
+
+    </nz-table>
+</nz-card>
+

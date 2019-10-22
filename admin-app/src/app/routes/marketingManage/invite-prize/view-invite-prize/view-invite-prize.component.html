@@ -1,0 +1,86 @@
+<page-header [title]="'查看信息'"></page-header>
+
+<nz-card>
+  <nz-form-item>
+    <nz-form-label nzXs="10" nzSm="3">活动</nz-form-label>
+    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+      <nz-form-text>{{invitePrize.inviteActivity?.title}}</nz-form-text>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label nzXs="10" nzSm="3" nzFor="prizeNo">奖品编码</nz-form-label>
+    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+      <nz-form-text>{{invitePrize.prizeNo}}</nz-form-text>
+    </nz-form-control>
+
+    <nz-form-label nzXs="10" nzSm="3" nzFor="prizeName">奖品名称</nz-form-label>
+    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+      <nz-form-text>{{invitePrize.prizeName}}</nz-form-text>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label nzXs="10" nzSm="3" nzFor="inviteNum">邀请人数</nz-form-label>
+    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+      <nz-form-text>{{invitePrize.inviteNum}}</nz-form-text>
+    </nz-form-control>
+
+    <nz-form-label nzXs="10" nzSm="3" nzFor="prizeType">奖品类型</nz-form-label>
+    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+      <nz-form-text *ngIf="invitePrize.prizeType == 1">积分</nz-form-text>
+      <nz-form-text *ngIf="invitePrize.prizeType == 2">商品</nz-form-text>
+      <nz-form-text *ngIf="invitePrize.prizeType == 3">优惠券</nz-form-text>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item *ngIf="invitePrize.integral > 0">
+    <nz-form-label nzXs="10" nzSm="3" nzFor="integral">积分</nz-form-label>
+    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+      <nz-form-text>{{invitePrize.integral}}</nz-form-text>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item *ngIf="invitePrize.product !== null">
+    <nz-form-label nzXs="10" nzSm="3">商品</nz-form-label>
+    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+      <nz-form-text>{{invitePrize.product?.productName}}</nz-form-text>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item *ngIf="invitePrize.coupon !== null">
+    <nz-form-label nzXs="10" nzSm="3" nzFor="couponId">优惠券</nz-form-label>
+    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+      <nz-form-text>{{invitePrize.coupon?.couponName}}</nz-form-text>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+
+    <nz-form-label nzXs="10" nzSm="3" nzFor="sort">排序</nz-form-label>
+    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+      <nz-form-text>{{invitePrize.sort}}</nz-form-text>
+    </nz-form-control>
+
+    <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="state">状态</nz-form-label>
+    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+      <nz-form-text>{{invitePrize.state == 0?'启用':'禁用'}}</nz-form-text>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+
+    <nz-form-label nzXs="10" nzSm="3" nzFor="createTime">创建时间</nz-form-label>
+    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+      <nz-form-text>{{invitePrize.createTime}}</nz-form-text>
+    </nz-form-control>
+
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 7 }">
+      <button nz-button nzType="primary" type="submit" [routerLink]="'../../edit/'+ invitePrize.id">编辑</button>
+      <button nz-button class="ml-sm" type="button" (click)="goBack()">返回</button>
+    </nz-form-control>
+  </nz-form-item>
+
+</nz-card>

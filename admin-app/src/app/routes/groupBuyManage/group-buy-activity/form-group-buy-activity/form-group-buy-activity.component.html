@@ -1,0 +1,235 @@
+<page-header [title]="title"></page-header>
+<nz-card [nzBordered]="false">
+  <form nz-form [formGroup]="commonForm">
+
+    <nz-card>
+      <div nz-row [nzGutter]="24" class="titie">
+        <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="24" class="titie-padding">
+          <span><strong>基本信息</strong></span>
+        </div>
+      </div>
+      <nz-form-item>
+
+        <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="activityName">活动名称</nz-form-label>
+        <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+          <input nz-input formControlName="activityName" id="activityName" placeholder="输入活动名称">
+          <nz-form-explain *ngIf="commonForm.get('activityName').dirty&&commonForm.get('activityName').errors">
+            <ng-container *ngFor="let error of formErrors.activityName">
+              <nz-form-explain *ngIf="commonForm.get('activityName').errors[error.name]">{{ error.msg }}
+              </nz-form-explain>
+            </ng-container>
+          </nz-form-explain>
+        </nz-form-control>
+
+      </nz-form-item>
+      <nz-form-item>
+
+        <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="coverUrl">活动封面</nz-form-label>
+        <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+          <app-dynamic-upload [fileList]="commonForm.value.coverUrl?[{url:commonForm.value.coverUrl}]:[]"
+                              (onFileListChange)="getPic($event)"></app-dynamic-upload>
+          <nz-form-explain class="has-error" *ngIf="commonForm.get('coverUrl').dirty&&commonForm.get('coverUrl').errors">
+            <ng-container *ngFor="let error of formErrors.coverUrl">
+              <nz-form-explain *ngIf="commonForm.get('coverUrl').errors[error.name]">{{ error.msg }}
+              </nz-form-explain>
+            </ng-container>
+          </nz-form-explain>
+        </nz-form-control>
+
+      </nz-form-item>
+      <nz-form-item formArrayName="groupBuyActivityTimes">
+        <nz-form-label nzXs="3" nzSm="3" nzRequired>活动时间段</nz-form-label>
+        <nz-form-control nzXs="9" nzSm="12">
+          <div *ngFor="let form of groupBuyActivityTimes.controls;let i=index;"
+               [formGroupName]="i">
+            <nz-range-picker  formControlName="timeSlot" (ngModelChange)="selectTime($event, form)"
+                             [nzShowTime]="dateFormat" [nzFormat]="dateFormat"
+                             [nzPlaceHolder]="['开始时间', '结束时间']">
+                             </nz-range-picker>
+            <button (click)="deleteTime(i, 'groupBuyActivityTimes')" style="float: right;margin-top: 4px" nz-button
+                    type="button">删除
+            </button>
+          </div>
+          <p style="margin-bottom: 0px" *ngIf="groupBuyActivityTimesError">
+            <label style="margin-left: 10px;color: #f5222d">{{groupBuyActivityTimesError}}</label>
+          </p>
+          <button (click)="addNewTime('groupBuyActivityTimes')" nz-button type="button">添加</button>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+
+        <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="priority">优先级</nz-form-label>
+        <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+          <nz-input-number nz-input style="width: 50%" [nzMin]="0" [nzPrecision]="0" [nzStep]="1"
+                           formControlName="priority" id="priority"
+                           [nzPlaceHolder]="'请输入优先级'"></nz-input-number>
+          <nz-form-explain *ngIf="commonForm.get('priority').dirty&&commonForm.get('priority').errors">
+            <ng-container *ngFor="let error of formErrors.priority">
+              <nz-form-explain *ngIf="commonForm.get('priority').errors[error.name]">{{ error.msg }}
+              </nz-form-explain>
+            </ng-container>
+          </nz-form-explain>
+        </nz-form-control>
+
+      </nz-form-item>
+
+    </nz-card>
+
+    <nz-card>
+      <div nz-row [nzGutter]="24" class="titie">
+        <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="24" class="titie-padding">
+          <span><strong>基本规则</strong></span>
+        </div>
+      </div>
+
+      <nz-form-item>
+
+        <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="publishUser">发布人</nz-form-label>
+        <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+          {{loginUser.fullName}}
+        </nz-form-control>
+      </nz-form-item>
+
+      <!--<nz-form-item>
+
+        <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="memberType">指定会员</nz-form-label>
+        <nz-form-control nzXs="8" nzSm="8">
+          <nz-radio-group formControlName="memberType" id="memberType">
+            <label nz-radio [nzValue]="1">全部会员</label>
+            <label nz-radio [nzValue]="2">等级会员</label>
+          </nz-radio-group>
+        </nz-form-control>
+
+      </nz-form-item>
+      <nz-form-item [ngStyle]="{'visibility':commonForm.value.memberType == 2?'visible':'hidden'}">
+
+        <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="memberLevels">等级会员选择</nz-form-label>
+        <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+          <app-modal-selecet #modalSelectMember
+                             [showCol]="[{name:'id',value:'编码',isShow:false},{name:'name',value:'会员等级',isShow:true},{name:'discount',value:'会员折扣',isShow:false}]"
+                             [select]="commonForm.value.memberLevels"
+                             [resultName]="commonForm.value.memberLevels ? commonForm.value.memberLevels.name : '请选择'"
+                             [isMulti]="true"
+                             [baseService]="memberLevelService"
+                             (result)="setMemberLevel($event)">
+          </app-modal-selecet>
+          <nz-form-explain class="has-error"
+                           *ngIf="commonForm.get('memberLevels').dirty&&commonForm.get('memberLevels').errors">
+            <ng-container *ngFor="let error of formErrors.memberLevels">
+              <nz-form-explain *ngIf="commonForm.get('memberLevels').errors[error.name]">{{ error.msg }}
+              </nz-form-explain>
+            </ng-container>
+          </nz-form-explain>
+        </nz-form-control>
+
+      </nz-form-item>-->
+
+      <!--<nz-form-item>-->
+
+      <!--<nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="type">团购活动类型</nz-form-label>-->
+      <!--<nz-form-control nzXs="8" nzSm="8" nzHasFeedback>-->
+      <!--<nz-radio-group formControlName="type" id="type">-->
+      <!--<label nz-radio [nzValue]="1">全国拼团</label>-->
+      <!--</nz-radio-group>-->
+      <!--</nz-form-control>-->
+
+      <!--</nz-form-item>-->
+      <nz-form-item>
+
+        <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="hasPost">运费设置</nz-form-label>
+        <nz-form-control nzXs="8" nzSm="8">
+          <nz-radio-group formControlName="hasPost" id="hasPost">
+            <label nz-radio [nzValue]="1">卖家包邮</label>
+            <label nz-radio [nzValue]="2">买家承担运费</label>
+          </nz-radio-group>
+        </nz-form-control>
+
+      </nz-form-item>
+      <nz-form-item>
+
+        <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="hasCoupon">是否支持优惠券</nz-form-label>
+        <nz-form-control nzXs="8" nzSm="8">
+          <nz-radio-group formControlName="hasCoupon" id="hasCoupon">
+            <label nz-radio [nzValue]="0">不支持</label>
+            <label nz-radio [nzValue]="1">支持</label>
+          </nz-radio-group>
+        </nz-form-control>
+
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label nzXs="3" nzSm="3" nzRequired>货品设置</nz-form-label>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control nzXs="24" nzSm="24" class="animalForm">
+          <nz-card formArrayName="groupBuyActivityProducts" class="flex transport-form" style="width: 100%">
+            <nz-table [nzShowPagination]="false" [nzData]="[{}]">
+              <thead nzSingleSort>
+              <tr>
+                <th width="22%">商品</th>
+                <th width="28%">货品</th>
+                <th width="14%">拼团价</th>
+                <th width="14%">成团人数</th>
+                <th width="14%">活动库存</th>
+                <th width="8%">操作</th>
+              </tr>
+              </thead>
+              <tbody [formGroupName]="i" *ngFor="let item of groupBuyActivityProducts.controls;let i=index">
+              <tr>
+                <td width="22%">
+                  <app-modal-selecet
+                                     [pageQuery]="commodityPageQuery"
+                                     [filters]="[{filterName:'commodityName',name:'商品名称',value:''}]"
+                                     [showCol]="[{name:'commodityNo',value:'编码',isShow:true},{name:'commodityName',value:'商品名称',isShow:true}]"
+                                     [select]="item.value.commodity"
+                                     [resultName]="item.value.commodity ? hiddenName(item.value.commodity.commodityName,30) : '请选择'"
+                                     [baseService]="commodityService"
+                                     (result)="setCommodity($event,item)">
+                  </app-modal-selecet>
+                </td>
+                <td width="28%">
+                  <app-modal-selecet *ngIf="item.value.commodity"
+                                     [pageQuery]="productPageQuery"
+                                     [filters]="[{filterName:'productName',name:'货品名称',value:''}]"
+                                     [showCol]="[{name:'productNo',value:'货品编号',isShow:false},{name:'productName',value:'货品名称',isShow:true},{name:'currentPrice',value:'现价',isShow:false}]"
+                                     [select]="item.value.product"
+                                     [resultName]="item.value.product ? hiddenName(item.value.product.productName,30) : '请选择'"
+                                     [baseService]="productService"
+                                     (result)="setProduct($event,item)">
+                  </app-modal-selecet>
+                </td>
+                <td width="14%"><input nz-input formControlName="groupBuyPrice" placeholder="请输入拼团价"></td>
+                <td width="14%"><input nz-input formControlName="groupBuyQuantity" placeholder="请输入成团人数"></td>
+                <td width="14%"><input nz-input formControlName="stockUpQuantity" placeholder="请输入活动库存"></td>
+                <td width="8%">
+                  <button nz-button (click)="_remove(i,'groupBuyActivityProducts')">删除
+                  </button>
+                </td>
+              </tr>
+              </tbody>
+            </nz-table>
+            <p style="margin-bottom: 0px" *ngIf="groupBuyActivityProductsError">
+              <label style="margin-left: 10px;color: #f5222d">{{groupBuyActivityProductsError}}</label>
+            </p>
+            <nz-form-control>
+              <button nz-button (click)="_addCustomFreight('groupBuyActivityProducts')" class="add-btn">新增</button>
+            </nz-form-control>
+          </nz-card>
+        </nz-form-control>
+      </nz-form-item>
+
+    </nz-card>
+
+    <nz-form-item>
+      <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 18 }">
+        <nz-modal-customer [showButton]="false" (ok)="onSubmit()" [title]="'提示！'" [content]="'确认要提交吗？'"
+                           [buttonName]="'提交'">
+          <nz-divider nzType="vertical"></nz-divider>
+        </nz-modal-customer>
+        <button nz-button class="ml-sm" type="button" (click)="goBack()">返回</button>
+      </nz-form-control>
+    </nz-form-item>
+
+  </form>
+</nz-card>

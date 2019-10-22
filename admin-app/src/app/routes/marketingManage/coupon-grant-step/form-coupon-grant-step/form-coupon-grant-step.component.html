@@ -1,0 +1,76 @@
+<page-header [title]="title"></page-header>
+<nz-card [nzBordered]="false">
+  <form nz-form [formGroup]="commonForm">
+
+    <nz-form-item>
+      <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="couponGrantConfig">代金券发放配置
+      </nz-form-label>
+      <nz-form-control nzXs="16" nzSm="8" nzMd="7" nzHasFeedback>
+        <input nz-input formControlName="couponGrantConfig" id="couponGrantConfig"
+               placeholder="输入代金券发放配置">
+        <nz-form-explain
+          *ngIf="commonForm.get('couponGrantConfig').dirty&&commonForm.get('couponGrantConfig').errors">
+          <ng-container *ngFor="let error of formErrors.couponGrantConfig">
+            <nz-form-explain *ngIf="commonForm.get('couponGrantConfig').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+
+    </nz-form-item>
+    <nz-form-item>
+
+      <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="grantNode">一次性发放节点</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8">
+        <nz-radio-group formControlName="grantNode" id="grantNode">
+          <label nz-radio [nzValue]="1">购买</label>
+          <label nz-radio [nzValue]="2">收货</label>
+          <label nz-radio [nzValue]="3">评论</label>
+          <label nz-radio [nzValue]="4">超过三包时效</label>
+        </nz-radio-group>
+      </nz-form-control>
+
+    </nz-form-item>
+    <nz-form-item>
+
+      <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="grantRate">发放比例</nz-form-label>
+      <nz-form-control nzXs="16" nzSm="8" nzMd="7" nzHasFeedback>
+        <nz-input-number nz-input style="width: 50%" [nzMin]="0" [nzStep]="1" [nzMax]="100" formControlName="grantRate"
+                         id="grantRate"
+                         placeholder="输入发放比例（0.00-100.00）"></nz-input-number>
+        <nz-form-explain *ngIf="commonForm.get('grantRate').dirty&&commonForm.get('grantRate').errors">
+          <ng-container *ngFor="let error of formErrors.grantRate">
+            <nz-form-explain *ngIf="commonForm.get('grantRate').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+
+    </nz-form-item>
+    <nz-form-item>
+
+      <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="remark">备注</nz-form-label>
+      <nz-form-control nzXs="16" nzSm="8" nzMd="7" nzHasFeedback>
+        <input nz-input style="width: 100%;height: 150px" formControlName="remark" id="remark" placeholder="输入备注">
+        <nz-form-explain *ngIf="commonForm.get('remark').dirty&&commonForm.get('remark').errors">
+          <ng-container *ngFor="let error of formErrors.remark">
+            <nz-form-explain *ngIf="commonForm.get('remark').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 7 }">
+        <nz-modal-customer [showButton]="false" (ok)="onSubmit()" [title]="'提示！'" [content]="'确认要提交吗？'"
+                           [buttonName]="'提交'">
+          <nz-divider nzType="vertical"></nz-divider>
+        </nz-modal-customer>
+        <button nz-button class="ml-sm" type="button" (click)="goBack()">返回</button>
+      </nz-form-control>
+    </nz-form-item>
+
+  </form>
+</nz-card>

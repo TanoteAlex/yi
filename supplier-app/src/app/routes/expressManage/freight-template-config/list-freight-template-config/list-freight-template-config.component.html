@@ -1,0 +1,95 @@
+<page-header [title]="'运费模板列表'">
+  <ng-template #breadcrumb>
+    <nz-breadcrumb>
+      <nz-breadcrumb-item>
+        <a [routerLink]="['/dashboard/freight-template-config/list']">运费模板</a>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item>快递管理</nz-breadcrumb-item>
+    </nz-breadcrumb>
+  </ng-template>
+</page-header>
+
+<nz-card [nzBordered]="false">
+  <form nz-form [nzLayout]="'inline'" [formGroup]="searchForm" class="search__form">
+    <nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32, xl: 32, xxl: 32  }">
+
+      <nz-col nzXs="6" nzSm="6">
+        <nz-form-item>
+          <nz-form-label>模板配置名称</nz-form-label>
+          <nz-form-control>
+            <input nz-input formControlName="configName" placeholder="请输入模板配置名称">
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+
+      <nz-col nzXs="6" nzSm="6">
+        <nz-form-item>
+          <nz-form-label>运费类型</nz-form-label>
+          <nz-form-control>
+            <nz-select formControlName="freightType" [nzPlaceHolder]="'不限'">
+              <nz-option *ngFor="let fts of freightTypes" [nzLabel]="fts.name" [nzValue]="fts.value"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+
+
+      <nz-col [nzSpan]="expandForm ? 24 : 6" [class.text-right]="expandForm">
+        <button nz-button [nzType]="'primary'" (click)="searchData()" [nzLoading]="loading">查询</button>
+        <button nz-button (click)="clearSearch()" class="mx-sm">重置</button>
+      </nz-col>
+    </nz-row>
+  </form>
+
+  <button nz-button [routerLink]="'../add'" [nzType]="'primary'">
+    <i class="anticon anticon-plus"></i>
+    <span>新建</span>
+  </button>
+
+  <nz-table
+    #ajaxTable
+    [nzShowSizeChanger]="true"
+    [nzFrontPagination]="false"
+    [nzData]="datas"
+    [nzLoading]="loading"
+    [nzTotal]="pageQuery.responses.totalElements"
+    [(nzPageIndex)]="pageQuery.page"
+    [(nzPageSize)]="pageQuery.pageSize"
+    (nzPageIndexChange)="searchData()"
+    (nzPageSizeChange)="searchData(true)">
+
+    <thead (nzSortChange)="sort($event)" nzSingleSort>
+    <tr>
+      <th>模板配置名称</th>
+      <th>运费类型</th>
+      <th>状态</th>
+      <th>创建时间</th>
+      <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let freightTemplateConfig of ajaxTable.data">
+      <td>{{freightTemplateConfig.configName}}</td>
+      <td>
+        <span *ngIf="freightTemplateConfig.freightType == 1">自定义运费</span>
+        <span *ngIf="freightTemplateConfig.freightType == 2">卖家承担运费</span>
+      </td>
+      <td>
+        <span *ngIf="freightTemplateConfig.state == 0">已启用</span>
+        <span *ngIf="freightTemplateConfig.state == 1">已禁用</span>
+      </td>
+      <td>{{freightTemplateConfig.createTime}}</td>
+      <td>
+        <a [routerLink]="'../edit/'+freightTemplateConfig.id">编辑
+          <nz-divider nzType="vertical"></nz-divider>
+        </a>
+        <nz-modal-customer (ok)="remove(freightTemplateConfig.id)" [title]="'提示！'"
+                           [content]="'确认要删除吗？'"
+                           [buttonName]="'删除'">
+        </nz-modal-customer>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+</nz-card>
+

@@ -1,0 +1,54 @@
+<page-header [title]="'查看信息'"></page-header>
+
+<nz-card>
+
+  <nz-card nzTitle="商品信息" nzType="inner">
+
+    <desc-list class="mb-lg">
+      <desc-list-item term="文章标题">{{articleComment?.article?.title}}</desc-list-item>
+    </desc-list>
+    <desc-list class="mb-lg">
+      <desc-list-item term="文章图片">
+        <img class="table-img-customer-details" [src]="articleComment?.article?.imgPath">
+      </desc-list-item>
+    </desc-list>
+
+  </nz-card>
+
+  <nz-card nzTitle="评论信息" nzType="inner">
+
+    <desc-list class="mb-lg">
+      <desc-list-item term="评论人">{{articleComment?.commentator}}</desc-list-item>
+
+      <desc-list-item term="状态">
+        <span *ngIf="articleComment.state==0">显示中</span>
+        <span *ngIf="articleComment.state==1">未显示</span>
+      </desc-list-item>
+    </desc-list>
+    <desc-list class="mb-lg">
+      <desc-list-item term="评价时间">{{articleComment.commentTime}}</desc-list-item>
+    </desc-list>
+
+    <nz-card nzTitle="评价内容" nzType="inner">
+      <nz-form-control>
+        <div [innerHtml]="sanli.bypassSecurityTrustHtml(articleComment.commentContent)"></div>
+      </nz-form-control>
+    </nz-card>
+    <desc-list class="mb-lg">
+      <desc-list-item term="回复时间">{{articleComment.replyTime}}</desc-list-item>
+    </desc-list>
+    <nz-card nzTitle="回复内容" nzType="inner">
+      <nz-form-control>
+        <div [innerHtml]="sanli.bypassSecurityTrustHtml(articleComment.replyContent)"></div>
+      </nz-form-control>
+    </nz-card>
+
+  </nz-card>
+
+  <nz-form-item>
+    <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 18 }">
+      <button nz-button class="ml-sm" type="button" (click)="goBack()">返回</button>
+    </nz-form-control>
+  </nz-form-item>
+
+</nz-card>

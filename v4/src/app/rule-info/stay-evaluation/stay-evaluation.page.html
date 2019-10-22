@@ -1,0 +1,52 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>我的订单</ion-title>
+        <goback></goback>
+    </ion-toolbar>
+</ion-header>
+
+
+<!--暂时没有用到该页面-->
+
+
+
+<ion-content no-padding class="home">
+    <ion-segment [(ngModel)]="evaluation">
+        <ion-segment-button value="stay" (click)="listFilter('stay')">
+            待评价
+        </ion-segment-button>
+        <ion-segment-button value="already" (click)="listFilter('already')">
+            已评价
+        </ion-segment-button>
+    </ion-segment>
+
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content
+                pullingIcon="arrow-dropdown"
+                pullingText="下拉刷新"
+                refreshingSpinner="circles"
+                refreshingText="正在加载...">
+        </ion-refresher-content>
+    </ion-refresher>
+
+    <ion-list class="common-list" *ngFor="let commodity of list | sortPipe : 'createTime'">
+        <div *ngFor="let product of commodity.productList | sortPipe">
+            <commodity-item [commodity]="product">
+                <div class="common-notice" align-items-center>
+                    <span class="red common-spec">评价可得一百积分</span>
+                    <ion-button shape="round" fill="outline" size="small" color="danger" float-end *ngIf="evaluation=='stay'" (click)="goEvaluation(product)">发布评价</ion-button>
+                    <ion-button shape="round" fill="outline" size="small" color="danger" float-end *ngIf="evaluation!='stay'" (click)="goCheckEvaluation(product)">查看评价</ion-button>
+                </div>
+            </commodity-item>
+        </div>
+    </ion-list>
+
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="正在加载..."></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+    <div class="nolist ver-midd" *ngIf="!list?.length">
+        <ion-label class="grey" *ngIf="evaluation == 'stay'">暂无需要评价的商品~</ion-label>
+        <ion-label class="grey" *ngIf="evaluation == 'already'">暂无已评价的商品~</ion-label>
+    </div>
+</ion-content>

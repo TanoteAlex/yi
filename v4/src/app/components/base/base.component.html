@@ -1,0 +1,50 @@
+<ion-list class="body">
+    <ion-row>
+        <ion-col size="2">
+            <ion-label>
+                <img src="../../../assets/app_icon/customer/手机@2x.png"/>
+            </ion-label>
+        </ion-col>
+        <ion-col size="7">
+            <input type="number" required [(ngModel)]="params.usertel" placeholder="请输入手机号" class="common-sub-title common-input"/>
+        </ion-col>
+        <ion-col size="2">
+        </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="type == 'forget-password' || type == 'register'">
+        <ion-col size="2">
+            <ion-label><img src="../../../assets/app_icon/customer/验证码@2x.png"/></ion-label>
+        </ion-col>
+        <ion-col size="7">
+            <input type="text" required placeholder="短信验证码" [(ngModel)]="params.vcode" class="common-sub-title common-input"/>
+        </ion-col>
+        <ion-col size="2" class="proving">
+            <ion-button shape="round" fill="outline" size="small" [disabled]="!verifyCode.disable" (click)="getCode()">
+                {{verifyCode.verifyCodeTips}}
+            </ion-button>
+        </ion-col>
+    </ion-row>
+
+    <ion-row>
+        <ion-col size="2">
+            <ion-label>
+                <img src="../../../assets/app_icon/customer/密码@2x.png"/>
+            </ion-label>
+        </ion-col>
+        <ion-col size="7">
+            <input [type]="pswtype" required [(ngModel)]="params.newpass" [placeholder]="pwplace" maxlength="16"
+                   clearOnEdit="false" class="common-sub-title common-input"/>
+        </ion-col>
+        <ion-col size="2" (click)="changShow()">
+            <img [src]="show" width="20" height="20" class="right"/>
+        </ion-col>
+    </ion-row>
+
+    <ng-content></ng-content>
+
+</ion-list>
+<div text-center>
+    <ion-button shape="round" class="confirm" [disabled]="isConfirm()" (click)="goHome()">登&nbsp;&nbsp;&nbsp;&nbsp;录</ion-button>
+</div>
+

@@ -1,0 +1,67 @@
+@import "../../../global";
+
+.content-bg {
+  background: url("../../../assets/app_icon/invite-register/invite-register-bg.png") no-repeat;
+  background-size: 100% 100%;
+  height: 100%;
+}
+
+ion-col{
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.proving {
+  //ion-button {
+  //  float: right;
+  //  color: $blue-color;
+  //  border-color: $blue-color;
+  //  --border-radius: 1.1rem;
+  //  --background: #f2f2f8;
+  //}
+}
+
+.give-code-button{
+  font-size:11px;
+  font-family:PingFang-SC-Regular;
+  font-weight:400;
+  color:rgba(255,109,135,1);
+  margin-top: -1.5rem;
+  margin-left: -0.6vw;
+}
+
+.common-input {
+  border-radius: 6px;
+  background-color: #E3E3E3;
+  height: 2.5rem;
+  font-size:11px;
+  font-family:PingFang-SC-Medium;
+  font-weight:500;
+  color:rgba(153,153,153,1);
+}
+
+.common-input::-webkit-input-placeholder {
+  padding-left: 10px;
+}
+
+.register-button {
+  background-image: url("../../../assets/app_icon/invite-register/register-button.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  width: 50vw;
+  height: 2rem;
+  line-height: 2rem;
+  text-align: center;
+  font-size: 19px;
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  color: #ff6d87;
+}
+
+.register-text {
+  font-size:14px;
+  font-family:PingFang-SC-Medium;
+  font-weight:500;
+  text-decoration:underline;
+  color:rgba(255,109,135,1);
+}

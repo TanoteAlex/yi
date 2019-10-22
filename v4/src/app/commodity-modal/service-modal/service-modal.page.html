@@ -1,0 +1,11 @@
+<div class="head" (click)="goBack()"></div>
+<div class="body">
+    <div class="content" padding>
+        <ion-header>
+            <ion-title>返券优惠</ion-title>
+        </ion-header>
+        <p class="greys common-sub-title" *ngFor="let item of list">
+            <span class="sendCoupon-tip">返券</span>&nbsp;{{item}}
+        </p>
+    </div>
+</div>

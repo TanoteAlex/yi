@@ -1,0 +1,109 @@
+<page-header [title]="title"></page-header>
+<nz-card [nzBordered]="false">
+  <form nz-form [formGroup]="commonForm">
+
+    <nz-form-item>
+      <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="commodity">商品</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+        <input nz-input formControlName="commodityName" id="commodity" style="background-color: #f2f2f2" disabled
+               placeholder="输入商品">
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="product">货品</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+        <input nz-input formControlName="productName" id="product" style="background-color: #f2f2f2" disabled
+               placeholder="输入货品">
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="supplierName">供应商</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+        <input nz-input formControlName="supplierName" id="supplierName" style="background-color: #f2f2f2" disabled
+               placeholder="输入供应商">
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="stockQuantity">库存量</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+        <nz-input-number nz-input style="width: 50%" [nzMin]="0" [nzStep]="1" formControlName="stockQuantity"
+                         id="stockQuantity" nzPlaceHolder="输入库存量"></nz-input-number>
+        <nz-form-explain *ngIf="commonForm.get('stockQuantity').dirty&&commonForm.get('stockQuantity').errors">
+          <ng-container *ngFor="let error of formErrors.stockQuantity">
+            <nz-form-explain *ngIf="commonForm.get('stockQuantity').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="lockQuantity">锁定库存量</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+        <nz-input-number nz-input style="width: 50%" [nzMin]="0" [nzStep]="1" formControlName="lockQuantity"
+                         id="lockQuantity" nzPlaceHolder="输入锁定库存量"></nz-input-number>
+        <nz-form-explain *ngIf="commonForm.get('lockQuantity').dirty&&commonForm.get('lockQuantity').errors">
+          <ng-container *ngFor="let error of formErrors.lockQuantity">
+            <nz-form-explain *ngIf="commonForm.get('lockQuantity').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+
+      <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="useQuantity">使用库存量</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+        <nz-input-number nz-input style="width: 50%" [nzMin]="0" [nzStep]="1" formControlName="useQuantity"
+                         id="useQuantity"
+                         nzPlaceHolder="输入使用库存量"></nz-input-number>
+        <nz-form-explain *ngIf="commonForm.get('useQuantity').dirty&&commonForm.get('useQuantity').errors">
+          <ng-container *ngFor="let error of formErrors.useQuantity">
+            <nz-form-explain *ngIf="commonForm.get('useQuantity').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+
+    </nz-form-item>
+
+    <nz-form-item>
+
+      <nz-form-label nzXs="3" nzSm="3" nzFor="sort">排序号</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8">
+        <nz-input-number nz-input style="width: 50%" [nzPrecision]="0" [nzMin]="1" [nzMax]="127" [nzStep]="1"
+                         formControlName="sort" id="sort"
+                         nzPlaceHolder="输入排序号"></nz-input-number>
+      </nz-form-control>
+
+    </nz-form-item>
+
+    <nz-form-item>
+
+      <nz-form-label nzXs="3" nzSm="3" nzFor="remark">备注</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+        <textarea nz-input formControlName="remark" id="remark" style="height: 120px" placeholder="输入备注"></textarea>
+        <nz-form-explain *ngIf="commonForm.get('remark').dirty&&commonForm.get('remark').errors">
+          <ng-container *ngFor="let error of formErrors.remark">
+            <nz-form-explain *ngIf="commonForm.get('remark').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+
+    </nz-form-item>
+
+
+    <nz-form-item>
+      <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 18 }">
+        <button nz-button nzType="primary" type="submit" (click)="onSubmit()">提交</button>
+        <button nz-button class="ml-sm" type="button" (click)="goBack()">返回</button>
+      </nz-form-control>
+    </nz-form-item>
+
+  </form>
+</nz-card>

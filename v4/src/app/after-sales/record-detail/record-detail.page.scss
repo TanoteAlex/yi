@@ -1,0 +1,48 @@
+@import "../../../global";
+
+ion-list {
+  background-color: white;
+  padding: 10px 10px 0 !important;
+}
+
+.status {
+  position: relative;
+  ion-label {
+    margin-right: 0;
+  }
+  ion-col {
+    text-align: center;
+    ion-label {
+      margin-bottom: 5px;
+    }
+    p {
+      letter-spacing: -1px;
+      @extend .grey;
+      margin: 0;
+    }
+  }
+  .line {
+    border-top: 2px solid #ccc;
+    position: absolute;
+    top: 25px;
+    left: 75%;
+    width: 58%;
+  }
+}
+
+.progress {
+  padding-top: 0 !important;
+  button {
+    padding-left: 0;
+  }
+  ion-col {
+    img {
+      width: 40px;
+      height: 40px;
+    }
+  }
+}
+
+.padding {
+  padding:0 15px!important;
+}

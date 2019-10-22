@@ -1,0 +1,61 @@
+#生产环境配置
+
+
+logging:
+  path: /logs/prod
+  config: classpath:logback-spring.xml
+  level:
+    com.yi: INFO
+    org.springframework: INFO
+    org.hibernate: INFO
+
+yi:
+  cluster-name: prod
+  host: localhost
+  web-port: 8281
+
+
+domain:
+  name: http://${yi.host}:${yi.web-port}
+
+server:
+  port: ${yi.web-port}
+  servlet:
+    session:
+      timeout: 1440
+
+  tomcat:
+    basedir: "/disk/yi/yi-${yi.web-port}"
+    uri-encoding: UTF-8
+    accesslog:
+      enabled: true
+      directory: logs
+      buffered: false
+      pattern: combined
+  ssl:
+    enabled: false
+
+spring:
+  application:
+    name: yi-search
+  profiles:
+    #开发环境
+    active: prod
+  devtools:
+    restart:
+      #设置重启的目录
+#      additional-paths: src/main/java
+#      exclude: static/**,templates/**
+      #热部署生效
+      enabled: true
+
+  # elasticsearch搜索引擎 配置
+  session:
+    store-type: none
+  data:
+    elasticsearch:
+      cluster-name: elasticsearch
+      cluster-nodes: 47.107.68.47:9300
+#      localhost:9300   换上
+      repositories:
+        enabled: true

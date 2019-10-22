@@ -1,0 +1,38 @@
+<page-header [title]="'查看角色信息'"></page-header>
+
+<nz-card>
+
+  <nz-form-item>
+
+    <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="name">角色名称</nz-form-label>
+    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+      <nz-form-text>{{role.name}}</nz-form-text>
+    </nz-form-control>
+
+    <nz-form-label nzXs="10" nzSm="3" nzFor="description">角色描述</nz-form-label>
+    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+      <nz-form-text>{{role.description}}</nz-form-text>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+
+    <!--<nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="state">状态（0启用1禁用）</nz-form-label>-->
+    <!--<nz-form-control nzXs="16" nzSm="8" nzMd="7">-->
+      <!--<nz-form-text>{{role.state}}</nz-form-text>-->
+    <!--</nz-form-control>-->
+
+    <nz-form-label nzXs="10" nzSm="3" nzFor="createTime">创建时间</nz-form-label>
+    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+      <nz-form-text>{{role.createTime}}</nz-form-text>
+    </nz-form-control>
+  </nz-form-item>
+
+
+  <nz-form-item>
+    <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 17 }">
+      <button nz-button nzType="primary" type="submit" [routerLink]="'../../edit/'+ role.id">编辑</button>
+      <button nz-button class="ml-sm" type="button" (click)="goBack()">返回</button>
+    </nz-form-control>
+  </nz-form-item>
+
+</nz-card>

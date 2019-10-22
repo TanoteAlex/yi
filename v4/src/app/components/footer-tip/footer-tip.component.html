@@ -1,0 +1,5 @@
+<div style="padding-left: 16px;">
+    <p class="grey"><img class="alert" src="../../../assets/app_icon/home/提示@2x.png">
+        {{title}}：</p>
+    <p *ngFor="let item of tips" class="grey"><span *ngIf="tips.length>1">●</span>{{item}}</p>
+</div>

@@ -1,0 +1,29 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>收到一张券</ion-title>
+        <goback></goback>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list text-center margin-top>
+        <div margin-top>
+            <img src="../../../assets/app_icon/basic/支付成功.png" height="70" width="70"/>
+        </div>
+
+        <div>
+            <p class="common-font black" *ngIf="receivedState==1">恭喜您，获得{{ticket?.member.nickname}}送出的一张{{["","优惠券","代金券"][ticket?.couponType]}}</p>
+            <p class="common-font black" *ngIf="receivedState==1">赶紧点击领取吧~</p>
+            <p class="common-font black" *ngIf="receivedState==2">该{{["","优惠","代金"][ticket?.couponType]}}券也被领取，下次早点哦~</p>
+            <p class="common-font black" *ngIf="receivedState==3">该{{["","优惠","代金"][ticket?.couponType]}}券暂时无人领取，分享发给更多人吧~</p>
+        </div>
+
+        <show-coupon *ngIf="coupon" [ticket]="coupon"></show-coupon>
+
+    </ion-list>
+
+    <ion-button expand="full" color="danger" shape="round" *ngIf="receivedState==1" (click)="goReceive()">点击领取</ion-button>
+    <ion-button expand="full" color="danger" shape="round" *ngIf="receivedState==2" (click)="goHome()">前往首页</ion-button>
+    <ion-button expand="full" color="danger" shape="round" *ngIf="receivedState==3" (click)="sendOthers(ticket)">再次分享</ion-button>
+
+</ion-content>

@@ -1,0 +1,73 @@
+<page-header [title]="'查看信息'"></page-header>
+
+<nz-card>
+    <nz-form-item>
+	    <nz-form-label nzXs="10" nzSm="3" nzFor="guid">GUID</nz-form-label>
+	    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+	        <nz-form-text>{{reward.guid}}</nz-form-text>
+	    </nz-form-control>
+    </nz-form-item>
+    
+    <nz-form-item>
+	    <nz-form-label nzXs="10" nzSm="3" nzFor="code">奖励编码</nz-form-label>
+	    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+	        <nz-form-text>{{reward.code}}</nz-form-text>
+	    </nz-form-control>
+	
+	    <nz-form-label nzXs="10" nzSm="3" nzFor="name">奖励名称</nz-form-label>
+	    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+	        <nz-form-text>{{reward.name}}</nz-form-text>
+	    </nz-form-control>
+    </nz-form-item>
+    
+    <nz-form-item>
+	    <nz-form-label nzXs="10" nzSm="3" nzFor="rewardType">奖励类型（1注册，2评论，3连续签到）</nz-form-label>
+	    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+	        <nz-form-text>{{reward.rewardType}}</nz-form-text>
+	    </nz-form-control>
+	
+	    <nz-form-label nzXs="10" nzSm="3" nzFor="signDays">连续签到天数</nz-form-label>
+	    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+	        <nz-form-text>{{reward.signDays}}</nz-form-text>
+	    </nz-form-control>
+    </nz-form-item>
+    
+    <nz-form-item>
+	    <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="state">状态（0启用1禁用）</nz-form-label>
+	    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+	        <nz-form-text>{{reward.state}}</nz-form-text>
+	    </nz-form-control>
+	
+	    <nz-form-label nzXs="10" nzSm="3" nzFor="remark">备注</nz-form-label>
+	    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+	        <nz-form-text>{{reward.remark}}</nz-form-text>
+	    </nz-form-control>
+    </nz-form-item>
+    
+    <nz-form-item>
+	   <nz-form-label nzXs="10" nzSm="3" nzFor="createTime">创建时间</nz-form-label>
+	   <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+	       <nz-form-text>{{reward.createTime}}</nz-form-text>
+	   </nz-form-control>
+	
+	   <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="deleted">删除（0否1是）</nz-form-label>
+	   <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+	       <nz-form-text>{{reward.deleted}}</nz-form-text>
+	   </nz-form-control>
+    </nz-form-item>
+    
+    <nz-form-item>
+	    <nz-form-label nzXs="10" nzSm="3" nzFor="delTime">删除时间</nz-form-label>
+	    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+	        <nz-form-text>{{reward.delTime}}</nz-form-text>
+	    </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+        <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 7 }">
+            <button nz-button nzType="primary" type="submit" [routerLink]="'../../edit/'+ reward.id">编辑</button>
+            <button nz-button class="ml-sm" type="button" (click)="goBack()">返回</button>
+        </nz-form-control>
+    </nz-form-item>
+
+</nz-card>

@@ -1,0 +1,25 @@
+.common-list {
+  margin: 10px !important;
+}
+
+p {
+  margin-bottom: 0;
+}
+
+.body{
+  display: flex;
+  min-height: 100%;
+  flex-direction: column;
+}
+.content{
+  flex: 1;
+  padding: 10px 10px 0;
+}
+
+.coupon-receive-finish-btns{
+  display: flex;
+  ion-button{
+    margin: 0 5px;
+    width: 100%;
+  }
+}

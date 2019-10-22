@@ -1,0 +1,88 @@
+@import "../../../global";
+@import "../../components/ticket/ticket.component";
+
+.ion-segment {
+  .segment-button {
+    border-bottom: none !important;
+  }
+}
+
+.nolist {
+  background: url("../../../assets/app_icon/basic/无优惠券数据@3x.png") no-repeat center center;
+  background-size: 100%;
+  width: 50%;
+  height: 25rem;
+  padding-top: 80%;
+}
+
+.loading {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+}
+
+.segment-button-checked {
+  .segment-line {
+    border-bottom: 2px solid;
+  }
+}
+
+.segment-line {
+  height: 2px;
+  width: 34px;
+  position: relative;
+  bottom: -3px;
+}
+
+.filter-icon {
+  background: url("../../../assets/app_icon/new_coupon/筛选@2x.png") no-repeat center center;
+  background-size: 100%;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  right: 10px;
+}
+
+.filter-modal {
+  height: 46px;
+  width: 100%;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  @extend .bg-white;
+  @extend .common-sub-notice;
+  .filter-tip {
+    width: 20%;
+    text-align: right;
+  }
+  .filter-option {
+    display: flex;
+    flex: 1;
+    justify-content: space-around;
+    & > div {
+      @extend .option-btn;
+      @extend .flex-center;
+    }
+  }
+  .option-btn {
+    width: 55px;
+    height: 17px;
+    color: #ABABAB;
+    border: 1px solid #ABABAB;
+    border-radius: 2.5px;
+  }
+  .option-btn-selected {
+    border-color: #E54545 !important;
+    color: #E54545 !important;;
+  }
+}
+
+.filter-mask {
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 5;
+  position: absolute;
+  top: 160px;
+  width: 100%;
+  height: 100%;
+}

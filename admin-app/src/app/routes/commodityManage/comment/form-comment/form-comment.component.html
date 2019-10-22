@@ -1,0 +1,121 @@
+<page-header [title]="title"></page-header>
+<nz-card [nzBordered]="false">
+  <form nz-form [formGroup]="commonForm">
+
+    <nz-form-item>
+      <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="commodity">商品</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8">
+        <app-modal-selecet #commodityModalSelect
+          [pageQuery]="commodityPageQuery"
+          [filters]="[{filterName:'commodityShortName',name:'商品简称',value:''}]"
+          [showCol]="[{name:'commodityNo',value:'编码',isShow:false},{name:'commodityShortName',value:'商品简称',isShow:true}]"
+          [select]="commonForm.value.commodity"
+          [resultName]="commonForm.value.commodity ? commonForm.value.commodity.commodityShortName : '请选择'"
+          [baseService]="commodityService"
+          (result)="setCommodityComment($event)">
+        </app-modal-selecet>
+        <nz-form-explain class="has-error"
+                         *ngIf="commonForm.get('commodity').dirty&&commonForm.get('commodity').errors">
+          <ng-container *ngFor="let error of formErrors.commodity">
+            <nz-form-explain *ngIf="commonForm.get('commodity').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+
+    </nz-form-item>
+
+    <nz-form-item>
+
+      <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="member">会员</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8">
+        <app-modal-selecet #memberModalSelect
+          [pageQuery]="memberPageQuery"
+          [filters]="[{filterName:'username',name:'账号',value:''}]"
+          [showCol]="[{name:'username',value:'账号',isShow:true},{name:'address',value:'地址',isShow:false},{name:'nickname',value:'会员昵称',isShow:false}]"
+          [select]="commonForm.value.member"
+          [resultName]="commonForm.value.member ? commonForm.value.member.username : '请选择'"
+          [baseService]="memberService"
+          (result)="setMemberComment($event)">
+        </app-modal-selecet>
+        <nz-form-explain class="has-error" *ngIf="commonForm.get('member').dirty&&commonForm.get('member').errors">
+          <ng-container *ngFor="let error of formErrors.member">
+            <nz-form-explain *ngIf="commonForm.get('member').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+
+    </nz-form-item>
+  </form>
+  <nz-form-item>
+
+    <nz-form-label nzXs="3" nzSm="3" nzRequired>评价星级</nz-form-label>
+    <nz-form-control nzXs="8" nzSm="8">
+      <nz-rate #rate [ngModel]="rate" (ngModelChange)="changeStart($event)"></nz-rate>
+      <nz-form-explain class="has-error"
+                       *ngIf="commonForm.get('commentStar').dirty&&commonForm.get('commentStar').errors">
+        <ng-container *ngFor="let error of formErrors.commentStar">
+          <nz-form-explain *ngIf="commonForm.get('commentStar').errors[error.name]">{{ error.msg }}
+          </nz-form-explain>
+        </ng-container>
+      </nz-form-explain>
+    </nz-form-control>
+
+  </nz-form-item>
+
+  <nz-form-item>
+
+    <form nz-form [formGroup]="commonForm">
+      <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="commentContent">评价内容</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+        <textarea nz-input style="height: 80px" formControlName="commentContent" id="commentContent"
+                  placeholder="输入评价内容"></textarea>
+        <nz-form-explain *ngIf="commonForm.get('commentContent').dirty&&commonForm.get('commentContent').errors">
+          <ng-container *ngFor="let error of formErrors.commentContent">
+            <nz-form-explain *ngIf="commonForm.get('commentContent').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </form>
+
+  </nz-form-item>
+
+  <form nz-form [formGroup]="commonForm">
+
+    <nz-form-item>
+
+      <nz-form-label nzXs="3" nzSm="3" nzFor="imgPath">上传图片</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+        <app-dynamic-upload [multi]="true" [fileList]="imgPaths"
+                            (onFileListChange)="changeAttachment($event)"></app-dynamic-upload>
+        建议格式：.jpg、.gif、.png格式
+      </nz-form-control>
+
+    </nz-form-item>
+
+    <nz-form-item>
+
+      <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="display">是否显示</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8">
+        <nz-radio-group formControlName="display" id="display">
+          <label nz-radio [nzValue]="0">不显示</label>
+          <label nz-radio [nzValue]="1">显示</label>
+        </nz-radio-group>
+      </nz-form-control>
+
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 18 }">
+        <nz-modal-customer [showButton]="false" (ok)="onSubmit()" [title]="'提示！'" [content]="'确认要提交吗？'"
+                           [buttonName]="'提交'">
+          <nz-divider nzType="vertical"></nz-divider>
+        </nz-modal-customer>
+        <button nz-button class="ml-sm" type="button" (click)="goBack()">返回</button>
+      </nz-form-control>
+    </nz-form-item>
+
+  </form>
+</nz-card>

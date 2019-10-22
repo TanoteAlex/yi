@@ -1,0 +1,13 @@
+# 默认的profile为dev，其他环境通过指定启动参数使用不同的profile，比如：
+# 测试环境：nohup java -jar yi-admin-server-1.0.jar --spring.profiles.active=test &
+# 生产环境：nohup java -jar yi-admin-server-1.0.jar --spring.profiles.active=prod &
+
+# 端口-请勿修改
+# 开发和测试：页面端口-8081 服务端口-8084
+# 生产：页面端口-8180 服务端口-8181
+
+spring:
+  profiles:
+#    active: dev
+#    active: test
+    active: prod

@@ -1,0 +1,20 @@
+<center-modal [height]="'65%'" [top]="'17.5%'">
+    <ion-item lines="none">
+        <ion-label class="common-sub-title">正在拼单</ion-label>
+    </ion-item>
+    <div class="line-divid"></div>
+    <ion-item lines="none" *ngFor="let item of groupMember" class="purchaseItem bottom-divid">
+        <img class="radius" onerror="this.src='../../assets/imgs/null-category.png'" [src]=item.member.avater width="35" height="35"/>
+        <div class="purchaseInfo">
+            <ion-label>
+                <span class="common-sub-title">{{item.member.nickname}}</span>&nbsp;
+                <span class="grey">还差<span class="red">{{item.groupNum-item.joinNum}}</span>人</span>
+            </ion-label>
+            <!--<ion-label class="grey">剩余时间{{item.endTime}}</ion-label>-->
+        </div>
+        <div class="forward" (click)="joinGroup(item)">
+            <ion-note class="white">去拼单</ion-note>
+            <ion-icon class="common-spec icon-forward white" name="ios-arrow-forward"></ion-icon>
+        </div>
+    </ion-item>
+</center-modal>

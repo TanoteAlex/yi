@@ -1,0 +1,92 @@
+<page-header [title]="'储值券列表'">
+  <ng-template #breadcrumb>
+    <nz-breadcrumb>
+      <nz-breadcrumb-item>
+        <a [routerLink]="['/dashboard/stored-coupon/list']">营销管理</a>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item>储值券管理</nz-breadcrumb-item>
+    </nz-breadcrumb>
+  </ng-template>
+</page-header>
+
+<nz-card [nzBordered]="false">
+  <form nz-form [nzLayout]="'inline'" [formGroup]="searchForm" class="search__form">
+    <nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32, xl: 32, xxl: 32  }">
+
+      <nz-col nzXs="6" nzSm="6">
+        <nz-form-item>
+          <nz-form-label>储值券名称</nz-form-label>
+          <nz-form-control>
+            <input nz-input formControlName="couponName" placeholder="请输入储值券名称">
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+
+      <nz-col [nzSpan]="expandForm ? 24 : 6" [class.text-right]="expandForm">
+        <button nz-button [nzType]="'primary'" (click)="searchData()" [nzLoading]="loading">查询</button>
+        <button nz-button (click)="clearSearch()" class="mx-sm">重置</button>
+      </nz-col>
+    </nz-row>
+  </form>
+
+  <button nz-button [routerLink]="'../add'" [nzType]="'primary'">
+    <i class="anticon anticon-plus"></i>
+    <span>新建</span>
+  </button>&nbsp;
+  <nz-modal-customer [couponGrant]="true" *ngIf="allChecked==true" [showButton]="false" [title]="'批量发放储值券！'"
+                     [content]="'请选择批量发放人员 (储值券数量不足将停止发放,且储值券会直接充值进用户余额)'"
+                     [buttonName]="'批量发放储值券'" (result)="couponGrant($event)">
+    <nz-divider nzType="vertical"></nz-divider>
+  </nz-modal-customer>&nbsp;
+
+  <nz-table
+    #ajaxTable
+    [nzShowSizeChanger]="true"
+    [nzFrontPagination]="false"
+    [nzData]="datas"
+    [nzLoading]="loading"
+    [nzTotal]="pageQuery.responses.totalElements"
+    [(nzPageIndex)]="pageQuery.page"
+    [(nzPageSize)]="pageQuery.pageSize"
+    (nzPageIndexChange)="searchData()"
+    (nzPageSizeChange)="searchData(true)">
+
+    <thead (nzSortChange)="sort($event)" nzSingleSort>
+    <tr>
+      <th nzWidth="3%" nzShowCheckbox [(nzChecked)]="allElection" [nzIndeterminate]="indeterminate"
+          (nzCheckedChange)="checkAll($event)"></th>
+      <th>储值券名称</th>
+      <th>面值</th>
+      <th>发放数量</th>
+      <th>领取数量</th>
+      <th>限领数量</th>
+      <th>创建时间</th>
+      <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of ajaxTable.data">
+      <td nzShowCheckbox [(nzChecked)]="data.checked" [nzDisabled]="data.disabled"
+          (nzCheckedChange)="refreshStatus(data,data.id)"></td>
+      <td>{{data.couponName}}</td>
+      <td>{{data.parValue}}</td>
+      <td>{{data.quantity}}</td>
+      <td>{{data.receiveQuantity}}</td>
+      <td>{{data.limited}}</td>
+      <td>{{data.createTime}}</td>
+      <td>
+        <!--<a [routerLink]="'../edit/'+data.id">编辑-->
+          <!--<nz-divider nzType="vertical"></nz-divider>-->
+        <!--</a>-->
+        <nz-modal-customer (ok)="remove(data.id)" [title]="'提示！'" [content]="'确认要删除吗？'"
+                           [buttonName]="'删除'">
+        </nz-modal-customer>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+</nz-card>
+
+
+
+

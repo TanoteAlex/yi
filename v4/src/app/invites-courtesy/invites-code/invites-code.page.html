@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>分享邀请</ion-title>
+    <goback></goback>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="code-outer">
+    <div class="share-title">分享好友得好礼</div>
+    <img class="code-img" [src]=myCode width="100%" height="100%">
+  </div>
+  <div class="share-container">
+    <div class="white common-notice">-&nbsp;分享邀请&nbsp;-</div>
+    <div class="share-btns">
+      <div class="btn-outer" (click)="shareFriend()">
+        <div class="btn-inner">
+          <img src="../../../assets/app_icon/customer/分享微信@3x.png" />
+        </div>
+        <div>微信</div>
+      </div>
+      <div class="btn-outer" (click)="shareWeChat()">
+        <div class="btn-inner">
+          <img src="../../../assets/app_icon/customer/朋友圈@3x.png" />
+        </div>
+        <div>朋友圈</div>
+      </div>
+    </div>
+  </div>
+
+  <!--画布太小的话字体会模糊-->
+  <canvas id="canvas" #canvas width="442" height="454" style="display: none"></canvas>
+</ion-content>

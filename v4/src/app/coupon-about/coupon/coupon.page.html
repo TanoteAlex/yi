@@ -1,0 +1,58 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>我的券</ion-title>
+        <goback></goback>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content no-padding>
+
+    <div class="coupon-banner" (click)="goCouponReceive()">
+        <img src="../../../assets/app_icon/new_banner/组5@2x.png" width="100%"/>
+    </div>
+
+    <ion-segment [(ngModel)]="pet" style="padding: 2px 15px">
+        <ion-segment-button value="canuse" (click)="listFilter('canuse')">
+            未使用<span class="segment-line"></span>
+        </ion-segment-button>
+        <ion-segment-button value="already" (click)="listFilter('already')">
+            已使用<span class="segment-line"></span>
+        </ion-segment-button>
+        <ion-segment-button value="expired" (click)="listFilter('expired')">
+            已失效<span class="segment-line"></span>
+        </ion-segment-button>
+        <div class="filter-icon" (click)="filterCoupon()"></div>
+    </ion-segment>
+
+    <div style="min-height:400px">
+        <div class="filter-modal" [hidden]="!filterSet.isShowFilter">
+            <div class="filter-tip">排序：</div>
+            <div class="filter-option">
+                <div *ngFor="let item of filterSet.option" (click)="selectOption(item)" [ngClass]="item.isSelected ? 'option-btn-selected' : '' ">{{item.name}}</div>
+            </div>
+        </div>
+
+        <ion-list class="min-height" *ngIf="tickets.length != 0">
+            <show-coupon *ngFor="let ticket of tickets" [ticket]="ticket" [sendOthers]="sendOthers" [disable]="pet != 'canuse'" (click)="showRule(ticket)"></show-coupon>
+        </ion-list>
+
+        <div class="nolist ver-midd min-height" *ngIf="!tickets?.length && !isLoading">
+            <ion-label class="grey">无相关优惠券~</ion-label>
+        </div>
+
+        <div class="loading" *ngIf="isLoading">
+            <ion-spinner></ion-spinner>
+        </div>
+
+        <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+            <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="正在加载..."></ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+
+        <div class="filter-mask" [hidden]="!filterSet.isShowFilter" (click)="filterCoupon()"></div>
+
+    </div>
+
+    <adv-commodity [list]="advertisingCommodity"></adv-commodity>
+
+</ion-content>
+

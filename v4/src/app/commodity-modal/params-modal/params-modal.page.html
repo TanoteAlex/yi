@@ -1,0 +1,13 @@
+<div class="head" (click)="goBack()"></div>
+<div class="body">
+    <div class="content" padding>
+        <ion-header>
+            <ion-title>商品参数</ion-title>
+        </ion-header>
+
+        <ion-row *ngFor="let attrGroup of attrGroups | sortPipe ">
+            <ion-col size="3"><p class="common-sub-title">{{attrGroup.attrName}}</p></ion-col>
+            <ion-col size="8"><p class="greys common-sub-title">{{attrGroup?.attributeArray}}</p></ion-col>
+        </ion-row>
+    </div>
+</div>

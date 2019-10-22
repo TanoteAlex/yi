@@ -1,0 +1,38 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-searchbar class="search-bar" #searchbar placeholder="搜索" (ionInput)="getItems($event)" [value]=searchItem>
+        </ion-searchbar>
+        <p class="right red" (click)="homeBack()">取消</p>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-list class="common-list commodity-divid">
+        <commodity-item *ngFor="let item of list" [commodity]="item" (click)=" detail(item)">
+            <p class="common-notice text-wrap">
+                <span class="red common-font">￥{{item?.currentPrice}}</span>&nbsp;
+                <!--<del class="grey"> ￥{{item?.originalPrice}}</del>-->
+                <span class="grey" *ngIf="item?.levelPrices && item?.levelPrices.length">vip￥{{getVip(item)}}&nbsp;</span>
+                <span class="hy-label" *ngIf="item?.returnVoucher">返{{item?.returnVoucher}}元券</span>
+                <span class="hy-label" *ngIf="item?.freightSet==1 && item?.unifiedFreight==0">包邮</span>
+                <span class="hy-label" *ngIf="item?.commodityType==1">批发</span>
+            </p>
+        </commodity-item>
+    </ion-list>
+
+    <div class="history-list" *ngIf="!list?.length">
+        <ion-label class="history-tip" *ngFor="let item of historySearch" (click)="setKey(item)">{{item}}</ion-label>
+        <ion-label class="history-tip" *ngIf="historySearch?.length" (click)="removeHistory()"><span class="delete-icon"></span>清空历史1</ion-label>
+    </div>
+
+    <div class="no-result" *ngIf="!list.length">
+        <ion-label class="grey">{{tips}}</ion-label>
+        <ion-spinner *ngIf="isSearching"></ion-spinner>
+    </div>
+
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="正在加载..."></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+</ion-content>

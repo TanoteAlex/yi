@@ -1,0 +1,138 @@
+
+<page-header [title]="'平台信息'">
+  <ng-template #breadcrumb>
+    <nz-breadcrumb>
+      <nz-breadcrumb-item>
+        <a [routerLink]="['/dashboard/basic-info/list']">基本信息</a>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item>基本信息设置</nz-breadcrumb-item>
+    </nz-breadcrumb>
+  </ng-template>
+</page-header>
+<nz-card [nzBordered]="false">
+  <form nz-form [formGroup]="commonForm">
+
+    <div class="large">
+      <div class="head">
+        <span class="size">基本信息</span>
+      </div>
+      <nz-form-item>
+      </nz-form-item>
+      <nz-form-item>
+      </nz-form-item>
+
+      <nz-form-item style="margin-bottom: 0 !important;">
+        <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="logoUrl">平台logo</nz-form-label>
+        <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+          <app-dynamic-upload [fileList]="commonForm.value.logoUrl?[{url:commonForm.value.logoUrl}]:[]"
+                      (onFileListChange)="getPic($event)"></app-dynamic-upload>
+          <nz-form-explain class="has-error" *ngIf="commonForm.get('logoUrl').dirty&&commonForm.get('logoUrl').errors">
+            <ng-container *ngFor="let error of formErrors.logoUrl">
+              <nz-form-explain *ngIf="commonForm.get('logoUrl').errors[error.name]">{{ error.msg }}
+              </nz-form-explain>
+            </ng-container>
+          </nz-form-explain>
+          建议尺寸：200*200像素小于120KB，支持.jpg、.gif、.png格式
+        </nz-form-control>
+      </nz-form-item>
+
+
+      <nz-form-item>
+        <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="companyName">公司名称</nz-form-label>
+        <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+          <input nz-input formControlName="companyName" id="companyName" placeholder="输入公司名称">
+          <nz-form-explain *ngIf="commonForm.get('companyName').dirty&&commonForm.get('companyName').errors">
+            <ng-container *ngFor="let error of formErrors.companyName">
+              <nz-form-explain *ngIf="commonForm.get('companyName').errors[error.name]">{{ error.msg }}
+              </nz-form-explain>
+            </ng-container>
+          </nz-form-explain>
+        </nz-form-control>
+
+      </nz-form-item>
+
+      <nz-form-item>
+
+        <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="companyTel">公司电话</nz-form-label>
+        <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+          <input nz-input formControlName="companyTel" id="companyTel" placeholder="输入公司电话">
+          <nz-form-explain *ngIf="commonForm.get('companyTel').dirty&&commonForm.get('companyTel').errors">
+            <ng-container *ngFor="let error of formErrors.companyTel">
+              <nz-form-explain *ngIf="commonForm.get('companyTel').errors[error.name]">{{ error.msg }}
+              </nz-form-explain>
+            </ng-container>
+          </nz-form-explain>
+        </nz-form-control>
+
+      </nz-form-item>
+
+      <nz-form-item>
+
+        <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="companyMobile">手机号码</nz-form-label>
+        <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+          <input nz-input formControlName="companyMobile" id="companyMobile" placeholder="输入手机号码">
+          <nz-form-explain *ngIf="commonForm.get('companyMobile').dirty&&commonForm.get('companyMobile').errors">
+            <ng-container *ngFor="let error of formErrors.companyMobile">
+              <nz-form-explain *ngIf="commonForm.get('companyMobile').errors[error.name]">{{ error.msg }}
+              </nz-form-explain>
+            </ng-container>
+          </nz-form-explain>
+        </nz-form-control>
+
+      </nz-form-item>
+
+      <nz-form-item>
+
+        <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="companyMail">公司邮箱</nz-form-label>
+        <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+          <input nz-input formControlName="companyMail" id="companyMail" placeholder="输入公司邮箱">
+          <nz-form-explain *ngIf="commonForm.get('companyMail').dirty&&commonForm.get('companyMail').errors">
+            <ng-container *ngFor="let error of formErrors.companyMail">
+              <nz-form-explain *ngIf="commonForm.get('companyMail').errors[error.name]">{{ error.msg }}
+              </nz-form-explain>
+            </ng-container>
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="companyAddr">公司地址</nz-form-label>
+        <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+          <input nz-input formControlName="companyAddr" id="companyAddr" placeholder="输入公司地址">
+          <nz-form-explain *ngIf="commonForm.get('companyAddr').dirty&&commonForm.get('companyAddr').errors">
+            <ng-container *ngFor="let error of formErrors.companyAddr">
+              <nz-form-explain *ngIf="commonForm.get('companyAddr').errors[error.name]">{{ error.msg }}
+              </nz-form-explain>
+            </ng-container>
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="contentProfile">公司简介</nz-form-label>
+        <nz-form-control nzXs="18" nzSm="18" nzHasFeedback>
+          <app-editor [ckeditorContent]="''" #editor (result)="thematicText($event)"></app-editor>
+          <nz-form-explain class="has-error"
+                           *ngIf="commonForm.get('contentProfile').dirty&&commonForm.get('contentProfile').errors">
+            <ng-container *ngFor="let error of formErrors.contentProfile">
+              <nz-form-explain *ngIf="commonForm.get('contentProfile').errors[error.name]">{{ error.msg }}
+              </nz-form-explain>
+            </ng-container>
+          </nz-form-explain>
+          微信分享店铺给好友时会显示这里的文案
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <nz-form-item>
+      <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 18 }">
+        <nz-modal-customer [showButton]="false" (ok)="onSubmit()" [title]="'提示！'" [content]="'确认要提交吗？'"
+                           [buttonName]="'提交'">
+          <nz-divider nzType="vertical"></nz-divider>
+        </nz-modal-customer>
+      </nz-form-control>
+    </nz-form-item>
+
+  </form>
+</nz-card>
+

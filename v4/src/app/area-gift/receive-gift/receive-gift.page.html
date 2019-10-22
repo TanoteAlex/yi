@@ -1,0 +1,51 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>送礼</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <div>
+        <p class="common-font white">收到一份礼物，真开心</p>
+        <p class="white">获得“一套很有用的杯子”</p>
+    </div>
+
+    <div class="content">
+        <div class="avatar"></div>
+
+        <div>
+            <p>Adonis送出<span class="red">{{list.length}}</span>份礼物</p>
+            <p class="common-font">大吉大利，送你好礼！</p>
+        </div>
+
+        <div class="gift">
+            <commodity-item [commodity]="item.product" *ngFor="let item of list" [isInvalid]="item.state">
+                <span class="right grey common-notice">x{{item.quantity}}</span>
+            </commodity-item>
+        </div>
+
+        <p class="grey">72小时内无人领取将自动退款</p>
+
+        <div class="received-list">
+            <span class="common-notice grey">1份礼物全部被抢光，36秒抢完</span>
+            <div class="received-item">
+                <div>
+                    <img src="../../../assets/app_icon/customer/我的二维码banner@2x.png" width="40" height="40" class="radius"/>
+                </div>
+                <div class="received-info">
+                    <div>
+                        <div class="common-notice">自己</div>
+                        <div class="common-notice grey">11:33</div>
+                    </div>
+                    <div class="common-sub-title">一套很有用的杯子</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="btns">
+            <button class="btn-yellow btn-outline" (click)="giftOthers()">转赠礼物</button>
+            <button class="btn-yellow" (click)="goConsignee()">填写地址</button>
+        </div>
+
+    </div>
+</ion-content>

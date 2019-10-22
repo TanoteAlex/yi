@@ -1,0 +1,70 @@
+@import "../../global";
+
+.customer-head {
+  background-image: url("../../assets/app_icon/customer/05-1banner底框-@2x.png") !important;
+  background-size: 100% 100% !important;
+  height: 150px;
+  .member-avater {
+    width: 75px;
+    height: 75px;
+    margin: 0 1rem 0 1.5rem;
+    @extend .radius;
+  }
+}
+
+.rigth-border-3th .flex-border:nth-child(3n) {
+  border-right: none;
+}
+
+.rigth-border-3th .flex-border:nth-child(n+7) {
+  border-bottom: none;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  & > div {
+    padding: 10px;
+    text-align: center;
+  }
+}
+
+.function-btns {
+  @extend .flex-row;
+  @extend .bg-white;
+  @extend .rigth-border-3th;
+  & > div {
+    justify-content: center;
+    width: 33.33%;
+    border-bottom: 0.5px  solid $divid-color;
+    border-right:  0.5px solid $divid-color;
+    & > img {
+      width: 40px;
+      height: 40px;
+    }
+  }
+}
+
+.withdraw-cash-btn {
+  height: 25px;
+  color: white;
+  padding: 0 15px;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  background-color: $main-color;
+  margin-right: 10px;
+}
+
+.rigth-border-3th .flex-border:nth-child(n+4) {
+  border-bottom: none;
+}
+
+.col-divid {
+  padding: 0 !important;
+  margin: 15px 0 15px 0;
+  width: 1px;
+  background-color: $divid-color;
+}

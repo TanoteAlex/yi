@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>申请提现</ion-title>
+    <goback></goback>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <p class="common-notice">可提佣金：<span class="red">{{member?.account?.cashableCommission}}</span>元</p>
+  <div class="line-divid"></div>
+  <div class="withdraw">
+    <span>￥</span><input type="number" placeholder="提现金额不能小于1.00元" [(ngModel)]="money">
+  </div>
+  <div class="line-divid"></div>
+  <p class="common-notice">提现方式</p>
+  <div class="btns">
+    <button class="btn" (click)="withdrawMode('wechat')" [ngClass]="mode == 'wechat' ? 'btn-select' : ''">余额</button>
+    <!--<button class="btn" (click)="withdrawMode('balance')" [ngClass]="mode == 'balance' ? 'btn-select' : ''">余额</button>-->
+  </div>
+  <button class="btn-yellow btn-full" (click)="commit()">提交申请</button>
+</ion-content>

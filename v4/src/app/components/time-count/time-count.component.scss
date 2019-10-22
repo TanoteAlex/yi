@@ -1,0 +1,12 @@
+@import "../../../global";
+.time-count{
+  color: #000;
+  display: inline-block;
+  span{
+    background: $pop-color;
+    color: $divid-color!important;
+    border-radius: 5px;
+    margin: 4px;
+    padding: 3px;
+  }
+}

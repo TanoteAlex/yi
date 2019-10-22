@@ -1,0 +1,162 @@
+<page-header [title]="'供应商概况'">
+  <ng-template #breadcrumb>
+    <nz-breadcrumb>
+      <nz-breadcrumb-item>
+        <a [routerLink]="['/dashboard/supplier-survey/list']">供应商管理</a>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item>供应商概况</nz-breadcrumb-item>
+    </nz-breadcrumb>
+  </ng-template>
+</page-header>
+
+<!--/** 待发货订单 */-->
+<!--waitDeliveryNum:number;-->
+<!--/**提现申请数*/-->
+<!--applicationForCash:number;-->
+<!--/**供应商数量*/-->
+<!--supplierNumber:number;-->
+<!--/**已上架商品数量*/-->
+<!--shelvesCommodity:number;-->
+<!--/**待结算款*/-->
+<!--pending:number;-->
+<!--/**供应商业绩排行*/-->
+<!--supplierAchievementList:Object[][];-->
+<!--/** 商品销售排行 */-->
+<!--commoditySales:Object[][];-->
+
+<div nz-row [nzGutter]="24" class="pt-lg">
+  <div nz-col style="width: 20%;float: left">
+    <g2-card [title]="'待发货订单'" total="{{supplierData.waitDeliveryNum}}" contentHeight="77px" [action]="action1">
+      <ng-template #action1>
+        <nz-tooltip [nzTitle]="'待发货订单'">
+          <i nz-tooltip class="anticon anticon-info-circle-o"></i>
+        </nz-tooltip>
+      </ng-template>
+    </g2-card>
+  </div>
+
+  <div nz-col style="width: 20%;float: left">
+    <g2-card [title]="'提现申请'" total="{{supplierData.withdrawNum}}" contentHeight="77px" [action]="action2">
+      <ng-template #action2>
+        <nz-tooltip [nzTitle]="'提现申请'">
+          <i nz-tooltip class="anticon anticon-info-circle-o"></i>
+        </nz-tooltip>
+      </ng-template>
+    </g2-card>
+  </div>
+
+  <div nz-col style="width: 20%;float: left">
+    <g2-card [title]="'供应商数量'" total="{{supplierData.supplierNum}}" contentHeight="77px" [action]="action3">
+      <ng-template #action3>
+        <nz-tooltip [nzTitle]="'供应商数量'">
+          <i nz-tooltip class="anticon anticon-info-circle-o"></i>
+        </nz-tooltip>
+      </ng-template>
+    </g2-card>
+  </div>
+
+  <div nz-col style="width: 20%;float: left">
+    <g2-card [title]="'已上架商品'" total="{{supplierData.shelfCommodityNum}}" contentHeight="46px" [action]="action4"
+             [footer]="footer4">
+      <ng-template #action4>
+        <nz-tooltip [nzTitle]="'已上架商品'">
+          <i nz-tooltip class="anticon anticon-info-circle-o"></i>
+        </nz-tooltip>
+      </ng-template>
+      <ng-template #footer4>
+        <p class="text-truncate mb0">待审核商品
+          <span class="ml-sm">{{supplierData.waitAuditNum}}</span>
+        </p>
+      </ng-template>
+    </g2-card>
+  </div>
+
+  <div nz-col style="width: 20%;float: left">
+    <g2-card [title]="'待结算款'" total="￥{{supplierData.waitSettlement}}" contentHeight="77px" [action]="action5">
+      <ng-template #action5>
+        <nz-tooltip [nzTitle]="'待结算款'">
+          <i nz-tooltip class="anticon anticon-info-circle-o"></i>
+        </nz-tooltip>
+      </ng-template>
+    </g2-card>
+  </div>
+
+</div>
+
+<div nz-row nzGutter="16">
+  <div nz-col nzXs="24" nzMd="12">
+    <nz-card [nzTitle]="title" [nzBordered]="false" class="ant-card__body-nopadding">
+      <ng-template #title>
+        供应商业绩排名<span style="float: right">最近30天</span>
+      </ng-template>
+      <div nz-row [nzType]="'flex'" [nzAlign]="'middle'" class="py-sm bg-grey-lighter-h point text-center">
+        <div nz-col [nzSpan]="7">
+          <strong>名次</strong>
+        </div>
+        <div nz-col [nzSpan]="7">
+          <strong>供应商名称</strong>
+        </div>
+        <div nz-col [nzSpan]="6">
+          <strong>销售额</strong>
+        </div>
+        <div nz-col [nzSpan]="4">
+          <strong>订单数</strong>
+        </div>
+      </div>
+
+      <div nz-row [nzType]="'flex'" [nzAlign]="'middle'" class="py-sm bg-grey-lighter-h point text-center"
+           *ngFor="let supplierAchievement of supplierData?.supplierAchievements;let i=index">
+          <div nz-col [nzSpan]="7">
+            <strong>{{i+1}}</strong>
+          </div>
+          <div nz-col [nzSpan]="7">
+            <strong>{{supplierAchievement?.supplierName}}</strong>
+          </div>
+          <div nz-col [nzSpan]="6">
+            <strong>{{supplierAchievement?.saleAmount}}</strong>
+          </div>
+          <div nz-col [nzSpan]="4">
+            <strong>{{supplierAchievement?.orderNum}}</strong>
+          </div>
+      </div>
+    </nz-card>
+  </div>
+
+  <div nz-col nzXs="24" nzMd="12">
+    <nz-card [nzTitle]="title1" [nzBordered]="false" class="ant-card__body-nopadding">
+      <ng-template #title1>
+        商品销售排名<span style="float: right">最近30天</span>
+      </ng-template>
+      <div nz-row [nzType]="'flex'" [nzAlign]="'middle'" class="py-sm bg-grey-lighter-h point text-center">
+        <div nz-col [nzSpan]="7">
+          <strong>商品名</strong>
+        </div>
+        <div nz-col [nzSpan]="7">
+          <strong>商品售卖数</strong>
+        </div>
+        <div nz-col [nzSpan]="6">
+          <strong>金额</strong>
+        </div>
+        <div nz-col [nzSpan]="4">
+          <strong>排名</strong>
+        </div>
+      </div>
+
+      <div nz-row [nzType]="'flex'" [nzAlign]="'middle'" class="py-sm bg-grey-lighter-h point text-center"
+           *ngFor="let commoditySale of supplierData?.commoditySales;let i=index">
+        <div nz-col [nzSpan]="7">
+          <strong>{{commoditySale?.commodityName}}</strong>
+        </div>
+        <div nz-col [nzSpan]="7">
+          <strong>{{commoditySale?.saleNum}}</strong>
+        </div>
+        <div nz-col [nzSpan]="6">
+          <strong>￥{{commoditySale?.saleAmount}}</strong>
+        </div>
+        <div nz-col [nzSpan]="4">
+          <strong>{{i+1}}</strong>
+        </div>
+      </div>
+    </nz-card>
+  </div>
+</div>

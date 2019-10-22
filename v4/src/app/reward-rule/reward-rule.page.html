@@ -1,0 +1,45 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>奖励明细</ion-title>
+        <goback></goback>
+    </ion-toolbar>
+</ion-header>
+<!--似乎也没有用到了-->
+<ion-content no-padding>
+    <ion-list class="common-list">
+        <ion-row justify-content-center>
+            <ion-col size="6" text-center>
+                <img src="../../assets/app_icon/basic/邀请成功icon@2x.png" width="30" height="30">
+                <div text-center class="statistics">
+                    <p class="common-sub-title">成功邀请人</p>
+                    <p>{{list?.length}}人</p>
+                </div>
+            </ion-col>
+            <ion-col size="6" text-center>
+                <img src="../../assets/app_icon/basic/累计奖励icon@2x.png" width="30" height="30">
+                <div text-center class="statistics">
+                    <p class="common-sub-title">累计奖金</p>
+                    <p>0.00元</p>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-list>
+
+    <ion-list class="common-list reward-list">
+        <ion-list-header class="grey">奖励明细</ion-list-header>
+        <ion-row *ngFor="let it of list" class="member-list">
+            <div class="member-img">
+                <img item-left onerror="this.src='assets/imgs/null-category.png'" [src]="it.avater">
+            </div>
+            <div class="bottom-divid" style="flex: 1; padding-bottom: 15px;">
+                <div class="nickname">
+                    {{it.nickname}}
+                </div>
+                <div class="tip">
+                    <p>邀请注册</p>
+                    <p>{{it.createTime}}</p>
+                </div>
+            </div>
+        </ion-row>
+    </ion-list>
+</ion-content>

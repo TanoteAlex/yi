@@ -1,0 +1,36 @@
+.backBtn {
+  position: absolute;
+  top: 20px;
+  left: 10px;
+  width: 10px;
+  margin-left: 7px;
+}
+
+.login-photo {
+  background: url("../../assets/imgs/logo@2x.png") no-repeat center 90%;
+  background-size: 25%;
+  width: 100%;
+  height: 30%;
+}
+
+.toRegister {
+  position: relative;
+  top: -20px;
+  color: #4056ae !important;
+}
+
+.center {
+  text-align: center;
+  img {
+    width: 40px;
+  }
+}
+
+.noline {
+  border-bottom: none !important;
+}
+
+.tripartite {
+  height: 85px;
+  padding: 25px 0;
+}

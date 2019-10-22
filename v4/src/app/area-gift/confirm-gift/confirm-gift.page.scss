@@ -1,0 +1,89 @@
+@import "../../../global";
+@import "../area-gift.page";
+
+ion-content {
+  display: flex;
+  flex-direction: column;
+  .content-head {
+    height: 10rem;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    background-color: blue;
+    @extend .padding;
+    & > span{
+      margin: 0.5rem;
+      @extend .common-font;
+      @extend .white
+    }
+  }
+
+  .commodities-car {
+    border-radius: 0.5rem;
+    border: 1px solid #ccc;
+    margin: -3rem 1rem 0;
+    background-color: white;
+    .common-normal-add-close {
+      background-color: $space-color;
+      padding: 1px;
+      float: right;
+      border-radius: 3px;
+      span {
+        padding: 0 0.5rem 0 0.5rem !important;
+      }
+      .common-title {
+        background-color: white;
+      }
+    }
+    .commodities-bottom {
+      display: flex;
+      flex-wrap: nowrap;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      margin: 0 0.5rem;
+      padding: 0.5rem 0;
+      border-top: 1px solid $divid-color;
+      .continue-add{
+        color: $yellow-color;
+        padding: 0.1rem 0.5rem;
+        border: 1px solid $yellow-color;
+        border-radius: 1rem;
+      }
+    }
+    .no-commodity {
+      display: flex;
+      padding: 0.5rem;
+      .go-select {
+        display: flex;
+        margin-left: 0.5rem;
+        flex: 1;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+  }
+
+  .message {
+    ion-textarea {
+      height: 5rem !important;
+    }
+  }
+
+  .total-amount {
+    display: flex;
+    justify-content: center;
+    @extend .red;
+    .common-title {
+      font-size: 1.7rem !important;
+    }
+  }
+
+  .padding {
+    padding: 1rem 1rem 0;
+  }
+
+  .margin {
+    margin: 1rem 1rem 0;
+  }
+}

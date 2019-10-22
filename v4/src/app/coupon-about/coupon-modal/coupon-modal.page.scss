@@ -1,0 +1,17 @@
+@import "../../../global";
+
+.confirm-btn {
+  background-color: $main-color;
+  width: 100px;
+  height: 44px;
+  @extend .white;
+  @extend .flex-center;
+}
+
+ion-footer {
+  ion-toolbar {
+    --padding-end: 0;
+    --padding-top: 0;
+    --padding-bottom: 0;
+  }
+}

@@ -1,0 +1,53 @@
+<div class="head" (click)="goBack()"></div>
+<div class="body">
+    <div class="content">
+        <ion-row class="product">
+            <ion-col size="4"><img onerror="this.src='../../assets/imgs/null-category.png'" [src]="selectProduct?.productImgPath || imgPath"  width="85" height="85" />
+            </ion-col>
+            <ion-col class="ver-midd">
+                <!--<h2 class="common-title">{{selectProduct? selectProduct.productName: commodityName}}</h2>-->
+                <h4 class="common-title red" *ngIf="!vipPrice || !isLogin">￥{{selectProduct?.currentPrice || lowestPrice}}</h4>
+                <div class="vipPrice" *ngIf="isLogin && vipPrice">
+                    <div class="flex-col">
+                        <div class="common-title"><span class="common-sub-title">￥</span>{{selectProduct?.currentPrice || lowestPrice}}</div>
+                        <div>现价</div>
+                    </div>
+                    <div class="flex-col grey" *ngIf="vipPrice">
+                        <div>￥{{vipPrice}}</div>
+                        <div>vip价</div>
+                    </div>
+                </div>
+            </ion-col>
+        </ion-row>
+
+        <div *ngFor="let group of attrGroups | sortPipe ;let j = index" lines="none">
+            <ion-row>
+                <p>{{group.attrName}}</p>
+            </ion-row>
+            <ion-row class="attr" text-center>
+                <button shape="round" fill="outline" size="small" color="dark"
+                        *ngFor="let item of group.attrValues | sortPipe;let i = index"
+                        [ngClass]="group.selectNo == i ? 'choose' : ''"
+                        (click)="select(group, i)">{{item.attrValue}}
+                </button>
+            </ion-row>
+        </div>
+
+        <div lines="none">
+            <ion-row class="amount">
+                <p>数量</p>
+                <span class="common-normal-add-close" float-end>
+                    <span class="common-title" (click)="reduce()">-</span>
+                    <span class="common-normal-num common-sub-title">{{amount}}</span>
+                    <span class="common-title" (click)="add()">+</span>
+                </span>
+            </ion-row>
+        </div>
+
+        <div>
+            <ion-button shape="round" expand="full" color="danger" [disabled]="isConfirm()" (click)="goShoppingCart()">
+                确认
+            </ion-button>
+        </div>
+    </div>
+</div>

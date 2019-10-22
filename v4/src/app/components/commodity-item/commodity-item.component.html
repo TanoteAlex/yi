@@ -1,0 +1,17 @@
+<ion-row>
+    <ion-col size="4" class="commodity-img">
+        <div style="height:100px; width:100px">
+            <img-lazy-load [src]="commodity.imgPath | thumbnailPipe : 's'"></img-lazy-load>
+        </div>
+        <div class="invalid-icon" *ngIf="isInvalid">
+            <img src="../assets/app_icon/shop_cart/失效@2x.png" />
+        </div>
+    </ion-col>
+    <ion-col size="8" class="common-shopping">
+        <p class="common-sub-title text-wrap">{{commodity.productName}}</p>
+        <p class="common-spec grey text-wrap" *ngIf="commodity.productShortName">{{commodity.productShortName}}</p>
+        <p class="common-spec radiu red" *ngIf="commodity.discountInfo">{{commodity.discountInfo}}</p>
+        <br *ngIf="!commodity.discountInfo"/>
+        <ng-content></ng-content>
+    </ion-col>
+</ion-row>

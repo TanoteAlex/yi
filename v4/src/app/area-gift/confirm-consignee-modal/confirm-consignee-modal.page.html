@@ -1,0 +1,8 @@
+<center-modal [height]="'200px'" [top]="'calc(50% - 100px)'">
+    <p class="head-title">确认收货信息</p>
+    <p class="common-sub-title">{{consigneeData?.fullName}},{{consigneeData?.phone}},{{consigneeData?.province | districtPipe}}
+        {{consigneeData?.city | districtPipe}}{{consigneeData?.district | districtPipe}}{{consigneeData?.address}}</p>
+    <br>
+    <span class="right blue common-sub-title" (click)="confirm()">&nbsp;&nbsp;&nbsp;&nbsp;确认地址</span>
+    <span class="right common-sub-title" (click)="rewrite()">返回修改</span>
+</center-modal>

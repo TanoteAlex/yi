@@ -1,0 +1,44 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>
+            壹推荐
+        </ion-title>
+        <goback></goback>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content no-padding>
+
+    <!--<div class="slides">
+        <ion-slides #slides loop="true" autoplay="100" pager *ngIf="list?.length>0">
+            <ion-slide *ngFor="let banner of list" style=" height:200px; width:100%">
+                <img style="width: 100%" onerror="this.src='../../assets/imgs/null-category.png'" [src]="banner.imgPath | thumbnailPipe : 'l'">
+            </ion-slide>
+        </ion-slides>
+    </div>-->
+
+    <div *ngIf="list&&list[0]?.imgPath" class="banner-img" (click)="goUrl(list[0])">
+        <img style="width: 100%;max-height: 125px" onerror="this.src='../../assets/imgs/null-category.png'" [src]="list[0]?.imgPath | thumbnailPipe : 'l'">
+    </div>
+
+    <ion-list class="common-list">
+        <ion-list-header class="grey">今日推荐</ion-list-header>
+        <div *ngFor="let item of list">
+            <commodity-item *ngFor="let commodity of item.commodities" [commodity]="commodity" (click)="goCommodity(commodity.id)">
+                <p class="common-notice">
+                    <span class="red common-sub-title">￥{{commodity.currentPrice}}</span> &nbsp;
+                    <!--<del class="grey"> ￥{{commodity.originalPrice}}</del>-->
+                    <!--<span class="right" style="position: absolute;right: 15px;bottom: 10px;">-->
+                        <!--<img src="../../assets/app_icon/home/购物车-商品icon@2x.png" width="25" height="25">-->
+                    <!--</span>-->
+                    <span class="grey" *ngIf="commodity?.levelPrices && commodity?.levelPrices.length">vip￥{{getVip(commodity)}}&nbsp;</span>
+                    <span class="hy-label" *ngIf="commodity?.returnVoucher">返{{commodity?.returnVoucher}}元券</span>
+                    <span class="hy-label" *ngIf="commodity?.freightSet==1 && commodity?.unifiedFreight==0">包邮</span>
+                    <span class="hy-label" *ngIf="commodity?.commodityType==1">批发</span>
+                </p>
+            </commodity-item>
+        </div>
+    </ion-list>
+
+</ion-content>
+

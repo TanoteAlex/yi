@@ -1,0 +1,28 @@
+@import "../../../global";
+.commodity {
+  position: relative;
+  .commodity-name{
+    height: 42px;
+    line-height: 21px;
+    overflow: hidden;
+    @extend .common-sub-title;
+  }
+  .title-tip {
+    border: 1px solid $main-color;
+    display: inline-block;
+    padding: 0 3px;
+    border-radius: 3px;
+    margin-right: 5px;
+    @extend .red
+  }
+
+}
+
+.bottom{
+  position: absolute;
+  bottom: 15px;
+}
+
+p {
+  margin: 3px 0;
+}

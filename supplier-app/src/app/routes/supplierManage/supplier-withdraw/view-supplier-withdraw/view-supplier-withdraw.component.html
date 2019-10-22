@@ -1,0 +1,82 @@
+
+
+<page-header [title]="'查看信息'"></page-header>
+
+<nz-card>
+    <nz-form-item>
+
+
+                    <nz-form-label nzXs="10" nzSm="3" nzFor="guid">GUID</nz-form-label>
+                    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+                        <nz-form-text>{{supplierWithdraw.guid}}</nz-form-text>
+                    </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+
+                    <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="supplierId">供应商（supplier表id）</nz-form-label>
+                    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+                        <nz-form-text>{{supplierWithdraw.supplier}}</nz-form-text>
+                    </nz-form-control>
+
+                    <nz-form-label nzXs="10" nzSm="3" nzFor="supplierName">供应商名称</nz-form-label>
+                    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+                        <nz-form-text>{{supplierWithdraw.supplierName}}</nz-form-text>
+                    </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+
+                    <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="amount">提现金额</nz-form-label>
+                    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+<!--                        <nz-form-text>{{supplierWithdraw?.amount}}</nz-form-text>-->
+                    </nz-form-control>
+
+                    <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="cardType">账号类型（1线下支付2..）</nz-form-label>
+                    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+<!--                        <nz-form-text>{{supplierWithdraw.cardType}}</nz-form-text>-->
+                    </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+
+                    <nz-form-label nzXs="10" nzSm="3" nzFor="cardNo">账号/卡号/openID</nz-form-label>
+                    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+<!--                        <nz-form-text>{{supplierWithdraw.cardNo}}</nz-form-text>-->
+                    </nz-form-control>
+
+                    <nz-form-label nzXs="10" nzSm="3" nzFor="payee">收款人</nz-form-label>
+                    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+                        <nz-form-text>{{supplierWithdraw.payee}}</nz-form-text>
+                    </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+
+                    <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="state">申请状态（1待发放2发放异常3已发放）</nz-form-label>
+                    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+                        <nz-form-text>{{supplierWithdraw.state}}</nz-form-text>
+                    </nz-form-control>
+
+                    <nz-form-label nzXs="10" nzSm="3" nzFor="errorDescription">出错说明</nz-form-label>
+                    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+<!--                        <nz-form-text>{{supplierWithdraw.errorDescription}}</nz-form-text>-->
+                    </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+
+                    <nz-form-label nzXs="10" nzSm="3" nzFor="applyTime">申请时间</nz-form-label>
+                    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+                        <nz-form-text>{{supplierWithdraw.applyTime}}</nz-form-text>
+                    </nz-form-control>
+
+                    <nz-form-label nzXs="10" nzSm="3" nzFor="dealTime">发放时间</nz-form-label>
+                    <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+<!--                        <nz-form-text>{{supplierWithdraw.dealTime}}</nz-form-text>-->
+                    </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+        <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 7 }">
+            <button nz-button nzType="primary" type="submit" [routerLink]="'../../edit/'+ supplierWithdraw.id">编辑</button>
+            <button nz-button class="ml-sm" type="button" (click)="goBack()">返回</button>
+        </nz-form-control>
+    </nz-form-item>
+
+</nz-card>

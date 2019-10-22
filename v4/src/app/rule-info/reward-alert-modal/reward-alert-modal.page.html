@@ -1,0 +1,15 @@
+<div class="head" (click)="goBack()"></div>
+<div class="body" [ngStyle]="{'height': '150px', 'top': 'calc(50% - 75px)'}">
+    <div class="content">
+        <div *ngFor="let item of data">
+            <div text-center>
+                <div>当前发放的金额{{item.grant}}元</div>
+                <div>剩余未发放的金额{{item.surplus}}元</div>
+            </div>
+            <div class="common-notice grey">
+                <span>温馨提示: </span>
+                <span>{{item.remind}}</span>
+            </div>
+        </div>
+    </div>
+</div>

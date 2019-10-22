@@ -1,0 +1,56 @@
+<page-header [title]="title"></page-header>
+<nz-card [nzBordered]="false">
+  <form nz-form [formGroup]="commonForm">
+    <nz-form-item>
+
+      <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="province">省</nz-form-label>
+      <nz-form-control nzXs="16" nzSm="8" nzMd="7" nzHasFeedback>
+        <input nz-input formControlName="province" id="province" placeholder="输入省">
+        <nz-form-explain *ngIf="commonForm.get('province').dirty&&commonForm.get('province').errors">
+          <ng-container *ngFor="let error of formErrors.province">
+            <nz-form-explain *ngIf="commonForm.get('province').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+
+      <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="city">市</nz-form-label>
+      <nz-form-control nzXs="16" nzSm="8" nzMd="7" nzHasFeedback>
+        <input nz-input formControlName="city" id="city" placeholder="输入市">
+        <nz-form-explain *ngIf="commonForm.get('city').dirty&&commonForm.get('city').errors">
+          <ng-container *ngFor="let error of formErrors.city">
+            <nz-form-explain *ngIf="commonForm.get('city').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="state">状态</nz-form-label>
+      <nz-form-control nzXs="16" nzSm="8" nzMd="7">
+        <nz-radio-group formControlName="state" id="state">
+          <label nz-radio [nzValue]="0">启用</label>
+          <label nz-radio [nzValue]="1">禁用</label>
+        </nz-radio-group>
+        <nz-form-explain *ngIf="commonForm.get('state').dirty && commonForm.get('state').errors">
+          <ng-container *ngFor="let error of formErrors.state">
+            <nz-form-explain *ngIf="commonForm.get('state').errors[error.name]">{{ error.msg }}</nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+
+
+    <nz-form-item>
+      <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 7 }">
+        <nz-modal-customer (ok)="onSubmit()" [title]="'提示！'" [content]="'确认要提交吗？'"
+                           [buttonName]="'提交'" >
+          <nz-divider nzType="vertical"></nz-divider>
+        </nz-modal-customer>
+        <button nz-button class="ml-sm" type="button" (click)="goBack()">返回</button>
+      </nz-form-control>
+    </nz-form-item>
+
+  </form>
+</nz-card>

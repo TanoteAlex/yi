@@ -1,0 +1,30 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>修改密码</ion-title>
+        <goback></goback>
+        <span class="red right" (click)="goPersonalCenter()">完成</span>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content no-padding>
+    <form [formGroup]="commonForm">
+        <ion-list class="common-list" lines="none">
+            <ion-item>
+                <ion-label class="common-sub-title" position="fixed">旧密码</ion-label>
+                <label><input class="common-sub-title common-input" type="password" formControlName="oldword"
+                              placeholder="请输入旧密码"/></label>
+            </ion-item>
+            <ion-item>
+                <ion-label class="common-sub-title" position="fixed">新密码</ion-label>
+                <label><input class="common-sub-title common-input" type="password" formControlName="password"
+                              placeholder="请输入新密码(6到20位数字或字母)"/></label>
+            </ion-item>
+            <div class="common-hr"></div>
+            <ion-item>
+                <ion-label class="common-sub-title" position="fixed">确认密码</ion-label>
+                <label><input class="common-sub-title common-input" type="password" formControlName="configword"
+                              placeholder="请再次输入新密码"/></label>
+            </ion-item>
+        </ion-list>
+    </form>
+</ion-content>

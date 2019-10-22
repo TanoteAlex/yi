@@ -1,0 +1,40 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>每日签到</ion-title>
+        <goback></goback>
+    </ion-toolbar>
+</ion-header>
+
+
+<ion-content no-padding>
+    <div class="body">
+        <div class="content">
+            <div class="home">
+                <div class="yuan">
+                    <div class="ioc" *ngIf="!isSigned" (click)="toSign()">
+                        <img class="inoimg" src="../../assets/app_icon/home/签到icon-@2x.png" height="35px" width="35px"/>
+                        <img src="../../assets/app_icon/home/立即签到@2x.png" height="12px" width="50px"/>
+                    </div>
+                    <div class="ioc" *ngIf="isSigned">
+                        <img class="inoimg" src="../../assets/app_icon/home/签到icon-@2x.png" height="35px" width="35px"/>
+                        <img src="../../assets/app_icon/home/已签到@2x.png" height="12px" width="50px"/>
+                    </div>
+                </div>
+                <p style="text-align: center"><span class="txt2">每天连续签到获多重奖励</span></p>
+            </div>
+
+            <br/>
+            <ion-row>
+                <ion-col [size]="item?.size" *ngFor="let item of day;let i=index" style="position:relative;text-align: center; display: inline-block;">
+                    <p>第{{formatNum(i)}}天</p>
+                    <div class="back"><img [ngClass]="item?.isSign? 'back-sign-img' : 'back-img'" [src]=item?.imgPath /></div>
+                    <div class="prize">{{item?.prizeName}}</div>
+                </ion-col>
+            </ion-row>
+        </div>
+
+        <footer-tip *ngIf=tips></footer-tip>
+        <div [innerHtml]=tips class="bottom-tip"></div>
+    </div>
+
+</ion-content>

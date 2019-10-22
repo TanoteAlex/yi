@@ -1,0 +1,28 @@
+@import "../../../global";
+
+ion-segment {
+  margin: auto;
+  width: 80%;
+  background-color: transparent;
+}
+
+.linecontainer {
+  padding: 0 !important;
+}
+
+.line {
+  display: block;
+  height: 5px;
+  background-color: #cccccc;
+  margin-top: 15px;
+}
+
+.grid {
+  .color {
+    background-color: $divid-color
+  }
+  ion-col {
+    text-align: center;
+    border: 0.5px solid $border-color;
+  }
+}

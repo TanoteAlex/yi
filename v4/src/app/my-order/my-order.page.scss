@@ -1,0 +1,34 @@
+@import "../../global";
+.nolist {
+  background: url("../../assets/app_icon/customer/无订单申请数据@2x.png") no-repeat center center;
+  background-size: 50%;
+}
+
+.radiu {
+  width: fit-content;
+  padding: 1px 6px;
+  border-radius: 10px;
+  background-color: #ffeaed;
+}
+
+.common-list {
+  p {
+    margin: 0.5rem !important;
+  }
+  .order-bottom {
+    ion-col {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+    ion-button {
+      --border-radius: 1.1rem;
+    }
+  }
+}
+
+.loading{
+  position: absolute;
+  top: 30%;
+  left: 50%;
+}
+

@@ -1,0 +1,70 @@
+#测试环境配置
+
+logging:
+  path: C:/tmp/logs
+  config: classpath:logback-spring.xml
+  level:
+    com.yi: INFO
+    org.springframework: INFO
+    org.hibernate: INFO
+
+yi:
+  cluster-name: dev
+  host: localhost
+  web-port: 8085
+
+
+domain:
+  name: http://${yi.host}:${yi.web-port}
+
+server:
+  port: ${yi.web-port}
+  servlet:
+    context-path: /yi-search
+
+  tomcat:
+    basedir: "/disk/yi/yi-${yi.web-port}"
+    uri-encoding: UTF-8
+    accesslog:
+      enabled: true
+      directory: logs
+      buffered: false
+      pattern: combined
+  ssl:
+    enabled: false
+
+spring:
+  application:
+    name: yi-search
+  profiles:
+    #开发环境
+    active: dev
+  devtools:
+    restart:
+      #设置重启的目录
+      additional-paths: src/main/java
+      exclude: static/**,templates/**
+      #热部署生效
+      enabled: true
+
+
+
+   #elasticsearch搜索引擎 配置 jest
+#  elasticsearch:
+#    jest:
+#      uris: http://192.168.229.31:9200/
+#      username: esadmin
+#      password: esadmin
+#  docIndex: commodity
+#  docType: commodityInfo
+
+  session:
+    store-type: none
+  data:
+    elasticsearch:
+      cluster-name: elasticsearch_aidy_he
+      cluster-nodes: localhost:9300
+#      cluster-nodes: 47.107.68.47:9300
+      repositories:
+        enabled: true
+

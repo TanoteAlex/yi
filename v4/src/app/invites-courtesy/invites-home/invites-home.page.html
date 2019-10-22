@@ -1,0 +1,80 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>
+            邀请有礼
+        </ion-title>
+        <goback [goBackPage]="'customerCenter'"></goback>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <!--<div class="invites-rule" (click)="goInviteRule()">活动规则</div>-->
+    <div class="home-content">
+        <ion-row class="home-share-row">
+            <ion-row justify-content-center>
+                <ion-col size-xs="3" (click)="shareWeChat()">
+                    <img src="../../../assets/app_icon/new_inviter/wechat.png"/>
+                </ion-col>
+
+                <ion-col size-xs="3" (click)="shareFriend()">
+                    <img src="../../../assets/app_icon/new_inviter/friend.png"/>
+                </ion-col>
+
+                <ion-col size-xs="3">
+                    <img src="../../../assets/app_icon/new_inviter/qq.png"/>
+                </ion-col>
+
+                <ion-col size-xs="3" (click)="shareQRcode()">
+                    <img src="../../../assets/app_icon/new_inviter/qrcore.png"/>
+                </ion-col>
+            </ion-row>
+
+        </ion-row>
+        <ion-row>
+            <div class="home-sub-title">
+                <div>活&nbsp;动&nbsp;规&nbsp;则</div>
+            </div>
+
+            <div class="home-rule-desc">
+                <div class="rule-title">邀请好友一起领奖！</div>
+                <div class="rule_desc" [innerHTML]="inviteActivity?.rule"></div>
+                <span style="color:#ED6654;font-size:15px;font-weight: 500;padding-top: 0px;">活动时间:{{inviteActivity?.startTime}}--{{inviteActivity?.endTime}}</span>
+            </div>
+        </ion-row>
+        <ion-row style="padding-bottom: 1em;">
+            <div class="home-rule-list">
+                <ion-row>
+                    <ion-col class="title">邀请人数</ion-col>
+                    <ion-col class="title">奖励</ion-col>
+                    <ion-col class="title">可领取</ion-col>
+                </ion-row>
+                <ion-row *ngFor="let prize of inviteActivity?.invitePrizes | sortPipe : 'sort'">
+                    <ng-template [ngIf]="prize.state == 0">
+                        <ion-col class="title-detail">
+                            <div>{{prize.inviteNum}}</div>
+                        </ion-col>
+                        <ion-col class="title-detail">
+                            <div class="text-wrap">{{prize.prizeName}}</div>
+                        </ion-col>
+                        <ion-col class="title-detail">
+                            <div *ngIf="prize.receive && !prize.received" class="detail-button-choose">
+                                <div (click)="goInvitesReceivePrize(prize)">领取</div>
+                            </div>
+                            <div *ngIf="prize.receive && prize.received" class="detail-button-not-choose">
+                                <div (click)="receivedPrize()">已领</div>
+                            </div>
+
+                            <div *ngIf="!prize.receive && !prize.received" class="detail-button">
+                                <div (click)="notReceivePrize()">领取</div>
+                            </div>
+                        </ion-col>
+                    </ng-template>
+                </ion-row>
+            </div>
+        </ion-row>
+
+        <ion-row justify-content-center style="padding-bottom: 1em;">
+            <div class="view-invite-button" (click)="goInvitedMember()">查看邀请人数</div>
+        </ion-row>
+    </div>
+</ion-content>

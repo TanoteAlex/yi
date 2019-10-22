@@ -1,0 +1,21 @@
+.nolist {
+  background: url("../../../assets/app_icon/customer/无评价记录数据@2x.png") no-repeat center center;
+  background-size: 50%;
+  height: 20rem;
+  padding-top: 15rem;
+}
+
+.common-list {
+  .common-notice {
+    padding-left: 0.5rem;
+    overflow: hidden;
+    span {
+      vertical-align: sub;
+    }
+  }
+  ion-button {
+    --border-radius: 1.1rem;
+  }
+}
+
+

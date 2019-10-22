@@ -1,0 +1,61 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>{{salesArea?.title}}</ion-title>
+        <goback></goback>
+    </ion-toolbar>
+</ion-header>
+<!--后期修改了应用功能，名不副实，名字暂时没改-->
+<ion-content no-padding>
+    <img class="banner-img" [src]="salesArea?.banner | thumbnailPipe"/>
+
+    <ng-template [ngIf]="salesArea?.showMode ==1">
+        <ion-row class="area-column">
+            <ion-col class="card-item1" [size]="6" *ngFor="let sArea of salesArea?.areaColumns;" (click)="goToAreaColumn(sArea?.id)">
+                <img-lazy-load [src]="sArea?.banner | thumbnailPipe"></img-lazy-load>
+            </ion-col>
+        </ion-row>
+    </ng-template>
+
+    <ng-template [ngIf]="salesArea?.showMode ==2">
+        <div class="area-column">
+            <ion-slides [options]="slideOpts">
+                <ion-slide class="card-item2" *ngFor="let sArea of salesArea?.areaColumns;" (click)="goToAreaColumn(sArea?.id)">
+                    <img-lazy-load [src]="sArea?.banner | thumbnailPipe"></img-lazy-load>
+                </ion-slide>
+            </ion-slides>
+        </div>
+    </ng-template>
+
+    <ion-list *ngIf="salesArea?.salesAreaCommodities">
+        <h6 class="list-header">更多好货</h6>
+        <ion-row class="commodity-row" *ngFor="let ele of salesArea?.salesAreaCommodities" (click)="goCommodity(ele?.commodity?.id)">
+            <ion-col [size]="4">
+                <div style="width: 100%;height: 100%;">
+                    <img-lazy-load [src]="ele?.commodity?.imgPath | thumbnailPipe"></img-lazy-load>
+                </div>
+            </ion-col>
+            <ion-col [size]="8">
+                <div class="text-wrap commodity-title1">{{ele?.commodity.commodityName}}</div>
+                <div class="text-wrap commodity-title2">{{ele?.commodity.commodityShortName}}</div>
+                <ion-row style="padding-top: 1.1em;">
+                    <ion-col [size]="10">
+                        <ion-row class="text-wrap font-color" style="line-height: 1.5em;">
+                            <span class="money-tag">￥</span>
+                            <div style="padding-top: 0.1em;"><span class="commodity-currentPrice">{{ele?.commodity.currentPrice}}</span>&nbsp;</div>
+                            <!--<span class="label-tag" *ngIf="ele?.commodity?.levelPrices && ele?.commodity?.levelPrices.length">-->
+                            <!--&nbsp;vip<span class="money-tag2">￥</span>{{getVip(ele?.commodity)}}&nbsp;-->
+                            <!--</span>-->
+                            <!--<span class="label-tag" *ngIf="ele?.commodity?.returnVoucher">&nbsp;返{{ele?.commodity?.returnVoucher}}元券&nbsp;</span>-->
+                            <div ><span class="label-tag">&nbsp;包邮&nbsp;</span></div>
+                            <!--<span class="label-tag" *ngIf="ele?.commodity?.commodityType==1">&nbsp;批发&nbsp;</span>-->
+                        </ion-row>
+                    </ion-col>
+                    <ion-col [size]="2">
+                        <img src="../../../assets/app_icon/activity/cart-button.png">
+                    </ion-col>
+                </ion-row>
+            </ion-col>
+        </ion-row>
+    </ion-list>
+
+</ion-content>

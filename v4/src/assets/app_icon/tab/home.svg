@@ -1,0 +1,10 @@
+<svg id="图层_1" data-name="图层 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 58 58">
+    <defs>
+        <style>.cls-1{fill:#111c78;fill-rule:evenodd;opacity:0;}.cls-2{fill:#666;}</style>
+    </defs>
+    <title>home</title>
+    <path class="cls-1" d="M29,0A29,29,0,1,1,0,29,29,29,0,0,1,29,0Z" transform="translate(0 0)"/>
+    <path class="cls-2"
+          d="M29.25,11.49,46,24V42c0,2.47-1,5-8,5H37V39a8,8,0,0,0-16,0v8H20c-7,0-8-2.53-8-5V24L29.25,11.49m0-2.49L10,23V42c0,5.52,4.48,7,10,7h3V39a6,6,0,0,1,12,0V49h3c5.52,0,10-1.48,10-7V23L29.26,9Z"
+          transform="translate(0 0)"/>
+</svg>

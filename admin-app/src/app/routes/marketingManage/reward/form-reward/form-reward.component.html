@@ -1,0 +1,122 @@
+<page-header [title]="title"></page-header>
+<nz-card [nzBordered]="false">
+  <form nz-form [formGroup]="commonForm">
+
+    <nz-form-item>
+      <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="name">奖励名称</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+        <input nz-input formControlName="name" id="name" placeholder="输入奖励名称">
+        <nz-form-explain *ngIf="commonForm.get('name').dirty&&commonForm.get('name').errors">
+          <ng-container *ngFor="let error of formErrors.name">
+            <nz-form-explain *ngIf="commonForm.get('name').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    
+    <nz-form-item>
+      <nz-form-label nzXs="3" nzSm="3" nzFor="prizes">选择奖品</nz-form-label>
+      <nz-form-control nzXs="20" nzSm="20" nzHasFeedback>
+        <app-modal-selecet #modalSelect
+           [filters]="[{filterName:'name',name:'奖品名称',value:''}]"
+           [showCol]="[{name:'code',value:'奖品编码',isShow:true},{name:'name',value:'奖品名称',isShow:true}]"
+           [select]="commonForm.value.prizes"
+           [resultName]="commonForm.value.prizes ? commonForm.value.prizes.name : '请选择'"
+           [baseService]="prizeService"
+           [isMulti]="true"
+           (result)="setPrizes($event)">
+        </app-modal-selecet>
+      </nz-form-control>
+    </nz-form-item>
+    
+    <nz-form-item>
+      <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="rewardType">奖励类型</nz-form-label>
+      <nz-form-control nzXs="12" nzSm="12">
+        <nz-radio-group formControlName="rewardType" id="rewardType">
+          <label nz-radio [nzValue]="1">注册</label>
+          <label nz-radio [nzValue]="2">评论</label>
+          <label nz-radio [nzValue]="3">连续签到</label>
+        </nz-radio-group>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item *ngIf="commonForm.value.rewardType == 3">
+      <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="signDays">连续签到天数</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+        <nz-input-number nz-input style="width: 50%" [nzMin]="1" [nzStep]="1" [nzPrecision]="1"
+                         formControlName="signDays" id="signDays"
+                         placeholder="输入连续签到天数"></nz-input-number>
+        <nz-form-explain *ngIf="commonForm.get('signDays').dirty&&commonForm.get('signDays').errors">
+          <ng-container *ngFor="let error of formErrors.signDays">
+            <nz-form-explain *ngIf="commonForm.get('signDays').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    
+    <!-- <nz-form-item *ngIf="commonForm.value.rewardType == 1">
+      <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="inviteNum">邀请人数</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+        <nz-input-number nz-input style="width: 50%" [nzMin]="1" [nzStep]="1" [nzPrecision]="1"
+                         formControlName="inviteNum" id="inviteNum"
+                         placeholder="输入邀请人数"></nz-input-number>
+        <nz-form-explain *ngIf="commonForm.get('inviteNum').dirty&&commonForm.get('inviteNum').errors">
+          <ng-container *ngFor="let error of formErrors.inviteNum">
+            <nz-form-explain *ngIf="commonForm.get('inviteNum').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item> -->
+    
+    <nz-form-item>
+      <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="state">状态</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8">
+        <nz-radio-group formControlName="state" id="state">
+          <label nz-radio [nzValue]="0">启用</label>
+          <label nz-radio [nzValue]="1">禁用</label>
+        </nz-radio-group>
+      </nz-form-control>
+    </nz-form-item>
+    
+    <nz-form-item>
+      <nz-form-label nzXs="3" nzSm="3" nzFor="remark">备注</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8">
+        <textarea nz-input style="height: 120px" formControlName="remark" id="remark" placeholder="输入备注"></textarea>
+        <nz-form-explain *ngIf="commonForm.get('remark').dirty&&commonForm.get('remark').errors">
+          <ng-container *ngFor="let error of formErrors.remark">
+            <nz-form-explain *ngIf="commonForm.get('remark').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    
+    <nz-form-item>
+      <nz-form-label nzXs="3" nzSm="3" nzFor="reminder">奖励说明</nz-form-label>
+      <nz-form-control nzXs="17" nzSm="17">
+        <!--<textarea nz-input style="height: 120px" formControlName="reminder" id="reminder" placeholder="输入提示语"></textarea>-->
+        <app-editor [ckeditorContent]="''" #editor (result)="setReminder($event)"></app-editor>
+        <nz-form-explain *ngIf="commonForm.get('reminder').dirty&&commonForm.get('reminder').errors">
+          <ng-container *ngFor="let error of formErrors.reminder">
+            <nz-form-explain *ngIf="commonForm.get('reminder').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 18 }">
+        <nz-modal-customer [showButton]="false" (ok)="onSubmit()" [title]="'提示！'" [content]="'确认要提交吗？'"
+                           [buttonName]="'提交'">
+          <nz-divider nzType="vertical"></nz-divider>
+        </nz-modal-customer>
+        <button nz-button class="ml-sm" type="button" (click)="goBack()">返回</button>
+      </nz-form-control>
+    </nz-form-item>
+
+  </form>
+</nz-card>

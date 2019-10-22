@@ -1,0 +1,168 @@
+
+<page-header [title]="'查询表格'">
+    <ng-template #breadcrumb>
+        <nz-breadcrumb>
+            <nz-breadcrumb-item>
+                <a [routerLink]="['/dashboard']">首页</a>
+            </nz-breadcrumb-item>
+            <nz-breadcrumb-item>商品管理</nz-breadcrumb-item>
+        </nz-breadcrumb>
+    </ng-template>
+</page-header>
+
+<nz-card [nzBordered]="false">
+    <form nz-form [nzLayout]="'inline'" [formGroup]="searchForm" class="search__form">
+        <nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32, xl: 32, xxl: 32  }">
+
+            <nz-col nzMd="8" nzSm="24">
+                <nz-form-item>
+                    <nz-form-label>GUID</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="guid" placeholder="请输入GUID">
+                    </nz-form-control>
+                </nz-form-item>
+            </nz-col>
+            <nz-col nzMd="8" nzSm="24">
+                <nz-form-item>
+                    <nz-form-label>会员（member表ID）</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="member" placeholder="请输入会员（member表ID）">
+                    </nz-form-control>
+                </nz-form-item>
+            </nz-col>
+            <nz-col nzMd="8" nzSm="24">
+                <nz-form-item>
+                    <nz-form-label>开团（open_group_buy表ID）</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="groupBuyOrder" placeholder="请输入开团（open_group_buy表ID）">
+                    </nz-form-control>
+                </nz-form-item>
+            </nz-col>
+
+            <nz-col nzMd="8" nzSm="24">
+                <nz-form-item>
+                    <nz-form-label>团购商品（group_buy_activity_product表ID）</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="groupBuyActivityProduct" placeholder="请输入团购商品（group_buy_activity_product表ID）">
+                    </nz-form-control>
+                </nz-form-item>
+            </nz-col>
+            <nz-col nzMd="8" nzSm="24">
+                <nz-form-item>
+                    <nz-form-label>订单（订单表ID）</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="saleOrder" placeholder="请输入订单（订单表ID）">
+                    </nz-form-control>
+                </nz-form-item>
+            </nz-col>
+            <nz-col nzMd="8" nzSm="24">
+                <nz-form-item>
+                    <nz-form-label>团购状态（1待付款，2拼团中，3已成团，4已失效）</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="state" placeholder="请输入团购状态（1待付款，2拼团中，3已成团，4已失效）">
+                    </nz-form-control>
+                </nz-form-item>
+            </nz-col>
+
+            <nz-col nzMd="8" nzSm="24">
+
+            </nz-col>
+            <nz-col nzMd="8" nzSm="24">
+
+            </nz-col>
+            <nz-col nzMd="8" nzSm="24">
+                <nz-form-item>
+                    <nz-form-label>备注</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="remark" placeholder="请输入备注">
+                    </nz-form-control>
+                </nz-form-item>
+            </nz-col>
+
+            <nz-col nzMd="8" nzSm="24">
+
+            </nz-col>
+            <nz-col nzMd="8" nzSm="24">
+                <nz-form-item>
+                    <nz-form-label>删除（0否1是）</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="deleted" placeholder="请输入删除（0否1是）">
+                    </nz-form-control>
+                </nz-form-item>
+            </nz-col>
+            <nz-col nzMd="8" nzSm="24">
+
+            </nz-col>
+
+            <nz-col [nzSpan]="expandForm ? 24 : 8" [class.text-right]="expandForm">
+                <button nz-button [nzType]="'primary'" (click)="searchData()" [nzLoading]="loading">查询</button>
+                <button nz-button (click)="clearSearch()" class="mx-sm">重置</button>
+                <a (click)="expandForm=!expandForm">
+                    {{expandForm ? '收起' : '展开'}}
+                    <i class="anticon" [class.anticon-down]="!expandForm" [class.anticon-up]="expandForm"></i>
+                </a>
+            </nz-col>
+        </nz-row>
+    </form>
+
+    <button nz-button [routerLink]="'../add'" [nzType]="'primary'">
+        <i class="anticon anticon-plus"></i>
+        <span>新建</span>
+    </button>
+
+    <nz-table
+            #ajaxTable
+            [nzShowSizeChanger]="true"
+            [nzFrontPagination]="false"
+            [nzData]="joinGroupBuys"
+            [nzLoading]="loading"
+            [nzTotal]="pageQuery.responses.totalElements"
+            [(nzPageIndex)]="pageQuery.page"
+            [(nzPageSize)]="pageQuery.pageSize"
+            (nzPageIndexChange)="searchData()"
+            (nzPageSizeChange)="searchData(true)">
+
+        <thead (nzSortChange)="sort($event)" nzSingleSort>
+        <tr>
+                    <th>GUID</th>
+                    <th>会员（member表ID）</th>
+                    <th>开团（open_group_buy表ID）</th>
+                    <th>团购商品（group_buy_activity_product表ID）</th>
+                    <th>订单（订单表ID）</th>
+                    <th>团购状态（1待付款，2拼团中，3已成团，4已失效）</th>
+                    <th>开始时间</th>
+                    <th>结束时间</th>
+                    <th>备注</th>
+                    <th>创建时间</th>
+                    <th>删除（0否1是）</th>
+                    <th>删除时间</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let joinGroupBuy of ajaxTable.data">
+                        <td>{{joinGroupBuy.guid}}</td>
+                        <td>{{joinGroupBuy.member}}</td>
+                        <td>{{joinGroupBuy.groupBuyOrder}}</td>
+                        <td>{{joinGroupBuy.groupBuyActivityProduct}}</td>
+                        <td>{{joinGroupBuy.saleOrder}}</td>
+                        <td>{{joinGroupBuy.state}}</td>
+                        <td>{{joinGroupBuy.startTime}}</td>
+                        <td>{{joinGroupBuy.endTime}}</td>
+                        <td>{{joinGroupBuy.remark}}</td>
+                        <td>{{joinGroupBuy.createTime}}</td>
+                        <td>{{joinGroupBuy.deleted}}</td>
+                        <td>{{joinGroupBuy.delTime}}</td>
+            <td>
+                <a [routerLink]="'../edit/'+joinGroupBuy.id">编辑<nz-divider nzType="vertical"></nz-divider></a>
+                <a [routerLink]="'../view/'+joinGroupBuy.id">详情<nz-divider nzType="vertical"></nz-divider></a>
+                <nz-modal-customer (ok)="remove(joinGroupBuy.id)" [title]="'提示！'"
+                                    [content]="'确认要删除吗？'"
+                                    [buttonName]="'删除'">
+            </nz-modal-customer>
+            </td>
+        </tr>
+        </tbody>
+    </nz-table>
+</nz-card>
+

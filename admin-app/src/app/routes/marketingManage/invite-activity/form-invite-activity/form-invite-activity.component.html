@@ -1,0 +1,101 @@
+<page-header [title]="title"></page-header>
+<nz-card [nzBordered]="false">
+  <form nz-form [formGroup]="commonForm">
+    <nz-form-item>
+      <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="title">标题</nz-form-label>
+      <nz-form-control nzXs="16" nzSm="8" nzMd="7" nzHasFeedback>
+        <input nz-input formControlName="title" id="title" placeholder="输入标题">
+        <nz-form-explain *ngIf="commonForm.get('title').dirty&&commonForm.get('title').errors">
+          <ng-container *ngFor="let error of formErrors.title">
+            <nz-form-explain *ngIf="commonForm.get('title').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="imgPath">上传图片</nz-form-label>
+      <nz-form-control nzXs="16" nzSm="8" nzMd="7" nzHasFeedback>
+        <app-upload [fileList]="commonForm.value.banner?[{url:commonForm.value.banner}]:[]" (onFileUploaded)="getPic($event)"></app-upload>
+        <nz-form-explain  class="has-error" *ngIf="commonForm.get('banner').dirty&&commonForm.get('banner').errors">
+          <ng-container *ngFor="let error of formErrors.banner">
+            <nz-form-explain *ngIf="commonForm.get('banner').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="startTime">起始时间</nz-form-label>
+      <nz-form-control nzXs="16" nzSm="8" nzMd="7" nzHasFeedback>
+        <nz-range-picker formControlName="timeSlot" (ngModelChange)="changeRange($event)" [nzFormat]="dateFormat"></nz-range-picker>
+        <nz-form-explain *ngIf="commonForm.get('timeSlot').dirty&&commonForm.get('timeSlot').errors">
+          <ng-container *ngFor="let error of formErrors.timeSlot">
+            <nz-form-explain *ngIf="commonForm.get('timeSlot').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+
+
+    <nz-form-item>
+      <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="inviteFlag">邀请成功标示</nz-form-label>
+      <nz-form-control nzXs="16" nzSm="8" nzMd="7" nzHasFeedback>
+        <nz-radio-group formControlName="inviteFlag" id="inviteFlag">
+          <label nz-radio [nzValue]="1">注册</label>
+          <label nz-radio [nzValue]="2">购买</label>
+        </nz-radio-group>
+        <nz-form-explain *ngIf="commonForm.get('inviteFlag').dirty&&commonForm.get('inviteFlag').errors">
+          <ng-container *ngFor="let error of formErrors.inviteFlag">
+            <nz-form-explain *ngIf="commonForm.get('inviteFlag').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="state">状态</nz-form-label>
+      <nz-form-control nzXs="16" nzSm="8" nzMd="7" nzHasFeedback>
+        <nz-radio-group formControlName="state" id="state">
+          <label nz-radio [nzValue]="0">启用</label>
+          <label nz-radio [nzValue]="1">禁用</label>
+        </nz-radio-group>
+        <nz-form-explain *ngIf="commonForm.get('state').dirty&&commonForm.get('state').errors">
+          <ng-container *ngFor="let error of formErrors.state">
+            <nz-form-explain *ngIf="commonForm.get('state').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="rule">活动规则</nz-form-label>
+      <nz-form-control nzXs="17" nzSm="17" nzMd="17" nzHasFeedback>
+         <input nz-input formControlName="rule" id="rule" placeholder="输入活动规则">
+        <!--<app-editor [ckeditorContent]="''" #editor (result)="thematicText($event)"></app-editor>-->
+        <nz-form-explain *ngIf="commonForm.get('rule').dirty&&commonForm.get('rule').errors">
+          <ng-container *ngFor="let error of formErrors.rule">
+            <nz-form-explain *ngIf="commonForm.get('rule').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 7 }">
+        <nz-modal-customer [showButton]="false" (ok)="onSubmit()" [title]="'提示！'" [content]="'确认要提交吗？'"
+                           [buttonName]="'提交'">
+          <nz-divider nzType="vertical"></nz-divider>
+        </nz-modal-customer>
+        <button nz-button class="ml-sm" type="button" (click)="goBack()">返回</button>
+      </nz-form-control>
+    </nz-form-item>
+
+  </form>
+</nz-card>

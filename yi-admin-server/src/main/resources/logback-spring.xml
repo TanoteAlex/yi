@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 级别从高到低 OFF 、 FATAL 、 ERROR 、 WARN 、 INFO 、 DEBUG 、 TRACE 、 ALL -->
+<!-- %m输出的信息,%p日志级别,%t线程名,%d日期,%c类的全名,%i索引【从数字0开始递增】 -->
+<!-- 日志输出规则 根据当前ROOT级别，日志输出时，级别高于root默认的级别时 会输出 -->
+<!-- 以下 每个配置的 filter 是过滤掉输出文件里面，会出现高级别文件，依然出现低级别的日志信息，通过filter 过滤只记录本级别的日志 -->
+<!-- scan 当此属性设置为true时，配置文件如果发生改变，将会被重新加载，默认值为true。 -->
+<!-- scanPeriod 设置监测配置文件是否有修改的时间间隔，如果没有给出时间单位，默认单位是毫秒。当scan为true时，此属性生效。默认的时间间隔为1分钟。 -->
+<!-- debug 当此属性设置为true时，将打印出logback内部日志信息，实时查看logback运行状态。默认值为false。 -->
+<configuration scan="true">
+	<!-- 动态日志级别 -->
+	<jmxConfigurator />
+	<!-- 日志文件输出路径和应用名称 -->
+	<springProperty scope="context" name="log_path" source="logging.path" defaultValue="c:/tmp/logs/" />
+	<springProperty scope="context" name="log_app_name" source="spring.application.name" defaultValue="demo" />
+
+	<!-- 日志最大的历史 30天 -->
+	<property name="max_history" value="30" />
+
+	<!-- ConsoleAppender 控制台输出日志 -->
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>debug</level>
+		</filter>
+		<encoder>
+			<!-- 设置日志输出格式 -->
+			<pattern>
+				%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{64} -%method -%msg%n
+			</pattern>
+			<!-- 设置字符集 -->
+			<charset>UTF-8</charset>
+		</encoder>
+	</appender>
+
+	<!-- ERROR级别日志 -->
+	<!-- 滚动记录文件，先将日志记录到指定文件，当符合某个条件时，将日志记录到其他文件 RollingFileAppender -->
+	<appender name="error_file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<!-- 过滤器，只记录WARN级别的日志，如果日志级别等于配置级别，过滤器会根据onMath和onMismatch接收或拒绝日志。 -->
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<!-- 设置过滤级别 -->
+			<level>ERROR</level>
+			<!-- 用于配置符合过滤条件的操作 -->
+			<onMatch>ACCEPT</onMatch>
+			<!-- 用于配置不符合过滤条件的操作 -->
+			<onMismatch>DENY</onMismatch>
+		</filter>
+		<!-- 最常用的滚动策略，它根据时间来制定滚动策略.既负责滚动也负责出发滚动 -->
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!--日志输出位置 可相对和绝对路径 -->
+			<fileNamePattern>
+				${log_path}/error/${log_app_name}-error-%d{yyyy-MM-dd}.log
+			</fileNamePattern>
+			<!-- 默认10M 暂不设置 -->
+			<!-- <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP"> <maxFileSize>100MB</maxFileSize> </timeBasedFileNamingAndTriggeringPolicy> -->
+			<!-- 日志保留天数 -->
+			<maxHistory>${max_history}</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>
+				<!-- 设置日志输出格式 -->
+				%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{64} -%method -%msg%n
+			</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+	</appender>
+
+	<!-- WARN级别日志 -->
+	<appender name="warn_file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>WARN</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>
+				${log_path}/warn/${log_app_name}-warn-%d{yyyy-MM-dd}.log
+			</fileNamePattern>
+			<maxHistory>${max_history}</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>
+				%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{64} -%method -%msg%n
+			</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+	</appender>
+
+	<!-- INFO级别日志 -->
+	<appender name="info_file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>INFO</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>
+				${log_path}/info/${log_app_name}-info-%d{yyyy-MM-dd}.log
+			</fileNamePattern>
+			<maxHistory>${max_history}</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>
+				%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{64} -%method -%msg%n
+			</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+	</appender>
+
+	<!--开发环境 -->
+	<springProfile name="dev">
+		<!-- root级别 -->
+		<root level="debug">
+			<!-- 控制台输出 -->
+			<appender-ref ref="console" />
+		</root>
+	</springProfile>
+
+	<!--测试，开发环境 -->
+	<springProfile name="test,prod">
+		<root level="info">
+			<appender-ref ref="console" />
+			<appender-ref ref="error_file" />
+			<appender-ref ref="warn_file" />
+			<appender-ref ref="info_file" />
+		</root>
+	</springProfile>
+
+</configuration>

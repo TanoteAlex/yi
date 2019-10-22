@@ -1,0 +1,105 @@
+@import "../../../global";
+$tip-color: #6e6e6e;
+
+.grey{
+  color:#BEBEBE;
+}
+.coupon-color{
+  color: $coupon-color;
+}
+.tip-color{
+  color:$tip-color;
+}
+.big-font{
+  font-size: 36px;
+}
+.sub-font{
+  font-size: 15px;
+}
+.more-sub-font{
+  font-size: 12px;
+}
+.more-small-font{
+  font-size: 9px;
+}
+.heavy-font{
+  font-weight: bold;
+}
+.cou-btn{
+  color: $coupon-color;
+  border: 1px solid $coupon-color;
+  border-radius: 3px;
+}
+
+.hy-ticket{
+  height: 98px;
+  display: flex;
+  flex-direction: row;
+  margin: 10px 5px;
+  background: url("../../../../assets/app_icon/new_coupon/background_1@2x.png") no-repeat;
+  background-size: 100% 100%;
+  .ticket-price-info{
+    width: 34%;
+    &>div{
+      //margin-top: 8px;
+      align-items: center;
+      @extend .flex-col;
+    }
+    @extend .flex-center;
+  }
+  .ticket-date-info{
+    flex: 1;
+    justify-content: space-between;
+    @extend .flex-col;
+    .corner-img{
+      background: url("../../../../assets/app_icon/new_coupon/red@2x.png") no-repeat;
+      background-size: 100% 100%;
+      width: 25px;
+      height: 30px;
+      align-self: flex-end;
+      margin-right: 10px;
+      margin-top: -3px;
+    }
+  }
+}
+
+.use-btn{
+  width: 49px;
+  height: 15px;
+  @extend .cou-btn;
+  @extend .more-small-font;
+}
+
+.send-btn{
+  width: 36px;
+  height: 20px;
+  @extend .cou-btn;
+  @extend .common-spec;
+  @extend .flex-center;
+}
+
+.hy-ticket.disable{
+  $coupon-color:rgba(110,110,110,1);
+  .coupon-color{
+    color: $coupon-color;
+  }
+  .cou-btn{
+    color: $coupon-color;
+    border: 1px solid $coupon-color;
+    border-radius: 3px;
+  }
+}
+
+.coupon.disable{
+  .corner-img{
+    background: url("../../../../assets/app_icon/new_coupon/grey1.png") no-repeat!important;
+    background-size: 100% 100%!important;
+  }
+}
+
+.storage.disable{
+  .corner-img{
+    background: url("../../../../assets/app_icon/new_coupon/red@2x.png") no-repeat!important;
+    background-size: 100% 100%!important;
+  }
+}

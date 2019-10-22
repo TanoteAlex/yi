@@ -1,0 +1,3 @@
+<ion-item lines="none" (click)="openDistrictModal()" class="common-sub-title"
+          [ngClass]="(multiCity == ' null null null' || multiCity == 'undefined undefined undefined' || multiCity == undefined) ? 'placeholder' : ''">{{ showAddress() || '请选择省市区'}}
+</ion-item>

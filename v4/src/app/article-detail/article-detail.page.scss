@@ -1,0 +1,66 @@
+@import "../../global";
+
+ion-slides {
+  height: 250px;
+  .slide-zoom {
+    height: 100%
+  }
+}
+
+.content {
+  margin-top: 10px;
+  span {
+    margin-left: 10px
+  }
+  ion-avatar {
+    display: inline-block;
+    vertical-align: middle;
+    width: 35px;
+    height: 35px;
+  }
+}
+
+.common-list {
+  .evaluation-content {
+    margin-left: 45px;
+    padding-bottom: 5px;
+  }
+  .check-evaluation {
+    display: block;
+    --border-radius: 1.1rem;
+    --margin-end: auto;
+    --margin-start: auto;
+    --margin-top: 1.1rem;
+    --margin-bottom: 1.1rem;
+  }
+  .content:not(:last-of-type){
+    .evaluation-content {
+      border-bottom: 1px solid $border-color;
+    }
+  }
+}
+
+.common-list ::ng-deep {
+  commodity-item:not(:last-of-type) {
+    .common-shopping {
+      border-bottom: 1px solid $divid-color;
+    }
+  }
+}
+
+.shop {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+.recommend {
+  margin-top: 10px;
+  background-color: $blank-color;
+  .article-list {
+    margin: 12px 12px 20px;
+  }
+  .article-list:not(:last-of-type){
+    border-bottom: 1px solid $divid-color;
+  }
+}

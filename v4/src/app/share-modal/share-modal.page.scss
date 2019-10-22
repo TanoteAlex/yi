@@ -1,0 +1,19 @@
+center-modal {
+  text-align: center;
+  .tip {
+    color: grey;
+    margin: 10px 0;
+  }
+}
+
+center-modal ::ng-deep .body{
+  width: 90%;
+  right: 5%;
+  .content {
+    padding: 0!important;
+    .close-icon {
+      display: none;
+    }
+  }
+
+}

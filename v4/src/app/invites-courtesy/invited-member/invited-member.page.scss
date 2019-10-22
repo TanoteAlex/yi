@@ -1,0 +1,109 @@
+@import "../../../global";
+
+ion-content {
+  --background: #fa726f;
+  --padding-top: 35px;
+}
+
+.table-style {
+  flex: 1;
+  @extend .flex-center;
+  @extend .text-wrap;
+}
+
+.invited-main-color {
+  color: #FA726F;
+}
+
+.remind-btn{
+  width:45px;
+  height:13px;
+  background:rgba(250,114,111,1);
+  border-radius:5px;
+  font-family:PingFang-SC-Regular sans-serif;
+  @extend .common-spec;
+  @extend .white;
+  @extend .flex-center;
+}
+
+.container {
+  width: 341px;
+  height: 169px;
+  border-radius: 10px;
+  margin: 15px auto 0;
+  @extend .bg-white;
+}
+
+.first-container {
+  width: 341px;
+  height: 90px;
+  margin: auto;
+  .container {
+    width: 341px;
+    height: 69px;
+    margin-top: 6px;
+    background: rgba(255, 255, 255, 1);
+    border-radius: 10px;
+    @extend .flex-space-around;
+    & > div {
+      align-items: center;
+      flex: 1;
+      @extend .grey;
+      @extend .common-spec;
+      @extend .flex-col;
+      & > div:first-child {
+        @extend .invited-main-color;
+        @extend .common-title;
+      }
+    }
+    & > div:not(:last-of-type) {
+      border-right: 1px solid rgba(242, 242, 242, 1);
+    }
+  }
+}
+
+.second-container {
+  padding: 10px 13px;
+  @extend .container;
+  @extend .greys;
+  .invited-member {
+    margin-top: 16px;
+    @extend .common-spec;
+    .table-head {
+      margin-bottom: 16px;
+      @extend .invited-main-color;
+      @extend .flex-space-around;
+      & > div {
+        @extend .table-style;
+      }
+    }
+    .table-body {
+      height: 80px;
+      overflow: scroll;
+      & > div {
+        margin-bottom: 14px;
+        @extend .flex-space-around;
+        & > div {
+          @extend .table-style;
+        }
+      }
+    }
+  }
+}
+
+.third-container{
+  margin: 38px 0 45px;
+  @extend .flex-space-around;
+  &>div{
+    width:118px;
+    height:28px;
+    background:rgba(255,255,255,1);
+    box-shadow:2px 3px 2px 0 rgba(175,61,58,0.29);
+    border-radius:11px;
+    font-family:PingFang-SC-Medium sans-serif;
+    @extend .common-font;
+    @extend .flex-center;
+    @extend .invited-main-color;
+  }
+}
+

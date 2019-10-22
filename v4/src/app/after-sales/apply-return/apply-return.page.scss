@@ -1,0 +1,50 @@
+@import "../../../global";
+
+.common-list {
+  padding: 10px 10px 0 !important;
+  ion-list-header {
+    border-color: $divid-color;
+    color: $tip-color;
+  }
+  ion-textarea {
+    textarea {
+      height: 100%;
+    }
+  }
+}
+
+.submit {
+  padding: 10px;
+}
+
+.returnImg {
+  width: 85px;
+  height: 85px;
+  //border: 1px solid #ccc;
+  //border-radius: 5px;
+  //background-color: #f8f9fa;
+  overflow: hidden;
+  text-align: center;
+  margin: 0 5px;
+  display: inline-block;
+  img {
+    margin: 9px;
+  }
+}
+
+footer-tip {
+  background-color: red;
+  div {
+    position: unset;
+    img {
+      margin: 0 5px;
+    }
+  }
+}
+.img-delete{
+  position: absolute;
+  top: -73px;
+  left: 57px;
+  width: 15px;
+  height: 15px;
+}

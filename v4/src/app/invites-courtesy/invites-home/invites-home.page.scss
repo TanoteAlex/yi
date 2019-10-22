@@ -1,0 +1,290 @@
+@import "../../../global";
+
+/**
+第三个ui的设计风格，
+用新的变量命名来保存样式变量
+目前主要在邀请有礼部分。
+ */
+$main-font-color: rgba(97, 47, 29, 1);
+
+.main-font-color {
+  color: $main-font-color;
+}
+
+.home-content {
+  background: url("../../../assets/app_icon/new_inviter/inviter-bg.png") no-repeat #D44039;
+  background-size: 100%;
+}
+
+.home-share-row {
+  padding-top: 75%;
+
+  .home-logo {
+    @extend .flex-center;
+    img {
+      width: 5em;
+      height: 5em;
+    }
+  }
+
+}
+
+.home-sub-title {
+  @extend .white;
+  @extend .flex-center;
+  width: 100%;
+  z-index: 2;
+  div {
+    @extend .flex-center;
+    width: 15em;
+    height: 1.8em;
+    line-height: 1.8em;
+    background: url("../../../assets/app_icon/new_inviter/sub-title.png") no-repeat;
+    background-size: cover;
+  }
+}
+
+.home-rule-desc {
+  text-align: center;
+  width: 100%;
+  height: 10em;
+  padding-left: 16px;
+  padding-right: 16px;
+  background-color: #FFFFFF;
+  margin-left: 1em;
+  margin-right: 1em;
+  margin-top: -0.7em;
+  border-radius: 8px;
+  z-index: 1;
+
+  .rule-title {
+    margin-top: 16px;
+    margin-bottom: 10px;
+    line-height: 1.2;
+    font-family: PingFang-SC-Regular;
+    font-weight: 400;
+    padding-top: 0.5em;
+  }
+
+  .rule_desc {
+    @extend .flex-center;
+    padding-left: 10px;
+    font-size: 10px;
+    font-family: PingFang-SC-Regular;
+    font-weight: 400;
+    height: 3.5rem;
+    padding-top: 0px;
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+  }
+}
+
+.home-rule-list {
+  text-align: center;
+  width: 100%;
+  //height: 9em;
+  background-color: #FFFFFF;
+  margin-top: 1em;
+  margin-left: 1em;
+  margin-right: 1em;
+  border-radius: 8px;
+  z-index: 1;
+
+  .title {
+    color: #ED6654;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .title-detail {
+    @extend .flex-center;
+    color: #666666;
+    font-size: 13px;
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    .detail-button {
+      width: 4em;
+      height: 1.5em;
+      border: 1px solid rgba(102, 102, 102, 1);
+      border-radius: 10px;
+      div {
+        color: #666666;
+      }
+    }
+
+    .detail-button-choose {
+      width: 4em;
+      height: 1.5em;
+      border: 1px solid #EF8073;
+      border-radius: 10px;
+      background-color: #EF8073;
+      div {
+        color: #FEFEFE;
+      }
+    }
+
+    .detail-button-not-choose {
+      width: 4em;
+      height: 1.5em;
+      border-radius: 10px;
+      background-color: rgba(153,153,153,1);
+      div {
+        color: #FEFEFE;
+      }
+    }
+  }
+}
+
+.cloud-background {
+  background-image: url("../../../assets/app_icon/new_inviter/cloud-bg.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  margin-bottom: -2.3rem;
+  width: 16%;
+  height: 6.5vh;
+}
+
+.view-invite-button {
+  background-image: url("../../../assets/app_icon/new_inviter/view-invite-background.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  width: 65vw;
+  height: 3rem;
+  font-size: 19px;
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  color: white;
+  line-height: 2.5rem;
+  text-align: center;
+}
+
+.home-footer {
+  width: 100%;
+  height: 65px;
+  background: linear-gradient(0deg, rgba(234, 70, 72, 1) 0%, rgba(251, 92, 88, 1) 100%);
+  @extend .flex-center;
+  .invites-btn-outer {
+    width: 231px;
+    height: 36px;
+    background: rgba(254, 253, 214, 1);
+    box-shadow: 1px 2px 1px 0 rgba(101, 55, 19, 0.29);
+    border-radius: 18px;
+    @extend .flex-center;
+    .invites-btn-inner {
+      width: 227px;
+      height: 32px;
+      background: linear-gradient(0deg, rgba(246, 207, 86, 1) 0%, rgba(254, 251, 162, 1) 100%);
+      border-radius: 16px;
+      @extend .main-font-color;
+      @extend .common-sub-title;
+      @extend .flex-center;
+    }
+  }
+}
+
+.invites-rule {
+  width: 25px;
+  height: 65px;
+  background: linear-gradient(0deg, rgba(246, 205, 83, 1) 0%, rgba(254, 254, 169, 1) 100%);
+  border-radius: 17px;
+  writing-mode: vertical-lr;
+  font-weight: bold;
+  position: absolute;
+  right: 0;
+  top: 15%;
+  @extend .main-font-color;
+  @extend .common-spec;
+  @extend .flex-center;
+}
+
+.first-bg {
+  width: 341px;
+  height: 100px;
+  background: rgba(254, 251, 239, 1);
+  border-radius: 5px;
+  margin-bottom: 17px;
+  padding: 8px 15px;
+  @extend .ver-midd;
+  .percent-outer {
+    width: 311px;
+    height: 34px;
+    background: linear-gradient(0deg, rgba(250, 229, 197, 1) 0%, rgba(220, 138, 82, 1) 100%);
+    border-radius: 5px;
+    margin: 10px 0;
+    @extend .flex-center;
+    .percent {
+      width: 295px;
+      height: 17px;
+      background: rgba(41, 11, 11, 1);
+      border-radius: 8px;
+      padding: 2px;
+      .inner {
+        line-height: 17px;
+        height: 13px;
+        background: linear-gradient(0deg, rgba(243, 48, 54, 1) 0%, rgba(249, 161, 127, 1) 100%);
+        border-radius: 7px;
+      }
+    }
+  }
+  .invited-num {
+    font-family: PingFang-SC-Bold sans-serif;
+    font-weight: bold;
+    @extend .main-font-color;
+    @extend .common-notice;
+  }
+  .checked-invited {
+    font-family: PingFang-SC-Medium sans-serif;
+    font-weight: 500;
+    text-decoration: underline;
+    text-align: center;
+    @extend .main-font-color;
+    @extend .common-spec;
+  }
+}
+
+.second-bg {
+  width: 341px;
+  height: 200px;
+  padding: 11px 8px;
+  background: url("../../../assets/app_icon/new_inviter/second-bg.png") no-repeat;
+  background-size: 100% 100%;
+  text-align: center;
+  position: relative;
+  @extend .ver-midd;
+  .more-prize {
+    float: right;
+    position: absolute;
+    right: 7px;
+    @extend .red;
+    @extend .common-sub-notice;
+  }
+  .invited-member {
+    margin: 12px 0 38px;
+    @extend .flex-center;
+    & > div {
+      width: 58px;
+      height: 58px;
+      background: rgba(254, 254, 254, 1);
+      border-radius: 50%;
+      margin: 0 16px;
+      @extend .flex-center;
+      & > div {
+        width: 46px;
+        height: 46px;
+        background: rgba(245, 207, 161, 1);
+        border-radius: 50%;
+        font-size: 35px;
+        font-weight: 900;
+        @extend .flex-center;
+        @extend .main-font-color;
+      }
+    }
+  }
+}
+

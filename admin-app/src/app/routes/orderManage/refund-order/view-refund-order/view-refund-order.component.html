@@ -1,0 +1,121 @@
+<page-header [title]="'查看退款信息'"></page-header>
+
+<nz-card>
+
+  <nz-card nzTitle="基本信息" nzType="inner">
+
+    <desc-list class="mb-lg">
+      <desc-list-item term="服务单号">{{refundOrder.refundNo}}</desc-list-item>
+      <desc-list-item term="订单编号">{{refundOrder.orderNo}}</desc-list-item>
+      <desc-list-item term="用户账号">{{refundOrder?.member?.username}}</desc-list-item>
+      <desc-list-item term="申请状态">
+        <span *ngIf="refundOrder.state==1">待处理</span>
+        <span *ngIf="refundOrder.state==2">已处理</span>
+      </desc-list-item>
+      <desc-list-item term="申请时间">{{refundOrder.applyTime}}</desc-list-item>
+    </desc-list>
+
+  </nz-card>
+
+  <nz-card nzTitle="退款信息" nzType="inner">
+
+    <desc-list class="mb-lg">
+      <desc-list-item term="订单金额">{{refundOrder.orderAmount}}</desc-list-item>
+      <desc-list-item term="确认退款金额">{{refundOrder.refundAmount}}</desc-list-item>
+    </desc-list>
+
+  </nz-card>
+
+  <nz-card nzTitle="原因描述" nzType="inner">
+
+    <desc-list class="mb-lg">
+      <desc-list-item term="退款原因">{{refundOrder.orderAmount}}</desc-list-item>
+      <desc-list-item term="退款类型">
+        <span *ngIf="refundOrder.refundType==1">取消订单</span>
+      </desc-list-item>
+      <desc-list-item term="退款方式">
+        <span *ngIf="refundOrder.refundMode==1">退回原支付渠道</span>
+      </desc-list-item>
+    </desc-list>
+
+  </nz-card>
+
+  <nz-card nzTitle="退款处理" nzType="inner">
+    <div widget class="card border-0 box-shadow" *ngIf="refundOrder.state == 1">
+
+      <div class="card-body widget-body" [formGroup]="commonForm">
+        <form class="form-horizontal " formGroupName="refundProcess">
+          <div class="form-group row text-sm-right">
+            <nz-form-label class="col-sm-2 form-control-label mt-1">处理人员<span
+              class="text-danger">*</span></nz-form-label>
+            <nz-form-control nzXs="16" nzSm="8" nzMd="7" nzHasFeedback>
+              <app-modal-selecet
+                [showCol]="[{name:'username',value:'用户名',isShow:false},{name:'fullName',value:'姓名',isShow:true}]"
+                [select]="commonForm.value.refundProcess?.user"
+                [resultName]="commonForm.value.refundProcess?.user?.fullName"
+                [baseService]="userService"
+                (result)="setMemberLevel($event)">
+              </app-modal-selecet>
+            </nz-form-control>
+          </div>
+          <div class="form-group row text-sm-right">
+            <nz-form-label class="col-sm-2 form-control-label mt-1">操作备注</nz-form-label>
+
+            <nz-form-control nzXs="16" nzSm="8" nzMd="7" nzHasFeedback>
+              <input nz-input type="text"  formControlName="remark"
+                     placeholder="请输入操作备注">
+            </nz-form-control>
+          </div>
+
+          <div class="form-group row">
+            <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 8 }">
+              <nz-modal-customer [showButton]="false" (ok)="goRefundOrder(refundOrder.id,1)" [title]="'提示！'"
+                                 [content]="'确定确认退款吗？'" [buttonName]="'确认退款'">
+                <nz-divider nzType="vertical"></nz-divider>
+              </nz-modal-customer>&nbsp;&nbsp;
+              <nz-modal-customer [showButton]="false" (ok)="goRefundOrder(refundOrder.id,2)" [title]="'提示！'"
+                                 [content]="'确定拒绝退款吗？'" [buttonName]="'拒绝退款'">
+                <nz-divider nzType="vertical"></nz-divider>
+              </nz-modal-customer>
+            </nz-form-control>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div widget class="card border-0 box-shadow" *ngIf="refundOrder.state == 2">
+
+        <div class="form-group row text-sm-right">
+          <nz-form-label class="col-sm-2 form-control-label mt-1">处理人员<span
+            class="text-danger">*</span></nz-form-label>
+
+          <nz-form-control nzXs="16" nzSm="8" nzMd="7" nzHasFeedback>
+            <input nz-input type="text" disabled
+                   value="{{refundOrder?.user?.fullName}}">
+          </nz-form-control>
+        </div>
+
+        <div class="form-group row text-sm-right">
+          <nz-form-label class="col-sm-2 form-control-label mt-1">处理备注<span
+            class="text-danger">*</span></nz-form-label>
+
+          <nz-form-control nzXs="16" nzSm="8" nzMd="7" nzHasFeedback>
+            <input nz-input type="text" disabled
+                   value="{{refundOrder?.remark}}">
+          </nz-form-control>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-sm-9 offset-sm-2">
+            <button class="btn btn-inverse ml-1" type="button" disabled>已处理</button>
+          </div>
+        </div>
+    </div>
+  </nz-card>
+  <nz-form-item>
+    <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 20 }">
+      <button nz-button class="ml-sm" type="button" (click)="goBack()">返回</button>
+    </nz-form-control>
+  </nz-form-item>
+
+</nz-card>

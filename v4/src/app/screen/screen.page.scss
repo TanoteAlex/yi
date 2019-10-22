@@ -1,0 +1,63 @@
+@import "../../global";
+
+ion-toolbar {
+  --ion-toolbar-background-color: white;
+}
+
+.common-list {
+  padding: 10px !important;
+  ion-list-header {
+    border-bottom: none;
+  }
+  ion-row {
+    input {
+      border-radius: 40px;
+      height: 30px;
+      width: 45%;
+      background-color: #f2f2f8;
+      text-align: center;
+      border: none;
+    }
+    button {
+      @extend .common-notice;
+      background-color: #f2f2f8;
+      width: 95%;
+      height: 30px;
+    }
+  }
+  .justify {
+    justify-content: space-between;
+    margin: 10px 0;
+    span {
+      color: $input-color;
+    }
+  }
+}
+
+.value {
+  margin-top: 1rem;
+  button {
+    border-radius: 2rem;
+  }
+}
+
+.btns {
+  margin-top: 3rem;
+  button {
+    width: 40%;
+    height: 40px;
+  }
+  .reset {
+    border-radius: 2rem 0 0 2rem;
+    background-color: #f2f2f8;
+  }
+  .confirm {
+    border-radius: 0 2rem 2rem 0;
+    background-color: $main-color;
+    color: #fef8f8;
+  }
+}
+
+ion-content {
+  --ion-background-color: white;
+}

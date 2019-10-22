@@ -1,0 +1,34 @@
+@import "../../global";
+
+.nolist {
+  background: url("../../assets/app_icon/basic/无记录@2x.png") no-repeat center center;
+}
+
+.segment-button {
+  background-color: white;
+  border: none !important;
+  --border-width: 0;
+  .segment-button-checked {
+    color: $main-color;
+  }
+}
+
+.balance-item {
+  border-radius: 10px;
+  margin: 10px !important;
+  background: white;
+  padding: 10px;
+  @extend .flex-space-between;
+  .balance-remark {
+    justify-content: space-between;
+    height: 40px;
+    @extend .flex-col;
+    @extend .common-spec;
+  }
+}
+
+.loading {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+}

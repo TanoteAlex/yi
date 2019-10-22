@@ -1,0 +1,9 @@
+<div class="head" (click)="goBack()"></div>
+<div class="body" [ngStyle]="{'height': height, 'top': top}">
+  <div class="content">
+    <span class="close-icon" (click)="goBack()" *ngIf="showClose"></span>
+
+    <ng-content></ng-content>
+
+  </div>
+</div>

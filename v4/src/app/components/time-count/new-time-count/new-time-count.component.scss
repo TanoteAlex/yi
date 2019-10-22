@@ -1,0 +1,11 @@
+@import "../../../../global";
+$hy-danger-color:#D11C4B;
+.time-count{
+  color: #000;
+  display: inline-block;
+  span{
+    color: $hy-danger-color;
+    margin: 4px;
+    padding: 3px;
+  }
+}

@@ -1,0 +1,19 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>领券中心</ion-title>
+        <goback></goback>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <show-coupon *ngFor="let ticket of ableCoupon" [ticket]="ticket" (click)="goCouponReceiveFinish(ticket)"></show-coupon>
+
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="ableCoupon.length">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="正在加载..."></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+    <small-title-line *ngIf="unableCoupon?.length != 0">已领取</small-title-line>
+    <show-coupon *ngFor="let ticket of unableCoupon" [ticket]="ticket" [disable]="true"></show-coupon>
+
+    <adv-commodity [list]="advertisingCommodity"></adv-commodity>
+</ion-content>

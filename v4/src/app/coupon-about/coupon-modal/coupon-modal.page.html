@@ -1,0 +1,26 @@
+<ion-header>
+    <ion-toolbar>
+        <!--<img class="left backBtn" src="assets/app_icon/home/back@2x.png" (click)="goWriteOrder(selectConsignee)">-->
+        <ion-title>选择<span *ngIf="type == 'coupon'">优惠券</span><span *ngIf="type == 'storage'">代金券</span></ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content id="content">
+    <div *ngIf="type=='coupon'">
+        <coupon *ngFor="let ticket of showCoupons" [ticket]="transform(ticket)" (click)="select(ticket)"></coupon>
+    </div>
+
+    <div *ngIf="type=='storage'">
+        <coupon-storage *ngFor="let ticket of showCoupons" [ticket]="transform(ticket)" (click)="select(ticket)"></coupon-storage>
+    </div>
+    <!--<show-coupon *ngFor="let ticket of showCoupons" [ticket]="transform(ticket)"></show-coupon>-->
+</ion-content>
+
+<ion-footer>
+    <ion-toolbar>
+        <div class="flex-space-between">
+            <div class="red common-font">应付：<span [innerHtml]="getSplitPrice()"></span></div>
+            <div class="confirm-btn" (click)="goBack()">确认</div>
+        </div>
+    </ion-toolbar>
+</ion-footer>

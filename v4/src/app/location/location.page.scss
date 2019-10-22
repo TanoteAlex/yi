@@ -1,0 +1,30 @@
+@import "../../global";
+
+ion-searchbar {
+  width: 90%;
+  height: 40px;
+  padding: 0;
+}
+
+goback ::ng-deep .backBtn {
+  margin-top: 8px;
+}
+
+ion-content {
+  .local {
+    border-bottom: 1px solid $divid-color;
+    span {
+      color: $blue-color;
+    }
+  }
+  .hot-city {
+    .choose {
+      //color: $blue-color;
+      //--border-color: $blue-color;
+    }
+  }
+}
+
+ion-list-header {
+  border: none;
+}

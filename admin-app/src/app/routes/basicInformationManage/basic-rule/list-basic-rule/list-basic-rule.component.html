@@ -1,0 +1,38 @@
+<page-header>
+  <ng-template #breadcrumb>
+    <nz-breadcrumb>
+      <nz-breadcrumb-item>
+        <a [routerLink]="['/dashboard/basic-rule/list']">基本信息</a>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item>规则说明</nz-breadcrumb-item>
+    </nz-breadcrumb>
+  </ng-template>
+</page-header>
+
+<nz-card [nzBordered]="false">
+
+  <div class="large">
+    <div class="head">
+      <span class="size">基础规则</span>
+    </div>
+    <nz-form-item style="margin-bottom: 0px!important;">
+      <nz-form-control nzXs="24" nzSm="24" nzMd="24" nzHasFeedback>
+        <app-editor [ckeditorContent]="''" style="height: 500px" #editor
+                    (result)="thematicText($event)"></app-editor>
+        <nz-form-explain class="has-error" *ngIf="commonForm.get('content').dirty&&commonForm.get('content').errors">
+          <ng-container *ngFor="let error of formErrors.content">
+            <nz-form-explain *ngIf="commonForm.get('content').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+  <nz-form-item>
+    <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 19 }">
+      <button nz-button nzType="primary" type="submit" (click)="onSubmit()">保存</button>
+
+    </nz-form-control>
+  </nz-form-item>
+
+</nz-card>

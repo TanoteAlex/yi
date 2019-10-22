@@ -1,0 +1,84 @@
+<ion-list [ngSwitch]="select">
+    <ion-item-group *ngSwitchCase="'introduction'">
+        <banner-slide [banners]="commodity?.attachmentVos" [height]="'23.5rem'"></banner-slide>
+
+        <ng-content></ng-content>
+
+        <hr class="common-hr">
+        <div style="background-color: white;padding-top: 1rem">
+            <div class="head-icon greys" text-center>
+                <img src="../../assets/app_icon/classification/02-04介绍图标@3x.png"/>商品介绍
+            </div>
+            <div class="common-notice detail-script">
+                <div [innerHTML]="commodity?.description"></div>
+            </div>
+        </div>
+        <hr class="common-hr">
+        <div class="commodity-evaluation">
+            <div class="head-icon greys" style="margin:0 10px 10px 10px ;padding:10px 0 10px 0; border-bottom: 1px solid #e5e5e5">
+                <span style=" text-align: left">商品评价</span>
+                <!--<span class="right red">好评率{{praiseRate()}}%</span>-->
+            </div>
+            <div>
+                <div *ngFor="let item of comments.slice(0,2)" class="evaluation-item">
+                    <ion-row>
+                        <p class="grey nickname">{{item.member.nickname}}</p>
+                        <star [num]="item.commentStar" [enable]="false"></star>
+                    </ion-row>
+                    <ion-row class="common-sub-title">{{item.commentContent}}</ion-row>
+                </div>
+                <ion-button size="small" fill="outline" color="danger" (click)="goEvaluation()">
+                    查看所有评价({{pageQuery?.responses.totalElements}})
+                </ion-button>
+            </div>
+        </div>
+    </ion-item-group>
+
+    <ion-item-group *ngSwitchCase="'detail'" class="detail">
+        <div style="background-color: white;padding-top: 1rem">
+            <div class="head-icon greys" text-center>
+                <img src="../../assets/app_icon/classification/02-04介绍图标@3x.png"/>商品介绍
+            </div>
+            <div class="common-notice detail-script">
+                <div [innerHTML]="commodity?.description"></div>
+            </div>
+        </div>
+    </ion-item-group>
+
+    <ion-item-group *ngSwitchCase="'evaluation'" no-padding>
+        <ion-list class="common-list evaluation">
+            <ion-list-header class="grey">全部评价({{pageQuery?.responses.totalElements}})</ion-list-header>
+            <div text-wrap *ngFor="let item of comments" class="evaluation-item">
+                <div class="hy-flex comment-item">
+                    <div class="comment-avater">
+                        <img class="radius" onerror="this.src='assets/imgs/null-category.png'" [src]="item.member?.avater" width="45" height="45"/>
+                    </div>
+                    <div class="comment-body ml-1 common-sub-title">
+                        <div class="comment-author">
+                            <div>{{item.member.nickname}}</div>
+                            <div>{{item.commentTime.substr(0,10)}}</div>
+                        </div>
+                        <div style="margin-left: -5px">
+                            <star [num]="item.commentStar" [enable]="false"></star>
+                        </div>
+                        <div style="margin: 0.5rem 0">{{item.commentContent}}</div>
+                        <div *ngIf="item.replyContent" class="grey">商家回复：<span class="greys">{{item.replyContent}}</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+                <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="正在加载..."></ion-infinite-scroll-content>
+            </ion-infinite-scroll>
+
+        </ion-list>
+    </ion-item-group>
+
+</ion-list>
+
+
+<!--<ion-footer>-->
+<!--<ion-toolbar>-->
+<!--<ng-content select=".child-footer"></ng-content>-->
+<!--</ion-toolbar>-->
+<!--</ion-footer>-->

@@ -1,0 +1,14 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>{{list[0]?.questionType.typeName}}</ion-title>
+        <goback></goback>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding class="common-font">
+    <p class="greys common-sub-title" *ngFor="let item of list">
+        <span class="question">Q：{{item.askQuestion}}</span>
+        <br/>
+        A：{{item.answerQuestion}}
+    </p>
+</ion-content>

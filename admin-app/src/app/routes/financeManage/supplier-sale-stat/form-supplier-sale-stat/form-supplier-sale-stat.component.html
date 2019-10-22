@@ -1,0 +1,82 @@
+<page-header [title]="title"></page-header>
+<nz-card [nzBordered]="false">
+  <form nz-form [formGroup]="commonForm">
+    <nz-form-item>
+      <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="supplierOrderNum">平台订单数</nz-form-label>
+      <nz-form-control nzXs="16" nzSm="8" nzMd="7" nzHasFeedback>
+        <input nz-input formControlName="orderNum" id="orderNum" placeholder="输入平台订单数">
+        <nz-form-explain *ngIf="commonForm.get('orderNum').dirty&&commonForm.get('orderNum').errors">
+          <ng-container *ngFor="let error of formErrors.orderNum">
+            <nz-form-explain *ngIf="commonForm.get('orderNum').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+      <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="saleAmount">销售额</nz-form-label>
+      <nz-form-control nzXs="16" nzSm="8" nzMd="7" nzHasFeedback>
+        <input nz-input formControlName="saleAmount" id="saleAmount" placeholder="输入销售额">
+        <nz-form-explain *ngIf="commonForm.get('saleAmount').dirty&&commonForm.get('saleAmount').errors">
+          <ng-container *ngFor="let error of formErrors.saleAmount">
+            <nz-form-explain *ngIf="commonForm.get('saleAmount').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="platformRatio">平台占比</nz-form-label>
+      <nz-form-control nzXs="16" nzSm="8" nzMd="7" nzHasFeedback>
+        <input nz-input formControlName="platformRatio" id="platformRatio" placeholder="输入平台占比">
+        <nz-form-explain *ngIf="commonForm.get('platformRatio').dirty&&commonForm.get('platformRatio').errors">
+          <ng-container *ngFor="let error of formErrors.platformRatio">
+            <nz-form-explain *ngIf="commonForm.get('platformRatio').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+      <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="costAmount">成本</nz-form-label>
+      <nz-form-control nzXs="16" nzSm="8" nzMd="7" nzHasFeedback>
+        <input nz-input formControlName="costAmount" id="costAmount" placeholder="输入成本">
+        <nz-form-explain *ngIf="commonForm.get('costAmount').dirty&&commonForm.get('costAmount').errors">
+          <ng-container *ngFor="let error of formErrors.costAmount">
+            <nz-form-explain *ngIf="commonForm.get('costAmount').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="profitAmount">利润</nz-form-label>
+      <nz-form-control nzXs="16" nzSm="8" nzMd="7" nzHasFeedback>
+        <input nz-input formControlName="profit" id="profit" placeholder="输入利润">
+        <nz-form-explain *ngIf="commonForm.get('profitAmount').dirty&&commonForm.get('profitAmount').errors">
+          <ng-container *ngFor="let error of formErrors.profitAmount">
+            <nz-form-explain *ngIf="commonForm.get('profitAmount').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+      <nz-form-label nzXs="10" nzSm="3" nzRequired nzFor="statTime">统计时间</nz-form-label>
+      <nz-form-control nzXs="16" nzSm="8" nzMd="7" nzHasFeedback>
+        <input nz-input formControlName="statTime" id="statTime" placeholder="输入统计时间">
+        <nz-form-explain *ngIf="commonForm.get('statTime').dirty&&commonForm.get('statTime').errors">
+          <ng-container *ngFor="let error of formErrors.statTime">
+            <nz-form-explain *ngIf="commonForm.get('statTime').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 7 }">
+        <nz-modal-customer [showButton]="false" (ok)="onSubmit()" [title]="'提示！'" [content]="'确认要提交吗？'"
+                           [buttonName]="'提交'" >
+          <nz-divider nzType="vertical"></nz-divider>
+        </nz-modal-customer>
+        <button nz-button class="ml-sm" type="button" (click)="goBack()">返回</button>
+      </nz-form-control>
+    </nz-form-item>
+
+  </form>
+</nz-card>

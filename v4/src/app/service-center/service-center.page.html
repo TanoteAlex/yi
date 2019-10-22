@@ -1,0 +1,24 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>服务中心</ion-title>
+        <goback></goback>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content no-padding>
+    <div class="home">
+        <div class="img radius">
+            <img src="../../assets/imgs/服务中心logo.png" height="65" width="65">
+        </div>
+        <br/>
+        <span class="common-sub-title white">客服热线400-0000-00</span>
+    </div>
+
+    <ion-list lines="none" style="background-color: white;height: 100%">
+        <ion-list-header style="background-color: #f8f8f8;border: 0 !important;">问题分类</ion-list-header>
+        <ion-item class="item" *ngFor="let item of list" (click)="goFaq(item.id)">
+            <ion-label class="greys">{{item.typeName}}</ion-label>
+            <ion-icon class="icon-forward" name="ios-arrow-forward"></ion-icon>
+        </ion-item>
+    </ion-list>
+</ion-content>

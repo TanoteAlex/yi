@@ -1,0 +1,25 @@
+dependencies {
+    configurations {
+        // 所有需要忽略的包定义在此
+        providedRuntime
+    }
+
+//    compile project(":yi-core")
+//    compile group: 'org.projectlombok', name: 'lombok', version: '1.18.8'
+
+    compile (
+            'commons-lang:commons-lang:2.6',
+    )
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.springframework.boot:spring-boot-devtools')
+    providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
+    
+    compile("org.springframework.data:spring-data-elasticsearch")
+    compile("io.springfox:springfox-swagger2:2.9.2")
+    compile("io.springfox:springfox-swagger-ui:2.9.2")
+    compile("com.google.code.gson:gson:2.8.0")
+
+    // 测试依赖
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+
+}

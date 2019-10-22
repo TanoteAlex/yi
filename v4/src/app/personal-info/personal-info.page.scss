@@ -1,0 +1,35 @@
+@import "../../global";
+
+ion-radio-group {
+  ion-item {
+    display: inline-block;
+  }
+}
+
+.avatar {
+  padding: 20px 0 !important;
+}
+
+.common-list {
+  ion-label {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+ion-item-group {
+  display: inherit;
+  margin: 0 !important;
+}
+
+.common-list > ion-item {
+  & > ion-label {
+    width: 65px;
+    flex: inherit;
+  }
+}
+.birthday{
+  ion-datetime{
+    --ion-text-color-step-600: #ccc;
+  }
+}

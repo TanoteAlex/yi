@@ -1,0 +1,67 @@
+<page-header [title]="'会员等级'">
+  <ng-template #breadcrumb>
+    <nz-breadcrumb>
+      <nz-breadcrumb-item>
+        <a [routerLink]="['/member-level/list']">会员管理</a>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item>会员等级</nz-breadcrumb-item>
+    </nz-breadcrumb>
+  </ng-template>
+</page-header>
+
+<nz-card [nzBordered]="false">
+  <form nz-form [nzLayout]="'inline'" [formGroup]="searchForm" class="search__form">
+    <nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32, xl: 32, xxl: 32  }">
+
+    </nz-row>
+  </form>
+
+  <button nz-button [routerLink]="'../add'" [nzType]="'primary'">
+    <i class="anticon anticon-plus"></i>
+    <span>新建</span>
+  </button>
+
+  <nz-table
+    #ajaxTable
+    [nzShowSizeChanger]="true"
+    [nzFrontPagination]="false"
+    [nzData]="datas"
+    [nzLoading]="loading"
+    [nzTotal]="pageQuery.responses.totalElements"
+    [(nzPageIndex)]="pageQuery.page"
+    [(nzPageSize)]="pageQuery.pageSize"
+    (nzPageIndexChange)="searchData()"
+    (nzPageSizeChange)="searchData(true)">
+
+    <thead (nzSortChange)="sort($event)" nzSingleSort>
+    <tr>
+      <th>等级名称</th>
+      <th>会员人数</th>
+      <th>成长值满足点</th>
+      <th>折扣</th>
+      <th>默认等级</th>
+      <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of ajaxTable.data">
+      <td>{{data.name}}</td>
+      <td>{{data.quantity}}</td>
+      <td>{{data.growthValue}}</td>
+      <td>{{data.discount}}</td>
+      <td *ngIf="data.initial">是</td>
+      <td *ngIf="!data.initial">否</td>
+      <td>
+        <a [routerLink]="'../edit/'+data.id">编辑
+          <nz-divider nzType="vertical"></nz-divider>
+        </a>
+        <nz-modal-customer (ok)="remove(data.id)" [title]="'提示！'" [content]="'确认要删除吗？'"
+                           [buttonName]="'删除'" >
+          <nz-divider nzType="vertical"></nz-divider>
+        </nz-modal-customer>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+</nz-card>
+

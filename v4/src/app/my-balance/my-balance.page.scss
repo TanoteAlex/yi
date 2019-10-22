@@ -1,0 +1,51 @@
+@import "../../global.scss";
+
+.content {
+  height: 250px;
+  background: url("../../assets/app_icon/customer/banner框@2x.png") no-repeat;
+  background-size: cover;
+  margin-bottom: 36px;
+  .common-head {
+    margin-top: 5rem;
+  }
+  p {
+    text-align: center;
+    color: white;
+    margin: 0;
+  }
+  .money {
+    font-size: 55px !important;
+  }
+  .button {
+    background-color: white;
+    padding: 5px 10px;
+    border-radius: 7px;
+    position: relative;
+    box-shadow: 0 0 10px 1px $divid-color;
+    margin: auto;
+    top: 50px;
+  }
+  ion-row {
+    width: 90%;
+    position: fixed;
+    margin-top: 30%;
+  }
+}
+
+ion-item {
+  width: 100% !important;
+}
+
+.balance-item {
+  border-radius: 10px;
+  margin: 10px !important;
+  background: white;
+  padding: 10px;
+  @extend .flex-space-between;
+  .balance-remark {
+    justify-content: space-between;
+    height: 40px;
+    @extend .flex-col;
+    @extend .common-spec;
+  }
+}

@@ -1,0 +1,70 @@
+@import "../../../global";
+.coupon-use-btn {
+  border: 1px solid red;
+  color: red;
+  background-color: transparent;
+  border-radius: 1rem;
+  width: 5rem;
+  height: 1.5rem;
+  float: right;
+  margin-left: 3px;
+}
+
+.big-font{
+  font-size: 30px;
+}
+
+.yhq-ticket{
+  background: url("../../../assets/app_icon/basic/优惠券底@2x.png") no-repeat;
+  background-size: 100% 100%;
+  .ticket-tip{
+    background: url("../../../assets/app_icon/basic/优惠券标签@2x.png") no-repeat;
+    background-size: 100% 100%;
+  }
+}
+
+.djq-ticket{
+  background: url("../../../assets/app_icon/basic/代金券底@2x.png") no-repeat;
+  background-size: 100% 100%;
+  .ticket-tip{
+    background: url("../../../assets/app_icon/basic/代金券标签@2x.png") no-repeat;
+    background-size: 100% 100%;
+  }
+}
+
+.czq-ticket{
+  background: url("../../../assets/app_icon/basic/储值券底@2x.png") no-repeat;
+  background-size: 100% 100%;
+  .ticket-tip{
+    background: url("../../../assets/app_icon/basic/储值券标签@2x.png") no-repeat;
+    background-size: 100% 100%;
+  }
+}
+
+.hy-ticket{
+  height: 110px;
+  width: 100%;
+  padding: 2px 10px 5px 0;
+  display: flex;
+  .ticket-price-info{
+    flex-direction: column;
+    width: 38%;
+    color: white;
+    @extend .flex-center
+  }
+  .ticket-date-info{
+    flex: 1;
+    padding-top: 3px;
+    padding-left: 15px;
+    text-align: left;
+    @extend .flex-col;
+    @extend .common-notice;
+    &>div{
+      margin-top: 5px;
+    }
+    .ticket-tip{
+      width: 54px;
+      height: 18px;
+    }
+  }
+}

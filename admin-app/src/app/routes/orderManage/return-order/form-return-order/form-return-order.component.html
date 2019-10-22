@@ -1,0 +1,285 @@
+<page-header [title]="title"></page-header>
+<nz-card [nzBordered]="false">
+  <form nz-form [formGroup]="commonForm">
+    <nz-form-item>
+      <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="guid">GUID</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+        <input nz-input formControlName="guid" id="guid" placeholder="输入GUID">
+        <nz-form-explain *ngIf="commonForm.get('guid').dirty&&commonForm.get('guid').errors">
+          <ng-container *ngFor="let error of formErrors.guid">
+            <nz-form-explain *ngIf="commonForm.get('guid').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="returnNo">服务单号</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+        <input nz-input formControlName="returnNo" id="returnNo" placeholder="输入服务单号">
+        <nz-form-explain *ngIf="commonForm.get('returnNo').dirty&&commonForm.get('returnNo').errors">
+          <ng-container *ngFor="let error of formErrors.returnNo">
+            <nz-form-explain *ngIf="commonForm.get('returnNo').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+      <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="applyTime">申请时间</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+        <input nz-input formControlName="applyTime" id="applyTime" placeholder="输入申请时间">
+        <nz-form-explain *ngIf="commonForm.get('applyTime').dirty&&commonForm.get('applyTime').errors">
+          <ng-container *ngFor="let error of formErrors.applyTime">
+            <nz-form-explain *ngIf="commonForm.get('applyTime').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="state">申请状态（1待处理2待收货3已完成 4退款）</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+        <input nz-input formControlName="state" id="state" placeholder="输入申请状态（1待处理2待收货3已完成 4退款）">
+        <nz-form-explain *ngIf="commonForm.get('state').dirty&&commonForm.get('state').errors">
+          <ng-container *ngFor="let error of formErrors.state">
+            <nz-form-explain *ngIf="commonForm.get('state').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+      <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="memberId">会员（member表ID）</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+        <input nz-input formControlName="memberId" id="memberId" placeholder="输入会员（member表ID）">
+        <nz-form-explain *ngIf="commonForm.get('memberId').dirty&&commonForm.get('memberId').errors">
+          <ng-container *ngFor="let error of formErrors.memberId">
+            <nz-form-explain *ngIf="commonForm.get('memberId').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="memberPhone">会员账号</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+        <input nz-input formControlName="memberPhone" id="memberPhone" placeholder="输入会员账号">
+        <nz-form-explain *ngIf="commonForm.get('memberPhone').dirty&&commonForm.get('memberPhone').errors">
+          <ng-container *ngFor="let error of formErrors.memberPhone">
+            <nz-form-explain *ngIf="commonForm.get('memberPhone').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+      <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="contact">联系人</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+        <input nz-input formControlName="contact" id="contact" placeholder="输入联系人">
+        <nz-form-explain *ngIf="commonForm.get('contact').dirty&&commonForm.get('contact').errors">
+          <ng-container *ngFor="let error of formErrors.contact">
+            <nz-form-explain *ngIf="commonForm.get('contact').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="contactPhone">联系电话</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+        <input nz-input formControlName="contactPhone" id="contactPhone" placeholder="输入联系电话">
+        <nz-form-explain *ngIf="commonForm.get('contactPhone').dirty&&commonForm.get('contactPhone').errors">
+          <ng-container *ngFor="let error of formErrors.contactPhone">
+            <nz-form-explain *ngIf="commonForm.get('contactPhone').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+      <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="orderId">订单（order表ID）</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+        <input nz-input formControlName="orderId" id="orderId" placeholder="输入订单（order表ID）">
+        <nz-form-explain *ngIf="commonForm.get('orderId').dirty&&commonForm.get('orderId').errors">
+          <ng-container *ngFor="let error of formErrors.orderId">
+            <nz-form-explain *ngIf="commonForm.get('orderId').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="orderNo">订单编号</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+        <input nz-input formControlName="orderNo" id="orderNo" placeholder="输入订单编号">
+        <nz-form-explain *ngIf="commonForm.get('orderNo').dirty&&commonForm.get('orderNo').errors">
+          <ng-container *ngFor="let error of formErrors.orderNo">
+            <nz-form-explain *ngIf="commonForm.get('orderNo').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+      <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="orderAmount">订单金额</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+        <input nz-input formControlName="orderAmount" id="orderAmount" placeholder="输入订单金额">
+        <nz-form-explain *ngIf="commonForm.get('orderAmount').dirty&&commonForm.get('orderAmount').errors">
+          <ng-container *ngFor="let error of formErrors.orderAmount">
+            <nz-form-explain *ngIf="commonForm.get('orderAmount').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="freight">运费</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+        <input nz-input formControlName="freight" id="freight" placeholder="输入运费">
+        <nz-form-explain *ngIf="commonForm.get('freight').dirty&&commonForm.get('freight').errors">
+          <ng-container *ngFor="let error of formErrors.freight">
+            <nz-form-explain *ngIf="commonForm.get('freight').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+      <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="refundAmount">退款金额</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+        <input nz-input formControlName="refundAmount" id="refundAmount" placeholder="输入退款金额">
+        <nz-form-explain *ngIf="commonForm.get('refundAmount').dirty&&commonForm.get('refundAmount').errors">
+          <ng-container *ngFor="let error of formErrors.refundAmount">
+            <nz-form-explain *ngIf="commonForm.get('refundAmount').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="returnReason">退货原因</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+        <input nz-input formControlName="returnReason" id="returnReason" placeholder="输入退货原因">
+        <nz-form-explain *ngIf="commonForm.get('returnReason').dirty&&commonForm.get('returnReason').errors">
+          <ng-container *ngFor="let error of formErrors.returnReason">
+            <nz-form-explain *ngIf="commonForm.get('returnReason').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+      <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="problemDescription">问题描述</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+        <input nz-input formControlName="problemDescription" id="problemDescription" placeholder="输入问题描述">
+        <nz-form-explain
+          *ngIf="commonForm.get('problemDescription').dirty&&commonForm.get('problemDescription').errors">
+          <ng-container *ngFor="let error of formErrors.problemDescription">
+            <nz-form-explain *ngIf="commonForm.get('problemDescription').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="voucherPhoto">凭证照片</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+        <input nz-input formControlName="voucherPhoto" id="voucherPhoto" placeholder="输入凭证照片">
+        <nz-form-explain *ngIf="commonForm.get('voucherPhoto').dirty&&commonForm.get('voucherPhoto').errors">
+          <ng-container *ngFor="let error of formErrors.voucherPhoto">
+            <nz-form-explain *ngIf="commonForm.get('voucherPhoto').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+      <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="consignee">收货人</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+        <input nz-input formControlName="consignee" id="consignee" placeholder="输入收货人">
+        <nz-form-explain *ngIf="commonForm.get('consignee').dirty&&commonForm.get('consignee').errors">
+          <ng-container *ngFor="let error of formErrors.consignee">
+            <nz-form-explain *ngIf="commonForm.get('consignee').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="consigneePhone">收货人电话</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+        <input nz-input formControlName="consigneePhone" id="consigneePhone" placeholder="输入收货人电话">
+        <nz-form-explain *ngIf="commonForm.get('consigneePhone').dirty&&commonForm.get('consigneePhone').errors">
+          <ng-container *ngFor="let error of formErrors.consigneePhone">
+            <nz-form-explain *ngIf="commonForm.get('consigneePhone').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+      <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="consigneeAddr">收货人地址</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+        <input nz-input formControlName="consigneeAddr" id="consigneeAddr" placeholder="输入收货人地址">
+        <nz-form-explain *ngIf="commonForm.get('consigneeAddr').dirty&&commonForm.get('consigneeAddr').errors">
+          <ng-container *ngFor="let error of formErrors.consigneeAddr">
+            <nz-form-explain *ngIf="commonForm.get('consigneeAddr').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="remark">备注</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+        <input nz-input formControlName="remark" id="remark" placeholder="输入备注">
+        <nz-form-explain *ngIf="commonForm.get('remark').dirty&&commonForm.get('remark').errors">
+          <ng-container *ngFor="let error of formErrors.remark">
+            <nz-form-explain *ngIf="commonForm.get('remark').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+      <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="deleted">删除（0否1是）</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+        <input nz-input formControlName="deleted" id="deleted" placeholder="输入删除（0否1是）">
+        <nz-form-explain *ngIf="commonForm.get('deleted').dirty&&commonForm.get('deleted').errors">
+          <ng-container *ngFor="let error of formErrors.deleted">
+            <nz-form-explain *ngIf="commonForm.get('deleted').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="delTime">删除时间</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+        <input nz-input formControlName="delTime" id="delTime" placeholder="输入删除时间">
+        <nz-form-explain *ngIf="commonForm.get('delTime').dirty&&commonForm.get('delTime').errors">
+          <ng-container *ngFor="let error of formErrors.delTime">
+            <nz-form-explain *ngIf="commonForm.get('delTime').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+      <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="handleTime">处理时间</nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+        <input nz-input formControlName="handleTime" id="handleTime" placeholder="输入处理时间">
+        <nz-form-explain *ngIf="commonForm.get('handleTime').dirty&&commonForm.get('handleTime').errors">
+          <ng-container *ngFor="let error of formErrors.handleTime">
+            <nz-form-explain *ngIf="commonForm.get('handleTime').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzXs="3" nzSm="3" nzRequired nzFor="processType">处理类型（1确认退·2拒绝退 3确认收货 0为没状态 4确认退款 5拒绝退狂)
+      </nz-form-label>
+      <nz-form-control nzXs="8" nzSm="8" nzHasFeedback>
+        <input nz-input formControlName="processType" id="processType"
+               placeholder="输入处理类型（1确认退·2拒绝退 3确认收货 0为没状态 4确认退款 5拒绝退狂)">
+        <nz-form-explain *ngIf="commonForm.get('processType').dirty&&commonForm.get('processType').errors">
+          <ng-container *ngFor="let error of formErrors.processType">
+            <nz-form-explain *ngIf="commonForm.get('processType').errors[error.name]">{{ error.msg }}
+            </nz-form-explain>
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 7 }">
+        <nz-modal-customer [showButton]="false" (ok)="onSubmit()" [title]="'提示！'" [content]="'确认要提交吗？'"
+                           [buttonName]="'提交'" >
+          <nz-divider nzType="vertical"></nz-divider>
+        </nz-modal-customer>
+        <button nz-button class="ml-sm" type="button" (click)="goBack()">返回</button>
+      </nz-form-control>
+    </nz-form-item>
+
+  </form>
+</nz-card>

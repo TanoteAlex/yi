@@ -1,0 +1,16 @@
+<ion-row class="commodity">
+    <ion-col size="4" class="commodity-img">
+        <div style="width: 100px;height: 100px">
+            <img-lazy-load [src]="commodity?.productImgPath | thumbnailPipe : 's'"></img-lazy-load>
+        </div>
+    </ion-col>
+    <ion-col size="8" class="common-shopping">
+        <div class="commodity-name">
+            <!--<span class="title-tip">{{commodity?.groupBuyActivity.activityName}}</span>-->
+            {{commodity?.productName}}
+        </div>
+
+        <ng-content></ng-content>
+
+    </ion-col>
+</ion-row>

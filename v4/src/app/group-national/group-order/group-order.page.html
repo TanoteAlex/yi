@@ -1,0 +1,110 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>我的订单</ion-title>
+        <goback [goBackPage]="goBackPage"></goback>
+    </ion-toolbar>
+    <ion-segment [(ngModel)]="state">
+        <ion-segment-button value="all" (click)="listFilter('all')">
+            全部
+        </ion-segment-button>
+        <ion-segment-button value="unpaid" (click)="listFilter('unpaid')">
+            待付款
+        </ion-segment-button>
+        <ion-segment-button value="deliver" (click)="listFilter('grouping')">
+            拼单中
+        </ion-segment-button>
+        <ion-segment-button value="stayEvaluation" (click)="listFilter('grouped')">
+            已成团
+        </ion-segment-button>
+        <ion-segment-button value="canceled" (click)="listFilter('canceled')">
+            已失效
+        </ion-segment-button>
+    </ion-segment>
+</ion-header>
+
+<ion-content no-padding>
+
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content
+                pullingIcon="arrow-dropdown"
+                pullingText="下拉刷新"
+                refreshingSpinner="circles"
+                refreshingText="正在加载...">
+        </ion-refresher-content>
+    </ion-refresher>
+
+    <ion-list class="common-list commodity-divid" *ngFor="let order of list">
+        <div style="padding:5px">
+            <ion-row (click)="goOrderDetail(order.saleOrder)">
+                <ion-col size="8">
+                    <ion-label *ngIf="order.state==2">[拼团中]还差{{order.groupNum-order.joinNum}}人拼成</ion-label>
+                    <ion-label *ngIf="order.state!=2">订单编号：{{order?.saleOrder.orderNo}}</ion-label>
+                </ion-col>
+
+                <ion-col size="4">
+                    <p class="right red">{{order.orderStateMsg}}</p>
+                </ion-col>
+            </ion-row>
+
+            <commodity-item *ngFor="let product of order.productList | sortPipe " [commodity]="product" (click)="goOrderDetail(order.saleOrder)">
+                <p class="common-notice">
+                    <span class="red">￥{{product.price}}</span>
+                    <span class="right red">x{{product.quantity}}</span>
+                </p>
+            </commodity-item>
+
+            <ion-row class="order-bottom">
+                <ion-col size="6">
+                    <ion-label>应付金额：￥{{order.saleOrder.payAmount}}</ion-label>
+                </ion-col>
+
+                <ion-col size="3" *ngIf="order.state==1"></ion-col>
+                <ion-col size="3" *ngIf="order.state==1">
+                    <ion-button shape="round" size="small" fill="outline" color="danger" (click)="goOrderPay(order.saleOrder)">
+                        立即付款
+                    </ion-button>
+                </ion-col>
+                <ion-col size="3" *ngIf="order.state==2"></ion-col>
+                <ion-col size="3" *ngIf="order.state==2">
+                    <ion-button shape="round" size="small" fill="outline" color="danger" (click)="goGroupShare(order.saleOrder)">
+                        邀请好友
+                    </ion-button>
+                </ion-col>
+                <ion-col size="3" *ngIf="order.state==3" class="right">
+                    <ion-button shape="round" size="small" fill="outline" color="dark" (click)="goOrderFollow(order.saleOrder)">
+                        查看物流
+                    </ion-button>
+                </ion-col>
+                <ion-col size="3" *ngIf="order.state==3">
+                    <ion-button shape="round" size="small" fill="outline" color="dark" (click)="confirmReceive(order.saleOrder)">
+                        确认收货
+                    </ion-button>
+                </ion-col>
+                <ion-col size="3" *ngIf="order.commentState==1">
+                    <ion-button shape="round" size="small" fill="outline" color="dark" (click)="goEvaluation(order.saleOrder)">
+                        评价商品
+                    </ion-button>
+                </ion-col>
+                <ion-col size="3" *ngIf="order.state==4">
+                    <ion-button shape="round" size="small" fill="outline" color="dark" (click)="delOrder(order.saleOrder)">
+                        删除订单
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+        </div>
+        <div class="common-hr"></div>
+    </ion-list>
+
+    <div class="nolist" *ngIf="!list?.length && !isLoading">
+        <ion-label class="grey">暂无相关的订单记录~</ion-label>
+    </div>
+
+    <div class="loading" *ngIf="isLoading">
+        <ion-spinner></ion-spinner>
+    </div>
+
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="正在加载..."></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+</ion-content>

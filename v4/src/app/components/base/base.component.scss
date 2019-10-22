@@ -1,0 +1,53 @@
+@import "../../../global";
+
+.proving {
+  ion-button {
+    float: right;
+    color: $blue-color;
+    border-color: $blue-color;
+    --border-radius: 1.1rem;
+    --background: #f2f2f8;
+  }
+}
+
+.body {
+  border-radius: 6px;
+  box-shadow: 0 0 8px 1px $divid-color;
+  margin: 10px;
+  padding: 20px 20px 30px !important;
+  position: relative;
+  height: 292px;
+  ion-row{
+    height: 55px;
+  }
+  ion-row:not(:last-child) {
+    ion-col {
+      @extend .ver-midd;
+    }
+    border-bottom: 1px solid $border-color;
+  }
+
+  ion-label {
+    display: block;
+    border-right: 1px solid $border-color;
+    img {
+      width: 1.3rem;
+    }
+  }
+  ion-item {
+    background-color: transparent;
+  }
+}
+
+.confirm {
+  position: relative;
+  top: -30px;
+  color: $blank-color;
+  ion-button {
+    display: block;
+  }
+}
+
+.common-input {
+  background-color: transparent;
+}

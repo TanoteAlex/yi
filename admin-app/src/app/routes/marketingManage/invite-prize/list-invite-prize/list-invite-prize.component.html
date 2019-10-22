@@ -1,0 +1,116 @@
+<page-header [title]="'邀请有礼奖品'">
+  <ng-template #breadcrumb>
+    <nz-breadcrumb>
+      <nz-breadcrumb-item>
+        <a [routerLink]="['/dashboard']">首页</a>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item>营销管理</nz-breadcrumb-item>
+    </nz-breadcrumb>
+  </ng-template>
+</page-header>
+
+<nz-card [nzBordered]="false">
+  <form nz-form [nzLayout]="'inline'" [formGroup]="searchForm" class="search__form">
+    <nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32, xl: 32, xxl: 32  }">
+
+      <nz-col nzXs="6" nzSm="6">
+        <nz-form-item>
+          <nz-form-label>奖品编码</nz-form-label>
+          <nz-form-control>
+            <input nz-input formControlName="prizeNo" placeholder="请输入奖品编码">
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+
+      <nz-col nzXs="6" nzSm="6">
+        <nz-form-item>
+          <nz-form-label>奖品名称</nz-form-label>
+          <nz-form-control>
+            <input nz-input formControlName="prizeName" placeholder="请输入奖品名称">
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+
+      <nz-col nzXs="6" nzSm="6">
+        <nz-form-item>
+          <nz-form-label>奖品类型</nz-form-label>
+          <nz-form-control>
+            <nz-select formControlName="prizeType" [nzPlaceHolder]="'请选择'">
+              <nz-option *ngFor="let mt of prizeTypes" [nzValue]="mt.code" [nzLabel]="mt.title"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+
+      <nz-col [nzSpan]="expandForm ? 24 : 6" [class.text-right]="expandForm">
+        <button nz-button [nzType]="'primary'" (click)="searchData()" [nzLoading]="loading">查询</button>
+        <button nz-button (click)="clearSearch()" class="mx-sm">重置</button>
+      </nz-col>
+    </nz-row>
+  </form>
+
+  <button nz-button [routerLink]="'../add'" [nzType]="'primary'">
+    <i class="anticon anticon-plus"></i>
+    <span>新建</span>
+  </button>
+
+  <nz-table
+    #ajaxTable
+    [nzShowSizeChanger]="true"
+    [nzFrontPagination]="false"
+    [nzData]="invitePrizes"
+    [nzLoading]="loading"
+    [nzTotal]="pageQuery.responses.totalElements"
+    [(nzPageIndex)]="pageQuery.page"
+    [(nzPageSize)]="pageQuery.pageSize"
+    (nzPageIndexChange)="searchData()"
+    (nzPageSizeChange)="searchData(true)">
+
+    <thead (nzSortChange)="sort($event)" nzSingleSort>
+    <tr>
+      <th>邀请有礼活动</th>
+      <th>奖品编码</th>
+      <th>奖品名称</th>
+      <th>邀请人数</th>
+      <th>奖品类型</th>
+      <th>奖品</th>
+      <th>排序</th>
+      <th>状态</th>
+      <th>创建时间</th>
+      <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let invitePrize of ajaxTable.data">
+      <td>{{invitePrize.inviteActivity?.title}}</td>
+      <td>{{invitePrize.prizeNo}}</td>
+      <td>{{invitePrize.prizeName}}</td>
+      <td>{{invitePrize.inviteNum}}</td>
+
+      <td *ngIf="invitePrize.prizeType == 1">积分</td>
+      <td *ngIf="invitePrize.prizeType == 2">商品</td>
+      <td *ngIf="invitePrize.prizeType == 3">优惠券</td>
+
+      <td *ngIf="invitePrize.prizeType == 1">{{invitePrize.integral}}</td>
+      <td *ngIf="invitePrize.prizeType == 2">{{invitePrize.product?.productShortName}}</td>
+      <td *ngIf="invitePrize.prizeType == 3">{{invitePrize.coupon?.couponName}}</td>
+      <td>{{invitePrize.sort}}</td>
+      <td>{{invitePrize.state == 0?'启用':'禁用'}}</td>
+      <td>{{invitePrize.createTime}}</td>
+      <td>
+        <a [routerLink]="'../edit/'+invitePrize.id">编辑
+          <nz-divider nzType="vertical"></nz-divider>
+        </a>
+        <a [routerLink]="'../view/'+invitePrize.id">详情
+          <nz-divider nzType="vertical"></nz-divider>
+        </a>
+        <nz-modal-customer (ok)="remove(invitePrize.id)" [title]="'提示！'"
+                           [content]="'确认要删除吗？'"
+                           [buttonName]="'删除'">
+        </nz-modal-customer>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+</nz-card>
+

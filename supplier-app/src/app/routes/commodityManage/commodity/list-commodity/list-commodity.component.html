@@ -1,0 +1,116 @@
+<page-header [title]="'商品列表'">
+  <ng-template #breadcrumb>
+    <nz-breadcrumb>
+      <nz-breadcrumb-item>
+        <a [routerLink]="['/dashboard/commodity/list']">商品管理</a>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item>商品列表管理</nz-breadcrumb-item>
+    </nz-breadcrumb>
+  </ng-template>
+</page-header>
+
+<nz-tabset>
+  <nz-tab nzTitle="{{menu.name}}" *ngFor="let menu of menus;let i=index" (nzClick)="onItemClick(i)">
+
+    <nz-card [nzBordered]="false">
+      <form nz-form [nzLayout]="'inline'" [formGroup]="searchForm" class="search__form">
+        <nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32, xl: 32, xxl: 32  }">
+          <nz-col nzMd="6" nzSm="24">
+            <nz-form-item>
+              <nz-form-label>商品名称</nz-form-label>
+              <nz-form-control>
+                <input nz-input formControlName="commodityName" placeholder="请输入商品名称">
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+
+          <nz-col [nzSpan]="expandForm ? 24 : 6" [class.text-right]="expandForm">
+            <button nz-button [nzType]="'primary'" (click)="searchData()" [nzLoading]="loading">查询</button>
+            <button nz-button (click)="clearSearch()" class="mx-sm">重置</button>
+          </nz-col>
+        </nz-row>
+      </form>
+
+      <button *ngIf="menu.name!='仓库中'" nz-button [routerLink]="'../add'" [nzType]="'primary'">
+        <i class="anticon anticon-plus"></i>
+        <span>新建</span>
+      </button>&nbsp;
+      <nz-modal-customer (ok)="batchUpShelf()" *ngIf="button==true" [showButton]="false" [title]="'提示！'"
+                         [content]="'确认批量上架商品吗？'"
+                         [buttonName]="'批量上架'">
+        <nz-divider nzType="vertical"></nz-divider>
+      </nz-modal-customer>
+      &nbsp;
+      <nz-modal-customer (ok)="batchDownShelf()" *ngIf="button==true" [showButton]="false" [title]="'提示！'"
+                         [content]="'确认批量下架商品吗？'"
+                         [buttonName]="'批量下架'">
+        <nz-divider nzType="vertical"></nz-divider>
+      </nz-modal-customer>
+
+      <nz-table
+        #ajaxTable
+        [nzShowSizeChanger]="true"
+        [nzFrontPagination]="false"
+        [nzData]="datas"
+        [nzLoading]="loading"
+        [nzTotal]="pageQuery.responses.totalElements"
+        [(nzPageIndex)]="pageQuery.page"
+        [(nzPageSize)]="pageQuery.pageSize"
+        (nzPageIndexChange)="searchData()"
+        (nzPageSizeChange)="searchData(true)">
+
+        <thead (nzSortChange)="sort($event)" nzSingleSort>
+        <tr>
+          <th nzWidth="4%" nzShowCheckbox [(nzChecked)]="allElection" [nzIndeterminate]="indeterminate"
+              (nzCheckedChange)="checkAll($event)"></th>
+          <th nzWidth="12%">商品编号</th>
+          <th nzWidth="27%" nzShowSort nzSortKey="commodityName">商品名称</th>
+          <th nzWidth="12%">商品图片</th>
+          <th nzWidth="12%">价格</th>
+          <th nzWidth="8%">排序号</th>
+          <th nzWidth="12%" nzShowSort nzSortKey="createTime"><span>创建时间</span></th>
+          <th nzWidth="13%">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let data of ajaxTable.data">
+          <td nzShowCheckbox  [(nzChecked)]="data.checked" [nzDisabled]="data.disabled"
+              (nzCheckedChange)="refreshStatus(data,data.id)"></td>
+          <td>{{data?.commodityNo}}</td>
+          <td>{{data?.commodityName}}</td>
+          <td><img class="table-img-customer" [src]="data?.imgPath"></td>
+          <td>
+            <p>供货价：{{data?.supplyPrice}}</p>
+            <p>原价：{{data?.originalPrice}}</p>
+            <p>现价：{{data?.currentPrice}}</p>
+          </td>
+          <td>{{data.sort}}</td>
+          <td>{{data.createTime}}</td>
+          <td>
+            <a [routerLink]="'../edit/'+data.id">编辑
+              <nz-divider nzType="vertical"></nz-divider>
+            </a>
+            <a [routerLink]="'../view/'+data.id">详情
+              <nz-divider nzType="vertical"></nz-divider>
+            </a>
+            <nz-modal-customer *ngIf="data.shelfState==1&&data.auditState==2" (ok)="downShelf(data.id)" [title]="'提示！'"
+                               [content]="'确认要下架吗？'"
+                               [buttonName]="'下架'">
+            </nz-modal-customer>
+            <nz-modal-customer *ngIf="data.shelfState==2&&data.auditState==2" (ok)="upShelf(data.id)" [title]="'提示！'"
+                               [content]="'确认要上架吗？'"
+                               [buttonName]="'上架'">
+              <nz-divider nzType="vertical"></nz-divider>
+            </nz-modal-customer>
+            <nz-modal-customer *ngIf="data.shelfState==2&&data.auditState==2" (ok)="remove(data.id)" [title]="'提示！'"
+                               [content]="'确认要删除吗？'"
+                               [buttonName]="'删除'">
+            </nz-modal-customer>
+          </td>
+        </tr>
+        </tbody>
+      </nz-table>
+    </nz-card>
+
+  </nz-tab>
+</nz-tabset>

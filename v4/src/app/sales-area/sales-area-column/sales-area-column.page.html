@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{areaColumn?.title}}</ion-title>
+    <goback></goback>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <img class="banner-img" [src]="areaColumn?.banner | thumbnailPipe">
+
+  <ion-row class="commodity-row">
+    <ion-col [size]="6" *ngFor="let ele of areaColumn?.areaColumnCommodities" (click)="goCommodity(ele?.commodity?.id)">
+      <div class="commodity-col">
+        <div> <img-lazy-load [src]="ele?.commodity?.imgPath | thumbnailPipe"></img-lazy-load></div>
+        <div class="text-wrap commodity-title1">{{ele?.commodity.commodityName}}</div>
+        <div class="text-wrap commodity-title2">{{ele?.commodity.commodityShortName}}</div>
+        <ion-row style="padding-top: 0.6em">
+          <ion-col [size]="10" style="padding: 0">
+            <div class="text-wrap font-color">
+              <span class="money-tag">￥</span><span class="commodity-currentPrice">{{ele?.commodity.currentPrice}}</span>&nbsp;
+
+              <span class="label-originalPrice-tag">￥{{ele?.commodity?.originalPrice}}</span>
+
+              <!--<span class="label-tag" *ngIf="ele?.commodity?.returnVoucher">&nbsp;返{{ele?.commodity?.returnVoucher}}元券&nbsp;</span>-->
+              <!--<span class="label-tag" *ngIf="ele?.commodity?.commodityType==1">&nbsp;批发&nbsp;</span>-->
+            </div>
+          </ion-col>
+          <ion-col [size]="2" style="padding: 0">
+            <img src="../../../assets/app_icon/activity/cart-button@2x.png">
+          </ion-col>
+        </ion-row>
+      </div>
+    </ion-col>
+  </ion-row>
+
+</ion-content>

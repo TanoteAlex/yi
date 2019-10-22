@@ -1,0 +1,64 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>
+            邀请有礼
+        </ion-title>
+        <goback></goback>
+        <!--<img float-right src="../../assets/app_icon/customer/标题栏-icon@2x.png" width="20px" height="20px"
+             (click)="goInviteRule()">-->
+    </ion-toolbar>
+</ion-header>
+
+<ion-content no-padding>
+    <ion-list class="common-list">
+        <div text-center padding class="header">
+            <img onerror="this.src='assets/imgs/null-category.png'" [src]="member?.avater" class="headPortrait" width="80" height="80">
+            <p class="greys">邀请即得</p>
+            <p class="red common-sub-title">{{integral?.growthValue}}点积分</p>
+            <ion-button expand="full" shape="round" color="danger" (click)="openShareModal()">立即邀请</ion-button>
+        </div>
+
+        <!--<ion-row>
+            <ion-col size="6" text-center>
+                <img src="assets/app_icon/basic/邀请成功icon@2x.png" width="30px" height="30px">
+                <div text-center class="statistics" (click)="goMyTeam()">
+                    <p class="common-sub-title">成功邀请人</p>
+                    <p>{{invitedTotal}}人</p>
+                </div>
+            </ion-col>
+            <ion-col size="6" text-center>
+                <img src="assets/app_icon/basic/累计奖励icon@2x.png" width="30px" height="30px">
+                <div text-center class="statistics" (click)="goCommissionOrder()">
+                    <p class="common-sub-title">累计佣金</p>
+                    <p>{{member?.account.totalCommission}}元</p>
+                </div>
+            </ion-col>
+        </ion-row>-->
+
+    </ion-list>
+
+    <!--<ion-list class="rankings common-list" style="min-height: 150px">
+        <ion-list-header class="grey">分享排行榜</ion-list-header>
+        <ion-row *ngFor="let it of list;let i = index" class="row">
+            <div class="num">
+                <ion-label text-center class="ranking red">
+                    <span>{{i+1}}</span>
+                </ion-label>
+            </div>
+            <div class="member">
+                <img item-left onerror="this.src='assets/imgs/null-category.png'" [src]="it.avater" />
+            </div>
+            <div class="tgrs">
+                <div class="nickname">
+                    {{it.nickname}}
+                </div>
+                <div class="common-sub-title">
+                    &lt;!&ndash;推广<span class="red">{{it.promotionNum}}</span>人&ndash;&gt;
+                </div>
+            </div>
+        </ion-row>
+    </ion-list>-->
+
+    <adv-commodity [list]="advertisingCommodity"></adv-commodity>
+
+</ion-content>

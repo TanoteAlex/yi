@@ -1,0 +1,36 @@
+@import "../../global";
+
+ion-content {
+  ion-item {
+    background: transparent !important;
+    --padding-top: 3px;
+    --padding-bottom: 3px;
+    margin: 0;
+  }
+}
+
+.common-list > ion-item {
+  & > ion-label {
+    width: 80px;
+    flex: inherit;
+    @extend .greys
+  }
+  & > input {
+    margin-left: 40px;
+  }
+}
+
+ion-footer {
+  padding: 10px;
+  background-color: $space-color;
+}
+
+.tip {
+  margin-left: 30%;
+}
+
+.city ::ng-deep{
+  districts ion-item{
+    --padding-start: 0;
+  }
+}

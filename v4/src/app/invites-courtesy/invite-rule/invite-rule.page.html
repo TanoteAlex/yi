@@ -1,0 +1,18 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>邀请好友规则</ion-title>
+        <goback></goback>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div class="rule-container">
+        <img class="rule-head" src="../../../assets/app_icon/new_inviter/rule-head.png">
+        <div class="rule-body">
+            <div class="rule-title">活动参与要求:</div>
+            <div class="rule-text" *ngFor="let item of list;let i = index">
+                {{i+1}}.{{item}}
+            </div>
+        </div>
+    </div>
+</ion-content>

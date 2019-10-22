@@ -1,0 +1,25 @@
+@import "../../global";
+
+.time {
+  margin-top: 10px;
+  background-color: #f0f0f0;
+  color: $tip-color;
+  padding: 5px 20px;
+  border-radius: 20px;
+  height: 27px;
+  box-sizing: border-box;
+  @extend .common-notice
+}
+
+.card-content {
+  padding: 0 0 16px;
+  margin: 0 16px;
+  //border-bottom: 1px dashed $divid-color;
+}
+
+.no-list{
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  margin-left: -29px;
+}

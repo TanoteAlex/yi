@@ -1,0 +1,122 @@
+<page-header [title]="'查询供应商'">
+  <ng-template #breadcrumb>
+    <nz-breadcrumb>
+      <nz-breadcrumb-item>
+        <a [routerLink]="['/dashboard/supplier-sale-stat/list']">财务管理</a>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item>供应商销售统计</nz-breadcrumb-item>
+    </nz-breadcrumb>
+  </ng-template>
+</page-header>
+
+<nz-card [nzBordered]="false">
+  <form nz-form [nzLayout]="'inline'" [formGroup]="searchForm" class="search__form">
+    <nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32, xl: 32, xxl: 32  }">
+      <nz-col nzMd="6" nzSm="24">
+        <nz-form-item>
+          <nz-form-label>时间段</nz-form-label>
+          <nz-form-control>
+            <nz-range-picker (ngModelChange)="changeDateRange($event)" formControlName="dateRange"
+                             [nzFormat]="dateFormat"></nz-range-picker>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+		<nz-col nzXs="6" nzSm="6">
+            <nz-form-item>
+              <nz-form-label>供应商名称</nz-form-label>
+              <nz-form-control>
+                <input nz-input formControlName="supplierName" placeholder="请输入供应商名称">
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+      <nz-col [nzSpan]="expandForm ? 24 : 6" [class.text-right]="expandForm">
+        <button nz-button [nzType]="'primary'" (click)="searchData()" [nzLoading]="loading">查询</button>
+        <button nz-button (click)="clearSearch()" class="mx-sm">重置</button>
+      </nz-col>
+    </nz-row>
+  </form>
+  <nz-card nzTitle="销售统计" nzType="inner">
+
+    <div nz-row [nzGutter]="24" class="pt-lg">
+      <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6">
+        <div class="count-back">
+          <p class="data">
+            <span *ngIf="saleTotal?.orderNum == null">0</span>
+            <span *ngIf="saleTotal?.orderNum != null">{{saleTotal?.orderNum}}</span>
+          </p>
+          <p class="contents">
+            <span>供应商订单数</span>
+          </p>
+        </div>
+      </div>
+      <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6">
+        <div class="count-back">
+          <p class="data">
+            <span>￥{{saleTotal?.saleAmount}}</span>
+          </p>
+          <p class="contents">
+            <span>销售额</span>
+          </p>
+        </div>
+      </div>
+      <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6">
+        <div class="count-back">
+          <p class="data">
+            <span>￥{{saleTotal?.costAmount}}</span>
+          </p>
+          <p class="contents">
+            <span>成本</span>
+          </p>
+        </div>
+      </div>
+      <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6">
+        <div class="count-back">
+          <p class="data">
+            <span>￥{{saleTotal?.profitAmount}}</span>
+          </p>
+          <p class="contents">
+            <span>利润</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </nz-card>
+
+
+  <nz-table #ajaxTable
+            [nzShowSizeChanger]="true"
+            [nzFrontPagination]="false"
+            [nzData]="saleList"
+            [nzLoading]="loading"
+            [nzTotal]="pageQuery.responses.totalElements"
+            [(nzPageIndex)]="pageQuery.page"
+            [(nzPageSize)]="pageQuery.pageSize"
+            (nzPageIndexChange)="searchData()"
+            (nzPageSizeChange)="searchData(true)">
+
+
+    <thead (nzSortChange)="sort($event)" nzSingleSort>
+    <tr>
+      <th nzWidth="25%">供应商名称</th>
+      <th nzWidth="10%">订单数</th>
+      <th nzWidth="20%">销售额</th>
+      <th nzWidth="20%">成本</th>
+      <th nzWidth="10%">运费</th>
+      <th nzWidth="20%">利润</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of saleList">
+      <td>{{data?.supplierName}}</td>
+      <td>{{data?.orderNum}}</td>
+      <td>{{data?.saleAmount}}</td>
+      <td>{{data?.costAmount}}</td>
+      <td>{{data?.freightAmount}}</td>
+      <td>{{data?.profitAmount?.toFixed(2)}}</td>
+    </tr>
+    </tbody>
+  </nz-table>
+
+
+</nz-card>
+

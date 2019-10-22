@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>更多礼物</ion-title>
+    <goback></goback>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <img class="rule-head" src="../../../assets/app_icon/new_inviter/prize-bg-head.png"/>
+  <div class="rule-container">
+    <img class="rule-head" src="../../../assets/app_icon/new_inviter/prize-head.png">
+    <div class="rule-body">
+      <!--<div class="rule-title">中奖名单:</div>-->
+      <div class="rule-text" *ngFor="let item of list;let i = index">
+        <span [innerHtml]=item.reminder></span>
+      </div>
+    </div>
+  </div>
+</ion-content>
