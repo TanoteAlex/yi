@@ -42,7 +42,7 @@
     "echarts": "^3.8.5",
     "editorconfig-tools": "^0.1.1",
     "husky": "^0.14.3",
-    "jquery": "3.3.1",
+    "jquery": "3.5.0",
     "lint-staged": "^7.1.2",
     "ng-alain": "^1.4.0",
     "ng-zorro-antd": "^1.4.1",
